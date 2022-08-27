@@ -1,3 +1,4 @@
+import { ResponsibilityEditorComponent } from './../responsibility-editor/responsibility-editor.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TradeDirectionComponent } from './../trade-direction/trade-direction.component';
@@ -16,7 +17,11 @@ describe('ContactEditorComponent', () => {
         FormsModule,
         ReactiveFormsModule,
       ],
-      declarations: [ ContactEditorComponent, TradeDirectionComponent ]
+      declarations: [
+        ContactEditorComponent,
+        TradeDirectionComponent,
+        ResponsibilityEditorComponent,
+      ]
     })
     .compileComponents();
 
