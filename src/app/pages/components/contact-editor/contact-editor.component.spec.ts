@@ -5,6 +5,8 @@ import { TradeDirectionComponent } from './../trade-direction/trade-direction.co
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactEditorComponent } from './contact-editor.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ContactEditorComponent', () => {
   let component: ContactEditorComponent;
@@ -16,6 +18,8 @@ describe('ContactEditorComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
+        MatAutocompleteModule,
+        NoopAnimationsModule,
       ],
       declarations: [
         ContactEditorComponent,

@@ -64,7 +64,7 @@
       </div>
     </div>
     <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }">
-      <app-responsibility-editor [countries]="countries" formControlName="responsible_param"></app-responsibility-editor>
+      <app-responsibility-editor [homeCountryId]="homeCountryId" [countries]="countries" formControlName="responsible_param"></app-responsibility-editor>
     </div>
   </div>
 </form>

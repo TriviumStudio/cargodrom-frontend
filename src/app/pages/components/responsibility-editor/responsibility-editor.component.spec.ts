@@ -1,3 +1,5 @@
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -14,6 +16,8 @@ describe('ResponsibilityEditorComponent', () => {
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        MatAutocompleteModule,
+        NoopAnimationsModule,
       ],
       declarations: [ ResponsibilityEditorComponent ]
     })

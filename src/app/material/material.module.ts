@@ -5,6 +5,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+
 
 import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
@@ -19,6 +22,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MatSelectModule,
     MatOptionModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatDialogModule,
@@ -26,6 +30,8 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     MatSelectModule,
     MatOptionModule,
     MatSnackBarModule,
+    MatAutocompleteModule,
+    MatInputModule,
   ]
 })
 export class MaterialModule { }

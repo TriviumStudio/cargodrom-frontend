@@ -1,13 +1,16 @@
+import { TransportSubKinds, TransportSubKindsWithAll } from './../../../api/custom_models/transport';
 import { Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
-import { Component, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
-import { from, Subject } from 'rxjs';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { TransportSubKind } from 'src/app/api/custom_models/transport';
 
 @Component({
   selector: 'app-responsibility-editor',
   templateUrl: './responsibility-editor.component.html',
   styleUrls: ['./responsibility-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -19,14 +22,16 @@ import { from, Subject } from 'rxjs';
 export class ResponsibilityEditorComponent implements OnInit, ControlValueAccessor {
 
   @Input() countries: Country[] = [];
+  @Input() homeCountryId?: number;
   readonly kinds = ['avia_lcl', 'avia_fcl', 'road_lcl', 'road_fcl', 'road_adr', 'road_ref', 'sea_teus', 'sea_lcl', 'sea_sp', 'rw_teus', 'rw_lcl', 'rw_sp'] as const;
   onChange = (value: any) => { };
   onTouched = () => { };
   destroy$ = new Subject<void>();
-  value: ResponsibilitiesValue = {};
+  value: Responsibility[] = [];
+  country?: Country;
+  filteredCountries: Country[] = [];
 
   constructor(
-    private fb: FormBuilder
   ) {
   }
 
@@ -45,59 +50,83 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
   ngOnInit(): void {
   }
 
-  private toFormValue(responsibilityParam: Responsibilities): ResponsibilitiesValue {
-    const value: ResponsibilitiesValue = {};
-    for (const toCountryId of Object.keys(responsibilityParam)) {
-      value[toCountryId] = {};
-      for (const fromCountryId of Object.keys(responsibilityParam[toCountryId])) {
-        const kinds = responsibilityParam[toCountryId][fromCountryId];
-        const item: { [kind: string]: boolean } = {};
-        kinds.forEach(k => item[k] = true);
-        value[toCountryId][fromCountryId] = item;
-        value[toCountryId][fromCountryId]['all'] = this.kinds.every(kind => item[kind]);
-      }
-    }
-    return value;
+  doFilter(country: Country | string): void {
+    this.filteredCountries = this.countries.filter(c => {
+      const value = typeof country === 'string' ? country : country.name!
+      return c.name!.toLowerCase().includes(value.toLowerCase());
+    });
   }
 
-  private fromFormValue(responsibilityParam: ResponsibilitiesValue): Responsibilities {
+  displayFn(country: Country): string {
+    return country && country.name ? country.name : '';
+  }
+
+  addCountry(): void {
+    const toCountryId = this.country!.id;
+    const transportMap: { [kind: string]: boolean } = { all: false };
+    TransportSubKindsWithAll.forEach(t => transportMap[t] = false);
+    const transport = transportMap as  Record<TransportSubKind | 'all', boolean>;
+    this.value.push({ toCountryId, transport });
+    this.country = undefined;
+  }
+
+  private toFormValue(responsibilityParam: Responsibilities): Responsibility[] {
+    const responsibilities: Responsibility[] = [];
+    const toCountryIds = Object.keys(responsibilityParam).sort((a, b) => this.getCountryById(a).localeCompare(this.getCountryById(b)));
+    for (const toCountryId of toCountryIds) {
+      const transports = responsibilityParam[toCountryId];
+      if (!Array.isArray(transports)) {
+        continue;
+      }
+      const transportMap: Partial<Record<TransportSubKind | 'all', boolean>> = {};
+      TransportSubKinds.forEach(t => transportMap[t] = transports.includes(t));
+      transportMap.all = TransportSubKinds.every(t => transportMap[t]);
+      const responsibility: Responsibility = {
+        toCountryId: Number(toCountryId),
+        transport: transportMap as Record<TransportSubKind | 'all', boolean>
+      }
+      responsibilities.push(responsibility);
+    }
+    return responsibilities;
+  }
+
+  private fromFormValue(responsibilities: Responsibility[]): Responsibilities {
     const value: Responsibilities = {};
-    for (const toCountryId of Object.keys(responsibilityParam)) {
-      value[toCountryId] = {};
-      for (const fromCountryId of Object.keys(responsibilityParam[toCountryId])) {
-        const kinds = responsibilityParam[toCountryId][fromCountryId];
-        value[toCountryId][fromCountryId] = this.kinds.filter(kind => kinds[kind]);
-      }
+    for (const responsibility of responsibilities) {
+      const transports = TransportSubKinds.filter(t => responsibility.transport[t]);
+      value[responsibility.toCountryId] = transports;
     }
     return value;
   }
 
-  getCountryById(id: string): string {
+  getCountryById(id: string | number | undefined): string {
     const country = this.countries.find(country => country.id === Number(id));
     return country ? country.name! : 'Неизвестная страна';
   }
 
-  removeCountry(fromCountryId: string, toCountryId: string): void {
-    delete this.value[fromCountryId][toCountryId];
+  removeCountry(index: number): void {
+    this.value.splice(index, 1);
+    this.valueChange();
   }
 
-  getToCountryCount(fromCountryId: string): number {
-    const map = this.value[fromCountryId];
-    return map ? Object.keys(map).length : 0;
+  getToCountryCount(): number {
+    return this.value.length;
   }
 
-  toggleAll(fromCountryId: string, toCountryId: string, val: boolean): void {
-    this.kinds.forEach(kind => this.value[fromCountryId][toCountryId][kind] = val);
-    this.valueChange(fromCountryId, toCountryId);
+  toggleRow(index: number, value: boolean): void {
+    TransportSubKinds.forEach(kind => this.value[index].transport[kind] = value);
   }
 
-  valueChange(fromCountryId: string, toCountryId: string): void {
-    this.value[fromCountryId][toCountryId]['all'] = this.kinds.every(kind => this.value[fromCountryId][toCountryId][kind]);
+  valueChange(i?: number, kind?: TransportSubKind): void {
     const newValue = this.fromFormValue(this.value);
+    console.log(`newValue`, newValue);
     this.onChange(newValue);
     this.onTouched();
   }
 
 }
 
-export type ResponsibilitiesValue = { [toCountryId: string]: { [fromCountryId: string]: { [kind: string]: boolean } } }
+export interface Responsibility {
+  toCountryId: number;
+  transport: Record<TransportSubKind | 'all', boolean>
+}

@@ -1,3 +1,4 @@
+import { TransportSubKind } from './transport';
 export interface Contact {
   id: number;
   owner_id: number;
@@ -23,5 +24,5 @@ export interface Contact {
   city_name: string;
 }
 
-export type Responsibilities = { [toCountryId: string]: { [fromCountryId: string]: string[] } }
+export type Responsibilities = { [toCountryId: string]: TransportSubKind[] }
 

@@ -26,6 +26,7 @@ import { takeUntil } from 'rxjs/operators';
 export class ContactEditorComponent implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   @Input() countries: Country[] = [];
+  @Input() homeCountryId?: number;
   contactForm: FormGroup;
   showResponsibilities = false;
   production = environment.production;

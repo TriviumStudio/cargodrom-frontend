@@ -210,7 +210,7 @@
   <div formArrayName="contacts">
   <div class="user-item" *ngFor="let contact of contacts.controls; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="removeContact(i)">Удалить</span></div>
-    <app-contact-editor [countries]="countries" [formControlName]="i"></app-contact-editor>
+    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i"></app-contact-editor>
   </div>
 
   <div class="user-item">

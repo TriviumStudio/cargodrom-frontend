@@ -1,9 +1,15 @@
-<table class="t1" *ngFor="let fromItem of value | keyvalue">
+<table class="t1">
   <tbody>
     <tr>
       <th class="name">
-        <div>Отправление в {{getCountryById(fromItem.key)}} из {{getToCountryCount(fromItem.key)}} стран:</div>
-        <input type="text" name="" value="" placeholder="Добавить страну или регион...">
+        <div>Отправление из {{getCountryById(homeCountryId)}} в {{getToCountryCount()}} стран:</div>
+        <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="country"
+          (ngModelChange)="doFilter($event)" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+          <mat-option *ngFor="let country of filteredCountries" [value]="country">
+            {{country.name}}
+          </mat-option>
+        </mat-autocomplete>
       </th>
       <th class="all bg s e">
         <div class="l">Все виды</div>
@@ -59,54 +65,67 @@
       </th>
     </tr>
 
-    <tr class="row" *ngFor="let toItem of fromItem.value | keyvalue">
+    <tr class="row" *ngFor="let resp of value; let i = index">
       <td class="name">
         <div>
-          <span>{{getCountryById(toItem.key)}}</span>
-          <span class="del" (click)="removeCountry(fromItem.key, toItem.key)"></span>
+          <span>{{getCountryById(resp.toCountryId)}}</span>
+          <span class="del" (click)="removeCountry(i)"></span>
         </div>
       </td>
       <td class="bg s e">
         <label>
-          <input type="checkbox" class="show-all-row" [ngModel]="toItem.value['all']" (ngModelChange)="toggleAll(fromItem.key, toItem.key, $event)">
+          <input type="checkbox" class="show-all-row" [ngModel]="resp.transport['all']"
+            (ngModelChange)="toggleRow(i, $event)">
           <i></i>
         </label>
       </td>
       <td class=" s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['avia_lcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['avia_lcl']"
+            (ngModelChange)="valueChange(i, 'avia_lcl')"><i></i></label>
       </td>
       <td class=" e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['avia_fcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['avia_fcl']"
+            (ngModelChange)="valueChange(i, 'avia_fcl')"><i></i></label>
       </td>
       <td class=" bg s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['road_lcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_lcl']"
+            (ngModelChange)="valueChange(i, 'road_lcl')"><i></i></label>
       </td>
       <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['road_fcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_fcl']"
+            (ngModelChange)="valueChange(i, 'road_fcl')"><i></i></label>
       </td>
       <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['road_adr']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_adr']"
+            (ngModelChange)="valueChange(i, 'road_adr')"><i></i></label>
       </td>
       <td class=" bg e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['road_ref']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_ref']"
+            (ngModelChange)="valueChange(i, 'road_ref')"><i></i></label>
       </td>
       <td class=" s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['sea_teus']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_teus']"
+            (ngModelChange)="valueChange(i, 'sea_teus')"><i></i></label>
       </td>
       <td class="">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['sea_lcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_lcl']"
+            (ngModelChange)="valueChange(i, 'sea_lcl')"><i></i></label>
       </td>
       <td class=" e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['sea_sp']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_sp']"
+            (ngModelChange)="valueChange(i, 'sea_sp')"><i></i></label>
       </td>
       <td class=" bg s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['rw_teus']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_teus']"
+            (ngModelChange)="valueChange(i, 'rw_teus')"><i></i></label>
       </td>
       <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['rw_lcl']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_lcl']"
+            (ngModelChange)="valueChange(i, 'rw_lcl')"><i></i></label>
       </td>
       <td class=" bg e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="toItem.value['rw_sp']" (ngModelChange)="valueChange(fromItem.key, toItem.key)"><i></i></label>
+        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_sp']"
+            (ngModelChange)="valueChange(i, 'rw_sp')"><i></i></label>
       </td>
     </tr>
   </tbody>
@@ -174,3 +193,7 @@
     </tr>
   </tbody>
 </table>
+
+<div>
+  {{ value | json }}
+</div>
