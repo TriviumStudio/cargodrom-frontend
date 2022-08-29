@@ -28,6 +28,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
   onTouched = () => { };
   destroy$ = new Subject<void>();
   value: Responsibility[] = [];
+  selfTransport: Partial<Record<TransportSubKind | 'all', boolean>> = {};
   country?: Country;
   filteredCountries: Country[] = [];
 
@@ -57,6 +58,11 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
   writeValue(responsibilityParam: Responsibilities): void {
     this.value = this.toFormValue(responsibilityParam);
+    const selfIndex = this.value.findIndex(({ toCountryId }) => toCountryId === this.homeCountryId);
+    if (selfIndex !== -1) {
+      const removed = this.value.splice(selfIndex, 1);
+      this.selfTransport = removed[0].transport;
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -95,12 +101,9 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
     const toCountryIds = Object.keys(responsibilityParam).sort((a, b) => this.getCountryById(a).localeCompare(this.getCountryById(b)));
     for (const toCountryId of toCountryIds) {
       const transports = responsibilityParam[toCountryId];
-      if (!Array.isArray(transports)) {
-        continue;
-      }
-      const transportMap: Partial<Record<TransportSubKind | 'all', boolean>> = {};
+      const transportMap: { [kind: string]: boolean } = {};
       TransportSubKinds.forEach(t => transportMap[t] = transports.includes(t));
-      transportMap.all = TransportSubKinds.every(t => transportMap[t]);
+      transportMap['all'] = TransportSubKinds.every(t => transportMap[t]);
       const responsibility: Responsibility = {
         toCountryId: Number(toCountryId),
         transport: transportMap as Record<TransportSubKind | 'all', boolean>
@@ -115,6 +118,10 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
     for (const responsibility of responsibilities) {
       const transports = TransportSubKinds.filter(t => responsibility.transport[t]);
       value[responsibility.toCountryId] = transports;
+    }
+    if (typeof this.homeCountryId === 'number') {
+      const transports = TransportSubKinds.filter(t => this.selfTransport[t]);
+      value[this.homeCountryId] = transports;
     }
     return value;
   }
@@ -139,7 +146,12 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
   valueChange(i?: number, kind?: TransportSubKind): void {
     const newValue = this.fromFormValue(this.value);
-    console.log(`newValue`, newValue);
+    this.onChange(newValue);
+    this.onTouched();
+  }
+  
+  selfValueChange(): void {
+    const newValue = this.fromFormValue(this.value);
     this.onChange(newValue);
     this.onTouched();
   }
