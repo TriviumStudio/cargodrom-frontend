@@ -15,52 +15,8 @@
         <div class="l">Все виды</div>
         <label><input type="checkbox" class="show-all"><i></i></label>
       </th>
-      <th class=" s">
-        <div class="l"><span class="ico air"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" e">
-        <div class="l"><span class="ico air"></span><span>FCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg s">
-        <div class="l"><span class="ico road"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico road"></span><span>FCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico road"></span><span>ADR</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg e">
-        <div class="l"><span class="ico road"></span><span>REF</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" s">
-        <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class="">
-        <div class="l"><span class="ico sea"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" e">
-        <div class="l"><span class="ico sea"></span><span>СП</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg s">
-        <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico rail"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg e">
-        <div class="l"><span class="ico rail"></span><span>СП</span></div>
+      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
         <label><input type="checkbox" class="show-all-col"><i></i></label>
       </th>
     </tr>
@@ -79,53 +35,11 @@
           <i></i>
         </label>
       </td>
-      <td class=" s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['avia_lcl']"
-            (ngModelChange)="valueChange(i, 'avia_lcl')"><i></i></label>
-      </td>
-      <td class=" e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['avia_fcl']"
-            (ngModelChange)="valueChange(i, 'avia_fcl')"><i></i></label>
-      </td>
-      <td class=" bg s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_lcl']"
-            (ngModelChange)="valueChange(i, 'road_lcl')"><i></i></label>
-      </td>
-      <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_fcl']"
-            (ngModelChange)="valueChange(i, 'road_fcl')"><i></i></label>
-      </td>
-      <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_adr']"
-            (ngModelChange)="valueChange(i, 'road_adr')"><i></i></label>
-      </td>
-      <td class=" bg e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['road_ref']"
-            (ngModelChange)="valueChange(i, 'road_ref')"><i></i></label>
-      </td>
-      <td class=" s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_teus']"
-            (ngModelChange)="valueChange(i, 'sea_teus')"><i></i></label>
-      </td>
-      <td class="">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_lcl']"
-            (ngModelChange)="valueChange(i, 'sea_lcl')"><i></i></label>
-      </td>
-      <td class=" e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['sea_sp']"
-            (ngModelChange)="valueChange(i, 'sea_sp')"><i></i></label>
-      </td>
-      <td class=" bg s">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_teus']"
-            (ngModelChange)="valueChange(i, 'rw_teus')"><i></i></label>
-      </td>
-      <td class=" bg">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_lcl']"
-            (ngModelChange)="valueChange(i, 'rw_lcl')"><i></i></label>
-      </td>
-      <td class=" bg e">
-        <label><input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport['rw_sp']"
-            (ngModelChange)="valueChange(i, 'rw_sp')"><i></i></label>
+      <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <label>
+          <input type="checkbox" class="show-all-row" [(ngModel)]="resp.transport[kind.kind]"
+            (ngModelChange)="valueChange(i, kind.kind)"><i></i>
+        </label>
       </td>
     </tr>
   </tbody>
@@ -142,52 +56,8 @@
         <div class="l">Все виды</div>
         <label><input type="checkbox" class="show-all"><i></i></label>
       </th>
-      <th class=" s">
-        <div class="l"><span class="ico air"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" e">
-        <div class="l"><span class="ico air"></span><span>FCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg s">
-        <div class="l"><span class="ico road"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico road"></span><span>FCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico road"></span><span>ADR</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg e">
-        <div class="l"><span class="ico road"></span><span>REF</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" s">
-        <div class="l"><span class="ico sea"></span><span>TEUS</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class="">
-        <div class="l"><span class="ico sea"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" e">
-        <div class="l"><span class="ico sea"></span><span>СП</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg s">
-        <div class="l"><span class="ico rail"></span><span>TEUS</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg">
-        <div class="l"><span class="ico rail"></span><span>LCL</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
-      </th>
-      <th class=" bg e">
-        <div class="l"><span class="ico rail"></span><span>СП</span></div>
+      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
         <label><input type="checkbox" class="show-all-col"><i></i></label>
       </th>
     </tr>

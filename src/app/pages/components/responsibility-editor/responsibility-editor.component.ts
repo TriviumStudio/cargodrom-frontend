@@ -23,13 +23,33 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
-  readonly kinds = ['avia_lcl', 'avia_fcl', 'road_lcl', 'road_fcl', 'road_adr', 'road_ref', 'sea_teus', 'sea_lcl', 'sea_sp', 'rw_teus', 'rw_lcl', 'rw_sp'] as const;
+  //readonly kinds = ['avia_lcl', 'avia_fcl', 'road_lcl', 'road_fcl', 'road_adr', 'road_ref', 'sea_teus', 'sea_lcl', 'sea_sp', 'rw_teus', 'rw_lcl', 'rw_sp'] as const;
   onChange = (value: any) => { };
   onTouched = () => { };
   destroy$ = new Subject<void>();
   value: Responsibility[] = [];
   country?: Country;
   filteredCountries: Country[] = [];
+
+  kinds: {
+    kind: TransportSubKind,
+    type: 'air' | 'road' | 'sea' | 'rail',
+    classes: string[];
+    name: string;
+  }[] = [
+      { kind: 'avia_lcl', type: 'air', classes: ['s'], name: 'LCL' },
+      { kind: 'avia_fcl', type: 'air', classes: ['e'], name: 'FCL' },
+      { kind: 'road_lcl', type: 'road', classes: ['s'], name: 'LCL' },
+      { kind: 'road_fcl', type: 'road', classes: ['bg', 's'], name: 'FCL' },
+      { kind: 'road_adr', type: 'road', classes: ['bg'], name: 'ADR' },
+      { kind: 'road_ref', type: 'road', classes: ['bg'], name: 'REF' },
+      { kind: 'sea_teus', type: 'sea', classes: ['bg', 'e'], name: 'TEUS' },
+      { kind: 'sea_lcl', type: 'sea', classes: ['s'], name: 'LCL' },
+      { kind: 'sea_sp', type: 'sea', classes: ['e'], name: 'СП' },
+      { kind: 'rw_teus', type: 'rail', classes: ['bg', 's'], name: 'TEUS' },
+      { kind: 'rw_lcl', type: 'rail', classes: ['bg'], name: 'LCL' },
+      { kind: 'rw_sp', type: 'rail', classes: ['bg', 'e'], name: 'СП' },
+    ];
 
   constructor(
   ) {
@@ -65,7 +85,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
     const toCountryId = this.country!.id;
     const transportMap: { [kind: string]: boolean } = { all: false };
     TransportSubKindsWithAll.forEach(t => transportMap[t] = false);
-    const transport = transportMap as  Record<TransportSubKind | 'all', boolean>;
+    const transport = transportMap as Record<TransportSubKind | 'all', boolean>;
     this.value.push({ toCountryId, transport });
     this.country = undefined;
   }
