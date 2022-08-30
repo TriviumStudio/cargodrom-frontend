@@ -23,7 +23,6 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
-  //readonly kinds = ['avia_lcl', 'avia_fcl', 'road_lcl', 'road_fcl', 'road_adr', 'road_ref', 'sea_teus', 'sea_lcl', 'sea_sp', 'rw_teus', 'rw_lcl', 'rw_sp'] as const;
   onChange = (value: any) => { };
   onTouched = () => { };
   destroy$ = new Subject<void>();
@@ -31,6 +30,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
   selfTransport: Partial<Record<TransportSubKind | 'all', boolean>> = {};
   country?: Country;
   filteredCountries: Country[] = [];
+  col: Partial<Record<TransportSubKind | 'all', boolean>> = {};
 
   kinds: {
     kind: TransportSubKind,
@@ -142,6 +142,15 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
   toggleRow(index: number, value: boolean): void {
     TransportSubKinds.forEach(kind => this.value[index].transport[kind] = value);
+  }
+
+  toggleCol(kind: TransportSubKind, value: boolean): void {
+    this.value.forEach(row => row.transport[kind] = value);
+  }
+  
+  toggleAll(value: boolean): void {
+    this.value.forEach(row => TransportSubKindsWithAll.forEach(kind => row.transport[kind] = value));
+    TransportSubKinds.forEach(kind => this.col[kind] = value);
   }
 
   valueChange(i?: number, kind?: TransportSubKind): void {

@@ -13,11 +13,11 @@
       </th>
       <th class="all bg s e">
         <div class="l">Все виды</div>
-        <label><input type="checkbox" class="show-all"><i></i></label>
+        <label><input type="checkbox" class="show-all" [(ngModel)]="col['all']" (ngModelChange)="toggleAll($event)"><i></i></label>
       </th>
       <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
         <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
-        <label><input type="checkbox" class="show-all-col"><i></i></label>
+        <label><input type="checkbox" class="show-all-col" [(ngModel)]="col[kind.kind]" (ngModelChange)="toggleCol(kind.kind, $event)"><i></i></label>
       </th>
     </tr>
 
