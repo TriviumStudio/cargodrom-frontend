@@ -1,10 +1,9 @@
-import { TransportSubKinds, TransportSubKindsWithAll } from './../../../api/custom_models/transport';
+import { TransportSubKinds, TransportSubKind, TransportSubKindsWithAll } from './../../../api/custom_models/transport';
 import { Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { TransportSubKind } from 'src/app/api/custom_models/transport';
 
 @Component({
   selector: 'app-responsibility-editor',
