@@ -54,9 +54,7 @@
 
          <div class="form-item">
           <div class="form-label">город: <span class="req">•</span></div>
-          <!--<div class="form-data"><input type="text" name="city_name" formControlName="city_name" placeholder="—"></div>-->
            <mat-form-field appearance="outline" class="ui-select">
-             <!--<mat-label class="form-label">город</mat-label>-->
              <mat-select formControlName="city_id">
                <mat-option *ngFor="let city of cities;" [value]="city.id">{{ city.name }}</mat-option>
              </mat-select>

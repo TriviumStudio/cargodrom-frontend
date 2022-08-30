@@ -48,7 +48,6 @@ export class ContractorEditorComponent implements OnInit {
       address: ['', []],
       name: ['', [Validators.required]],
       ind: ['', [Validators.required]],
-      city_name: ['', [Validators.required]],
       phone: ['', []],
       web: ['', []],
       rating_nps: [0, []],
@@ -134,7 +133,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   canSave(): boolean {
-    return this.contractorForm.valid && this.contractorForm.dirty;
+    return this.contractorForm.valid;
   }
 
   private updateContractor(body: any) {
