@@ -1,8 +1,10 @@
-<table class="t1">
+
+<mat-error *ngIf="!homeCountry">Сначала выберите страну подрядчика</mat-error>
+<table class="t1" *ngIf="homeCountry">
   <tbody>
     <tr>
       <th class="name">
-        <div>Отправление из {{getCountryById(homeCountryId).name}} в {{destCountries.length}} стран:</div>
+        <div>Отправление из {{homeCountry.name}} в {{destCountries.length}} стран:</div>
         <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="country"
           (ngModelChange)="doFilter($event)" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
@@ -50,7 +52,7 @@
   </tbody>
 </table>
 
-<table class="t1">
+<table class="t1" *ngIf="homeCountry">
   <tbody>
     <tr>
       <th class="name">

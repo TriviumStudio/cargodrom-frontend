@@ -1,7 +1,7 @@
 import { TransportSubKinds, TransportSubKind, TransportSubKindsWithAll } from './../../../api/custom_models/transport';
 import { Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -19,7 +19,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
     }
   ]
 })
-export class ResponsibilityEditorComponent implements OnInit, ControlValueAccessor {
+export class ResponsibilityEditorComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
@@ -50,9 +50,16 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
     ];
   responsibilities: Responsibilities = {};
   destCountries: Country[] = [];
+  homeCountry?: Country;
 
   constructor(
   ) {
+  }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['homeCountryId'] && this.homeCountryId) {
+      this.homeCountry = this.getCountryById(this.homeCountryId)
+    }
   }
 
   writeValue(responsibilityParam: Responsibilities): void {
@@ -87,6 +94,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
   addCountry(): void {
     this.destCountries.push(this.country!);
     this.responsibilities[this.country!.id] = [];
+    this.country = undefined;
   }
 
   getCountryById(id: string | number | undefined): Country {
@@ -104,7 +112,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
 
 
   allChecked(): boolean {
-    return this.destCountries.every(({id}) => this.responsibilities[id].length === TransportSubKinds.length);
+    return this.destCountries.length > 0 && this.destCountries.every(({id}) => this.responsibilities[id].length === TransportSubKinds.length);
   }
 
   allComplete(): boolean {
@@ -116,7 +124,7 @@ export class ResponsibilityEditorComponent implements OnInit, ControlValueAccess
   }
 
   allCheckedForKind(kind: TransportSubKind): boolean {
-    return this.destCountries.every(({ id }) => this.responsibilities[id].includes(kind));
+    return this.destCountries.length > 0 && this.destCountries.every(({ id }) => this.responsibilities[id].includes(kind));
   }
 
   allCompleteForKind(kind: TransportSubKind): boolean {
