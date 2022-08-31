@@ -3,6 +3,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { ResponsibilityEditorComponent } from './responsibility-editor.component';
 
@@ -17,6 +18,7 @@ describe('ResponsibilityEditorComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatAutocompleteModule,
+        MatCheckboxModule,
         NoopAnimationsModule,
       ],
       declarations: [ ResponsibilityEditorComponent ]
