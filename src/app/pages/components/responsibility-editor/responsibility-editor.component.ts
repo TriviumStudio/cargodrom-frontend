@@ -1,9 +1,9 @@
-import { TransportSubKinds, TransportSubKind, TransportSubKindsWithAll } from './../../../api/custom_models/transport';
+import { TransportSubKinds, TransportSubKind } from './../../../api/custom_models/transport';
 import { Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { findIndex, Subject } from 'rxjs';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
@@ -55,10 +55,18 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   constructor(
   ) {
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['homeCountryId'] && this.homeCountryId) {
-      this.homeCountry = this.getCountryById(this.homeCountryId)
+    const homeCountryChange = changes['homeCountryId'];
+    if (homeCountryChange) {
+      if (homeCountryChange.previousValue) {
+        delete this.responsibilities[homeCountryChange.previousValue];
+      }
+      if (homeCountryChange.currentValue) {
+        this.homeCountry = this.getCountryById(homeCountryChange.currentValue);
+        this.responsibilities[homeCountryChange.currentValue] = [];
+        this.destCountries = this.destCountries.filter(({ id }) => id !== homeCountryChange.currentValue);
+      }
     }
   }
 
@@ -67,6 +75,9 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
     this.destCountries = Object.keys(responsibilityParam)
       .filter(countryId => Number(countryId) !== this.homeCountryId)
       .map(countryId => this.getCountryById(countryId));
+    if (this.homeCountryId && !Array.isArray(this.responsibilities[this.homeCountryId])) {
+      this.responsibilities[this.homeCountryId] = [];
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -78,6 +89,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
   }
 
   ngOnInit(): void {
+
   }
 
   doFilter(country: Country | string): void {
@@ -99,12 +111,12 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
 
   getCountryById(id: string | number | undefined): Country {
     const country = this.countries.find(country => country.id === Number(id));
-    return country ? country : {id: 12345, name: 'Неизвестная страна'};
+    return country ? country : { id: 12345, name: 'Неизвестная страна' };
   }
 
   removeCountry(countryId: number | string): void {
-    const index = this.destCountries.findIndex(({id}) => id === Number(countryId))
-    if (index >=0) {
+    const index = this.destCountries.findIndex(({ id }) => id === Number(countryId))
+    if (index >= 0) {
       this.destCountries.splice(index, 1);
     }
     delete this.responsibilities[countryId];
@@ -112,15 +124,15 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
 
 
   allChecked(): boolean {
-    return this.destCountries.length > 0 && this.destCountries.every(({id}) => this.responsibilities[id].length === TransportSubKinds.length);
+    return this.destCountries.length > 0 && this.destCountries.every(({ id }) => this.responsibilities[id].length === TransportSubKinds.length);
   }
 
   allComplete(): boolean {
-    return this.destCountries.every(({id}) => this.responsibilities[id].length === TransportSubKinds.length) || this.destCountries.every(({id}) => this.responsibilities[id].length === 0);
+    return this.destCountries.every(({ id }) => this.responsibilities[id].length === TransportSubKinds.length) || this.destCountries.every(({ id }) => this.responsibilities[id].length === 0);
   }
 
   allChange({ checked }: MatCheckboxChange): void {
-    this.destCountries.forEach(({id}) => this.responsibilities[id] = checked ? [...TransportSubKinds] : []);
+    this.destCountries.forEach(({ id }) => this.responsibilities[id] = checked ? [...TransportSubKinds] : []);
   }
 
   allCheckedForKind(kind: TransportSubKind): boolean {
@@ -129,7 +141,7 @@ export class ResponsibilityEditorComponent implements OnInit, OnChanges, Control
 
   allCompleteForKind(kind: TransportSubKind): boolean {
     return this.destCountries.every(({ id }) => this.responsibilities[id].includes(kind)) || this.destCountries.every(({ id }) => !this.responsibilities[id].includes(kind));
- }
+  }
 
   allChangeForKind(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
     this.destCountries.forEach(({ id }) => {
