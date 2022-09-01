@@ -3,7 +3,6 @@ import { Responsibilities } from './../../../api/custom_models/contact';
 import { Country } from './../../../api/custom_models/country';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { findIndex, Subject } from 'rxjs';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
