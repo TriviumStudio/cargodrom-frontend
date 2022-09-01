@@ -76,10 +76,6 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
   goToContractors(): void {
     this.router.navigate(['/pages/contractor']);
   }
