@@ -7,6 +7,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ContactEditorComponent } from './contact-editor.component';
 import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ContactEditorComponent', () => {
@@ -21,6 +22,7 @@ describe('ContactEditorComponent', () => {
         ReactiveFormsModule,
         MatAutocompleteModule,
         MatCheckboxModule,
+        MatFormFieldModule,
         NoopAnimationsModule,
       ],
       declarations: [

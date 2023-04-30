@@ -1,4 +1,4 @@
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,9 +22,11 @@ describe('CompanyEditorComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         NoopAnimationsModule,
-        NgxMaskModule.forRoot({}),
+        NgxMaskDirective,
+        NgxMaskPipe
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         {
           provide: CompanyService, useValue: {
             companyInfo: () => of({ name: 'Three Bears LLC' }),

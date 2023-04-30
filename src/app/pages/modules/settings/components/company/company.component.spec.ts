@@ -1,7 +1,7 @@
 import { Company } from './../../../../../api/custom_models/company';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -26,9 +26,11 @@ describe('CompanyComponent', () => {
         NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        NgxMaskModule.forRoot({}),
+        NgxMaskDirective,
+        NgxMaskPipe
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         {
           provide: CompanyService,
           useValue: {
