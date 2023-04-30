@@ -10,7 +10,7 @@ import { Contractor, ContractorRequestFormat, ContractorType } from './../../../
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';

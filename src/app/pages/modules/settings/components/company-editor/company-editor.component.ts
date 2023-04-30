@@ -4,7 +4,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';

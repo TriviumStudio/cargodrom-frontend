@@ -5,8 +5,8 @@ import { TradeDirectionComponent } from './../trade-direction/trade-direction.co
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactEditorComponent } from './contact-editor.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ContactEditorComponent', () => {

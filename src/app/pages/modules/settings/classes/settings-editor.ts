@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
 import { FormControl, FormGroup } from "@angular/forms";
-import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from "@angular/material/legacy-snack-bar";
 import { Company, Currency, Department, Employee, Position, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { phoneMask } from 'src/app/constants';
