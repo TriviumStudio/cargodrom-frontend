@@ -845,18 +845,28 @@ th.clp { width: 20px; background: #606A74; }
 .break-crumbs .del-crumbs { color: #83909E; }
 .break-crumbs a { color: #83909E; text-decoration: none; }
 
-.mat-select-panel { background: #f00; }
+.mat-mdc-select-panel { background: #f00; }
 
 
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field .mat-form-field-infix { border: none; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper { margin: 0; padding: 0; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-flex { margin-top: 0; padding: 0 13px 0 13px; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline { top: 0; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * { background: #F7F9FC; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick { color: rgba(0, 0, 0, 0.3); }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick > * { border-width: 1px !important; }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-infix { padding: 11px 0 12px; }
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-select-arrow-wrapper { transform: none; }
+/* TODO(mdc-migration): The following rule targets internal classes of select that may no longer apply for the MDC version. */
 mat-form-field.mat-form-field-appearance-outline .mat-select-arrow { width: 10px; height: 6px; border: none; margin: 0; background: url('/assets/pic-select-arrow.svg') no-repeat; }
 
 app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }

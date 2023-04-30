@@ -1,8 +1,8 @@
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Company } from './../../../../../api/custom_models/company';
 import { Component } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Table } from '../../../../../classes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortColumn } from 'src/app/api/custom_models/sort-column';

@@ -1,10 +1,10 @@
 import { SortColumn } from './../../../../../api/custom_models/sort-column';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from './../../../../../api/custom_models/department';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Table } from '../../../../../classes';
 

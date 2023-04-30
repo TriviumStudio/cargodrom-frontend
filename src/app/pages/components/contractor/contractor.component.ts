@@ -3,8 +3,8 @@ import { ContractorService } from './../../../api/services/contractor.service';
 import { Component } from '@angular/core';
 import { Contractor } from '../../../api/custom_models';
 import { LoadParams, Table } from '../../../classes';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 @Component({

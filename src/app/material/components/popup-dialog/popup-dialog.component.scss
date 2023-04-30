@@ -1,11 +1,11 @@
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   padding: 0;
   background: #fff;
   min-width: 500px;
   line-height: 1.3em;
   position: relative;
 }
-.mat-dialog-title {
+.mat-mdc-dialog-title {
   font-size: 24px;
   padding: 32px 32px;
   margin: 0;
@@ -23,7 +23,7 @@
 .close:hover {
   opacity: 0.6;
 }
-.mat-dialog-content {
+.mat-mdc-dialog-content {
   margin: 0;
   font-size: 15px;
   padding: 32px;
@@ -31,17 +31,17 @@
   border-top: 1px solid #E0E5EB;
   border-bottom: 1px solid #E0E5EB;
 }
-.mat-dialog-content > :first-child {
+.mat-mdc-dialog-content > :first-child {
   margin-top: 0
 }
-.mat-dialog-content > :last-child {
+.mat-mdc-dialog-content > :last-child {
   margin-bottom: 0
 }
-.mat-dialog-actions {
+.mat-mdc-dialog-actions {
   padding: 32px;
   margin: 0;
 }
-.mat-dialog-actions .mat-button {
+.mat-mdc-dialog-actions .mat-mdc-button {
   cursor: pointer;
   font-size: 15px;
   color: #FFFFFF;

@@ -1,5 +1,5 @@
 import { SettingsEditor } from './../../classes/settings-editor';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Position } from './../../../../../api/custom_models/position';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
