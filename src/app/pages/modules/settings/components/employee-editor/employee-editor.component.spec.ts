@@ -1,4 +1,4 @@
-import { NgxMaskModule } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask } from 'ngx-mask';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -26,9 +26,11 @@ describe('EmployeeEditorComponent', () => {
         NoopAnimationsModule,
         MatFormFieldModule,
         MatSelectModule,
-        NgxMaskModule.forRoot({}),
+        NgxMaskDirective,
+        NgxMaskPipe
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         {
           provide: CompanyService, useValue: {
             companyDepartmentList: () => of({items: [], total: 0}),

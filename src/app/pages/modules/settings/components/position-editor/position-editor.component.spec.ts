@@ -1,4 +1,4 @@
-import { NgxMaskModule } from 'ngx-mask';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -22,9 +22,9 @@ describe('PositionEditorComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         NoopAnimationsModule,
-        NgxMaskModule.forRoot({}),
       ],
       providers: [
+        provideEnvironmentNgxMask(),
         {
           provide: CompanyService, useValue: {
             companyPositionList: () => of({items: [], total: 0}),

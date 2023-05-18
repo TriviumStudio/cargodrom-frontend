@@ -10,7 +10,7 @@ import { TokenInterceptor } from './token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { IConfig, provideEnvironmentNgxMask } from 'ngx-mask';
 
 const maskConfig: Partial<IConfig> = {
   showMaskTyped: true,
@@ -25,7 +25,6 @@ const maskConfig: Partial<IConfig> = {
     AuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     {
@@ -41,7 +40,8 @@ const maskConfig: Partial<IConfig> = {
     {
       provide: LOCALE_ID,
       useValue: 'ru'
-    }
+    },
+    provideEnvironmentNgxMask(maskConfig)
   ],
   bootstrap: [AppComponent]
 })
