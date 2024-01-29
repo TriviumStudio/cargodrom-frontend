@@ -167,8 +167,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       comment: ['', []],//+
       //РАССЫЛКИ
       //эти данные не нужны для создания и редактирования, но понадобятся потом
-      request_one: [false, []],
-      request_two: [false, []],
     });
   }
   //МЕТОДЫ ЖЦ
@@ -192,10 +190,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getCurrencys();
     this.getСargoTypes();
     //что бы сразу два экзамляра формы было, как в макете =)
-    if(this.places.length === 0 && !this.isEditMode){
-      this.addPlace();
-      this.addPlace();
-    };
+    // if(this.places.length === 0 && !this.isEditMode){
+    //   this.addPlace();
+    //   this.addPlace();
+    // };
     this.subForm();
     this.requestForm.get('cargo_readiness')?.clearValidators();
   }
@@ -582,7 +580,23 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
-    this.requestForm.controls['cargo_places'].reset();
+    // this.requestForm.value.cargo_places.length=2
+    // this.requestForm.value.cargo_places=[{},{}]
+
+
+    // this.requestForm.patchValue({
+    //   cargo_places: [{},{}],
+    // });
+
+    while (this.requestForm.value.cargo_places.length>2) {
+      this.removePlace(0);
+    }
+    while (this.requestForm.value.cargo_places.length<2) {
+      this.addPlace();
+    }
+    this.requestForm.controls['cargo_places'].reset([{},{}]);
+
+
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
     this.requestForm.controls['cargo_places_volume'].reset();
