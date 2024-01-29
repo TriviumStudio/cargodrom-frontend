@@ -281,7 +281,7 @@
           </div>
         </div>
 
-        <div class="edit-form__item-block">
+        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===1">
 
           <div class="edit-form__item edit-form__item_w138">
             <div class="edit-form__label">стоимость груза:</div>
@@ -306,6 +306,35 @@
       </div>
 
       <div class="edit-form__item-layout edit-form__item-layout_cargo">
+
+        <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===2">
+
+          <div class="edit-form__item edit-form__item_w138">
+            <div class="edit-form__label">стоимость груза:</div>
+            <div class="edit-form__data">
+              <input class="edit-form__input edit-form__input_cargo" type="number" name="cargo_cost" formControlName="cargo_cost">
+            </div>
+          </div>
+
+          <div class="edit-form__item edit-form__item_w90">
+            <div class="edit-form__label">Валюта:</div>
+            <div class="edit-form__data ">
+              <mat-form-field appearance="outline" class="edit-form__mat-field ">
+                <mat-select formControlName="cargo_currency_id">
+                  <mat-option class="edit-form__mat-option" *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="edit-form__item edit-form__item_w124" *ngIf="requestForm.value.request_type_id===2">
+          <div class="edit-form__label">готовность</div>
+          <div class="edit-form__data">
+            <input type="date"formControlName="cargo_readiness">
+          </div>
+        </div>
 
         <div class="edit-form__item-block" *ngIf="requestForm.value.request_type_id===2 && !requestForm.value.cargo_separately">
 
@@ -362,12 +391,8 @@
 
 
 
-        <div class="edit-form__item edit-form__item_w124" *ngIf="requestForm.value.request_type_id===2">
-          <div class="edit-form__label">готовность</div>
-          <div class="edit-form__data">
-            <input type="date"formControlName="cargo_readiness">
-          </div>
-        </div>
+
+
 
       </div>
     </div>
