@@ -182,7 +182,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if (this.isEditMode) {
       this.getRequest();
     };
-    this.getCustomers();
+    // this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
     this.getСargoPackages();
@@ -196,7 +196,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     //   this.addPlace();
     // };
     this.subForm();
-    this.requestForm.get('cargo_readiness')?.clearValidators();
+    // this.requestForm.get('cargo_readiness')?.clearValidators();
   }
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
