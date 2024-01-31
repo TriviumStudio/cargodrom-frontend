@@ -104,6 +104,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     private systemService: SystemService,
     private snackBar: MatSnackBar,
     private location: Location,
+    private router: Router,
   ) {
     this.requestForm = this.fb.group({
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
@@ -922,6 +923,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         console.log(test);
         this.fileListDanger?.create(test.id).subscribe();
         this.fileList?.create(test.id).subscribe();
+        this.router.navigate(['pages/request/edit', test.id]);
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },
       error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
