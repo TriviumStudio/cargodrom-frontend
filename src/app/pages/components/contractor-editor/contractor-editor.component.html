@@ -107,7 +107,7 @@
           <div class="form-data">
            <mat-form-field appearance="outline" class="ui-select">
              <mat-select formControlName="type_id">
-               <mat-option *ngFor="let type of contractorTypes;" [value]="type.id">{{ type.name }}</mat-option>
+               <mat-option *ngFor="let type of contractorTypes;"  [value]="type.id">{{ type.name }}</mat-option>
              </mat-select>
              <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
                Это поле обязательно
