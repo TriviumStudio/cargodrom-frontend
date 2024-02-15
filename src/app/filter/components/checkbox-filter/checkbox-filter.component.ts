@@ -28,6 +28,11 @@ export class CheckboxFilterComponent implements OnInit {
     } else {
       array.push(id);
     }
+
+    // const index = array.indexOf(id);
+    // array.splice(index, 1);
+    // array.push(id);
+
   }
 
   checked(id: string): boolean {

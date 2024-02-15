@@ -5,7 +5,7 @@ export interface SearchFilterSchema {
 }
 
 export interface FilterControl {
-  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period';
+  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period' | 'radio';
   field: string;
   name:  string;
 }
@@ -28,6 +28,14 @@ export interface FilterAutocompleteControl extends FilterControl {
 
 export interface FilterCheckboxControl extends FilterControl {
   form: 'checkbox' | 'checkbox_reset';
+  array: {
+    id: string;
+    name: string;
+  }[];
+}
+
+export interface FilterRadioControl extends FilterControl {
+  form: 'radio';
   array: {
     id: string;
     name: string;
