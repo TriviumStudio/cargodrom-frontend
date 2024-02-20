@@ -5,7 +5,7 @@ export interface SearchFilterSchema {
 }
 
 export interface FilterControl {
-  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period' | 'radio';
+  form:  'autocomplete' | 'text' | 'checkbox' | 'checkbox_reset' | 'select' | 'period_days' | 'radio';
   field: string;
   name:  string;
 }
@@ -43,5 +43,5 @@ export interface FilterRadioControl extends FilterControl {
 }
 
 export interface FilterPeriodControl extends FilterControl {
-  form: 'period';
+  form: 'period_days';
 }
