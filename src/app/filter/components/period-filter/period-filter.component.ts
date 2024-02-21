@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterPeriodControl } from 'src/app/api/custom_models';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
   selector: 'app-period-filter',
@@ -9,7 +10,9 @@ import { FilterPeriodControl } from 'src/app/api/custom_models';
 export class PeriodFilterComponent implements OnInit {
   @Input() filterControl!: FilterPeriodControl;
 
-  constructor() { }
+  constructor(
+    public filter: FilterService,
+  ) { }
 
   ngOnInit(): void {
   }

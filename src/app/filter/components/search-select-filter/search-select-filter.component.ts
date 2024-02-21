@@ -9,11 +9,27 @@ import { FilterService } from '../../services/filter.service';
 export class SearchSelectFilterComponent implements OnInit {
   @Input() filterControl!: FilterSelectControl;
 
+  test:any
+
   constructor(
     public filter: FilterService,
   ) { }
 
+
   ngOnInit(): void {
   }
+
+  change(item:any){
+    this.filter.value[this.filterControl.field] = item.id;
+  }
+
+  search(e:any){
+    this.filter.value[this.filterControl.field]="";
+
+    const filterValue = e.target.value.toLowerCase();
+
+    this.test= this.filterControl.array.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
 
 }

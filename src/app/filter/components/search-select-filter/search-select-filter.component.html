@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data select">
     <mat-form-field appearance="outline" class="ui-select">
@@ -8,7 +8,20 @@
       </mat-select>
     </mat-form-field>
   </div>
+</div> -->
+
+<div>
+  <div class="title">{{ filterControl.name }}:</div>
+  <div class="data select">
+    <input appearance="outline" class="ui-select"
+      type="text"
+      [matAutocomplete]="auto"
+      (keyup)="search($event)"
+
+      placeholder="—" >
+    <mat-autocomplete  #auto="matAutocomplete">
+      <!-- <mat-option value="">-- Не выбрано --</mat-option> -->
+      <mat-option *ngFor="let item of test;" [value]="item.name" (click)='change(item)'>{{ item.name }}</mat-option>
+    </mat-autocomplete>
+  </div>
 </div>
-
-
-

@@ -1,15 +1,13 @@
 <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data period">
-    <!-- <mat-form-field class="date"> -->
-      <mat-date-range-input [rangePicker]="picker">
+    <mat-date-range-input [rangePicker]="picker" >
         <input matStartDate >
         <input matEndDate >
-
-      </mat-date-range-input>
-      <mat-datepicker-toggle  [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    <!-- </mat-form-field> -->
+    </mat-date-range-input>
+    <mat-datepicker-toggle  [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
   </div>
+</div>
 
-<!-- <input type="date"> -->
+
