@@ -17,4 +17,9 @@ export class RadioFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  change(id: string): void {
+    if(id===this.filter.value[this.filterControl.field]){
+      this.filter.value[this.filterControl.field]='';
+    }
+  }
 }
