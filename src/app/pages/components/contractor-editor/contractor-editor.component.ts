@@ -54,7 +54,7 @@ export class ContractorEditorComponent implements OnInit {
   nameForHeader?: string;
   // counterpartys:Counterparty[]=[];
   counterpartys:any[]=[];
-  private _destroy$ = new Subject();
+  // private _destroy$ = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -106,8 +106,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this._destroy$.next(null);
-    this._destroy$.complete();
+    // this._destroy$.next(null);
+    // this._destroy$.complete();
   }
 
   goBack(): void {
@@ -209,18 +209,18 @@ export class ContractorEditorComponent implements OnInit {
     });
   }
 
-  private getCounterparty() {
-    this.systemService.systemCounterparty()
-      .pipe(
-        tap((counterpartys) => this.counterpartys = counterpartys as any),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
-
-  // private getCounterparty(){
+  // private getCounterparty() {
   //   this.systemService.systemCounterparty()
-  //     .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
+  //     .pipe(
+  //       tap((counterpartys) => this.counterpartys = counterpartys as any),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
   // }
+
+  private getCounterparty(){
+    this.systemService.systemCounterparty()
+      .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
+  }
 
   private getAssociations() {
     this.systemService.systemAssociation()
