@@ -104,6 +104,11 @@ export class ContractorEditorComponent implements OnInit {
     this.getCounterparty();
   }
 
+  ngOnDestroy(): void {
+    this._destroy$.next(null);
+    this._destroy$.complete();
+  }
+
   goBack(): void {
     this.location.back();
   }
