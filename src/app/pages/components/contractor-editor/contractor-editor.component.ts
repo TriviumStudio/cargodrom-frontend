@@ -1,6 +1,6 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -53,6 +53,7 @@ export class ContractorEditorComponent implements OnInit {
   taxSystems: TaxSystem[] = [];
   nameForHeader?: string;
   counterpartys:Counterparty[]=[];
+  private _destroy$ = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -202,10 +203,18 @@ export class ContractorEditorComponent implements OnInit {
     });
   }
 
-  private getCounterparty(){
+  private getCounterparty() {
     this.systemService.systemCounterparty()
-      .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
+      .pipe(
+        tap((counterpartys)=>this.counterpartys=counterpartys as Counterparty[]),
+        takeUntil(this._destroy$)
+      ).subscribe();
   }
+
+  // private getCounterparty(){
+  //   this.systemService.systemCounterparty()
+  //     .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
+  // }
 
   private getAssociations() {
     this.systemService.systemAssociation()
