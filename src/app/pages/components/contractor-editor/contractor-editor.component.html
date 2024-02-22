@@ -17,8 +17,8 @@
           <div class="form-label">Вид подрядчика: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="type_id" (valueChange)="onContractorTypeChange($event)">
-                <mat-option *ngFor="let contractorType of contractorTypes;" [value]="contractorType.id">{{ contractorType.name }}</mat-option>
+              <mat-select formControlName="type_id" >
+                <mat-option *ngFor="let contractorType of contractorTypes;" [value]="contractorType.id" (click)="onContractorTypeChange(contractorType)">{{ contractorType.name }}</mat-option>
               </mat-select>
               <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
                Это поле обязательно

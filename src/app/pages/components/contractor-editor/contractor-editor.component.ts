@@ -69,7 +69,7 @@ export class ContractorEditorComponent implements OnInit {
       id: [''],
       address: ['', []],
       name: ['', [Validators.required]],
-      ind: ['', [Validators.required]],
+      ind: ['', []],
       phone: ['', []],
       web: ['', []],
       rating_nps: [{ value: 0, disabled: true }, []],
@@ -155,10 +155,13 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   onContractorTypeChange(e:any){
-    if(e===3){
-      this.contractorForm.get('type_id')?.setValidators([Validators.required]);
+    if(e.contact_required){
+      console.log('1234');
+
+      this.contractorForm.get('type_id')!.setValidators([Validators.required]);
     } else {
-      this.contractorForm.get('type_id')?.clearValidators;
+      this.contractorForm.get('type_id')!.setValidators([]);
+      // this.contractorForm.get('type_id')!.clearValidators;
     }
   }
 
