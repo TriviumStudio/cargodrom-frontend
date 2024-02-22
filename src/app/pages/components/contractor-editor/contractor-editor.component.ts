@@ -211,7 +211,7 @@ export class ContractorEditorComponent implements OnInit {
   private getCounterparty() {
     this.systemService.systemCounterparty()
       .pipe(
-        tap((counterpartys)=>this.counterpartys=counterpartys as Counterparty[]),
+        tap((counterpartys)=>this.counterpartys=counterpartys as unknown  as Counterparty[]),
         takeUntil(this._destroy$)
       ).subscribe();
   }
