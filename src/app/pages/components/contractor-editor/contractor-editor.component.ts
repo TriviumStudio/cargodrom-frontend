@@ -52,7 +52,8 @@ export class ContractorEditorComponent implements OnInit {
   title = '';
   taxSystems: TaxSystem[] = [];
   nameForHeader?: string;
-  counterpartys:Counterparty[]=[];
+  // counterpartys:Counterparty[]=[];
+  counterpartys:any[]=[];
   private _destroy$ = new Subject();
 
   constructor(
@@ -211,7 +212,7 @@ export class ContractorEditorComponent implements OnInit {
   private getCounterparty() {
     this.systemService.systemCounterparty()
       .pipe(
-        tap((counterpartys)=>this.counterpartys=counterpartys as unknown  as Counterparty[]),
+        tap((counterpartys) => this.counterpartys = counterpartys as any),
         takeUntil(this._destroy$)
       ).subscribe();
   }
