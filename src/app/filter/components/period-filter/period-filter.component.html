@@ -1,12 +1,45 @@
-<div>
+<!-- <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data period">
-    <mat-date-range-input [rangePicker]="picker" >
-      <input matStartDate (dateChange)="test($event)">
-      <input matEndDate (dateChange)="test($event)">
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate (dateChange)="test1($event)" >
+      <input matEndDate (dateChange)="test2($event)" >
     </mat-date-range-input>
     <mat-datepicker-toggle  [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-date-range-picker  #picker></mat-date-range-picker>
+  </div>
+</div> -->
+
+<div>
+  <!-- <div class="title">{{ filterControl.name }}:</div> -->
+  <div class="title">Период:</div>
+  <div class="data checkbox">
+    <label>
+      <input [(ngModel)]="filter.value[filterControl.field]" type="radio" [value]="1" (click)="change('1')">
+      <span>День</span>
+    </label>
+
+    <label>
+      <input [(ngModel)]="filter.value[filterControl.field]" type="radio" [value]="2" (click)="change('2')">
+      <span>Неделя</span>
+    </label>
+
+    <label>
+      <input [(ngModel)]="filter.value[filterControl.field]" type="radio" [value]="3" (click)="change('3')">
+      <span>Месяц</span>
+    </label>
+
+    <!-- <label>
+      <mat-form-field>
+        <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate (dateChange)="test1($event)" >
+        <input matEndDate (dateChange)="test2($event)" >
+      </mat-date-range-input>
+      <mat-datepicker-toggle  [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker  #picker></mat-date-range-picker>
+      </mat-form-field>
+
+    </label> -->
   </div>
 </div>
 
