@@ -12,6 +12,13 @@ import { formatDate } from '@angular/common';
 export class PeriodFilterComponent implements OnInit {
   @Input() filterControl!: FilterPeriodControl;
 
+  day ='day';
+  week = 'week';
+  month ='month';
+
+  startDate='';
+  endDate='';
+
   constructor(
     public filter: FilterService,
   ) { }
@@ -19,20 +26,27 @@ export class PeriodFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // test1(e:any){
-  //   console.log(e)
-  //   console.log(formatDate(e.value,'dd-MM-yyyy','ru-RU'))
-  // }
+  test1(e:any){
+    console.log(formatDate(e.value,'dd.MM.yyyy','ru-RU'));
+    this.startDate=formatDate(e.value,'dd.MM.yyyy','ru-RU');
+    this.test3();
 
-  // test2(e:any){
-  //   console.log(e)
-  //   console.log(formatDate(e.value,'dd-MM-yyyy','ru-RU'))
-  // }
+
+  }
+
+  test2(e:any){
+    console.log(formatDate(e.value,'dd.MM.yyyy','ru-RU'));
+    this.endDate=formatDate(e.value,'dd.MM.yyyy','ru-RU');
+    this.test3();
+  }
+
+  test3(){
+    this.filter.value[this.filterControl.field]=`${this.startDate}-${this.endDate}`
+  }
 
   change(id: string): void {
     if(id===this.filter.value[this.filterControl.field]){
-      this.filter.value[this.filterControl.field]='';
+      this.filter.value[this.filterControl.field]="";
     }
   }
-
 }

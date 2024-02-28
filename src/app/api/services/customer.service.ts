@@ -197,7 +197,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -292,7 +292,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -322,7 +322,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -562,7 +562,7 @@ export class CustomerService extends BaseService {
         'head_position_name'?: string;
         
         /**
-         * Должность руководителя (ID берем из запроса - customer_head_position)
+         * Должность руководителя (ID берем из запроса - system_head_position)
          */
         'head_position_id'?: string;
         
@@ -657,7 +657,7 @@ export class CustomerService extends BaseService {
         'bank_kpp'?: string;
         
         /**
-         * Валюта счета
+         * Валюта счета (ID берем из запроса - /system_currency)
          */
         'currency'?: string;
         
@@ -687,7 +687,7 @@ export class CustomerService extends BaseService {
         'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - system_counterparty)
+         * Тип контрагента (ID берем из запроса - system_counterparty)
          */
         'counterparty_id'?: number;
         
@@ -979,7 +979,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -1074,7 +1074,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -1104,7 +1104,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -1328,7 +1328,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -1423,7 +1423,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -1453,7 +1453,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -1675,7 +1675,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -1770,7 +1770,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -1800,7 +1800,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -2725,7 +2725,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -2820,7 +2820,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -2850,7 +2850,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -3068,7 +3068,7 @@ export class CustomerService extends BaseService {
         'head_position_name'?: string;
         
         /**
-         * Должность руководителя (ID берем из запроса - customer_head_position)
+         * Должность руководителя (ID берем из запроса - system_head_position)
          */
         'head_position_id'?: string;
         
@@ -3163,7 +3163,7 @@ export class CustomerService extends BaseService {
         'bank_kpp'?: string;
         
         /**
-         * Валюта счета
+         * Валюта счета (ID берем из запроса - /system_currency)
          */
         'currency'?: string;
         
@@ -3193,7 +3193,7 @@ export class CustomerService extends BaseService {
         'counterparty_name'?: string;
         
         /**
-         * Тип клиента (ID берем из запроса - system_counterparty)
+         * Тип контрагента (ID берем из запроса - system_counterparty)
          */
         'counterparty_id'?: number;
         
@@ -3424,7 +3424,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -3519,7 +3519,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -3549,7 +3549,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -3758,7 +3758,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -3853,7 +3853,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -3883,7 +3883,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4090,7 +4090,7 @@ export class CustomerService extends BaseService {
 'head_position_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -4185,7 +4185,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -4215,7 +4215,7 @@ export class CustomerService extends BaseService {
 'counterparty_name'?: string;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4421,7 +4421,7 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -4516,7 +4516,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -4531,7 +4531,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4700,7 +4700,7 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -4795,7 +4795,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -4810,7 +4810,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -4988,7 +4988,7 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -5083,7 +5083,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -5098,7 +5098,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -5262,7 +5262,7 @@ export class CustomerService extends BaseService {
 'head_name'?: string;
 
 /**
- * Должность руководителя (ID берем из запроса - customer_head_position)
+ * Должность руководителя (ID берем из запроса - system_head_position)
  */
 'head_position_id'?: string;
 
@@ -5357,7 +5357,7 @@ export class CustomerService extends BaseService {
 'bank_kpp'?: string;
 
 /**
- * Валюта счета
+ * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
 
@@ -5372,7 +5372,7 @@ export class CustomerService extends BaseService {
 'source_id'?: number;
 
 /**
- * Тип клиента (ID берем из запроса - system_counterparty)
+ * Тип контрагента (ID берем из запроса - system_counterparty)
  */
 'counterparty_id'?: number;
 
@@ -6974,6 +6974,549 @@ export class CustomerService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerExport()` */
+  static readonly CustomerExportPath = '/customer_export';
+
+  /**
+   * Экспорт клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerExport()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerExport$Response(
+    params?: {
+
+    /**
+     * Поиск клиента по названию...
+     */
+      name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+      group_id?: number;
+
+    /**
+     * ИНН
+     */
+      inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+      contact_fio?: string;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerExportPath, 'get');
+    if (params) {
+      rb.query('name', params.name, {});
+      rb.query('country_id', params.country_id, {});
+      rb.query('group_id', params.group_id, {});
+      rb.query('inn', params.inn, {});
+      rb.query('contact_fio', params.contact_fio, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Экспорт клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerExport$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerExport(
+    params?: {
+
+    /**
+     * Поиск клиента по названию...
+     */
+      name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+      group_id?: number;
+
+    /**
+     * ИНН
+     */
+      inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+      contact_fio?: string;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле
+ */
+'field': 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+
+/**
+ * Направление сортировки
+ */
+'dir': 'asc' | 'desc';
+}>;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.customerExport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerImport()` */
+  static readonly CustomerImportPath = '/customer_import';
+
+  /**
+   * Импорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImport()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerImport$Response(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код обновления
+         */
+        'import_key'?: string;
+        
+        /**
+         * Результат обновления
+         */
+        'result'?: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Импорт контрагентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImport$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  customerImport(
+    params?: {
+      body?: {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Base64 строка файла
+ */
+'data': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}> {
+    return this.customerImport$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+}>): {
+
+/**
+ * Код обновления
+ */
+'import_key'?: string;
+
+/**
+ * Результат обновления
+ */
+'result'?: {
+};
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerImportConfirm()` */
+  static readonly CustomerImportConfirmPath = '/customer_import_confirm';
+
+  /**
+   * Подтверждение импорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImportConfirm()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportConfirm$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportConfirmPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Подтверждение импорта клиентов в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImportConfirm$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportConfirm(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.customerImportConfirm$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `customerImportResult()` */
+  static readonly CustomerImportResultPath = '/customer_import_result';
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `customerImportResult()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportResult$Response(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerImportResultPath, 'get');
+    if (params) {
+      rb.query('import_key', params.import_key, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Base64 строка файла
+         */
+        'data'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение файла с результатами обработки импорта в XLSX.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `customerImportResult$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  customerImportResult(
+    params?: {
+
+    /**
+     * Код обновления
+     */
+      import_key?: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}> {
+    return this.customerImportResult$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
+}>): {
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Base64 строка файла
+ */
+'data'?: string;
 } => r.body)
     );
   }
