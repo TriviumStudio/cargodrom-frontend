@@ -21,12 +21,13 @@
         </label>
       </div>
 
-      <div class="period">
+      <div class="period" (click)="picker.open()">
         <mat-date-range-input class="w110 datee" [rangePicker]="picker">
           <input matStartDate placeholder="дд.мм.гггг" class="date-item" (dateChange)="test1($event)">
           <input matEndDate placeholder="дд.мм.гггг" class="date-item" (dateChange)="test2($event)">
         </mat-date-range-input>
-        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+        <!-- <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle> -->
+        <!-- <button  (click)="picker.open()">Open</button> -->
         <mat-date-range-picker #picker></mat-date-range-picker>
       </div>
 
