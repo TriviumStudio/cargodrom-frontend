@@ -100,7 +100,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: number;
+      transport_kind_id?: string;
 
     /**
      * Начальная позиция
@@ -1056,7 +1056,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: number;
+      transport_kind_id?: string;
 
     /**
      * Начальная позиция

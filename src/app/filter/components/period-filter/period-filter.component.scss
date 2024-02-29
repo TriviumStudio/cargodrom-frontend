@@ -1,18 +1,3 @@
-// .data  {
-//   display: flex;
-//   justify-content: center;
-//   position: relative;
-// }
-
-// // .mat-date-range-input {
-// //   width: 110px;
-// //   height: 15.49px;
-// // }
-
-// // .mat-datepicker-toggle{
-// //   height: 15.49px;
-// // }
-
 .df{
   display: flex;
 }
@@ -21,33 +6,23 @@
   position: relative;
 }
 
-.mat-form-fiel {
-  text-align: right;
-}
-
 .period{
-  margin-left: 14px;
   display: flex;
-  align-items:center;
-  // max-height: 17.45px;
-
+  margin-top: 10px;
+  margin-left: 14px;
 }
 
-.w110{
-  width: fit-content;
-  max-width: 200px;
+.max-w{
+  max-width: 90px;
 }
 
-.datee{
-  font-size: 13px;
-  line-height: 13px;
-}
 
-.date-item{
-  width: 75px;
-  
 
-}
+
+
+
+
+
 
 
 
