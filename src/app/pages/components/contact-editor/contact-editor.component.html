@@ -63,10 +63,12 @@
         <span>{{ showResponsibilities ? 'Скрыть' : 'Показать' }}</span>
       </div>
     </div>
-    <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }" formGroupName="responsible_param">
-      <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix>
+    <div formGroupName="responsible_param">
+    <!-- <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }" formGroupName="responsible_param"> -->
+      <!-- <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix>
       <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
-      <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row>
+      <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
+      <app-responsibility [countries]="countries"></app-responsibility>
     </div>
   </div>
 </form>

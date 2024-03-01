@@ -1,0 +1,138 @@
+<table class="t1">
+  <tbody>
+    <tr>
+      <th class="name">
+
+        <div>Направления:</div>
+
+        <div class="user-item">
+          <div class="form-block-title"><span class="btn v add" (click)=addDir()>Добавить</span></div>
+        </div>
+
+        <div class="dir-block">
+          <div class="l">Страна отправления</div>
+          <div class="l">Страна назначения</div>
+        </div>
+
+        <div class="dir-block">
+          <input placeholder="Откуда"
+            class="w50"
+            type="text"
+            matInput
+            [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+
+          <input placeholder="Откуда"
+            class="w50"
+            type="text"
+            matInput
+            [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+
+        </div>
+
+
+        <!-- <div class="dir-block">
+
+          <div>
+            <div class="l">Страна отправления</div>
+            <input placeholder="Откуда"
+            class="w50"
+            type="text"
+            matInput [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+          </div>
+
+          <div>
+            <div class="l">Страна назначения</div>
+            <input placeholder="Куда"
+            class="w50"
+            type="text"
+            matInput [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+          </div>
+
+        </div> -->
+
+
+
+        <!-- <div class="dir-block">
+          <input placeholder="Откуда"
+            class="w50"
+            type="text"
+            matInput [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+
+          <input placeholder="Куда"
+            class="w50"
+            type="text"
+            matInput [(ngModel)]="country"
+            (ngModelChange)="doFilter($event)"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry()">
+            <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+          </mat-autocomplete>
+        </div> -->
+
+      </th>
+      <th class="all bg s e">
+        <div class="l">Все виды</div>
+        <label>
+          <mat-checkbox class="show-all" [checked]="allChecked()" [indeterminate]="!allComplete()" (change)="allChange($event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+      <th *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <div class="l"><span class="ico" [ngClass]="kind.type"></span><span>{{kind.name}}</span></div>
+        <label>
+          <mat-checkbox [disabled]="true" class="show-all" [checked]="allCheckedForKind(kind.kind)" [indeterminate]="!allCompleteForKind(kind.kind)"
+            (change)="allChangeForKind(kind.kind, $event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </th>
+    </tr>
+
+    <tr class="row" *ngFor="let country of targetCountries; let i = index">
+      <td class="name">
+        <div>
+          <span>{{ country.name }}</span>
+          <span class="del" (click)="removeCountry(country.id)"></span>
+        </div>
+      </td>
+      <td class="bg s e">
+        <label>
+          <mat-checkbox class="show-all" [checked]="allCheckedForCountry(country.id)" [indeterminate]="!allCompleteForCountry(country.id)"
+            (change)="allChangeForCountry(country.id, $event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </td>
+      <td *ngFor="let kind of kinds" [ngClass]="kind.classes">
+        <label>
+          <mat-checkbox class="show-all" [checked]="checkedForCountryAndKind(country.id, kind.kind)"
+            (change)="changeForCountryAndKind(country.id, kind.kind, $event)"></mat-checkbox>
+          <i></i>
+        </label>
+      </td>
+    </tr>
+  </tbody>
+</table>
