@@ -20,14 +20,17 @@ import { transportSubKindTable, unknownCountry } from '../../../constants';
 })
 export class ResponsibilityComponent implements ControlValueAccessor {
   @Input() countries: Country[] = [];
-  @Input() homeCountry: Country = unknownCountry;
-  @Input() type: 'import' | 'export' = 'export';
+  // @Input() homeCountry: Country = unknownCountry;
+  // @Input() type: 'import' | 'export' = 'export';
   onChange = (value: any) => { };
   onTouched = () => { };
 
   // New country
   country?: Country;
+
   dCountry?: Country;
+  aCountry?: Country;
+
   filteredCountries: Country[] = [];
 
   kinds = transportSubKindTable;
@@ -40,8 +43,8 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   ngOnChanges(changes: SimpleChanges): void {
     const homeCountryChange = changes['homeCountry'];
     if (homeCountryChange) {
-      if (this.homeCountry) {
-        const homeCountryId = this.homeCountry.id;
+      if (this.dCountry) {
+        const homeCountryId = this.dCountry.id;
         delete this.responsibilities[homeCountryId];
         this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
       }
@@ -51,7 +54,7 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   writeValue(responsibilityParam: Responsibilities): void {
     this.responsibilities = responsibilityParam || {};
     this.targetCountries = Object.keys(this.responsibilities)
-      .filter(countryId => Number(countryId) !== this.homeCountry.id)
+      .filter(countryId => Number(countryId) !== this.dCountry?.id)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
   }
@@ -67,7 +70,7 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   doFilter(country: Country | string): void {
     this.filteredCountries = this.countries.filter(c => {
       const value = typeof country === 'string' ? country : country.name!;
-      return c.name!.toLowerCase().includes(value.toLowerCase()) && !(c.id in this.responsibilities && c.id === this.homeCountry.id);
+      return c.name!.toLowerCase().includes(value.toLowerCase()) && !(c.id in this.responsibilities && c.id === this.dCountry?.id);
     });
   }
 
@@ -76,7 +79,10 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   addDir(){
-    this.targetCountries.push();
+
+    this.targetCountries.push()
+
+    // this.targetCountries.push(this.aCountry!);
   }
 
   addCountry(): void {
@@ -183,7 +189,7 @@ export class ResponsibilityComponent implements ControlValueAccessor {
 
   valueChanged(): void {
     const value = { ...this.responsibilities };
-    delete value[this.homeCountry.id];
+    delete value[this.dCountry!.id];
     this.onChange(value);
     this.onTouched();
   }
