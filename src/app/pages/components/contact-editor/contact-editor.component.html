@@ -63,16 +63,105 @@
         <span>{{ showResponsibilities ? 'Скрыть' : 'Показать' }}</span>
       </div>
     </div>
-    <div formGroupName="responsible_param">
-      <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }" formGroupName="responsible_param">
 
-        <!-- <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix>
-        <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
-        <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
+    <div class="lnk-data" [ngStyle]="{'display': showResponsibilities ? 'block' : 'none' }" formGroupName="responsible_param">
 
-        <app-responsibility [countries]="countries"></app-responsibility>
+      <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix>
+      <!-- <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
+      <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
 
-      </div>
+      <app-responsibility formControlName="responsible_param1" [countries]="countries"></app-responsibility>
+
     </div>
   </div>
 </form>
+
+
+
+<!-- {
+  "id": "",
+  "address": "",
+  "name": "test1juj",
+  "ind": "",
+  "phone": "",
+  "web": "",
+  "contacts": [
+      {
+          "id": null,
+          "name_f": "eewq",
+          "name_i": "j",
+          "name_o": "eewq",
+          "position": "eewq",
+          "phone": "+7 (989) 898-98-98",
+          "mobile_phone": "+6565",
+          "email": "evdsv@mail.ru",
+          "skype": "yj",
+          "whatsapp": "jy",
+          "telegram": "jy",
+          "wechat": "jy",
+          "responsible_direction": [
+              "import",
+              "export",
+              "local"
+          ],
+          "place": "hjtj",
+          "responsible_param": {
+              "import": {
+                  "18": [
+                      "avia_lcl",
+                      "avia_fcl",
+                      "road_lcl",
+                      "road_fcl",
+                      "road_adr",
+                      "road_ref",
+                      "sea_teus",
+                      "sea_lcl",
+                      "sea_sp",
+                      "rw_teus",
+                      "rw_lcl",
+                      "rw_sp"
+                  ]
+              },
+              "export": {
+                  "8": [
+                      "avia_lcl",
+                      "avia_fcl",
+                      "road_lcl",
+                      "road_fcl",
+                      "road_adr",
+                      "road_ref",
+                      "sea_teus",
+                      "sea_lcl",
+                      "sea_sp",
+                      "rw_teus",
+                      "rw_lcl",
+                      "rw_sp"
+                  ]
+              },
+              "local": [
+                  "avia_lcl",
+                  "avia_fcl",
+                  "road_lcl",
+                  "road_fcl",
+                  "road_adr",
+                  "road_ref",
+                  "sea_teus",
+                  "sea_lcl",
+                  "sea_sp",
+                  "rw_teus",
+                  "rw_lcl",
+                  "rw_sp"
+              ]
+          }
+      }
+  ],
+  "association_id": [],
+  "tax_id": 2,
+  "type_id": 1,
+  "language_id": "en",
+  "country_id": 14,
+  "city_id": 1347,
+  "request_format_id": "text",
+  "allow_trade": false,
+  "counterparty_id": 2
+} -->

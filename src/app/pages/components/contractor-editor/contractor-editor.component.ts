@@ -182,6 +182,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private updateContractor(body: any) {
+    console.log(body);
+
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
       next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration),
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -189,6 +191,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private createContractor(body: any) {
+    console.log(body);
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
         this.goToContractor(id);

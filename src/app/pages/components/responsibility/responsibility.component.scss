@@ -1,12 +1,29 @@
 .w50{
   max-width: 48%;
 }
+.t1 th.name {
+  padding: 0;
+}
 
 .t1 th.name .dir-block{
   display: flex;
   justify-content: space-between;
-  border: 1px solid #9ca6b1;
+
   padding-left: 0px;
+}
+
+.border-b{
+  border-bottom: 1px solid #9ca6b1;
+}
+
+.border-r{
+  border-right: 1px solid #9ca6b1;
+}
+
+.qwer{
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 

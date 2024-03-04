@@ -5,6 +5,11 @@ import { Country, Responsibilities } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 import { transportSubKindTable, unknownCountry } from '../../../constants';
 
+export interface Responsibility1{
+  countryFrom?: Country | string
+  countryTo?: Country | string
+  respon?:TransportSubKind[]
+}
 @Component({
   selector: 'app-responsibility',
   templateUrl: './responsibility.component.html',
@@ -20,16 +25,16 @@ import { transportSubKindTable, unknownCountry } from '../../../constants';
 })
 export class ResponsibilityComponent implements ControlValueAccessor {
   @Input() countries: Country[] = [];
-  // @Input() homeCountry: Country = unknownCountry;
-  // @Input() type: 'import' | 'export' = 'export';
+  @Input() homeCountry: Country = unknownCountry;
+  @Input() type: 'import' | 'export' = 'export';
   onChange = (value: any) => { };
   onTouched = () => { };
 
   // New country
   country?: Country;
 
-  dCountry?: Country;
-  aCountry?: Country;
+  // aCountry?: Country;
+  // dCountry?: Country;
 
   filteredCountries: Country[] = [];
 
@@ -38,13 +43,17 @@ export class ResponsibilityComponent implements ControlValueAccessor {
 
   targetCountries: Country[] = [];
   disabled: boolean = false;
+
+
+  responsibilities1: Responsibility1[]=[];
+
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
     const homeCountryChange = changes['homeCountry'];
     if (homeCountryChange) {
-      if (this.dCountry) {
-        const homeCountryId = this.dCountry.id;
+      if (this.homeCountry) {
+        const homeCountryId = this.homeCountry.id;
         delete this.responsibilities[homeCountryId];
         this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
       }
@@ -54,7 +63,7 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   writeValue(responsibilityParam: Responsibilities): void {
     this.responsibilities = responsibilityParam || {};
     this.targetCountries = Object.keys(this.responsibilities)
-      .filter(countryId => Number(countryId) !== this.dCountry?.id)
+      .filter(countryId => Number(countryId) !== this.homeCountry.id)
       .map(countryId => this.getCountryById(countryId)!)
       .sort(byName);
   }
@@ -70,7 +79,8 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   doFilter(country: Country | string): void {
     this.filteredCountries = this.countries.filter(c => {
       const value = typeof country === 'string' ? country : country.name!;
-      return c.name!.toLowerCase().includes(value.toLowerCase()) && !(c.id in this.responsibilities && c.id === this.dCountry?.id);
+      return c.name!.toLowerCase().includes(value.toLowerCase()) ;
+      // && !(c.id in this.responsibilities && c.id === this.homeCountry.id)
     });
   }
 
@@ -79,17 +89,20 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   addDir(){
+    this.responsibilities1.push({
+      countryFrom: undefined,
+      countryTo: undefined,
+      respon:[]
+    });
 
-    this.targetCountries.push()
+    console.log(this.responsibilities1);
+    this.valueChanged();
 
-    // this.targetCountries.push(this.aCountry!);
+
   }
 
-  addCountry(): void {
-    this.targetCountries.push(this.country!);
-    this.targetCountries.sort(byName);
-    this.responsibilities[this.country!.id] = [];
-    this.country = undefined;
+
+  addCountry(countryy:Responsibility1, event:any): void {
     this.valueChanged();
   }
 
@@ -188,8 +201,8 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   valueChanged(): void {
-    const value = { ...this.responsibilities };
-    delete value[this.dCountry!.id];
+    const value = { ...this.responsibilities1 };
+    // delete value[this.homeCountry.id];
     this.onChange(value);
     this.onTouched();
   }

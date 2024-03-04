@@ -61,7 +61,10 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
         import: [{}, []],
         export: [{}, []],
         local: [[], []],
+        responsible_param1:[[],[]]
+
       }),
+      
     });
   }
 
@@ -97,7 +100,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     this.destroy$.next();
     this.destroy$.complete();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['homeCountryId']) {
       if (typeof this.homeCountryId === 'number') {
@@ -109,7 +112,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   validate(control: AbstractControl): ValidationErrors | null {
     return control.value && this.contactForm.valid ? null : { contact: true };
   }
-  
+
   onResponsibleDirectionChange(value: string[]) {
     for (const dir of responsibilityDirections) {
       const control = this.contactForm.get(['responsible_param', dir]);
