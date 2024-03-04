@@ -31,5 +31,9 @@ export class SearchSelectFilterComponent implements OnInit {
     this.test= this.filterControl.array.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
+  // displayFn(user: any): string {
+  //   return user && user.name ? user.name : '';
+  // }
+
 
 }
