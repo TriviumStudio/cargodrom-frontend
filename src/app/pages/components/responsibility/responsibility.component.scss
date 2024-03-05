@@ -26,4 +26,13 @@
   padding: 0;
 }
 
+.btn-del{
+  display: flex;
+  min-width: 16px;
+  min-height: 16px;
+  background: url(../../../../assets/pic-btn-del-gray.svg) no-repeat 50% 50%;
+  cursor: pointer;
+  margin: 1px 5px 0 0;
+}
+
 

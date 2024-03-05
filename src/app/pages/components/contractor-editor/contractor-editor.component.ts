@@ -135,6 +135,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
+    console.log(this.contractorForm.value);
+
     if (!this.contractorForm.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;

@@ -6,8 +6,8 @@ import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/t
 import { transportSubKindTable, unknownCountry } from '../../../constants';
 
 export interface Responsibility1{
-  countryFrom?: Country | string
-  countryTo?: Country | string
+  countryFrom?: number | string
+  countryTo?: number | string
   respon?:TransportSubKind[]
 }
 @Component({
@@ -33,8 +33,9 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   // New country
   country?: Country;
 
-  // aCountry?: Country;
-  // dCountry?: Country;
+  currentArrivalCountry?: Country;
+  currentDepartureCountry?: Country;
+
 
   filteredCountries: Country[] = [];
 
@@ -76,15 +77,24 @@ export class ResponsibilityComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  doFilter(country: Country | string): void {
-    this.filteredCountries = this.countries.filter(c => {
-      const value = typeof country === 'string' ? country : country.name!;
-      return c.name!.toLowerCase().includes(value.toLowerCase()) ;
-      // && !(c.id in this.responsibilities && c.id === this.homeCountry.id)
-    });
-  }
+  doFilter(country: any): void {
+    console.log(country.target.value);
+      this.filteredCountries = this.countries.filter(c => {
+        if(typeof country.target.value === 'string'){
+          return c.name!.toLowerCase().includes(country.target.value.toLowerCase())
+        } else {
+          return this.countries.find(country => country.id === Number(country))
+        }
+      })
+
+}
+
+  // displayFn(country: Country): string {
+  //   return country && country.name ? country.name : '';
+  // }
 
   displayFn(country: Country): string {
+
     return country && country.name ? country.name : '';
   }
 
@@ -97,105 +107,114 @@ export class ResponsibilityComponent implements ControlValueAccessor {
 
     console.log(this.responsibilities1);
     this.valueChanged();
-
-
   }
 
-
-  addCountry(countryy:Responsibility1, event:any): void {
+  addCountry(): void {
     this.valueChanged();
+  }
+  addCountry1(i:number, e:any): void {
+    console.log(i);
+    console.log(e);
+    this.responsibilities1[i].countryFrom= e.option.value.id
+
+
+    // this.valueChanged();
+  }
+  addCountry2(i:number, e:any): void {
+    console.log(i);
+    console.log(e);
+
+    this.responsibilities1[i].countryTo= e.option.value.id
+
+    // this.valueChanged();
   }
 
   getCountryById(id: string | number): Country | undefined {
     return this.countries.find(country => country.id === Number(id));
   }
 
-  removeCountry(countryId: number | string): void {
-    const index = this.targetCountries.findIndex(({ id }) => id === Number(countryId))
-    if (index >= 0) {
-      this.targetCountries.splice(index, 1);
-    }
-    delete this.responsibilities[countryId];
+  removeCountry(countryId: number ): void {
+    this.responsibilities1.splice(countryId, 1);
     this.valueChanged();
   }
 
 
   allChecked(): boolean {
     const countChecked = this.getCountChecked();
-    return this.targetCountries.length > 0 && countChecked === this.targetCountries.length * TransportSubKinds.length;
+    return this.responsibilities1.length > 0 && countChecked === this.responsibilities1.length * TransportSubKinds.length;
   }
 
   allComplete(): boolean {
     const countChecked = this.getCountChecked();
-    return countChecked === 0 || countChecked === this.targetCountries.length * TransportSubKinds.length;
+    return countChecked === 0 || countChecked === this.responsibilities1.length * TransportSubKinds.length;
   }
 
   private getCountChecked(): number {
-    return this.targetCountries.map(({ id }) => this.responsibilities[id].length).reduce((sum, count) => sum + count, 0);
+    return this.responsibilities1.map((e) => e.respon!.length).reduce((sum, count) => sum + count, 0);
   }
 
   allChange({ checked }: MatCheckboxChange): void {
-    this.targetCountries.forEach(({ id }) => this.responsibilities[id] = checked ? [...TransportSubKinds] : []);
+    this.responsibilities1.forEach(( e) => e.respon = checked ? [...TransportSubKinds] : []);
     this.valueChanged();
   }
 
   allCheckedForKind(kind: TransportSubKind): boolean {
-    return this.targetCountries.length > 0 && this.getCheckedForKind(kind) === this.targetCountries.length;
+    return this.responsibilities1.length > 0 && this.getCheckedForKind(kind) === this.responsibilities1.length;
   }
 
   allCompleteForKind(kind: TransportSubKind): boolean {
     const checked = this.getCheckedForKind(kind);
-    return checked === 0 || checked === this.targetCountries.length;
+    return checked === 0 || checked === this.responsibilities1.length;
   }
 
   private getCheckedForKind(kind: TransportSubKind): number {
-    return this.targetCountries.map(({ id }) => this.responsibilities[id].includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
+    return this.responsibilities1.map(( e ) => e.respon?.includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
   }
 
   allChangeForKind(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    this.targetCountries.forEach(({ id }) => {
-      const kinds = this.responsibilities[id];
+    this.responsibilities1.forEach((e) => {
+      const kinds = e.respon;
       if (checked) {
-        if (!kinds.includes(kind)) {
-          kinds.push(kind);
+        if (!kinds?.includes(kind)) {
+          kinds?.push(kind);
         }
       } else {
-        this.responsibilities[id] = kinds.filter(aKind => aKind !== kind);
+        e.respon = kinds?.filter(aKind => aKind !== kind);
       }
     });
     this.valueChanged();
   }
 
-  allCheckedForCountry(countryId: number | string): boolean {
-    const kinds = this.responsibilities[countryId];
-    return kinds.length === TransportSubKinds.length;
+  allCheckedForCountry(i: number ): boolean {
+    const kinds = this.responsibilities1[i].respon;
+    return kinds?.length === TransportSubKinds.length;
   }
 
-  allCompleteForCountry(countryId: number | string): boolean {
-    const kinds = this.responsibilities[countryId];
-    return kinds.length === TransportSubKinds.length || kinds.length === 0;
+  allCompleteForCountry(i: number): boolean {
+    const kinds = this.responsibilities1[i].respon;
+    return kinds?.length === TransportSubKinds.length || kinds?.length === 0;
   }
 
-  allChangeForCountry(countryId: number | string, { checked }: MatCheckboxChange): void {
+  allChangeForCountry(i: number , { checked }: MatCheckboxChange): void {
     if (checked) {
-      this.responsibilities[countryId] = [...TransportSubKinds];
+      this.responsibilities1[i].respon = [...TransportSubKinds];
     } else {
-      this.responsibilities[countryId] = [];
+      this.responsibilities1[i].respon = [];
     }
     this.valueChanged();
   }
 
-  checkedForCountryAndKind(countryId: number | string, kind: TransportSubKind): boolean {
-    const kinds = this.responsibilities[countryId];
-    return kinds.includes(kind);
+  checkedForCountryAndKind(i: number, kind: TransportSubKind): boolean {
+    const kinds = this.responsibilities1[i].respon;
+    return kinds? kinds.includes(kind) : false;
   }
 
-  changeForCountryAndKind(countryId: number | string, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    const kinds = this.responsibilities[countryId];
+  changeForCountryAndKind(i: number, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
+    const kinds = this.responsibilities1[i].respon;
     if (checked) {
-      kinds.push(kind);
+      kinds?.push(kind);
     } else {
-      this.responsibilities[countryId] = kinds.filter(aKind => kind !== aKind);
+      this.responsibilities1[i].respon = kinds?.filter(aKind => kind !== aKind);
     }
     this.valueChanged();
   }

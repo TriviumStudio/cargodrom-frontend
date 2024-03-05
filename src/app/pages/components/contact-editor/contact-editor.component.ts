@@ -64,7 +64,9 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
         responsible_param1:[[],[]]
 
       }),
-      
+      responsible_param3: fb.array([], []),
+      responsible_param4:[[],[]]
+
     });
   }
 
