@@ -60,7 +60,7 @@
               (keyup)="doFilter($event)"
               [matAutocomplete]="auto1">
             <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry1(i, $event)">
-              <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
+              <mat-option *ngFor="let country of filteredCountries"  [value]="country">{{country.name}}</mat-option>
             </mat-autocomplete>
 
             <input placeholder="Откуда"

@@ -33,8 +33,8 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   // New country
   country?: Country;
 
-  currentArrivalCountry?: Country;
-  currentDepartureCountry?: Country;
+  // currentArrivalCountry?: Country;
+  // currentDepartureCountry?: Country;
 
 
   filteredCountries: Country[] = [];
@@ -51,22 +51,22 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const homeCountryChange = changes['homeCountry'];
-    if (homeCountryChange) {
-      if (this.homeCountry) {
-        const homeCountryId = this.homeCountry.id;
-        delete this.responsibilities[homeCountryId];
-        this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
-      }
-    }
+    // const homeCountryChange = changes['homeCountry'];
+    // if (homeCountryChange) {
+    //   if (this.homeCountry) {
+    //     const homeCountryId = this.homeCountry.id;
+    //     delete this.responsibilities[homeCountryId];
+    //     this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
+    //   }
+    // }
   }
 
   writeValue(responsibilityParam: Responsibilities): void {
-    this.responsibilities = responsibilityParam || {};
-    this.targetCountries = Object.keys(this.responsibilities)
-      .filter(countryId => Number(countryId) !== this.homeCountry.id)
-      .map(countryId => this.getCountryById(countryId)!)
-      .sort(byName);
+    // this.responsibilities = responsibilityParam || {};
+    // this.targetCountries = Object.keys(this.responsibilities)
+    //   .filter(countryId => Number(countryId) !== this.homeCountry.id)
+    //   .map(countryId => this.getCountryById(countryId)!)
+    //   .sort(byName);
   }
 
   registerOnChange(fn: any): void {
@@ -109,9 +109,11 @@ export class ResponsibilityComponent implements ControlValueAccessor {
     this.valueChanged();
   }
 
-  addCountry(): void {
-    this.valueChanged();
-  }
+  // addCountry(i: Responsibility1, key: string, e:any): void {
+  //   i[key]= e.option.value.id
+  //   this.valueChanged();
+  // }
+
   addCountry1(i:number, e:any): void {
     console.log(i);
     console.log(e);
@@ -220,7 +222,7 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   valueChanged(): void {
-    const value = { ...this.responsibilities1 };
+    const value = [ ...this.responsibilities1 ];
     // delete value[this.homeCountry.id];
     this.onChange(value);
     this.onTouched();
@@ -232,4 +234,4 @@ export class ResponsibilityComponent implements ControlValueAccessor {
 
 }
 
-const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
+// const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
