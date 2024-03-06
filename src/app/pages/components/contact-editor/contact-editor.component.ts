@@ -72,7 +72,6 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   writeValue(contact: Partial<Contact>): void {
     this.contactForm.patchValue(contact);
-    this.onResponsibleDirectionChange(contact.direction);
   }
 
   registerOnChange(fn: any): void {
@@ -115,11 +114,5 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     return control.value && this.contactForm.valid ? null : { contact: true };
   }
 
-  onResponsibleDirectionChange(value: any) {
 
-      const control = this.contactForm.get('direction');
-
-        control?.enable();
-
-  }
 }

@@ -103,6 +103,7 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
     this.getTaxSystems();
     this.getCounterparty();
+
   }
 
   ngOnDestroy(): void {
@@ -256,6 +257,7 @@ export class ContractorEditorComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.contractorService.contractorInfo({ id })
       .pipe(tap(contractor => {
+        console.log('инициализация едитора',contractor);
         // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
         if (!contractor) {

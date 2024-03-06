@@ -3,14 +3,12 @@
     <tr>
 
       <th class="name">
-
         <div class="border-b">Направления:</div>
 
         <div class="qwer">
           <div class="l">Страна отправления</div>
           <div class="l">Страна назначения</div>
         </div>
-
       </th>
 
       <th class="all bg s e">
@@ -40,54 +38,28 @@
           </mat-checkbox>
           <i></i>
         </label>
-
       </th>
 
     </tr>
 
-    <tr class="row" *ngFor="let countryy of responsibilities1; let i = index">
+    <tr class="row" *ngFor="let direction of directions; let i = index">
       <td class="name">
 
-          <div class="dir-block">
+        <div class="dir-block">
+          <mat-form-field appearance="outline" class="ui-select mw50 ">
+            <mat-select [(ngModel)]="direction.direction_departure" class="border-none">
+              <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <mat-form-field appearance="outline" class="ui-select mw50 ">
-              <mat-select [(ngModel)]="countryy.direction_departure" class="border-none">
-                <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <mat-form-field appearance="outline" class="ui-select mw50">
+            <mat-select [(ngModel)]="direction.direction_arrival">
+              <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-            <mat-form-field appearance="outline" class="ui-select mw50">
-              <mat-select [(ngModel)]="countryy.direction_arrival">
-                <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <span class="btn-del" (click)="removeCountry(i)"></span>
-
-
-            <!-- <input placeholder="Откуда"
-              class="w50"
-              type="text"
-              matInput
-
-              (keyup)="doFilter($event)"
-              [matAutocomplete]="auto1">
-            <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addDepartureCountry(i, $event)">
-              <mat-option *ngFor="let country of filteredCountries"  [value]="country">{{country.name}}</mat-option>
-            </mat-autocomplete>
-
-            <input placeholder="Откуда"
-              class="w50"
-              type="text"
-              matInput
-
-              (keyup)="doFilter($event)"
-              [matAutocomplete]="auto2">
-            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addArrivalCountry(i, $event)">
-              <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
-            </mat-autocomplete> -->
-          </div>
-
+          <span class="btn-del" (click)="removeDirection(i)"></span>
+        </div>
 
       </td>
 
@@ -107,8 +79,7 @@
           <mat-checkbox
             class="show-all"
             [checked]="checkedForCountryAndKind(i, kind.kind)"
-            (change)="changeForCountryAndKind(i, kind.kind, $event)"
-            >
+            (change)="changeForCountryAndKind(i, kind.kind, $event)">
           </mat-checkbox>
           <i></i>
         </label>
@@ -120,6 +91,6 @@
 
 <div class="user-item">
   <div class="form-block-title">
-    <span class="btn v add" (click)=addDir()>Добавить</span>
+    <span class="btn v add" (click)=addDirection()>Добавить</span>
   </div>
 </div>
