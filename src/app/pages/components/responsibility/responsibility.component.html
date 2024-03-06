@@ -33,18 +33,15 @@
         </div>
         <label>
           <mat-checkbox
-
             class="show-all"
             [checked]="allCheckedForKind(kind.kind)"
             [indeterminate]="!allCompleteForKind(kind.kind)"
             (change)="allChangeForKind(kind.kind, $event)">
           </mat-checkbox>
-          <!-- [disabled]="true" -->
           <i></i>
         </label>
-      </th>
 
-      <th class="all bg s e"></th>
+      </th>
 
     </tr>
 
@@ -52,14 +49,30 @@
       <td class="name">
 
           <div class="dir-block">
-            <input placeholder="Откуда"
+
+            <mat-form-field appearance="outline" class="ui-select mw50 ">
+              <mat-select [(ngModel)]="countryy.direction_departure" class="border-none">
+                <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="ui-select mw50">
+              <mat-select [(ngModel)]="countryy.direction_arrival">
+                <mat-option *ngFor="let country of countries;" [value]="country.id">{{ country.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <span class="btn-del" (click)="removeCountry(i)"></span>
+
+
+            <!-- <input placeholder="Откуда"
               class="w50"
               type="text"
               matInput
 
               (keyup)="doFilter($event)"
               [matAutocomplete]="auto1">
-            <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry1(i, $event)">
+            <mat-autocomplete #auto1="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addDepartureCountry(i, $event)">
               <mat-option *ngFor="let country of filteredCountries"  [value]="country">{{country.name}}</mat-option>
             </mat-autocomplete>
 
@@ -70,9 +83,9 @@
 
               (keyup)="doFilter($event)"
               [matAutocomplete]="auto2">
-            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addCountry2(i, $event)">
+            <mat-autocomplete #auto2="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addArrivalCountry(i, $event)">
               <mat-option *ngFor="let country of filteredCountries" [value]="country">{{country.name}}</mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> -->
           </div>
 
 
@@ -99,10 +112,6 @@
           </mat-checkbox>
           <i></i>
         </label>
-      </td>
-
-      <td>
-        <span class="btn-del" (click)="removeCountry(i)"></span>
       </td>
 
     </tr>

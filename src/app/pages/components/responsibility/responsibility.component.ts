@@ -1,15 +1,11 @@
-import { Component, Input, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { Country, Responsibilities } from 'src/app/api/custom_models';
+import { Country, AreaOfResponsibility } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 import { transportSubKindTable, unknownCountry } from '../../../constants';
 
-export interface Responsibility1{
-  countryFrom?: number | string
-  countryTo?: number | string
-  respon?:TransportSubKind[]
-}
+
 @Component({
   selector: 'app-responsibility',
   templateUrl: './responsibility.component.html',
@@ -23,50 +19,30 @@ export interface Responsibility1{
     }
   ]
 })
-export class ResponsibilityComponent implements ControlValueAccessor {
+export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
   @Input() countries: Country[] = [];
   @Input() homeCountry: Country = unknownCountry;
   @Input() type: 'import' | 'export' = 'export';
   onChange = (value: any) => { };
   onTouched = () => { };
 
-  // New country
   country?: Country;
-
-  // currentArrivalCountry?: Country;
-  // currentDepartureCountry?: Country;
-
-
   filteredCountries: Country[] = [];
-
   kinds = transportSubKindTable;
-  responsibilities: Responsibilities = {};
-
-  targetCountries: Country[] = [];
-  disabled: boolean = false;
-
-
-  responsibilities1: Responsibility1[]=[];
+  responsibilities1: AreaOfResponsibility[]=[];
 
   constructor() { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    // const homeCountryChange = changes['homeCountry'];
-    // if (homeCountryChange) {
-    //   if (this.homeCountry) {
-    //     const homeCountryId = this.homeCountry.id;
-    //     delete this.responsibilities[homeCountryId];
-    //     this.targetCountries = this.targetCountries.filter(({ id }) => id !== homeCountryId);
-    //   }
-    // }
+  ngOnInit(): void {
+    if(this.responsibilities1.length===0){
+      this.addDir();
+    }
   }
 
-  writeValue(responsibilityParam: Responsibilities): void {
-    // this.responsibilities = responsibilityParam || {};
-    // this.targetCountries = Object.keys(this.responsibilities)
-    //   .filter(countryId => Number(countryId) !== this.homeCountry.id)
-    //   .map(countryId => this.getCountryById(countryId)!)
-    //   .sort(byName);
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
+  writeValue(responsibilityParam: AreaOfResponsibility): void {
   }
 
   registerOnChange(fn: any): void {
@@ -86,50 +62,31 @@ export class ResponsibilityComponent implements ControlValueAccessor {
           return this.countries.find(country => country.id === Number(country))
         }
       })
-
-}
-
-  // displayFn(country: Country): string {
-  //   return country && country.name ? country.name : '';
-  // }
+  }
 
   displayFn(country: Country): string {
-
     return country && country.name ? country.name : '';
   }
 
   addDir(){
     this.responsibilities1.push({
-      countryFrom: undefined,
-      countryTo: undefined,
-      respon:[]
+      direction_departure: undefined,
+      direction_arrival: undefined,
+      direction_items:[]
     });
 
     console.log(this.responsibilities1);
     this.valueChanged();
   }
 
-  // addCountry(i: Responsibility1, key: string, e:any): void {
-  //   i[key]= e.option.value.id
+  // addDepartureCountry(i:number, id:number): void {
+  //   this.responsibilities1[i].direction_departure= id;
   //   this.valueChanged();
   // }
-
-  addCountry1(i:number, e:any): void {
-    console.log(i);
-    console.log(e);
-    this.responsibilities1[i].countryFrom= e.option.value.id
-
-
-    // this.valueChanged();
-  }
-  addCountry2(i:number, e:any): void {
-    console.log(i);
-    console.log(e);
-
-    this.responsibilities1[i].countryTo= e.option.value.id
-
-    // this.valueChanged();
-  }
+  // addArrivalCountry(i:number, id:number): void {
+  //   this.responsibilities1[i].direction_arrival= id;
+  //   this.valueChanged();
+  // }
 
   getCountryById(id: string | number): Country | undefined {
     return this.countries.find(country => country.id === Number(id));
@@ -139,7 +96,6 @@ export class ResponsibilityComponent implements ControlValueAccessor {
     this.responsibilities1.splice(countryId, 1);
     this.valueChanged();
   }
-
 
   allChecked(): boolean {
     const countChecked = this.getCountChecked();
@@ -152,11 +108,11 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   private getCountChecked(): number {
-    return this.responsibilities1.map((e) => e.respon!.length).reduce((sum, count) => sum + count, 0);
+    return this.responsibilities1.map((e) => e.direction_items!.length).reduce((sum, count) => sum + count, 0);
   }
 
-  allChange({ checked }: MatCheckboxChange): void {
-    this.responsibilities1.forEach(( e) => e.respon = checked ? [...TransportSubKinds] : []);
+  allChange({ checked }: any): void {
+    this.responsibilities1.forEach(( e) => e.direction_items = checked ? [...TransportSubKinds] : []);
     this.valueChanged();
   }
 
@@ -170,68 +126,61 @@ export class ResponsibilityComponent implements ControlValueAccessor {
   }
 
   private getCheckedForKind(kind: TransportSubKind): number {
-    return this.responsibilities1.map(( e ) => e.respon?.includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
+    return this.responsibilities1.map(( e ) => e.direction_items?.includes(kind)).reduce((sum, checked) => checked ? sum + 1 : sum, 0)
   }
 
-  allChangeForKind(kind: TransportSubKind, { checked }: MatCheckboxChange): void {
+  allChangeForKind(kind: TransportSubKind, { checked }: any): void {
     this.responsibilities1.forEach((e) => {
-      const kinds = e.respon;
+      const kinds = e.direction_items;
       if (checked) {
         if (!kinds?.includes(kind)) {
           kinds?.push(kind);
         }
       } else {
-        e.respon = kinds?.filter(aKind => aKind !== kind);
+        e.direction_items = kinds?.filter(aKind => aKind !== kind);
       }
     });
     this.valueChanged();
   }
 
   allCheckedForCountry(i: number ): boolean {
-    const kinds = this.responsibilities1[i].respon;
+    const kinds = this.responsibilities1[i].direction_items;
     return kinds?.length === TransportSubKinds.length;
   }
 
   allCompleteForCountry(i: number): boolean {
-    const kinds = this.responsibilities1[i].respon;
+    const kinds = this.responsibilities1[i].direction_items;
     return kinds?.length === TransportSubKinds.length || kinds?.length === 0;
   }
 
-  allChangeForCountry(i: number , { checked }: MatCheckboxChange): void {
+  allChangeForCountry(i: number , { checked }: any): void {
     if (checked) {
-      this.responsibilities1[i].respon = [...TransportSubKinds];
+      this.responsibilities1[i].direction_items = [...TransportSubKinds];
     } else {
-      this.responsibilities1[i].respon = [];
+      this.responsibilities1[i].direction_items = [];
     }
     this.valueChanged();
   }
 
   checkedForCountryAndKind(i: number, kind: TransportSubKind): boolean {
-    const kinds = this.responsibilities1[i].respon;
+    const kinds = this.responsibilities1[i].direction_items;
     return kinds? kinds.includes(kind) : false;
   }
 
-  changeForCountryAndKind(i: number, kind: TransportSubKind, { checked }: MatCheckboxChange): void {
-    const kinds = this.responsibilities1[i].respon;
+  changeForCountryAndKind(i: number, kind: TransportSubKind, { checked }: any): void {
+    const kinds = this.responsibilities1[i].direction_items;
     if (checked) {
       kinds?.push(kind);
     } else {
-      this.responsibilities1[i].respon = kinds?.filter(aKind => kind !== aKind);
+      this.responsibilities1[i].direction_items = kinds?.filter(aKind => kind !== aKind);
     }
     this.valueChanged();
   }
 
   valueChanged(): void {
     const value = [ ...this.responsibilities1 ];
-    // delete value[this.homeCountry.id];
     this.onChange(value);
     this.onTouched();
   }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
 }
 
-// const byName = (a: Country, b: Country) => a.name!.localeCompare(b.name!);
