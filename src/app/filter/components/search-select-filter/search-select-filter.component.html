@@ -12,18 +12,24 @@
 
 <div>
   <div class="title">{{ filterControl.name }}:</div>
-  <div class="data select">
-    <input appearance="outline" class="ui-select"
+  <div class="data autocomplete">
+    <!-- <input appearance="outline" class="ui-select"
       type="text"
       [matAutocomplete]="auto"
       (keyup)="search($event)"
-
       placeholder="—" >
     <mat-autocomplete  #auto="matAutocomplete">
-      <!-- <mat-option value="">-- Не выбрано --</mat-option> -->
+
       <mat-option *ngFor="let item of test;" [value]="item.name" (click)='change(item)'>{{ item.name }}</mat-option>
-    </mat-autocomplete>
+    </mat-autocomplete> -->
+
+    <input type="text" placeholder="Добавить страну или регион..." matInput [(ngModel)]="filter.value[filterControl.field]" (ngModelChange)="search($event)"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" >
+          <mat-option *ngFor="let country of test" [value]="country.name">
+            {{country.name}}
+          </mat-option>
+        </mat-autocomplete>
   </div>
 </div>
 
-<!-- НАДО ПОПРОБОВАТЬ С ДИСПЛЕЙН ФН, ДЛЯ НОРМАЛЬНОЙ ОЧИСТКИ ПОЛЯ(БЕЗ КЛИКА ПО ОПТИОН, ЧЕРЕЗ НГМОДЕЛЬ К ИНПУТУ) -->

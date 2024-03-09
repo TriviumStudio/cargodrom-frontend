@@ -24,9 +24,11 @@ export class SearchSelectFilterComponent implements OnInit {
   }
 
   search(e:any){
+    console.log(e);
+
     this.filter.value[this.filterControl.field]="";
 
-    const filterValue = e.target.value.toLowerCase();
+    const filterValue = e.toLowerCase();
 
     this.test= this.filterControl.array.filter(option => option.name.toLowerCase().includes(filterValue));
   }
