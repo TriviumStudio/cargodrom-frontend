@@ -21,7 +21,7 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
   startDate='';
   endDate='';
 
-  show=true
+  dataBorder=false;
 
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -35,29 +35,19 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
     public chenge: ChangeDetectorRef
   ) { }
 
-
-
-
-
-
   ngOnInit(): void {
     this.filter.clearEmiter$
       .pipe(skip(1), takeUntil(this.unsubscribe$))
-      .subscribe(()=>{
-        console.log("ресет субджект");
-
+      .subscribe(()=> {
         this.range.reset();
-      })
-    const date=this.filter.value[this.filterControl.field]
+        this.dataBorder=false;
+      } )
+
+    const date=this.filter.value[this.filterControl.field];
 
     if(date){
-
-
+      this.dataBorder=true;
       const [start, end] = date.split('-');
-
-      console.log('стар и енд',start, end);
-
-      console.log('дата', date);
 
       const startDateParts = start.split(".");
       const endDateParts = end.split(".");
@@ -67,8 +57,6 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
         end: new Date(+endDateParts[2], endDateParts[1] - 1, +endDateParts[0])
       })
     }
-
-
   }
 
   ngOnDestroy(): void {
@@ -76,33 +64,25 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-
-
-  test1(e:any){
-    console.log(formatDate(e.value,'dd.MM.yyyy','ru-RU'));
+  startDateChange(e:any){
     this.startDate=formatDate(e.value,'dd.MM.yyyy','ru-RU');
-    this.test3();
-
-
+    this.fullDateChange();
   }
 
-  test2(e:any){
-    console.log(formatDate(e.value,'dd.MM.yyyy','ru-RU'));
+  endDateChange(e:any){
     this.endDate=formatDate(e.value,'dd.MM.yyyy','ru-RU');
-    this.test3();
+    this.fullDateChange();
   }
 
-  test3(){
+  fullDateChange(){
+    this.dataBorder=true;
     this.filter.value[this.filterControl.field]=`${this.startDate}-${this.endDate}`
   }
 
   change(id: string): void {
+    this.dataBorder=false;
     if(id===this.filter.value[this.filterControl.field]){
       this.filter.value[this.filterControl.field]="";
     }
-  }
-
-  reset(){
-   this.range.reset()
   }
 }
