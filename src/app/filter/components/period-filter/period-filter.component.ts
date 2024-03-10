@@ -80,6 +80,7 @@ export class PeriodFilterComponent implements OnInit, OnDestroy {
   }
 
   change(id: string): void {
+    this.range.reset();
     this.dataBorder=false;
     if(id===this.filter.value[this.filterControl.field]){
       this.filter.value[this.filterControl.field]="";
