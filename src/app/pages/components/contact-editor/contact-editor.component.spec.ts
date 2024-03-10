@@ -10,6 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ResponsibilityMatrixComponent } from '../responsibility-matrix/responsibility-matrix.component';
 import { ResponsibilityRowComponent } from '../responsibility-row/responsibility-row.component';
+import { ResponsibilityComponent } from '../responsibility/responsibility.component';
 
 describe('ContactEditorComponent', () => {
   let component: ContactEditorComponent;
@@ -31,6 +32,7 @@ describe('ContactEditorComponent', () => {
         TradeDirectionComponent,
         ResponsibilityMatrixComponent,
         ResponsibilityRowComponent,
+        ResponsibilityComponent,
       ]
     })
     .compileComponents();
