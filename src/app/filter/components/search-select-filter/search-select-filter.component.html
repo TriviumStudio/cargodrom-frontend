@@ -1,45 +1,7 @@
-<!-- <div>
-  <div class="title">{{ filterControl.name }}:</div>
-  <div class="data select">
-    <mat-form-field appearance="outline" class="ui-select">
-      <mat-select [(ngModel)]="filter.value[filterControl.field]">
-        <mat-option value="">-- Не выбрано --</mat-option>
-        <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-</div> -->
-
-<!-- <div>
-  <div class="title">{{ filterControl.name }}:</div>
-  <div class="data autocomplete">
-    <input appearance="outline" class="ui-select"
-      type="text"
-      [matAutocomplete]="auto"
-      (keyup)="search($event)"
-      placeholder="—" >
-    <mat-autocomplete  #auto="matAutocomplete">
-
-      <mat-option *ngFor="let item of test;" [value]="item.name" (click)='change(item)'>{{ item.name }}</mat-option>
-    </mat-autocomplete>
-
-    <input type="text"
-      placeholder="Добавить страну или регион..."
-      matInput
-      [(ngModel)]="filter.value[filterControl.field]"
-      (ngModelChange)="search($event)"
-      [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="c" >
-      <mat-option *ngFor="let country of test" [value]="country.id">{{country.name}}</mat-option>
-    </mat-autocomplete>
-
-  </div>
-</div> -->
-
 <div>
   <div class="title">{{ filterControl.name }}:</div>
   <div class="data select" [formGroup]="form">
-    <input appearance="outline" class="ui-select" formControlName="name"
+    <input appearance="outline" class="ui-select" formControlName="name" style="height: 38.75px;"
       type="text"
       [matAutocomplete]="auto"
       (keyup)="search($event)"
