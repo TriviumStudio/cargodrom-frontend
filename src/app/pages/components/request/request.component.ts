@@ -1,6 +1,5 @@
-import { CustomerService } from './../../../api/services/customer.service';
-import { Client, ClientFilter, SearchFilterSchema } from './../../../api/custom_models';
-import { Component, ViewEncapsulation } from '@angular/core';
+import { SearchFilterSchema } from './../../../api/custom_models';
+import { Component } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
