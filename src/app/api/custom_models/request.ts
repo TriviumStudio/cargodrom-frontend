@@ -560,6 +560,23 @@ export interface RequestFilter {
 }
 
 
+export interface RequestFilter {
+
+  request_type_id?: number;
+
+
+  status_id?: number;
+
+
+  start?: number;
+
+
+  count?: number;
+
+
+  sort?: SortColumn<Request>[];
+}
+
 
 
 
