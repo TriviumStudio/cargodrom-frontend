@@ -376,7 +376,7 @@ export interface Request {
 /**
  * Статус Запроса (ID берем из запроса - request_status)
  */
-'status_id'?: number;
+'status_id'?: string;
 
 /**
  * Статус CRM (ID берем из запроса - request_status_crm)
