@@ -565,7 +565,7 @@ export interface RequestFilter {
   request_type_id?: number;
 
 
-  status_id?: number;
+  status_id?: string[];
 
 
   start?: number;
