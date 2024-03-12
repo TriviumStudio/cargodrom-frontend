@@ -17,8 +17,8 @@ import { FilterService } from 'src/app/filter/services/filter.service';
 })
 export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   sortField = 'name' as const;
-  
-  
+
+
   trackById = (_index: number, client: Client) => client.id!;
 
   constructor(
@@ -35,9 +35,31 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   load<Client>(params: LoadParams<Client, ClientFilter>): Observable<{ total: number; items: Client[]; }> {
     return this.customerService.customerList(params as any) as unknown as Observable<{ total: number; items: Client[]; column: string[], sort: string[] }>;
   }
-  
+
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.customerService.customerListSearch().pipe(map(val => val as SearchFilterSchema));
   }
+
+  protected override exportData(): Observable<{data: string; name: string}> {
+    return this.customerService.customerExport(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
+  protected override importData(body: {data: string; name: string}) {
+    return this.customerService.customerImport({body}) as any;
+  }
+
+  protected override importDataConfirm(body: {import_key: string}) {
+    return this.customerService.customerImportConfirm({import_key: body.import_key});
+  }
+
+  protected override importResult(body: {import_key: string}) {
+    return this.customerService.customerImportResult({import_key: body.import_key})
+  }
+
+  protected override importTemplate(): Observable<{data: string; name: string}> {
+    return this.customerService.customerImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
+
 
 }

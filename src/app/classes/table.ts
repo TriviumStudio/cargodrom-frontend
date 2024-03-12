@@ -1,8 +1,8 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
-import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
-import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { NEVER, Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
@@ -22,6 +22,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   filter?: F;
   column?: string[];
   sortableColumns?: string[];
+
+  readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
 
   protected removedMessage: string = 'Запись удалена';
@@ -36,7 +39,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   readonly nameField?: keyof T | A;
   sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
+  @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
+  @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   private aliases = new Map<A, (keyof T)[]>();
+
+  @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -258,5 +265,152 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   registerAlias(alias: A, fields: (keyof T)[]): void {
     this.aliases.set(alias, fields);
   }
+
+  protected exportData(): Observable<{data: string; name: string}> {
+    return NEVER;
+  }
+
+  protected importData(body: {data: string; name: string}): Observable<{result: any;import_key: string; text: string}> {
+    return NEVER;
+  }
+
+  protected importDataConfirm(body: {import_key: string}): Observable<any> {
+    return NEVER;
+  }
+
+  protected importResult(body: {import_key: string}): Observable<any> {
+    return NEVER;
+  }
+
+  protected importTemplate(): Observable<{data: string; name: string}> {
+    return NEVER;
+  }
+
+  confirmExport(): void {
+    if (!this.exportDialogRef) {
+      console.log(`Не найден шаблон для подтверждения экспорта в файл`);
+      return;
+    }
+    this.dialog.open(this.exportDialogRef).afterClosed().subscribe(res => {
+
+
+      if (res) {
+        this.exportFile();
+console.log('окно экспорт');
+      }
+    });
+  }
+
+  private doImport(file: File): void {
+    console.log(file);
+
+    if (!this.importDialogRef) {
+      console.log(`Не найден шаблон для подтверждения импорта из файла`);
+      return;
+    }
+    const fileName = file.name;
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      if (typeof event.target?.result === 'string') {
+        const base64URL = event.target?.result;
+        const suffix = `;base64,`;
+        const index = base64URL.indexOf(suffix);
+        const data = base64URL.substring(index + suffix.length);
+        console.log(`index`, index);
+        console.log(`base64URL`, base64URL);
+        console.log(`data`, data);
+        const payload = { data, name: fileName };
+        this.importData(payload).subscribe({
+          // next: ({ import_key, text }) => {
+          next: (e) => {
+            console.log(e);
+            const text =e.text;
+            const res =e.result;
+            const import_key=e.import_key;
+            this.dialog.open(this.importDialogRef!, { data: {...payload, text, res} }).afterClosed().subscribe(res => {
+
+              if (res===2) {
+                this.importResult({ import_key }).subscribe({
+                  next: ({name, data}) => {
+                    const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+                    const a = document.createElement('a');
+                    a.href = dataUri;
+                    a.download = name;
+                    a.click();
+                    this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                    this.onStartChange(0);
+                  },
+                  error: (err) => this.snackBar.open(`Не удалось скачать файл с результатами обработки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                });
+              }
+
+              if (res===1) {
+                this.importDataConfirm({ import_key }).subscribe({
+                  next: () => {
+                    this.snackBar.open('Данные импортированы успешно', undefined, this.snackBarWithShortDuration);
+                    this.onStartChange(0);
+                  },
+                  error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                });
+              }
+            });
+          },
+          error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        });
+      }
+    }, false);
+    reader.addEventListener('error', () => this.snackBar.open(`Ошибка чтения файла ${fileName} `, undefined, this.snackBarWithShortDuration), false);
+    reader.readAsDataURL(file);
+  }
+
+  private exportFile(): void {
+    this.exportData().subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name;
+        a.click();
+      },
+      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration)
+    })
+  }
+
+  exportFileTemplate(): void {
+    this.importTemplate().subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name;
+        a.click();
+      },
+      error: err => this.snackBar.open(`Не удалось экспортировать данные: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration)
+    })
+  }
+
+  importFile(): void {
+    const input = this.file?.nativeElement as HTMLInputElement | undefined;
+    if (input) {
+      input.value = '';
+      input.click();
+    }
+  }
+
+  selectFileForImport(): void {
+    const files = this.file?.nativeElement.files as File[] | undefined;
+    const file = files?.[0];
+    if (!file?.name.endsWith('.xlsx')) {
+      this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
+      return;
+    }
+    this.doImport(file);
+  }
+
+
 
 }

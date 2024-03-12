@@ -43,38 +43,3 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
 }
-
-//1)
-//request_list_search, request_type_id
-//сменить форм с радио на чекбокс
-//2) колонок по макету 11, а приходит 12
-
-
-
-
-
-
-
-
-
-
-
-// import { Component, OnInit } from '@angular/core';
-// import { FilterService } from 'src/app/filter/services/filter.service';
-
-// @Component({
-//   selector: 'app-request',
-//   templateUrl: './request.component.html',
-//   styleUrls: ['./request.component.scss'],
-//   providers: [FilterService]
-// })
-// export class RequestComponent implements OnInit {
-
-//   constructor(
-//     filter: FilterService,
-//   ) { }
-
-//   ngOnInit(): void {
-//   }
-
-// }

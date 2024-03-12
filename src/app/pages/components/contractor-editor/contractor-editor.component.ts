@@ -1,6 +1,6 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -14,6 +14,21 @@ import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';
 import { SystemService } from 'src/app/api/services';
+import { Counterparty } from 'src/app/api/custom_models/counterparty';
+
+
+// 1. "Исключить Подрядчика из торгов" переделываем в "Участник торгов" Инверсия
+// Переменная allow_trade
+
+// 2. рядом добавляем Селект "Вид подрядчика"
+// метод /contractor_type будет новый список: "Индикатив", "Актуальный", "Архив"
+// Если "Актуальный", то "Контактное лицо" является обязательным, "Индикатив" и "Архив" не обязательно
+// Переменная type_id
+
+
+// 3. Существующий "Вид подрядчика" меняем на "Тип контрагента"
+// Метод /system_counterparty
+// counterparty_id
 
 @Component({
   selector: 'app-contractor-editor',
@@ -37,6 +52,9 @@ export class ContractorEditorComponent implements OnInit {
   title = '';
   taxSystems: TaxSystem[] = [];
   nameForHeader?: string;
+  // counterpartys:Counterparty[]=[];
+  counterpartys:any[]=[];
+  // private _destroy$ = new Subject();
 
   constructor(
     private route: ActivatedRoute,
@@ -53,12 +71,12 @@ export class ContractorEditorComponent implements OnInit {
       id: [''],
       address: ['', []],
       name: ['', [Validators.required]],
-      ind: ['', [Validators.required]],
+      ind: ['', []],
       phone: ['', []],
       web: ['', []],
       rating_nps: [{ value: 0, disabled: true }, []],
       user_rating_nps: [{ value: 0, disabled: true }, []],
-      contacts: fb.array([], [Validators.required]),
+      contacts: fb.array([], []),
       association_id: [[]],
       tax_id: [undefined, [Validators.required]],
       // type_id: [undefined, [Validators.required]],
@@ -67,7 +85,9 @@ export class ContractorEditorComponent implements OnInit {
       country_id: ['', [Validators.required]],
       city_id: ['', [Validators.required]],
       request_format_id: ['', [Validators.required]],
-      exclude_from_trade: [false]
+      // exclude_from_trade: [false]
+      allow_trade:[false],
+      counterparty_id: ['', [Validators.required]],
     });
   }
 
@@ -83,6 +103,13 @@ export class ContractorEditorComponent implements OnInit {
     this.getCountries();
     this.getRequestFormats();
     this.getTaxSystems();
+    this.getCounterparty();
+
+  }
+
+  ngOnDestroy(): void {
+    // this._destroy$.next(null);
+    // this._destroy$.complete();
   }
 
   goBack(): void {
@@ -110,6 +137,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
+    console.log(this.contractorForm.value);
+
     if (!this.contractorForm.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
       return;
@@ -136,6 +165,17 @@ export class ContractorEditorComponent implements OnInit {
     return ids.map(id => this.associations.find(a => a.id === id)?.name).join(', ');
   }
 
+  onContractorTypeChange(e:any){
+    if(e.contact_required){
+      console.log('1234');
+
+      this.contractorForm.get('type_id')!.setValidators([Validators.required]);
+    } else {
+      this.contractorForm.get('type_id')!.setValidators([]);
+      // this.contractorForm.get('type_id')!.clearValidators;
+    }
+  }
+
   onCountryChange(countryId: number): void {
     this.contractorForm.controls['city_id'].reset(undefined);
     this.getCities(countryId);
@@ -146,6 +186,8 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private updateContractor(body: any) {
+    console.log(body);
+
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
       next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration),
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -153,6 +195,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   private createContractor(body: any) {
+    console.log(body);
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
         this.goToContractor(id);
@@ -171,6 +214,19 @@ export class ContractorEditorComponent implements OnInit {
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
+  }
+
+  // private getCounterparty() {
+  //   this.systemService.systemCounterparty()
+  //     .pipe(
+  //       tap((counterpartys) => this.counterpartys = counterpartys as any),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
+
+  private getCounterparty(){
+    this.systemService.systemCounterparty()
+      .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
   }
 
   private getAssociations() {
@@ -202,6 +258,7 @@ export class ContractorEditorComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.contractorService.contractorInfo({ id })
       .pipe(tap(contractor => {
+        console.log('инициализация едитора',contractor);
         // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
         // therefore we have to handle that case manually
         if (!contractor) {

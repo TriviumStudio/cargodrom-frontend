@@ -28,7 +28,8 @@ import { ResponsibilityMatrixComponent } from './components/responsibility-matri
 import { ResponsibilityRowComponent } from './components/responsibility-row/responsibility-row.component';
 import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
-import { RadioFilterComponent } from '../filter/components/radio-filter/radio-filter.component';
+import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
+
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { RadioFilterComponent } from '../filter/components/radio-filter/radio-fi
     FileListComponent,
     ResponsibilityMatrixComponent,
     ResponsibilityRowComponent,
+    ResponsibilityComponent,
     PlaceEditorComponent,
     RequestServicesComponent,
 
