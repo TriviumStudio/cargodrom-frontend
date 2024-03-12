@@ -18,7 +18,6 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
-
   trackById = (_index: number, request: Request) => request.id!;
 
   constructor(
@@ -39,6 +38,26 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
+  }
+
+  protected override exportData(): Observable<{data: string; name: string}> {
+    return this.requestService.requestExport(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
+  protected override importData(body: {data: string; name: string}) {
+    return this.requestService.requestImport({body}) as any;
+  }
+
+  protected override importDataConfirm(body: {import_key: string}) {
+    return this.requestService.requestImportConfirm({import_key: body.import_key});
+  }
+
+  protected override importResult(body: {import_key: string}) {
+    return this.requestService.requestImportResult({import_key: body.import_key})
+  }
+
+  protected override importTemplate(): Observable<{data: string; name: string}> {
+    return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
 }

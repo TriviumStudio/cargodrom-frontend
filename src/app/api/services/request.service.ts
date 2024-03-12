@@ -532,7 +532,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 }>;
 
 /**
@@ -973,7 +973,7 @@ export class RequestService extends BaseService {
         /**
          * Дата создания
          */
-        'time_add'?: date_list;
+        'time_add'?: string;
         }>;
         
         /**
@@ -1498,7 +1498,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 }>;
 
 /**
@@ -1915,7 +1915,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 }>;
 
 /**
@@ -2330,7 +2330,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 }>;
 
 /**
@@ -3448,7 +3448,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -3859,7 +3859,7 @@ export class RequestService extends BaseService {
         /**
          * Дата создания
          */
-        'time_add'?: date_list;
+        'time_add'?: string;
         
         /**
          * Документы (файлы)
@@ -4283,7 +4283,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -4685,7 +4685,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 
 /**
  * Документы (файлы)
@@ -5085,7 +5085,7 @@ export class RequestService extends BaseService {
 /**
  * Дата создания
  */
-'time_add'?: date_list;
+'time_add'?: string;
 
 /**
  * Документы (файлы)
