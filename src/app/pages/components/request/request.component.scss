@@ -6,28 +6,18 @@
   display: flex;
   padding: 0 ;
   justify-content: center;
-
 }
 
 .kso-item{
-
   width: 8px;
   height: 28px;
   background-color: #81DD7C;
   margin-left: 2px;
 }
+
 .kso-item:first-child{
   margin-left: 0;
 }
-.hoverr{
-  display: flex;
-}
-.template {
-  display: none;
-}
 
-.hoverr:hover .template{
-  display: flex;
-}
 
 

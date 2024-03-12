@@ -1,5 +1,5 @@
 import { SearchFilterSchema } from './../../../api/custom_models';
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +13,7 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
   selector: 'app-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [FilterService]
 })
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
@@ -22,12 +23,12 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   constructor(
     private requestService: RequestService,
-
     filterService: FilterService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+
   ) {
     super(route, router, dialog, snackBar, filterService);
   }
@@ -41,7 +42,12 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
   protected override exportData(): Observable<{data: string; name: string}> {
-    return this.requestService.requestExport(this.filter as any) as Observable<{data: string; name: string}>;
+    const sort ={
+      "field": this.sortField,
+      "dir": this.sortDir
+    }
+    // return this.requestService.requestExport(this.filter as any) as Observable<{data: string; name: string}>;
+    return this.requestService.requestExport({...this.filter, 'sort': sort} as any) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {
