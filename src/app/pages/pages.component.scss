@@ -5,7 +5,7 @@ mat-date-range-input .mat-date-range-input-separator-hidden{
 .border-on mat-date-range-input .mat-date-range-input-separator{
   color: #DB563B;
 }
-//стили для селекторов в доп.фильтрах
+
 
 //стили для кнопки шаблон для импорта
 .hoverr{
@@ -24,17 +24,16 @@ mat-date-range-input .mat-date-range-input-separator-hidden{
 .additional .select-filter-main {
   display: none;
 }
-
 .additional mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline > * {
   background: white;
 }
-
 .main .mat-select-value-text{
-  // color: #DB563B;
   font-size: 13px;
   line-height: 13px;
 }
-
+.main .value-selected .mat-select-value-text{
+  color: #DB563B;
+}
 .main .mat-select-arrow{
   color: #DB563B;
 }

@@ -10,15 +10,13 @@
   </div>
 </div>
 
-<div class="select-filter select-filter-main">
+<div class="select-filter select-filter-main" >
   <div class="title">{{ filterControl.name }}:</div>
-  <div class="data select">
-
+  <div class="data select" [ngClass]="{'value-selected': filter.value[filterControl.field]}">
     <mat-select [(ngModel)]="filter.value[filterControl.field]">
       <mat-option value="">Не выбрано</mat-option>
       <mat-option *ngFor="let item of filterControl.array;" [value]="item.id">{{ item.name }}</mat-option>
     </mat-select>
-
   </div>
 </div>
 
