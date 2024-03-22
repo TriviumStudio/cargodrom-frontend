@@ -1,11 +1,10 @@
-//стили для фильтра-период
+//стили для фильтра-период в мейн фильтрах
 .main mat-date-range-input .mat-date-range-input-separator-hidden{
   opacity: 1 !important;
 }
-.border-on mat-date-range-input .mat-date-range-input-separator{
+.main .border-on mat-date-range-input .mat-date-range-input-separator{
   color: #DB563B;
 }
-
 .main .mat-date-range-input-inner{
   display: flex;
   vertical-align:baseline;

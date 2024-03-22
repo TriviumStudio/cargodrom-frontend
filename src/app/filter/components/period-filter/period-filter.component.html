@@ -3,20 +3,32 @@
   <div class="title">Период:</div>
 
     <div class="df">
-      <div class="data checkbox">
 
+      <div class="data checkbox">
         <label>
-          <input [(ngModel)]="filter.value[filterControl.field]" type="radio" (click)="change(day)" [value]="day">
+          <input [(ngModel)]="filter.value[filterControl.field]"
+            type="radio"
+            (click)="change(day)"
+            [value]="day"
+          >
           <span>День</span>
         </label>
 
         <label>
-          <input [(ngModel)]="filter.value[filterControl.field]" type="radio" (click)="change(week)" [value]="week">
+          <input [(ngModel)]="filter.value[filterControl.field]"
+            type="radio"
+            (click)="change(week)"
+            [value]="week"
+          >
           <span>Неделя</span>
         </label>
 
         <label>
-          <input [(ngModel)]="filter.value[filterControl.field]" type="radio" (click)="change(month)" [value]="month">
+          <input [(ngModel)]="filter.value[filterControl.field]"
+            type="radio"
+            (click)="change(month)"
+            [value]="month"
+          >
           <span>Месяц</span>
         </label>
       </div>
