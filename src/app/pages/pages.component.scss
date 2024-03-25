@@ -1,13 +1,49 @@
 //стили для фильтра-период в мейн фильтрах
 .main mat-date-range-input .mat-date-range-input-separator-hidden{
   opacity: 1 !important;
+  margin: 0 2px 0 0;
+  color: #606A74;
 }
-.main .border-on mat-date-range-input .mat-date-range-input-separator{
+.main .border-on .mat-date-range-input-separator{
   color: #DB563B;
 }
-.main .mat-date-range-input-inner{
-  display: flex;
-  vertical-align:baseline;
+.main .data .mat-date-range-input-container input {
+  display: block;
+  font-size: 13px;
+}
+.main .data .mat-date-range-input {
+  height: 12.5px;
+  margin-right: 5px;
+}
+.main .data .mat-date-range-input-container {
+  height: 12.5px;
+}
+.main .data .mat-date-range-input-start-wrapper{
+  width: 66px;
+  height: 12.5px;
+  overflow: inherit;
+  line-height: 13px;
+}
+.main .data .mat-date-range-input-end-wrapper{
+  width: 66px;
+  height: 12.5px;
+  line-height: 13px;
+}
+.main .data .mat-date-range-input-separator{
+  height: 12.5px;
+  margin: 0 2px 0 1px;
+}
+.main .data .mat-date-range-input input{
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  font-size: 13px;
+  line-height: 13px;
+  cursor: pointer;
+
+  height: 12.5px;
 }
 
 //стили для кнопки шаблон для импорта
