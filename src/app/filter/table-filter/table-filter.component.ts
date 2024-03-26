@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FilterService } from '../services/filter.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class TableFilterComponent implements OnInit {
   showMore = false;
 
   asd=false;
+
+  @Input() isBiddingMode?: boolean;
 
   constructor(
     public filterService: FilterService,

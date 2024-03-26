@@ -23,6 +23,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   column?: string[];
   sortableColumns?: string[];
 
+  isBiddingMode=false;
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
@@ -75,9 +77,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadRows(): void {
     const sortCol = this.getSort();
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
+      console.log(rows);
+
       this.rows = rows ? rows.items as T[] : [];
       this.total = rows.total;
       this.column = rows.column;
+      if(this.isBiddingMode){
+        this.column?.unshift('checkbox')
+      }
       this.sortableColumns = rows.sort;
     });
   }
@@ -177,7 +184,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.start = 0;
     if (this.sortField === field) {
-      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc'; 
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortDir = 'asc';
       this.sortField = field;

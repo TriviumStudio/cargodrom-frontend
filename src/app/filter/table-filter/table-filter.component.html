@@ -8,6 +8,15 @@
       [filterControl]="control">
     </app-universal-filter>
 
+    <div *ngIf="isBiddingMode">
+      <app-universal-filter
+        class="item"
+        *ngFor="let control of filterService.searchFilterSchema?.header"
+        [filterControl]="control">
+      </app-universal-filter>
+    </div>
+
+
     <div class="item" [ngClass]="{'open': showMore}" *ngIf="filterService.hasAdditional">
       <div>
         <div class="title">&nbsp;</div>
