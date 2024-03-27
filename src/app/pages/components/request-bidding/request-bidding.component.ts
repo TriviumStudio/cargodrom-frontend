@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { RequestService } from 'src/app/api/services';
 @Component({
   selector: 'app-request-bidding',
   templateUrl: './request-bidding.component.html',
@@ -24,6 +25,7 @@ export class RequestBiddingComponent extends Table<Contractor, 'trade_rating', C
 
   constructor(
     private contractorService: ContractorService,
+    private requestService: RequestService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
     route: ActivatedRoute,
@@ -42,6 +44,10 @@ export class RequestBiddingComponent extends Table<Contractor, 'trade_rating', C
 
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
     return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
+  }
+
+  protected override test(id:number): Observable<any> {
+    return this.requestService.requestContractorSelectGet({id:id});
   }
 
 }

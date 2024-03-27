@@ -25,6 +25,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   isBiddingMode=false;
 
+  contractorsSelectedForRequest:any=[]
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
@@ -72,6 +74,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.loadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
+
+    this.getTest();
   }
 
   protected loadRows(): void {
@@ -289,6 +293,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
+  protected test(id:number): Observable<any> {
+    return NEVER;
+  }
+
   confirmExport(): void {
     if (!this.exportDialogRef) {
       return;
@@ -403,9 +411,29 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     }
     this.doImport(file);
   }
+
   resetPage(){
     this.router.navigate([])
   }
 
+  getTest(){
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.test(id).subscribe({
+      next: (e) => {
+        this.contractorsSelectedForRequest=e;
+      },
+      error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
+  test2(id:number){
+    let asdf
+    this.contractorsSelectedForRequest.forEach((i:any)=>{
+      if(i.contractor_id===id){
+        asdf=true;
+      }
+    })
+    return asdf
+  }
 
 }

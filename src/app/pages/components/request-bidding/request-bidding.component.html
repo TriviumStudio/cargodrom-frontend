@@ -41,6 +41,7 @@
   </div>
 </div>
 
+<button (click)="getTest()">getTest</button>
 
 <app-table-filter [isBiddingMode]="isBiddingMode"></app-table-filter>
 
@@ -53,7 +54,7 @@
           <div class="column w10">
             <label>
               <mat-checkbox
-                class="show-all testclass"
+
                 >
               </mat-checkbox>
               <i></i>
@@ -65,13 +66,14 @@
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
           <div class="column w10">
-            <label>
+            {{test2(contractor.id)}}
+            <!-- <label>
               <mat-checkbox
-                class="show-all testclass"
+
                 >
               </mat-checkbox>
               <i></i>
-            </label>
+            </label> -->
           </div>
         </div>
       </td>
