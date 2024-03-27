@@ -427,13 +427,20 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   test2(id:number){
-    let asdf
+    let isCheck
     this.contractorsSelectedForRequest.forEach((i:any)=>{
       if(i.contractor_id===id){
-        asdf=true;
+        isCheck=true;
       }
     })
-    return asdf
+    return isCheck
   }
+
+  test3(){
+    return true
+
+  }
+
+
 
 }

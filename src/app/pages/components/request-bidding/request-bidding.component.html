@@ -63,17 +63,18 @@
         </div>
       </th>
 
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor;let i = index">
         <div class="td-block">
           <div class="column w10">
-            {{test2(contractor.id)}}
-            <!-- <label>
+            {{i}}
+            <label>
               <mat-checkbox
+                [checked]="test2(contractor.id)"
 
                 >
               </mat-checkbox>
               <i></i>
-            </label> -->
+            </label>
           </div>
         </div>
       </td>
