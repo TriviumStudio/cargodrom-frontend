@@ -14,7 +14,7 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { PagesComponent } from './pages.component';
 import { ClientEditorComponent } from './components/client-editor/client-editor.component';
 import { AuthGuard } from '../auth/auth.guard';
-import { RequestBiddingComponent } from './components/request-bidding/request-bidding.component';
+
 
 
 const routes: Routes = [
@@ -59,7 +59,7 @@ const routes: Routes = [
       },
       {
         path: 'request/bidding/:id',
-        component: RequestBiddingComponent,
+        component: ContractorComponent,
         pathMatch: 'full',
         title: 'Торги запроса',
         canActivate: [AuthGuard],

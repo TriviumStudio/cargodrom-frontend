@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { RequestService } from 'src/app/api/services';
 @Component({
   selector: 'app-contractor',
   templateUrl: './contractor.component.html',
@@ -24,6 +25,7 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   constructor(
     private contractorService: ContractorService,
+    private requestService: RequestService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
     route: ActivatedRoute,
@@ -32,10 +34,13 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   ) {
     super(route, router, dialog, snackBar, filter);
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
+    // this.isBiddingMode=true;
   }
 
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
+    console.log(params,'paraps');
+
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
 
@@ -61,6 +66,14 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.contractorService.contractorImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
+  protected override requestContractorSelectGet(id:number): Observable<any> {
+    return this.requestService.requestContractorSelectGet({id:id});
+  }
+
+  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}) {
+    return this.requestService.requestContractorSelectUpdate({body});
   }
 
 }

@@ -7,6 +7,7 @@ import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
 import { SearchFilterSchema } from '../api/custom_models';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface LoadParams<T, F> {
   start?: number;
@@ -59,6 +60,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   ngOnInit(): void {
+
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isBiddingMode = segments[1] === 'bidding';
+
+
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
     });
@@ -75,7 +81,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
 
-    this.getTest();
+
   }
 
   protected loadRows(): void {
@@ -88,9 +94,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.column = rows.column;
       if(this.isBiddingMode){
         this.column?.unshift('checkbox')
+        this.column?.pop()
       }
       this.sortableColumns = rows.sort;
     });
+    this.getContractorsSelectRequest();
   }
 
   protected delete(params: { body: { id: number } }): Observable<void> {
@@ -293,7 +301,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
-  protected test(id:number): Observable<any> {
+  protected requestContractorSelectGet(id:number): Observable<any> {
+    return NEVER;
+  }
+  protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
     return NEVER;
   }
 
@@ -416,9 +427,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.router.navigate([])
   }
 
-  getTest(){
+  getContractorsSelectRequest(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.test(id).subscribe({
+    this.requestContractorSelectGet(id).subscribe({
       next: (e) => {
         this.contractorsSelectedForRequest=e;
       },
@@ -426,21 +437,55 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
-  test2(id:number){
+  updateContractorSelectRequest(contractorId: number,{ checked }: MatCheckboxChange){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    if(checked){
+      this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: true}).subscribe({
+        next: (e) => {
+          console.log(e);
+        },
+        error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      });
+    }else{
+      this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: false}).subscribe({
+        next: (e) => {
+          console.log(e);
+        },
+        error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      });
+    }
+  }
+
+  isCheck(id:number){
     let isCheck
     this.contractorsSelectedForRequest.forEach((i:any)=>{
       if(i.contractor_id===id){
         isCheck=true;
       }
     })
+    this.isAllCheck()
     return isCheck
   }
 
-  test3(){
-    return true
+  isAllCheck(){
+    let isAllCheck=true
+    this.rows.forEach((row)=>{
+      this.contractorsSelectedForRequest.forEach((contractor:any)=>{
+        if(contractor.contractor_id!==row.id){
+          isAllCheck=false
+        }
 
+
+      })
+    })
+    // if(this.rows.length===this.contractorsSelectedForRequest.length){
+    //   isAllCheck=true;
+    // } else {
+    //   isAllCheck=false;
+    // }
+
+    return isAllCheck
   }
-
 
 
 }

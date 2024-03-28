@@ -29,7 +29,7 @@ import { ResponsibilityRowComponent } from './components/responsibility-row/resp
 import { PlaceEditorComponent } from './components/place-editor/place-editor.component';
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
 import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
-import { RequestBiddingComponent } from './components/request-bidding/request-bidding.component';
+
 
 
 @NgModule({
@@ -59,7 +59,7 @@ import { RequestBiddingComponent } from './components/request-bidding/request-bi
     ResponsibilityComponent,
     PlaceEditorComponent,
     RequestServicesComponent,
-    RequestBiddingComponent,
+
   ],
   imports: [
     CommonModule,
