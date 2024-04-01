@@ -25,6 +25,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortableColumns?: string[];
 
   isBiddingMode=false;
+  isAllCheck:boolean=false;
 
   contractorsSelectedForRequest:any=[]
 
@@ -60,10 +61,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   ngOnInit(): void {
-
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
-
 
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
@@ -80,25 +79,22 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.loadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
-
-
   }
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter }).subscribe(rows => {
-      console.log(rows);
-
-      this.rows = rows ? rows.items as T[] : [];
-      this.total = rows.total;
-      this.column = rows.column;
-      if(this.isBiddingMode){
-        this.column?.unshift('checkbox')
-        this.column?.pop()
-      }
-      this.sortableColumns = rows.sort;
-    });
-    this.getContractorsSelectRequest();
+    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
+      .subscribe(rows => {
+        this.rows = rows ? rows.items as T[] : [];
+        this.total = rows.total;
+        this.column = rows.column;
+        if(this.isBiddingMode){
+          this.column?.unshift('checkbox');
+          this.column?.pop();
+        }
+        this.sortableColumns = rows.sort;
+        this.getContractorsSelectRequest();
+      });
   }
 
   protected delete(params: { body: { id: number } }): Observable<void> {
@@ -430,8 +426,19 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   getContractorsSelectRequest(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.requestContractorSelectGet(id).subscribe({
-      next: (e) => {
-        this.contractorsSelectedForRequest=e;
+      next: (contractors) => {
+        if(contractors){
+          const arr:any=[];
+          this.rows.forEach((row)=>{
+            contractors.forEach((contractor:any)=>{
+              if(row.id===contractor.contractor_id){
+                arr.push(contractor);
+              }
+            })
+          })
+          this.contractorsSelectedForRequest=arr;
+          this.isAllCheckChange();
+        }
       },
       error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -439,21 +446,29 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   updateContractorSelectRequest(contractorId: number,{ checked }: MatCheckboxChange){
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
-    if(checked){
-      this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: true}).subscribe({
-        next: (e) => {
-          console.log(e);
-        },
-        error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-      });
-    }else{
-      this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: false}).subscribe({
-        next: (e) => {
-          console.log(e);
-        },
-        error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
-      });
-    }
+    const check= checked? true:false;
+    this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: check}).subscribe({
+      next: (e) => {
+        this.getContractorsSelectRequest();
+      },
+      error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
+  updateAllContractorSelectRequest({ checked }: MatCheckboxChange){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    const check= checked? true:false;
+    let contractorsId:any=[];
+    this.rows.forEach((row,index)=>{
+      contractorsId.push(row.id);
+    })
+    this.requestContractorSelectUpdate({id:requestId, contractor_id:contractorsId, checked: check}).subscribe({
+      next: (e) => {
+        this.getContractorsSelectRequest();
+      },
+      complete:()=> this.getContractorsSelectRequest(),
+      error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
   }
 
   isCheck(id:number){
@@ -463,29 +478,17 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         isCheck=true;
       }
     })
-    this.isAllCheck()
-    return isCheck
+    return isCheck;
   }
 
-  isAllCheck(){
-    let isAllCheck=true
-    this.rows.forEach((row)=>{
-      this.contractorsSelectedForRequest.forEach((contractor:any)=>{
-        if(contractor.contractor_id!==row.id){
-          isAllCheck=false
-        }
-
-
-      })
-    })
-    // if(this.rows.length===this.contractorsSelectedForRequest.length){
-    //   isAllCheck=true;
-    // } else {
-    //   isAllCheck=false;
-    // }
-
-    return isAllCheck
+  isAllCheckChange(){
+    const countChecked = this.contractorsSelectedForRequest.length;
+    this.isAllCheck = this.rows.length > 0 && countChecked === this.rows.length;
+    // return this.rows.length > 0 && countChecked === this.rows.length;
   }
 
-
+  isIndeterminate(){
+    const countChecked = this.contractorsSelectedForRequest.length;
+    return this.rows.length > 0 && countChecked < this.rows.length && countChecked > 0;
+  }
 }

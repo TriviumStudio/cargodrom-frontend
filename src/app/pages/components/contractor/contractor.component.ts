@@ -34,13 +34,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   ) {
     super(route, router, dialog, snackBar, filter);
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
-    // this.isBiddingMode=true;
   }
 
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
-    this.params=params;
-    console.log(params,'paraps');
-
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
 
