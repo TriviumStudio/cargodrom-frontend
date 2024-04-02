@@ -8,3 +8,7 @@
     (keydown.enter)="filter.apply()"
   >
 </div>
+
+<div class="search-filter">
+  <input [(ngModel)]="filter.value[filterControl.field]">
+</div>

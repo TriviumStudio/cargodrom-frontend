@@ -1,4 +1,5 @@
 <div class="subheader">
+
   <div class="placer" *ngIf="!isBiddingMode">
 
     <div class="title">Подрядчики</div>
@@ -51,53 +52,55 @@
 
   </div>
 
-  <div class="placer" *ngIf="isBiddingMode">
-    <div class="title">Торги запроса</div>
+  <div *ngIf="isBiddingMode" style="display: flex;gap: 24px;">
 
-    <div>Запрос №</div>
+    <div>
+      <div class="title">Торги запроса</div>
+      <div>Всего подрядчиков</div>
+    </div>
 
-    <div style="display: flex;">
 
-      <div>
-        <div>Дата</div>
+    <div>
+      <div>Запрос №</div>
+      <div>Запрос №</div>
+    </div>
 
-      </div>
+    <div>
+      <div>Дата</div>
+      <div>123</div>
 
-      <div>
-        <div>Откуда</div>
+    </div>
 
-      </div>
+    <div>
+      <div>Откуда</div>
 
-      <div>
-        <div>Куда</div>
+    </div>
 
-      </div>
+    <div>
+      <div>Куда</div>
 
-      <div>
-        <div>Груз</div>
+    </div>
 
-      </div>
+    <div>
+      <div>Груз</div>
 
-      <div>
-        <div>INC</div>
+    </div>
 
-      </div>
+    <div>
+      <div>INC</div>
 
-      <div>
-        <div>Статус</div>
+    </div>
 
-      </div>
+    <div>
+      <div>Статус</div>
 
     </div>
 
   </div>
+
 </div>
 
-<app-table-filter [isBiddingMode]="isBiddingMode"></app-table-filter>
-
-<div *ngIf="isBiddingMode">Начать торги ({{contractorsSelectedForRequest.length}})</div>
-
-<!-- <button (click)="test()">test</button> -->
+<app-table-filter [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors"></app-table-filter>
 
 <div class="table-list">
   <table mat-table [dataSource]="rows">

@@ -1,4 +1,4 @@
-<div class="filter extend">
+<div class="filter extend" style="display: flex; justify-content: space-between; flex-direction: row;">
 
   <div class="base main">
 
@@ -54,4 +54,6 @@
     </div>
 
   </div>
+
+  <div *ngIf="isBiddingMode">Начать торги ({{quantityContractors}})</div>
 </div>

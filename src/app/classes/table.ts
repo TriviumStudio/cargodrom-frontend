@@ -26,6 +26,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   isBiddingMode=false;
   isAllCheck:boolean=false;
+  arrRowsId:number[]=[];
+  quantityContractors:number=0;
+
 
   contractorsSelectedForRequest:any=[]
 
@@ -91,6 +94,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');
           this.column?.pop();
+          this.arrRowsId=[];
+          rows.items.forEach(element => {
+            this.arrRowsId.push(element.id)
+          });
         }
         this.sortableColumns = rows.sort;
         this.getContractorsSelectRequest();
@@ -397,7 +404,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   importFile(): void {
     const input = this.file?.nativeElement as HTMLInputElement | undefined;
-
     if (input) {
       input.value = '';
       input.click();
@@ -428,18 +434,20 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestContractorSelectGet(id).subscribe({
       next: (contractors) => {
         if(contractors){
-          const arr:any=[];
+          this.quantityContractors=contractors.length;
+          this.contractorsSelectedForRequest=[];
           this.rows.forEach((row)=>{
             contractors.forEach((contractor:any)=>{
               if(row.id===contractor.contractor_id){
-                arr.push(contractor);
+                this.contractorsSelectedForRequest.push(contractor.contractor_id);
               }
             })
           })
-          this.contractorsSelectedForRequest=arr;
-          this.isAllCheckChange();
+        } else {
+          this.quantityContractors=0;
         }
       },
+      complete:()=>  this.isAllCheckChange(),
       error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
@@ -458,15 +466,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   updateAllContractorSelectRequest({ checked }: MatCheckboxChange){
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     const check= checked? true:false;
-    let contractorsId:any=[];
-    this.rows.forEach((row,index)=>{
-      contractorsId.push(row.id);
-    })
-    this.requestContractorSelectUpdate({id:requestId, contractor_id:contractorsId, checked: check}).subscribe({
+    this.requestContractorSelectUpdate({id:requestId, contractor_id: this.arrRowsId, checked: check}).subscribe({
       next: (e) => {
+        if(!check){
+          this.contractorsSelectedForRequest=[];
+        }
         this.getContractorsSelectRequest();
       },
-      complete:()=> this.getContractorsSelectRequest(),
       error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
@@ -474,7 +480,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isCheck(id:number){
     let isCheck
     this.contractorsSelectedForRequest.forEach((i:any)=>{
-      if(i.contractor_id===id){
+      if(i===id){
         isCheck=true;
       }
     })

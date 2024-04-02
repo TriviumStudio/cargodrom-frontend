@@ -14,6 +14,7 @@ export class TableFilterComponent implements OnInit {
   asd=false;
 
   @Input() isBiddingMode?: boolean;
+  @Input() quantityContractors?: number;
 
   constructor(
     public filterService: FilterService,
