@@ -27,6 +27,7 @@ describe('ContractorComponent', () => {
         NoopAnimationsModule,
         RouterTestingModule,
         FilterModule,
+        RouterTestingModule
       ],
       declarations: [
         ContractorComponent,
