@@ -8,14 +8,11 @@
       [filterControl]="control">
     </app-universal-filter>
 
-    <div *ngIf="isBiddingMode">
-      <app-universal-filter
-        class="item"
-        *ngFor="let control of filterService.searchFilterSchema?.header"
-        [filterControl]="control">
-      </app-universal-filter>
-    </div>
-
+    <app-universal-filter [ngClass]="isBiddingMode ? '' : 'dn' "
+      class="item"
+      *ngFor="let control of filterService.searchFilterSchema?.header"
+      [filterControl]="control">
+    </app-universal-filter>
 
     <div class="item" [ngClass]="{'open': showMore}" *ngIf="filterService.hasAdditional">
       <div>
@@ -55,5 +52,13 @@
 
   </div>
 
-  <div *ngIf="isBiddingMode">Начать торги ({{quantityContractors}})</div>
+  <div *ngIf="isBiddingMode" style="display: flex;" class="trade">
+    <div class="item func">
+      <div>
+        <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
+      </div>
+    </div>
+  </div>
+
 </div>
+

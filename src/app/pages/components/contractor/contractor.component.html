@@ -52,48 +52,46 @@
 
   </div>
 
-  <div *ngIf="isBiddingMode" style="display: flex;gap: 24px;">
+  <div class="request" *ngIf="isBiddingMode" style="display: flex;gap: 24px;">
 
-    <div>
-      <div class="title">Торги запроса</div>
-      <div>Всего подрядчиков</div>
+    <div style="border-right: 1px solid #C3CCD6">
+      <div class="title color-r">Торги запроса</div>
+      <div class="subtitle">Всего подрядчиков: {{total}}</div>
     </div>
 
-
-    <div>
-      <div>Запрос №</div>
-      <div>Запрос №</div>
+    <div  style="border-right: 1px solid #C3CCD6">
+      <div class="title">Запрос №{{currentRequest.id}}</div>
+      <div class="subtitle">{{currentRequest.customer_name}}</div>
     </div>
 
-    <div>
-      <div>Дата</div>
-      <div>123</div>
-
+    <div class="info-block">
+      <div class="title">Дата:</div>
+      <div class="subtitle">{{currentRequest.time_add}}</div>
     </div>
 
-    <div>
-      <div>Откуда</div>
-
+    <div class="info-block">
+      <div class="title">Откуда:</div>
+      <div class="subtitle">{{currentRequest.departure_country_name}} ({{currentRequest.departure_city_name}})</div>
     </div>
 
-    <div>
-      <div>Куда</div>
-
+    <div class="info-block">
+      <div class="title">Куда:</div>
+      <div class="subtitle">{{currentRequest.arrival_country_name}} ({{currentRequest.arrival_city_name}})</div>
     </div>
 
-    <div>
-      <div>Груз</div>
-
+    <div class="info-block">
+      <div class="title">Груз:</div>
+      <div class="subtitle">{{currentRequest.cargo_text}}</div>
     </div>
 
-    <div>
-      <div>INC</div>
-
+    <div class="info-block">
+      <div class="title">INC:</div>
+      <div class="subtitle">{{currentRequest.incoterms_name}}</div>
     </div>
 
-    <div>
-      <div>Статус</div>
-
+    <div class="info-block">
+      <div class="title">Статус:</div>
+      <div class="subtitle">{{currentRequest.status_id}}</div>
     </div>
 
   </div>

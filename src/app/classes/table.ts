@@ -28,6 +28,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isAllCheck:boolean=false;
   arrRowsId:number[]=[];
   quantityContractors:number=0;
+  currentRequest:any={};
 
 
   contractorsSelectedForRequest:any=[]
@@ -66,6 +67,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
+    if(this.isBiddingMode){
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.getRequestInfo(id);
+    }
 
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
@@ -98,9 +103,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           rows.items.forEach(element => {
             this.arrRowsId.push(element.id)
           });
+          this.getContractorsSelectRequest();
         }
         this.sortableColumns = rows.sort;
-        this.getContractorsSelectRequest();
+        // this.getContractorsSelectRequest();
       });
   }
 
@@ -307,7 +313,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected requestContractorSelectGet(id:number): Observable<any> {
     return NEVER;
   }
+
   protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
+    return NEVER;
+  }
+
+  protected requestInfo(id:number): Observable<any> {
     return NEVER;
   }
 
@@ -496,5 +507,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isIndeterminate(){
     const countChecked = this.contractorsSelectedForRequest.length;
     return this.rows.length > 0 && countChecked < this.rows.length && countChecked > 0;
+  }
+
+  getRequestInfo(id:number){
+    this.requestInfo(id).subscribe({
+      next: (request) => {
+        this.currentRequest=request;
+      },
+      error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
   }
 }
