@@ -10,6 +10,7 @@ import { ContractorComponent } from './contractor.component';
 import { PaginatorComponent } from '@cargodrom/material/components/paginator/paginator.component';
 import { FilterModule } from 'src/app/filter/filter.module';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { RequestService } from 'src/app/api/services';
 
 describe('ContractorComponent', () => {
   let component: ContractorComponent;
@@ -33,7 +34,8 @@ describe('ContractorComponent', () => {
         ContactEditorComponent
       ],
       providers: [
-        FilterService
+        FilterService,
+        RequestService
       ]
     })
       .compileComponents();
