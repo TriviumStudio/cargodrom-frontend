@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="item func trade-btn" *ngIf="isBiddingMode" >
+    <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! >0" >
       <div>
         <span class="btn apply"><span>Начать торги ({{quantityContractors}})</span></span>
       </div>
