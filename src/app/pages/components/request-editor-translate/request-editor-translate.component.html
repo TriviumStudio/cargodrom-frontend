@@ -1,0 +1,70 @@
+<div class="edit-form">Проверьте перевод на английский</div>
+
+<div class="edit-form" style="border: 1px solid red; display: flex;">
+  <form class="w50" [formGroup]="requestFormTranslateRu" style="border: 1px solid gray;" >
+    <div>Русский оригинал</div>
+    <div class="form-block">
+      <div class="form-row bg">
+        <div class="form-block-sub-title">Направление</div>
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: </div>
+            <div class="form-data">
+              <input type="text" formControlName="departure_country_name" readonly>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: </div>
+            <div class="form-data">
+              <input type="text" formControlName="departure_city_name" readonly>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-row bg">
+        <div class="form-block-sub-title">Описание груза</div>
+      </div>
+      <div class="form-row bg">
+
+      </div>
+    </div>
+
+  </form>
+
+  <form class="w50" [formGroup]="requestFormTranslateNoRu" style="border: 1px solid blue;" >
+    <div>Английский перевод</div>
+    <div class="form-block">
+      <div class="form-row bg">
+        <div class="form-block-sub-title">Направление</div>
+        <div class="form-item-layout">
+
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: </div>
+            <div class="form-data">
+              <input type="text" formControlName="departure_country_name" readonly>
+            </div>
+          </div>
+
+          <div class="form-item">
+            <div class="form-label">Страна нахождения: </div>
+            <div class="form-data">
+              <input type="text" formControlName="departure_city_name" readonly>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-row bg">
+        <div class="form-block-sub-title">Описание груза</div>
+      </div>
+      <div class="form-row bg">
+
+      </div>
+    </div>
+  </form>
+</div>
