@@ -25,9 +25,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   sortableColumns?: string[];
 
   isBiddingMode=false;
-  isAllCheck:boolean=false;
   arrRowsId:number[]=[];
   quantityContractors:number=0;
+  currentQuantityContractors:number=0
   currentRequest:any={};
 
 
@@ -461,7 +461,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.quantityContractors=0;
         }
       },
-      complete:()=>  this.isAllCheckChange(),
+      complete:()=>  this.currentQuantityContractors=this.contractorsSelectedForRequest.length,
       error: (err) => this.snackBar.open(`Не получилось ID контрагентов выбранных для отправки запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
@@ -501,15 +501,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return isCheck;
   }
 
-  isAllCheckChange(){
-    const countChecked = this.contractorsSelectedForRequest.length;
-    this.isAllCheck = this.rows.length > 0 && countChecked === this.rows.length;
-    // return this.rows.length > 0 && countChecked === this.rows.length;
+  isAllCheck(){
+    return this.rows.length > 0 && this.currentQuantityContractors === this.rows.length;
   }
 
   isIndeterminate(){
-    const countChecked = this.contractorsSelectedForRequest.length;
-    return this.rows.length > 0 && countChecked < this.rows.length && countChecked > 0;
+    return this.rows.length > 0 && this.currentQuantityContractors < this.rows.length && this.currentQuantityContractors > 0;
   }
 
   getRequestInfo(id:number){
