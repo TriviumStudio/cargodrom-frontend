@@ -1,3 +1,76 @@
 .w50{
   width: 50%;
 }
+
+.form-block-title{
+padding-top: 0;
+}
+
+.edit-form .ru .form-block .form-row .form-item input{
+  background: transparent;
+}
+
+.edit-form .ru .form-block .form-row .form-item textarea{
+  background: transparent;
+}
+
+.edit-form .en .form-block .form-row .form-item .bg{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+}
+
+.edit-form .en .form-block .form-row .form-item .form-label{
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-form .en .form-block .form-row .form-item .form-label span{
+  font-weight: 900;
+  display: flex;
+}
+.edit-form .en .form-block .form-row .form-item .form-label span::before{
+  display: flex;
+  justify-content: center;
+  margin-right: 3px;
+
+  content: '';
+  background: url(../../../../assets/pic-warning-sm.svg) no-repeat ;
+  width: 10px;
+  height: 10px;
+
+}
+
+.edit-form .title{
+  height: 70px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: white;
+  padding-left: 40px;
+  font-size: 22px;
+  line-height: 23px;
+}
+
+.gr{
+  background-color: #C3CCD6;
+}
+
+.bl{
+  background-color: #4B66AD;
+}
+
+.form-block{
+  border: none;
+}
+
+.ru .form-block{
+  border: 4px solid #C3CCD6;
+  border-top: none;
+  border-right: none;
+}
+
+.en .form-block{
+  border: 4px solid #4B66AD;
+  border-top: none;
+}
+

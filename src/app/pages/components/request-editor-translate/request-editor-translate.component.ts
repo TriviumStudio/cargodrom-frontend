@@ -32,6 +32,7 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   requestFormTranslateNoRu: FormGroup;
 
   requestId:number=0;
+  translateAuto:string[]=[];
 
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
@@ -111,6 +112,9 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
     this.getRequestTraqnslate(this.requestId);
   }
 
+  test(e:string){
+    return this.translateAuto.includes(e)
+  }
 
   private getRequestTraqnslate(id:number){
     this.requestService.requestTranslate({id}).pipe().subscribe({
@@ -122,6 +126,9 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
 
         this.requestFormTranslateRu.patchValue(translate.ru);
         this.requestFormTranslateNoRu.patchValue(translate.en );
+        this.translateAuto=translate.translate_auto.en;
+        console.log(this.translateAuto);
+
 
       },
       error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
