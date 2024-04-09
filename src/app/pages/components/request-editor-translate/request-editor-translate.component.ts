@@ -24,7 +24,7 @@ import { environment } from './../../../../environments/environment';
   selector: 'app-request-editor-translate',
   templateUrl: './request-editor-translate.component.html',
   styleUrls: ['./request-editor-translate.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
 })
 
 export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
@@ -33,6 +33,8 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
 
   requestId:number=0;
   translateAuto:string[]=[];
+
+  isTest=false
 
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
@@ -113,26 +115,40 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   }
 
   test(e:string){
-    return this.translateAuto.includes(e)
+    return this.translateAuto?.includes(e)
   }
 
   private getRequestTraqnslate(id:number){
     this.requestService.requestTranslate({id}).pipe().subscribe({
       next: (translate:any) => {
-
         console.log(translate);
-        console.log(translate.ru);
-
 
         this.requestFormTranslateRu.patchValue(translate.ru);
         this.requestFormTranslateNoRu.patchValue(translate.en );
         this.translateAuto=translate.translate_auto.en;
-        console.log(this.translateAuto);
-
-
       },
       error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
+  }
+
+  private updateRequestTraqnslate(){
+    const body:any={id:this.requestId, ru:this.requestFormTranslateRu.value, en:this.requestFormTranslateNoRu.value}
+    this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
+      next: () => {
+        this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
+        this.router.navigate(['pages/request/bidding', this.requestId]);
+        
+      },
+      error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+
+  save(){
+    this.updateRequestTraqnslate();
+
+  }
+  remove():void {
+    window.location.reload();
   }
 
 

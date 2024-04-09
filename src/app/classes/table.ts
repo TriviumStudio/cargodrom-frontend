@@ -70,6 +70,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if(this.isBiddingMode){
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(id);
+
     }
 
     this.loadFilterSchema().subscribe(schema => {
@@ -516,8 +517,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
         this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
         this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-        this.filterService.value["rating"]=this.currentRequest.request_type_id;
+        // this.filterService.value["rating"]=this.currentRequest.request_type_id;
         this.filterService.apply();
+
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

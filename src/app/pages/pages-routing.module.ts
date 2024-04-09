@@ -59,7 +59,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'request/edit/:id/translate',
+        path: 'request/edit/translate/:id',
         component: RequestEditorTranslateComponent,
         pathMatch: 'full',
         title: 'Проверка перевода запроса',
