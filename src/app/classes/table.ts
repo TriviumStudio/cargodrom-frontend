@@ -87,32 +87,58 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.filter = this.getJsonParamSafely(queryParamMap, 'filter', {}) as F;
         this.filterService.setValue(this.filter as any);
         this.loadRows();
+        // this.firstLoadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
-
-
   }
 
   protected loadRows(): void {
     const sortCol = this.getSort();
     this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
       .subscribe(rows => {
+        console.log('rows', rows);
+
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
         this.column = rows.column;
+        this.sortableColumns = rows.sort;
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');
           this.column?.pop();
           this.arrRowsId=[];
           rows.items.forEach(element => {
-            this.arrRowsId.push(element.id)
+            this.arrRowsId.push(element.id);
           });
           this.getContractorsSelectRequest();
         }
-        this.sortableColumns = rows.sort;
+        // this.sortableColumns = rows.sort;
         // this.getContractorsSelectRequest();
       });
   }
+
+  // protected firstLoadRows(): void {
+  //   const sortCol = this.getSort();
+  //   this.load({ ...this.filter })
+  //     .subscribe(rows => {
+  //       console.log('rows', rows);
+
+  //       this.rows = rows ? rows.items as T[] : [];
+  //       this.total = rows.total;
+  //       this.column = rows.column;
+  //       this.sortableColumns = rows.sort;
+  //       if(this.isBiddingMode){
+  //         this.column?.unshift('checkbox');
+  //         this.column?.pop();
+  //         this.arrRowsId=[];
+  //         rows.items.forEach(element => {
+  //           this.arrRowsId.push(element.id);
+  //         });
+  //         this.getContractorsSelectRequest();
+  //       }
+  //       // this.sortableColumns = rows.sort;
+  //       // this.getContractorsSelectRequest();
+  //     });
+  // }
 
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
@@ -351,6 +377,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.importData(payload).subscribe({
           // next: ({ import_key, text }) => {
           next: (e) => {
+
             const text =e.text;
             const res =e.result;
             const import_key=e.import_key;
@@ -419,6 +446,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   importFile(): void {
     const input = this.file?.nativeElement as HTMLInputElement | undefined;
+    console.log(input);
     if (input) {
       input.value = '';
       input.click();

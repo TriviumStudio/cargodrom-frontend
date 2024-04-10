@@ -34,8 +34,9 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     super(route, router, dialog, snackBar, filterService);
   }
 
-  load<Request>(params: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
-    this.params=params;
+  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
+    console.log(params);
+
     return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort: string[] }>;
   }
 
@@ -62,5 +63,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
+
+
 
 }

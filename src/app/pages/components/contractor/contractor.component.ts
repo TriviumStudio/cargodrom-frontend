@@ -72,4 +72,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.requestService.requestInfo({id:id});
   }
 
+  test(){
+    console.log('test');
+
+  }
+
 }
