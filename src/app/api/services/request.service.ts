@@ -100,7 +100,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -179,7 +179,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -655,7 +655,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: string;
+        'transport_kind_id'?: number;
         
         /**
          * Вид перевозки
@@ -1136,7 +1136,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Начальная позиция
@@ -1215,7 +1215,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -1667,7 +1667,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -2117,7 +2117,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -3270,7 +3270,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -3716,7 +3716,7 @@ export class RequestService extends BaseService {
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
-        'transport_kind_id'?: string;
+        'transport_kind_id'?: number;
         
         /**
          * Вид перевозки
@@ -4175,7 +4175,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -4612,7 +4612,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -5047,7 +5047,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -5476,7 +5476,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': string;
+'transport_kind_id': number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -5772,7 +5772,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id': string;
+'transport_kind_id': number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6077,7 +6077,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -6383,7 +6383,7 @@ export class RequestService extends BaseService {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Тип транспорта (ID берем из запроса - transport_type)
@@ -7652,6 +7652,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7671,6 +7676,11 @@ export class RequestService extends BaseService {
          * ID
          */
         'id'?: number;
+        
+        /**
+         * Ключ
+         */
+        'key'?: string;
         
         /**
          * Наименование
@@ -7703,6 +7713,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7716,6 +7731,11 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
+ * Ключ
+ */
+'key'?: string;
+
+/**
  * Наименование
  */
 'name'?: string;
@@ -7725,6 +7745,11 @@ export class RequestService extends BaseService {
  * ID
  */
 'id'?: number;
+
+/**
+ * Ключ
+ */
+'key'?: string;
 
 /**
  * Наименование
@@ -7753,7 +7778,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -7810,7 +7835,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -7871,7 +7896,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -7928,7 +7953,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -7989,7 +8014,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -8056,7 +8081,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      kind_id: string;
+      kind_id: number;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -8192,7 +8217,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Сортировка
@@ -8338,7 +8363,7 @@ export class RequestService extends BaseService {
     /**
      * Вид перевозки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id?: string;
+      transport_kind_id?: number;
 
     /**
      * Сортировка

@@ -52,9 +52,20 @@
 }
 .placer .template {
   display: none;
+  transition-duration: 1s;
+  transition-behavior: allow-discrete;
+  opacity: 0;
+  max-width: 0px;
+  text-wrap: nowrap;
 }
 .hoverr:hover .template{
   display: flex;
+  opacity: 1;
+  @starting-style{
+    opacity: -1;
+    max-width: 0px;
+  }
+  max-width: 200px;
 }
 
 //стили для фильтров селекторов(в зависимости от места разный дизайн)
@@ -180,3 +191,40 @@
 .edit-form .ru .form-block .form-row .form-block-title{
   color: #606A74;
 }
+
+//мат диалог
+
+h1.mat-dialog-title{
+  font-size: 26px;
+  line-height: 30px;
+  color: #4b66ad;
+  text-decoration: none;
+}
+
+.mat-dialog-actions button.save{
+  background: #DB563B;
+  color: #fff;
+}
+.mat-dialog-actions button.download{
+  background: #4b66ad;
+  color: #fff;
+}
+.mat-dialog-actions button.cancel{
+  background: #606A74;
+  color: #fff;
+}
+
+
+//выравниваю высоту заголовков подстолбцов в таблицах
+.table-list .td-block-line {
+  max-height: 50%;
+}
+
+//выравниваю стрелочку сортировки
+.sort-dir-asc::after {
+  left: 2px;
+}
+.sort-dir-desc::after {
+  left: 2px;
+}
+

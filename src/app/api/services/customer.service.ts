@@ -297,6 +297,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -660,6 +665,11 @@ export class CustomerService extends BaseService {
          * Валюта счета (ID берем из запроса - /system_currency)
          */
         'currency'?: string;
+        
+        /**
+         * Валюта счета (ID берем из запроса - /system_currency)
+         */
+        'bank_currency_id'?: number;
         
         /**
          * Группа
@@ -1079,6 +1089,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -1428,6 +1443,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -1773,6 +1793,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа
@@ -2825,6 +2850,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -3166,6 +3196,11 @@ export class CustomerService extends BaseService {
          * Валюта счета (ID берем из запроса - /system_currency)
          */
         'currency'?: string;
+        
+        /**
+         * Валюта счета (ID берем из запроса - /system_currency)
+         */
+        'bank_currency_id'?: number;
         
         /**
          * Группа
@@ -3524,6 +3559,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -3858,6 +3898,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа
  */
 'group_name'?: string;
@@ -4188,6 +4233,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа
@@ -4521,6 +4571,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа (ID берем из запроса - customer_group_list)
  */
 'group_id'?: number;
@@ -4798,6 +4853,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа (ID берем из запроса - customer_group_list)
@@ -5088,6 +5148,11 @@ export class CustomerService extends BaseService {
 'currency'?: string;
 
 /**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
+
+/**
  * Группа (ID берем из запроса - customer_group_list)
  */
 'group_id'?: number;
@@ -5360,6 +5425,11 @@ export class CustomerService extends BaseService {
  * Валюта счета (ID берем из запроса - /system_currency)
  */
 'currency'?: string;
+
+/**
+ * Валюта счета (ID берем из запроса - /system_currency)
+ */
+'bank_currency_id'?: number;
 
 /**
  * Группа (ID берем из запроса - customer_group_list)
