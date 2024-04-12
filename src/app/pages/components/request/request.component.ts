@@ -35,8 +35,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
-    console.log(params);
-
+    console.log('params',params);
     return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort: string[] }>;
   }
 
