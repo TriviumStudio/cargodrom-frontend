@@ -143,19 +143,19 @@
     <ng-container matColumnDef="direction">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column">Откуда</div>
+          <div class="column w50">Откуда</div>
           <div class="column">Куда</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let client">
         <div class="td-block">
           <!-- <div class="column">{{client.departure_country_name}}, {{ client.departure_city_name}}</div> -->
-          <div class="column">
+          <div class="column w50">
             <span *ngIf="client.departure_country_name">{{client.departure_country_name}}</span>
             <span *ngIf="client.departure_city_name">, {{client.departure_city_name}}</span>
           </div>
           <!-- <div class="column">{{client.arrival_country_name}}, {{ client.arrival_city_name }}</div> -->
-          <div class="column">
+          <div class="column w50">
             <span *ngIf="client.arrival_country_name">{{client.arrival_country_name}}</span>
             <span *ngIf="client.arrival_city_name">, {{client.arrival_city_name}}</span>
           </div>

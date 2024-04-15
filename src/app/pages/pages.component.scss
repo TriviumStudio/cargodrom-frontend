@@ -56,30 +56,51 @@ div.mat-calendar-body-selected {
 .mat-calendar-body-in-range::before {
   background: #83909E;
 }
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  background-color: gray;
+}
 
 //стили для кнопки шаблон для импорта
 .hoverr{
   display: flex;
 }
+// .placer .template {
+//   display: none;
+//   transition-duration: 0.5s;
+//   transition-behavior: allow-discrete;
+//   opacity: 0;
+//   max-width: 0px;
+//   text-wrap: nowrap;
+//   margin-left: 0px;
+// }
+// .hoverr:hover .template{
+//   display: flex;
+//   opacity: 1;
+//   @starting-style{
+//     opacity: -1;
+//     max-width: 0px;
+//     margin-left: 0px;
+//   }
+//   margin-left: 24px;
+//   max-width: 200px;
+// }
+
 .placer .template {
   display: none;
-  transition-duration: 0.5s;
-  transition-behavior: allow-discrete;
-  opacity: 0;
+
   max-width: 0px;
   text-wrap: nowrap;
   margin-left: 0px;
+  opacity: 0;
+  transition: 2s;
 }
 .hoverr:hover .template{
+
   display: flex;
   opacity: 1;
-  @starting-style{
-    opacity: -1;
-    max-width: 0px;
-    margin-left: 0px;
-  }
   margin-left: 24px;
   max-width: 200px;
+  transition: 1s;
 }
 
 //стили для фильтров селекторов(в зависимости от места разный дизайн)

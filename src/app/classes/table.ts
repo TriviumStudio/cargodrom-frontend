@@ -47,7 +47,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   count = this.limits[0];
   abstract sortField: keyof T | A;
   readonly nameField?: keyof T | A;
-  sortDir: 'asc' | 'desc' = 'asc';
+  sortDir: 'asc' | 'desc' = 'desc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
@@ -70,7 +70,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if(this.isBiddingMode){
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(id);
-
     }
 
     this.loadFilterSchema().subscribe(schema => {
@@ -102,19 +101,43 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.total = rows.total;
         this.column = rows.column;
         this.sortableColumns = rows.sort;
-        console.log('rows.sort',rows.sort);
 
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');
           this.column?.pop();
           this.arrRowsId=[];
-          rows.items.forEach(element => {
+          rows.items.forEach((element:any) => {
             this.arrRowsId.push(element.id);
           });
           this.getContractorsSelectRequest();
         }
       });
   }
+
+  protected testLoadRows(): void {
+    const sortCol = this.getSort();
+    console.log('sortCol', sortCol);
+
+    this.load({ start: this.start, count: this.count, ...this.filter })
+      .subscribe(rows => {
+        console.log('rows', rows);
+        this.rows = rows ? rows.items as T[] : [];
+        this.total = rows.total;
+        this.column = rows.column;
+        this.sortableColumns = rows.sort;
+
+        if(this.isBiddingMode){
+          this.column?.unshift('checkbox');
+          this.column?.pop();
+          this.arrRowsId=[];
+          rows.items.forEach((element:any) => {
+            this.arrRowsId.push(element.id);
+          });
+          this.getContractorsSelectRequest();
+        }
+      });
+  }
+
 
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
@@ -523,7 +546,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
         // this.filterService.value["rating"]=this.currentRequest.request_type_id;
         this.filterService.apply();
-
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

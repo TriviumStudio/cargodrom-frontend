@@ -16,6 +16,7 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
   encapsulation: ViewEncapsulation.None,
   providers: [FilterService]
 })
+
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
@@ -36,7 +37,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
     console.log('params',params);
-    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort: string[] }>;
+    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[] }>;
   }
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
@@ -62,7 +63,4 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   protected override importTemplate(): Observable<{data: string; name: string}> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
-
-
-
 }
