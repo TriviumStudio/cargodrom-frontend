@@ -35,7 +35,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
-  protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[] }>;
+  protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
 
   protected removedMessage: string = 'Запись удалена';
 
@@ -47,7 +47,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   count = this.limits[0];
   abstract sortField: keyof T | A;
   readonly nameField?: keyof T | A;
-  sortDir: 'asc' | 'desc' = 'desc';
+  sortDir: 'asc' | 'desc' = 'asc';
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
@@ -75,6 +75,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.loadFilterSchema().subscribe(schema => {
       this.filterService.setSearchFilterSchema(schema);
     });
+
+    this.testLoadRows()
 
     this.route.queryParamMap
       .pipe(takeUntil(this.destroy$))
@@ -125,6 +127,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.total = rows.total;
         this.column = rows.column;
         this.sortableColumns = rows.sort;
+        this.router.navigate(['.'], {
+          queryParams: {  sortDir: rows.sort_new[0].sort },
+          queryParamsHandling: 'merge',
+          relativeTo: this.route,
+        });
+
+
 
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');

@@ -2521,6 +2521,113 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestListParam()` */
+  static readonly RequestListParamPath = '/request_list_param';
+
+  /**
+   * Список запросов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestListParam$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListParamPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры таблицы
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Поля сортировки
+         */
+        'sort'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Список запросов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestListParam(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+}> {
+    return this.requestListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+}>): {
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+
+/**
+ * Поля сортировки
+ */
+'sort'?: Array<string>;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `requestListSearch()` */
   static readonly RequestListSearchPath = '/request_list_search';
 

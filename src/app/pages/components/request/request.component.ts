@@ -35,9 +35,9 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     super(route, router, dialog, snackBar, filterService);
   }
 
-  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[]; }> {
+  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
     console.log('params',params);
-    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[] }>;
+    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
   }
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
