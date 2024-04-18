@@ -21,7 +21,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
-  column?: string[];
+  column?: string[]=[];
   sortableColumns?: string[];
 
   isBiddingMode=false;
@@ -29,6 +29,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   quantityContractors:number=0;
   currentQuantityContractors:number=0
   currentRequest:any={};
+
+  schemaTest:any
 
 
   contractorsSelectedForRequest:any=[]
@@ -72,11 +74,26 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.getRequestInfo(id);
     }
 
-    this.loadFilterSchema().subscribe(schema => {
-      this.filterService.setSearchFilterSchema(schema);
+    this.loadFilterSchemaTest().subscribe(schema => {
+      this.schemaTest=schema;
+      console.log('schema',schema);
+      this.filterService.setSearchFilterSchema(schema.search);
+      // this.sortField = schema.sort[0].field;
+      // this.sortDir = schema.sort[0].sort;
+      this.router.navigate(['.'], {
+        queryParams: {  sortDir: schema.sort[0].sort, sortField: schema.sort[0].field },
+        queryParamsHandling: 'merge',
+        relativeTo: this.route,
+      });
+      schema.column.forEach((col:any)=>{
+        this.column?.push(col.column)
+      })
     });
 
-    this.testLoadRows()
+    // this.loadFilterSchema().subscribe(schema => {
+    //   this.filterService.setSearchFilterSchema(schema);
+    // });
+
 
     this.route.queryParamMap
       .pipe(takeUntil(this.destroy$))
@@ -101,7 +118,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
-        this.column = rows.column;
+        // this.column = rows.column;
         this.sortableColumns = rows.sort;
 
         if(this.isBiddingMode){
@@ -115,38 +132,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         }
       });
   }
-
-  protected testLoadRows(): void {
-    const sortCol = this.getSort();
-    console.log('sortCol', sortCol);
-
-    this.load({ start: this.start, count: this.count, ...this.filter })
-      .subscribe(rows => {
-        console.log('rows', rows);
-        this.rows = rows ? rows.items as T[] : [];
-        this.total = rows.total;
-        this.column = rows.column;
-        this.sortableColumns = rows.sort;
-        this.router.navigate(['.'], {
-          queryParams: {  sortDir: rows.sort_new[0].sort },
-          queryParamsHandling: 'merge',
-          relativeTo: this.route,
-        });
-
-
-
-        if(this.isBiddingMode){
-          this.column?.unshift('checkbox');
-          this.column?.pop();
-          this.arrRowsId=[];
-          rows.items.forEach((element:any) => {
-            this.arrRowsId.push(element.id);
-          });
-          this.getContractorsSelectRequest();
-        }
-      });
-  }
-
 
   protected delete(params: { body: { id: number } }): Observable<void> {
     return of();
@@ -357,6 +342,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   protected requestInfo(id:number): Observable<any> {
+    return NEVER;
+  }
+
+  protected loadFilterSchemaTest(): Observable<any> {
     return NEVER;
   }
 
