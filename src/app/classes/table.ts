@@ -22,7 +22,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
   column?: string[]=[];
-  sortableColumns?: string[];
+  sortableColumns?: string[]=[];
 
   isBiddingMode=false;
   arrRowsId:number[]=[];
@@ -74,21 +74,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.getRequestInfo(id);
     }
 
-    this.loadFilterSchemaTest().subscribe(schema => {
-      this.schemaTest=schema;
-      console.log('schema',schema);
-      this.filterService.setSearchFilterSchema(schema.search);
-      // this.sortField = schema.sort[0].field;
-      // this.sortDir = schema.sort[0].sort;
-      this.router.navigate(['.'], {
-        queryParams: {  sortDir: schema.sort[0].sort, sortField: schema.sort[0].field },
-        queryParamsHandling: 'merge',
-        relativeTo: this.route,
-      });
-      schema.column.forEach((col:any)=>{
-        this.column?.push(col.column)
-      })
-    });
+
 
     // this.loadFilterSchema().subscribe(schema => {
     //   this.filterService.setSearchFilterSchema(schema);
@@ -107,6 +93,27 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.loadRows();
       });
     this.filterService.onApply().subscribe(filter => this.onFilterChange(filter as F));
+
+    this.loadFilterSchemaTest().subscribe(schema => {
+      this.schemaTest=schema;
+      console.log('schema',schema);
+      this.filterService.setSearchFilterSchema(schema.search);
+      // this.sortField = schema.sort[0].field;
+      // this.sortDir = schema.sort[0].sort;
+
+      this.router.navigate(['.'], {
+        queryParams: {  sortDir: schema.sort[0].dir, sortField: schema.sort[0].field },
+        queryParamsHandling: 'merge',
+        relativeTo: this.route,
+      });
+      schema.column.forEach((col:any)=>{
+        this.column?.push(col.column)
+      })
+      schema.sort.forEach((sor:any)=>{
+        this.sortableColumns?.push(sor.field)
+      })
+
+    });
   }
 
   protected loadRows(): void {
@@ -119,7 +126,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
         // this.column = rows.column;
-        this.sortableColumns = rows.sort;
+        // this.sortableColumns = rows.sort;
 
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');

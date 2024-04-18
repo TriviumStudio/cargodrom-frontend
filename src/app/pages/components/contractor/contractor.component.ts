@@ -40,6 +40,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
+
+  protected override loadFilterSchemaTest(): Observable<any>  {
+    return this.contractorService.contractorListParam().pipe(map(val => val as any));
+  }
+
+
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
     return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
   }

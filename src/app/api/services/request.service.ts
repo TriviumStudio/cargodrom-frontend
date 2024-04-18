@@ -118,14 +118,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -1154,14 +1154,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -2525,7 +2525,7 @@ export class RequestService extends BaseService {
   static readonly RequestListParamPath = '/request_list_param';
 
   /**
-   * Параметры вывода.
+   * Параметры вывода запросов.
    *
    *
    *
@@ -2712,12 +2712,12 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'sortCol'?: string;
+'field'?: string;
 
 /**
  * Сортировка по умолчанию
  */
-'sortDir'?: string;
+'dir'?: string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListParamPath, 'get');
@@ -2903,12 +2903,12 @@ export class RequestService extends BaseService {
         /**
          * Поле
          */
-        'sortCol'?: string;
+        'field'?: string;
         
         /**
          * Сортировка по умолчанию
          */
-        'sortDir'?: string;
+        'dir'?: string;
         }>;
         }>;
       })
@@ -2916,7 +2916,7 @@ export class RequestService extends BaseService {
   }
 
   /**
-   * Параметры вывода.
+   * Параметры вывода запросов.
    *
    *
    *
@@ -3103,12 +3103,12 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'sortCol'?: string;
+'field'?: string;
 
 /**
  * Сортировка по умолчанию
  */
-'sortDir'?: string;
+'dir'?: string;
 }>;
 }> {
     return this.requestListParam$Response(params, context).pipe(
@@ -3286,12 +3286,12 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'sortCol'?: string;
+'field'?: string;
 
 /**
  * Сортировка по умолчанию
  */
-'sortDir'?: string;
+'dir'?: string;
 }>;
 }>): {
 
@@ -3467,12 +3467,12 @@ export class RequestService extends BaseService {
 /**
  * Поле
  */
-'sortCol'?: string;
+'field'?: string;
 
 /**
  * Сортировка по умолчанию
  */
-'sortDir'?: string;
+'dir'?: string;
 }>;
 } => r.body)
     );
@@ -9182,14 +9182,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
@@ -9328,14 +9328,14 @@ export class RequestService extends BaseService {
       sort?: Array<{
 
 /**
- * Поле
+ * Поле сортировки
  */
-'field': 'id' | 'time_add';
+'field'?: 'id' | 'time_add';
 
 /**
  * Направление сортировки
  */
-'dir': 'asc' | 'desc';
+'dir'?: 'asc' | 'desc';
 }>;
     },
     context?: HttpContext
