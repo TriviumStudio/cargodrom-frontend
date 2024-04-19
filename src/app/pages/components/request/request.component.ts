@@ -36,17 +36,13 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
-    console.log('params',params);
+    this.params=params;
     return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
   }
-
-
 
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.requestService.requestListParam().pipe(map(val => val as any));
   }
-
-
 
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));

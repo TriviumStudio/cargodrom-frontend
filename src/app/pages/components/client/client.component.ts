@@ -42,8 +42,6 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     return this.customerService.customerListParam().pipe(map(val => val as any));
   }
 
-
-
   protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
     return this.customerService.customerListSearch().pipe(map(val => val as SearchFilterSchema));
   }
