@@ -30,6 +30,7 @@ import { PlaceEditorComponent } from './components/place-editor/place-editor.com
 import { RequestServicesComponent } from './components/request-services-editor/request-services-editor.component';
 import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
+import { RequestRateComponent } from './components/request-rate/request-rate.component';
 
 
 
@@ -61,7 +62,7 @@ import { RequestEditorTranslateComponent } from './components/request-editor-tra
     PlaceEditorComponent,
     RequestServicesComponent,
     RequestEditorTranslateComponent,
-
+    RequestRateComponent,
   ],
   imports: [
     CommonModule,
