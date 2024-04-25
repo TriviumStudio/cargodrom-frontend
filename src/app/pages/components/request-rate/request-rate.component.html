@@ -1,5 +1,97 @@
-<div class="edit-form title">Проверьте перевод на английский</div>
+<div class="edit-form title">Rate Request # {{id}}</div>
 
-<div class="edit-form" >
-  
+<div class="edit-form">
+  <div class="form-block">
+
+    <div class="form-row df">
+      <div class="form-col">
+
+        <div class="form-block-sub-title">Route os Transportation</div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Dispatch</div>
+            <div class="form-data">
+              <div>{{request.departure_text}}</div>
+            </div>
+            <button (click)="copyDispatchText()" >Copy</button>
+            <button >On map</button>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Destination</div>
+            <div class="form-data">
+              <div>{{request.arrival_text}}</div>
+            </div>
+            <button (click)="copyDestinationText()" >Copy</button>
+            <button >On map</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-col">
+
+        <div class="form-block-sub-title">Cargo Details</div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Type of cargo:</div>
+            <div class="form-data">
+              <div>{{requestEn.cargo_type_name}}</div>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Cargo name:</div>
+            <div class="form-data">
+              <div>{{requestEn.cargo_description}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Cargo readiness:</div>
+            <div class="form-data">
+              <div>{{request.cargo_readiness}}</div>
+            </div>
+          </div>
+          <div class="form-item">
+            <div class="form-label">Incoterms</div>
+            <div class="form-data">
+              <div>{{request.incoterms_name}} {{request.incoterms_city_name}}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-item-layout">
+          <div class="form-item">
+            <div class="form-label">Details total:</div>
+            <div class="form-data">
+              <div>{{request.cargo_text}} </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-col">
+        <div class="form-block-sub-title">Dimensions</div>
+        <textarea>{{requestEn.cargo_dimensions}}</textarea>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+      <div class="form-block-sub-title">Comment</div>
+      <div>{{requestEn.comment}}</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-block-sub-title">Attached Files</div>
+    </div>
+
+  </div>
+
 </div>

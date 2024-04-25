@@ -63,7 +63,7 @@ export interface Request {
 /**
  * Вид перевозки (ID берем из запроса - transport_kind)
  */
-'transport_kind_id'?: string;
+'transport_kind_id'?: number;
 
 /**
  * Вид перевозки
@@ -376,7 +376,7 @@ export interface Request {
 /**
  * Статус Запроса (ID берем из запроса - request_status)
  */
-'status_id'?: string;
+'status_id'?: number;
 
 /**
  * Статус CRM (ID берем из запроса - request_status_crm)
@@ -417,6 +417,10 @@ export interface Request {
  * Дата создания
  */
 'time_add'?: string;
+
+'departure_text'?: string;
+'arrival_text'?: string;
+'cargo_text'?: string;
 }
 
 

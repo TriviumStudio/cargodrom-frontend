@@ -19,6 +19,7 @@ import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/dir
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from '../../../../environments/environment';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-request-rate',
@@ -41,6 +42,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
   requestForm: FormGroup<{}>;
+  request: Partial<Request> = {};
+  requestEn: any = {};
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -60,16 +63,58 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.requestForm = this.fb.group({
     });
   }
-  //МЕТОДЫ ЖЦ
+
+  // Методы ЖЦ:
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    // this.isEditMode = segments[1] !== 'rate';
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = id;
+    this.getRequest();
+    this.getRequestTraqnslate();
   }
+
   // Публичные методы:
+  copyDispatchText(){
+    window.navigator.clipboard.writeText(this.request.departure_text!)
+  }
+  copyDestinationText(){
+    window.navigator.clipboard.writeText(this.request.arrival_text!)
+  }
+
+  // Приватные методы:
+  //получаем данные запроса
+  private getRequest():void{
+    this.requestService.requestInfo({id:this.id})
+      .pipe(tap(request => {
+        if (!request) {
+          throw ({ error: { error_message: `Запрос не существует` } });
+        }
+      }))
+      .subscribe({
+        next: request => {
+          console.log('Данные запроса полученны',request);
+          this.request=request;
+        },
+        error: (err: any) => {
+          this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          // this.goBack();
+        }
+      });
+  }
+  //получаем данные перевода запроса
+  private getRequestTraqnslate(){
+    this.requestService.requestTranslate({id: this.id}).pipe().subscribe({
+      next: (translate:any) => {
+        this.requestEn=translate.en;
+        console.log(this.requestEn);
+
+      },
+      error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
 
 
 }

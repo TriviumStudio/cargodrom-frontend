@@ -1,0 +1,44 @@
+// .cargo-info{
+//   flex-grow: 1;
+//   border: solid red 1px;
+// }
+
+.df{
+  display: flex;
+}
+
+.form-col{
+  flex-grow: 1;
+  border-right: 1px solid #C3CCD6;
+  margin: -40px 0 -40px 0;
+  width: 0;
+  max-width: 381px;
+  padding: 40px;
+}
+.form-col:first-child{
+  margin-left: -40px;
+}
+.form-col:last-child{
+  margin-right: -40px;
+  border-right: 0;
+}
+
+.form-block .form-item-layout .form-item {
+  width: 100%;
+}
+
+.form-block .form-col .form-block-sub-title + .form-item-layout {
+  margin-top: 25px;
+}
+
+.form-col textarea{
+  background: none;
+  height: 150px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  margin-top: 25px;
+  line-height: 30px;
+  resize: none;
+}

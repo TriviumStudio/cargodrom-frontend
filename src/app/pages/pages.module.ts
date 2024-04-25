@@ -31,6 +31,7 @@ import { RequestServicesComponent } from './components/request-services-editor/r
 import { ResponsibilityComponent } from './components/responsibility/responsibility.component';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 
 
