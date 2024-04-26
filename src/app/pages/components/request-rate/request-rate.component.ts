@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ContractorService } from '../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
-import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
+import { CargoService, CompanyService, CustomerService, DirectionService, FileService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 import { Editor } from 'src/app/classes/editor';
 import { Location, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
@@ -41,9 +41,12 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
+  
   requestForm: FormGroup<{}>;
   request: Partial<Request> = {};
   requestEn: any = {};
+  files:any
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +62,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router,
+    private fileSevice: FileService,
   ) {
     this.requestForm = this.fb.group({
     });
@@ -95,7 +99,6 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       }))
       .subscribe({
         next: request => {
-          console.log('Данные запроса полученны',request);
           this.request=request;
         },
         error: (err: any) => {
@@ -106,14 +109,41 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   //получаем данные перевода запроса
   private getRequestTraqnslate(){
-    this.requestService.requestTranslate({id: this.id}).pipe().subscribe({
+    this.requestService.requestTranslate({id: this.id})
+    .pipe(
+      tap((translate)=> {
+        if (!translate) {
+          throw ({ error: { error_message: `Запрос не существует` } });
+        }}), takeUntil(this._destroy$))
+    .subscribe({
       next: (translate:any) => {
         this.requestEn=translate.en;
-        console.log(this.requestEn);
-
       },
-      error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)}
     });
+  }
+
+  // getFile(id:number){
+  //   this.fileSevice.fileDownload({id: id}).pipe().subscribe({
+  //     next: (file:any) => {
+  //       console.log(file);
+
+  //     },
+  //     error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+  //   });
+  // }
+
+  // private getDangerFile(item_id:number) {
+  //   this.requestService.requestFiles({item_id:item_id, var:'cargo_file'})
+  //     .pipe(
+  //       tap((file)=>this.documentsDanger=file as unknown as FileDocument[] || []),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
+
+  getFile(id:number){
+    this.fileSevice.fileDownload({id: id}).subscribe()
   }
 
 

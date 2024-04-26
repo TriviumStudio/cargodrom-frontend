@@ -1,3 +1,4 @@
+import { FileDocument } from "./file-document";
 import { SortColumn } from "./sort-column";
 
 //вид запроса
@@ -220,8 +221,10 @@ export interface Request {
 /**
  * Документы по грузу
  */
-'cargo_file'?: {
-};
+// 'cargo_file'?: {
+// };
+'cargo_file'?:any ;
+
 
 /**
  * Город отправления (ID берем из запроса - direction_city)
@@ -421,6 +424,7 @@ export interface Request {
 'departure_text'?: string;
 'arrival_text'?: string;
 'cargo_text'?: string;
+'documents_file'?:any;
 }
 
 

@@ -38,7 +38,46 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  margin-top: 25px;
   line-height: 30px;
   resize: none;
+}
+
+.form-col .form-col-title{
+  color: #2C3640;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  padding-bottom: 25px;
+}
+
+.form-row .form-row-title{
+  color: #2C3640;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 20px;
+  padding-bottom: 25px;
+}
+
+.file-box{
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  height: 15px;
+  padding: 10px 10px;
+  margin-right: 5px;
+  margin-bottom: 15px;
+  color: #DB563B;
+  text-wrap: nowrap;
+  cursor: pointer;
+}
+.file-box:hover{
+  opacity: 0.7;
+}
+
+.wrap{
+  flex-wrap: wrap;
+}
+
+.radio{
+  margin-left: 20px;
+  margin-bottom: 25px;
 }

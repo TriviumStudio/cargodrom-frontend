@@ -1,12 +1,12 @@
 <div class="edit-form title">Rate Request # {{id}}</div>
 
-<div class="edit-form">
+<form class="edit-form">
   <div class="form-block">
 
     <div class="form-row df">
       <div class="form-col">
 
-        <div class="form-block-sub-title">Route os Transportation</div>
+        <div class="form-col-title">Route os Transportation</div>
 
         <div class="form-item-layout">
           <div class="form-item">
@@ -33,7 +33,7 @@
       </div>
       <div class="form-col">
 
-        <div class="form-block-sub-title">Cargo Details</div>
+        <div class="form-col-title">Cargo Details</div>
 
         <div class="form-item-layout">
           <div class="form-item">
@@ -77,21 +77,69 @@
       </div>
 
       <div class="form-col">
-        <div class="form-block-sub-title">Dimensions</div>
+        <div class="form-col-title">Dimensions</div>
         <textarea>{{requestEn.cargo_dimensions}}</textarea>
       </div>
 
     </div>
 
     <div class="form-row">
-      <div class="form-block-sub-title">Comment</div>
+      <div class="form-row-title">Comment</div>
       <div>{{requestEn.comment}}</div>
     </div>
 
     <div class="form-row">
-      <div class="form-block-sub-title">Attached Files</div>
+      <div class="form-row-title">Attached Files</div>
+      <div class="form-item-layout wrap">
+
+        <div class="file-box"
+          *ngFor="let documentsFile of request.documents_file;"
+          (click)="getFile(documentsFile.id)"
+        >
+          {{documentsFile.file_name}}
+        </div>
+
+        <div class="file-box"
+          *ngFor="let cargoFile of request.cargo_file;"
+          (click)="getFile(cargoFile.id)"
+        >
+          {{cargoFile.file_name}}
+        </div>
+
+        <!-- <a href="https://cargodrom.com/api/1.0/file_download?id=71" download>ссылко</a> -->
+
+      </div>
+
+    </div>
+
+    <div class="form-row bg">
+      <div class="form-item-layout"> Rates
+        <div class="form-row-title">Rates</div>
+
+        <label class="radio">
+          <input formControlName="" type="radio" name="departure_flight">
+          <i></i>
+          <span>With Details</span>
+        </label>
+
+        <label class="radio">
+          <input formControlName="" type="radio" name="departure_flight">
+          <i></i>
+          <span>With single Amount</span>
+        </label>
+
+      </div>
+
+      <div class="form-item-layout bg"> rgre greg rgeg</div>
+    </div>
+
+
+
+
+
+    <div class="form-row bg">
+      <button type="submit">Send Rates</button>
     </div>
 
   </div>
-
-</div>
+</form>
