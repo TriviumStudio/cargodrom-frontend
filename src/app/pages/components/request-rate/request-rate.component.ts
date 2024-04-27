@@ -41,11 +41,13 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
-  
-  requestForm: FormGroup<{}>;
+
+  requestForm: FormGroup;
   request: Partial<Request> = {};
   requestEn: any = {};
   files:any
+
+  test=1
 
   //КОНСТРУКТОР
   constructor(
@@ -65,15 +67,19 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     private fileSevice: FileService,
   ) {
     this.requestForm = this.fb.group({
+      cargo_readiness: ['', []],
     });
   }
 
   // Методы ЖЦ:
   ngOnDestroy(): void {
+    console.log('ngOnDestroy', this.test);
+
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
+    console.log('ngOnInit', this.test);
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.id = id;
     this.getRequest();
@@ -86,6 +92,10 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   copyDestinationText(){
     window.navigator.clipboard.writeText(this.request.arrival_text!)
+  }
+
+  testF(n:number){
+    this.test=n;
   }
 
   // Приватные методы:

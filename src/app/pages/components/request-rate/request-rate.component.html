@@ -1,6 +1,6 @@
 <div class="edit-form title">Rate Request # {{id}}</div>
 
-<form class="edit-form">
+<form class="edit-form" [formGroup]="requestForm">
   <div class="form-block">
 
     <div class="form-row df">
@@ -112,30 +112,40 @@
 
     </div>
 
-    <div class="form-row bg">
-      <div class="form-item-layout"> Rates
+    <div class="form-row bg ">
+      <div class="form-item-layout mb40">
         <div class="form-row-title">Rates</div>
 
         <label class="radio">
-          <input formControlName="" type="radio" name="departure_flight">
+          <input formControlName="cargo_readiness" type="radio" name="cargo_readiness" [value]="1">
           <i></i>
           <span>With Details</span>
         </label>
 
         <label class="radio">
-          <input formControlName="" type="radio" name="departure_flight">
+          <input formControlName="cargo_readiness" type="radio" name="cargo_readiness" [value]="2">
           <i></i>
           <span>With single Amount</span>
         </label>
 
       </div>
 
-      <div class="form-item-layout bg"> rgre greg rgeg</div>
+      <mat-tab-group>
+        <mat-tab label="First">
+          <div class="form-item-layout bb">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Second"> Content 2 <div (click)="testF(22)">22</div> </mat-tab>
+        <mat-tab label="Third"> Content 3 <div (click)="testF(1331)">33</div> </mat-tab>
+        <!-- <mat-tab label="Third"> Content 3  <div (click)="testF(44)">44</div></mat-tab>
+        <mat-tab label="Third"> Content 3  <div (click)="testF(55)">55</div></mat-tab>
+        <mat-tab label="Third"> Content 3  <div (click)="testF(66)">66</div></mat-tab> -->
+        <div class="mat-tab-labels"></div>
+      </mat-tab-group>
     </div>
-
-
-
-
 
     <div class="form-row bg">
       <button type="submit">Send Rates</button>
