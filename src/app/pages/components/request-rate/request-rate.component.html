@@ -113,7 +113,7 @@
     </div>
 
     <div class="form-row bg ">
-      <div class="form-item-layout mb40">
+      <div class="form-item-layout mb40px">
         <div class="form-row-title">Rates</div>
 
         <label class="radio">
@@ -130,26 +130,94 @@
 
       </div>
 
-      <mat-tab-group>
-        <mat-tab label="First">
-          <div class="form-item-layout bb">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
+      <div class="rate_labels">
+        <div class="rate_label" *ngFor="let rate of rates.controls"> Rate</div>
+        <div class="rate_label active-rate"></div>
+        <button class="btn-add-rate" (click)="addRate()">Add Rate</button>
+        <button class="btn-dup-rate" (click)="duplicateRate()">Duplicate Rate</button>
+      </div>
+
+    </div>
+
+    <div class="form-row rate">
+      <div class="form-item-layout">
+
+        <div class="form-item i10">
+          <div class="form-label">Chargeable weight:</div>
+          <div class="form-data">
+            <span class="kg"><input value="{{request.cargo_places_weight}}" type="text" readonly>kg</span>
           </div>
-        </mat-tab>
-        <mat-tab label="Second"> Content 2 <div (click)="testF(22)">22</div> </mat-tab>
-        <mat-tab label="Third"> Content 3 <div (click)="testF(1331)">33</div> </mat-tab>
-        <!-- <mat-tab label="Third"> Content 3  <div (click)="testF(44)">44</div></mat-tab>
-        <mat-tab label="Third"> Content 3  <div (click)="testF(55)">55</div></mat-tab>
-        <mat-tab label="Third"> Content 3  <div (click)="testF(66)">66</div></mat-tab> -->
-        <div class="mat-tab-labels"></div>
-      </mat-tab-group>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Airline:</div>
+          <div class="form-data">
+            <input type="text" readonly formControlName="airline_name">
+          </div>
+        </div>
+
+        <div class="form-item i10">
+          <div class="form-label">Airline (iata):<span class="req">•</span></div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+             <mat-select formControlName="airline" (valueChange)="onTransportCarrierChange($event)">
+                <mat-option
+                  *ngFor="let transportCarrier of transportCarrier;"
+                  [value]="transportCarrier"
+                  >
+                  {{ transportCarrier.iata }}
+                </mat-option>
+             </mat-select>
+           </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Route:</div>
+          <div class="form-data">
+            <div>{{requestEn.cargo_type_name}}</div>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">The departure schedule:</div>
+          <div class="form-data">
+            <div>{{requestEn.cargo_type_name}}</div>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">The nearest flight etd:</div>
+          <div class="form-data">
+            <div>{{requestEn.cargo_type_name}}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="charges">
+        <div class="included-fees">
+          <div>The rate includes following charges</div>
+
+          <div *ngFor="let arr of rateArr1"> {{arr.name}}</div>
+
+        </div>
+
+        <div class="list-charges">
+          <div>List of Charges</div>
+
+          <div *ngFor="let arr of rateArr2"> {{arr.name}}</div>
+
+        </div>
+
+      </div>
+
     </div>
 
     <div class="form-row bg">
       <button type="submit">Send Rates</button>
     </div>
+
 
   </div>
 </form>

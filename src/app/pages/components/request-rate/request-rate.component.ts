@@ -49,6 +49,99 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   test=1
 
+  transportCarrier:any=[];
+
+  rateArr1=[
+    {
+      id:1,
+      name: 'Airfreight rate',
+      min: 400,//минимальная сумма
+      bid: 1.71,//ставка
+      meaning: 2500,//авторое значение
+      action:'x',//дейсввие
+      sum: 4275,//итоговая сумма
+
+    },
+    {
+      id:2,
+      name: 'Handling charge',
+      min: 40,
+      bid: 0.02,
+      meaning: 2500,
+      action:'x',
+      sum: 50,
+    },
+    {
+      id:3,
+      name: 'Terminal charge',
+      min:30,
+      bid: 0.1,
+      meaning: 2500,
+      action:'x',
+      sum: 250,
+    },
+    {
+      id:4,
+      name: 'Custom clearance',
+      bid: 50,
+      meaning: 1,
+      action:'x',
+      sum: 50,
+    },
+    {
+      id:5,
+      name: 'Doc & ENS/AMS',
+      bid: 60,
+      meaning: 1,
+      action:'x',
+      sum: 60,
+    },
+    {
+      id:6,
+      name: 'Pick up charge (Calc.)',
+      bid: 0.30,
+      meaning: 2500,
+      action:'x',
+      sum: 780,
+    },
+    {
+      id:7,
+      name: 'Pick up charge (Fixed)',
+      bid: 30,
+      meaning: 1,
+      action:'x',
+      sum: 30,
+    },
+  ]
+
+  rateArr2=[
+    {
+      id:1,
+      name: 'Export License',
+      sum:85
+    },
+    {
+      id:2,
+      name: 'DMG TEST',
+      sum:100
+    },
+    {
+      id:3,
+      name: 'MAgnetic Test',
+      sum:150
+    },
+    {
+      id:4,
+      name: 'Commodity',
+      sum:'-'
+    },
+    {
+      id:5,
+      name: 'Other Charges',
+      sum:0
+    },
+  ]
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -68,6 +161,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   ) {
     this.requestForm = this.fb.group({
       cargo_readiness: ['', []],
+      airline:[,[]],
+      airline_name:['',[]],
+      rates: fb.array([], []),
     });
   }
 
@@ -84,6 +180,29 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.id = id;
     this.getRequest();
     this.getRequestTraqnslate();
+    if(this.rates.length === 0){
+      this.addRate();
+    };
+
+  }
+
+  //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ РЕЙТОВ
+  removeRate(i: number): void {
+    this.rates.removeAt(i);
+    this.requestForm.markAsTouched();
+  }
+  addRate() {
+    this.rates.push(this.fb.control({
+      request_id: this.request.id
+    }));
+    this.requestForm.markAsTouched();
+  }
+  duplicateRate(){
+    console.log(this.requestForm.value);
+
+  }
+  get rates() {
+    return <FormArray>this.requestForm.get('rates');
   }
 
   // Публичные методы:
@@ -98,18 +217,52 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.test=n;
   }
 
+  onTransportCarrierChange(e:any){
+    console.log(e);
+    this.requestForm.patchValue({
+      airline_name: e.name,
+    });
+
+  }
+
   // Приватные методы:
+  // получаем перевозчиков
+  private getTransportCarrier():void{
+    this.transportService.transportCarrier({kind_id:this.request.transport_kind_id})
+      .pipe(
+        tap(transportCarrier => {
+          console.log(transportCarrier);
+          if (!transportCarrier) {
+            throw ({ error: { error_message: `Перевозчиков не существует` } });
+          }
+        }),
+        takeUntil(this._destroy$)
+      )
+      .subscribe({
+        next: transportCarrier => {
+          this.transportCarrier=transportCarrier;
+        },
+        error: (err: any) => {
+          this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          // this.goBack();
+        }
+      });
+  }
   //получаем данные запроса
   private getRequest():void{
     this.requestService.requestInfo({id:this.id})
-      .pipe(tap(request => {
-        if (!request) {
-          throw ({ error: { error_message: `Запрос не существует` } });
-        }
-      }))
+      .pipe(
+        tap(request => {
+          console.log(request);
+          if (!request) {
+            throw ({ error: { error_message: `Запрос не существует` } });
+          }
+        }),
+        takeUntil(this._destroy$))
       .subscribe({
         next: request => {
           this.request=request;
+          this.getTransportCarrier();
         },
         error: (err: any) => {
           this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -120,18 +273,19 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   //получаем данные перевода запроса
   private getRequestTraqnslate(){
     this.requestService.requestTranslate({id: this.id})
-    .pipe(
-      tap((translate)=> {
-        if (!translate) {
-          throw ({ error: { error_message: `Запрос не существует` } });
-        }}), takeUntil(this._destroy$))
-    .subscribe({
-      next: (translate:any) => {
-        this.requestEn=translate.en;
-      },
-      error: (err) => {
-        this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)}
-    });
+      .pipe(
+        tap((translate)=> {
+          if (!translate) {
+            throw ({ error: { error_message: `Запрос не существует` } });
+          }
+        }), takeUntil(this._destroy$))
+      .subscribe({
+        next: (translate:any) => {
+          this.requestEn=translate.en;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)}
+      });
   }
 
   // getFile(id:number){

@@ -23,9 +23,7 @@
   border-right: 0;
 }
 
-.form-block .form-item-layout .form-item {
-  width: 100%;
-}
+
 
 .form-block .form-col .form-block-sub-title + .form-item-layout {
   margin-top: 25px;
@@ -82,45 +80,112 @@
   margin-bottom: 25px;
 }
 
-.form-row .mat-tab-group {
-  margin: 0 -40px;
-  max-width: 1142px ;
-}
+// .form-row .mat-tab-group {
+//   margin: 0 -40px;
+//   max-width: 1142px ;
+// }
 
-.form-row .mat-tab-header{
-  padding-left: 40px;
-}
+// .form-row .mat-tab-header{
+//   padding-left: 40px;
+//   padding-right: 250px;
+// }
 
-.form-row .mat-tab-label{
-  border: 1px solid #C3CCD6;
-  border-bottom: 0;
-  border-right: 0;
-}
-.form-row .mat-tab-label:last-child{
-  border-right: 1px solid #C3CCD6;
-}
+// .form-row .mat-tab-label{
+//   border: 1px solid #C3CCD6;
+//   border-bottom: 0;
+//   border-right: 0;
+// }
+// .form-row .mat-tab-label:last-child{
+//   border-right: 1px solid #C3CCD6;
+// }
 
-.form-row .mat-tab-body-wrapper{
-  padding: 40px;
-  background-color: white;
+// .form-row .mat-tab-body-wrapper{
+//   padding: 40px;
+//   background-color: white;
+//   margin-bottom: -40px;
+// }
+
+// .form-row .mat-ink-bar{
+//   display: none;
+// }
+
+// .form-row .mat-tab-label:focus:not(.mat-tab-disabled) {
+//   opacity: 1;
+//   background-color: white;
+// }
+
+// .form-row .mat-tab-label-active{
+//   background-color: white;
+//   opacity: 1;
+// }
+
+.rate_labels{
+  height: 40px;
   margin-bottom: -40px;
+  display: flex;
 }
 
-.form-row .mat-ink-bar{
-  display: none;
+.rate_label{
+
+  height: 100%;
+  width: 100px;
+  border-right: 1px solid #C3CCD6;
+  border-top: 1px solid #C3CCD6;
+}
+.rate_label:first-child{
+  border-left: 1px solid #C3CCD6;
 }
 
-.form-row .mat-tab-label:focus:not(.mat-tab-disabled) {
-  opacity: 1;
+.active-rate{
   background-color: white;
 }
 
-.form-row .mat-tab-label-active{
-  background-color: white;
-  opacity: 1;
+.btn-add-rate{
+  background-color: #DB563B;
+  border: none;
+  width: 100px;
+  height: 80%;
+  margin: 5px;
+  border-radius: 6px;
+  color: white;
 }
 
-.bb{
+.btn-dup-rate{
+  width: 100px;
+  height: 80%;
+  background-color: #4B66AD;
+  border: none;
+  margin: 5px;
+  margin-left: 0;
+  border-radius: 6px;
+  color: white;
+}
+
+.kg{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rate .form-item-layout{
   border-bottom: 1px solid #C3CCD6;
   padding-bottom: 40px;
 }
+
+.charges{
+  display: flex;
+  margin-top: 40px;
+
+}
+
+.included-fees{
+  width: 65%;
+}
+
+.list-charges{
+  width: 35%;
+}
+
+
+
+
