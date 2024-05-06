@@ -1,103 +1,120 @@
 <form [formGroup]="placeForm" class="form-item-table-row">
 
-  <div class="form-item w100">
-    <div *ngIf="num===1" class="form-label">габариты</div>
-    <div class="form-data nm">Место №{{num}}</div>
-  </div>
+  <div class="form-row rate">
+    <div class="form-item-layout">
 
-  <div class="form-item-block w232">
-
-    <div class="form-item w156" *ngIf="currentRequestFormat===2">
-      <div *ngIf="num===1" class="form-label">Вид упаковки</div>
-      <div class="form-data">
-        <mat-form-field appearance="outline" class="ui-select">
-          <mat-select formControlName="cargo_package_id" class="ui-select">
-            <mat-option *ngFor="let cargoPackage of cargoPackages;" [value]="cargoPackage.id">{{ cargoPackage.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="form-item i10">
+        <div class="form-label">Chargeable weight:</div>
+        <div class="form-data">
+          <span class="kg"><input formControlName="chargeable_weight" type="text" readonly>kg</span>
+        </div>
       </div>
-    </div>
 
-    <div class="form-item w70" *ngIf="currentRequestFormat===2">
-      <div *ngIf="num===1" class="form-label"></div>
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
+        <div class="form-data">
+          <input type="text"  formControlName="airline"  readonly >
+        </div>
+      </div>
+
+      <div class="form-item i10">
+        <div class="form-label">Airline (iata):<span class="req">•</span></div>
         <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
-            <mat-select [ngClass]="'staking-'+placeForm.value.stacking" formControlName="stacking">
-
-              <mat-option [value]=true>
-                <div class="stacking-div">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
-                    <path id="Vector" d="M0 10V14H14V10H0ZM13 13H1V11H13V13ZM10 0H4V4H10V0ZM9 3H5V1H9V3ZM12 5.00049H2V9.00049H12V5.00049ZM11 8.00049H3V6.00049H11V8.00049Z" fill="#83909E"/>
-                  </svg>
-                </div>
-              </mat-option>
-
-              <mat-option [value]=false>
-                <div class="stacking-div">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14" fill="none">
-                    <path id="Vector" d="M10.207 5.29297C10.5977 5.68359 10.5977 6.31641 10.207 6.70703C10.0117 6.90234 9.75586 7 9.5 7C9.24414 7 8.98828 6.90234 8.79297 6.70703L7 4.91406L5.20703 6.70703C5.01172 6.90234 4.75586 7 4.5 7C4.24414 7 3.98828 6.90234 3.79297 6.70703C3.40234 6.31641 3.40234 5.68359 3.79297 5.29297L5.58594 3.5L3.79297 1.70703C3.40234 1.31641 3.40234 0.683594 3.79297 0.292969C4.18359 -0.0976561 4.81641 -0.0976561 5.20703 0.292969L7 2.08594L8.79297 0.292969C9.18359 -0.0976562 9.81641 -0.0976562 10.207 0.292969C10.5977 0.683594 10.5977 1.31641 10.207 1.70703L8.41406 3.5L10.207 5.29297Z" fill="#DB563B"/>
-                    <path id="Vector_2" d="M0 14H14V10H0V14ZM1 11H13V13H1V11ZM14 4.99951V5.99951V8.99951H0V5.99951V4.99951H1H2V5.99951H1V7.99951H13V5.99951H12V4.99951H13H14Z" fill="#83909E"/>
-                  </svg>
-                </div>
-              </mat-option>
-
-            </mat-select>
-          </mat-form-field>
+           <mat-select formControlName="airline_id">
+            <mat-option
+              *ngFor="let transportCarrier of transportCarrier;"
+              [value]="transportCarrier.id"
+              (click)="onAirlineIataChange(transportCarrier)"
+              >
+              {{ transportCarrier.iata }}
+            </mat-option>
+           </mat-select>
+         </mat-form-field>
         </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Route:</div>
+        <div class="form-data">
+          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The departure schedule:</div>
+        <div class="form-data">
+          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">The nearest flight etd:</div>
+        <div class="form-data">
+          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+        </div>
+      </div>
+
+    </div>
+
+    <div class="charges">
+
+      <div class="included-fees" >
+
+        <div>The rate includes following charges</div>
+
+        <div formGroupName="airfreight_rate">
+
+          <div class="form-item i2 max-w-fc">
+            <label>
+              <input type="checkbox" formControlName="airfreight_rate_control">
+              <i></i>
+              <span>Нужен температурный режим?</span>
+            </label>
+          </div>
+
+          <div class="form-item w124">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input type="number" formControlName="airfreight_rate_min">
+            </div>
+          </div>
+
+          <div class="form-item w124">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input type="number" formControlName="airfreight_rate_bid">
+            </div>
+          </div>
+
+          <div class="form-item w124">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input type="number" formControlName="airfreight_rate_variable">
+            </div>
+          </div>
+
+          <div class="form-item w124">
+            <div class="form-label">Итого вес, кг:</div>
+            <div class="form-data">
+              <input type="number" formControlName="airfreight_rate_sum" readonly>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="list-charges">
+        <div>List of Charges</div>
+
+      </div>
+
     </div>
 
   </div>
 
-  <div class="form-item-block">
-    <div class="form-item w72 r">
-      <div *ngIf="num===1" class="form-label">ДЛИНА, СМ</div>
-      <div class="form-data"><input type="number" name="length" formControlName="length" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item w72 r">
-      <div *ngIf="num===1" class="form-label">ШИРИНА, СМ</div>
-      <div class="form-data"><input type="number"  name="width" formControlName="width" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item w72 r">
-      <div *ngIf="num===1" class="form-label">ВЫСОТА, СМ</div>
-      <div class="form-data"><input type="number"  name="height" formControlName="height" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-  </div>
-
-  <div class="form-item-block">
-    <div class="form-item w72 r">
-      <div *ngIf="num===1" class="form-label">ВЕС, КГ</div>
-      <div class="form-data"><input type="number"  name="weight" formControlName="weight" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-    <div class="form-item w72 r">
-      <div *ngIf="num===1" class="form-label">КОЛ-ВО, ШТ</div>
-      <div class="form-data"><input type="number" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
-    </div>
-  </div>
-
-
-  <div class="form-item w96 r">
-    <div *ngIf="num===1" class="form-label">Итого Объем,м<sup class="sup">3</sup>:</div>
-    <div class="form-data"><input type="number" name="volume" formControlName="volume"  placeholder="—" required readonly ></div>
-  </div>
-
-  <div class="form-item w96 r">
-    <div *ngIf="num===1" class="form-label">Итого вес</div>
-    <div class="form-data"><input type="number" name="total_weight" formControlName="total_weight" placeholder="—" required readonly ></div>
-  </div>
-
-  <!-- <div class="form-item">
-    <div *ngIf="num===1" class="form-label"></div>
-    <button (click)="onDeletePlace()" class="button__del-place">
-      <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13.5 2H10V0.5C10 0.223633 9.77637 0 9.5 0H4.5C4.22363 0 4 0.223633 4 0.5V2H0.5C0.223633 2 0 2.22363 0 2.5V5.5C0 5.77637 0.223633 6 0.5 6H1V15.5C1 15.7764 1.22363 16 1.5 16H12.5C12.7764 16 13 15.7764 13 15.5V6H13.5C13.7764 6 14 5.77637 14 5.5V2.5C14 2.22363 13.7764 2 13.5 2ZM5 1H9V2H5V1ZM13 5H12.5C12.2236 5 12 5.22363 12 5.5V15H2V5.5C2 5.22363 1.77637 5 1.5 5H1V3H4.5H9.5H13V5ZM5 6.5V13.5C5 13.7764 4.77637 14 4.5 14C4.22363 14 4 13.7764 4 13.5V6.5C4 6.22363 4.22363 6 4.5 6C4.77637 6 5 6.22363 5 6.5ZM9.5 6C9.77637 6 10 6.22363 10 6.5V13.5C10 13.7764 9.77637 14 9.5 14C9.22363 14 9 13.7764 9 13.5V6.5C9 6.22363 9.22363 6 9.5 6Z" fill="#83909E"/>
-      </svg>
-    </button>
-  </div> -->
-
-  <div class="form-item">
-    <div *ngIf="num===1" class="form-label"></div>
-    <span (click)="onDeletePlace()" class="del"></span>
-  </div>
+  <button (click)="testLog()">test</button>
 
 </form>
 

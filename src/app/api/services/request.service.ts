@@ -11767,4 +11767,1703 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestRates()` */
+  static readonly RequestRatesPath = '/request_rates';
+
+  /**
+   * Ставки по запросу от контрагента.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRates()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRates$Response(
+    params: {
+
+    /**
+     * UID запроса (из URL)
+     */
+      uid: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatesPath, 'get');
+    if (params) {
+      rb.query('uid', params.uid, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Русский язык
+         */
+        'ru'?: {
+        
+        /**
+         * Страна отправления
+         */
+        'departure_country_name'?: string;
+        
+        /**
+         * Город отправления
+         */
+        'departure_city_name'?: string;
+        
+        /**
+         * Адрес забора груза
+         */
+        'departure_address'?: string;
+        
+        /**
+         * Аэропорт вылета
+         */
+        'departure_point_name'?: string;
+        
+        /**
+         * Страна назначения
+         */
+        'arrival_country_name'?: string;
+        
+        /**
+         * Город назначения
+         */
+        'arrival_city_name'?: string;
+        
+        /**
+         * Адрес доставки груза
+         */
+        'arrival_address'?: string;
+        
+        /**
+         * Аэропорт прибытия
+         */
+        'arrival_point_name'?: string;
+        
+        /**
+         * Условия поставки по Инкотермс
+         */
+        'incoterms_name'?: string;
+        
+        /**
+         * Рейсы
+         */
+        'departure_flight_name'?: string;
+        
+        /**
+         * Товар
+         */
+        'cargo_description'?: string;
+        
+        /**
+         * Тип груза
+         */
+        'cargo_type_name'?: string;
+        
+        /**
+         * Условия перевозки
+         */
+        'cargo_condition_carriage'?: string;
+        
+        /**
+         * Кол-во
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Габариты груза
+         */
+        'cargo_dimensions'?: string;
+        
+        /**
+         * Примечание
+         */
+        'comment'?: string;
+        };
+        
+        /**
+         * Английский язык
+         */
+        'en'?: {
+        
+        /**
+         * Country of dispatch
+         */
+        'departure_country_name'?: string;
+        
+        /**
+         * City of dispatch
+         */
+        'departure_city_name'?: string;
+        
+        /**
+         * Address of pick-up
+         */
+        'departure_address'?: string;
+        
+        /**
+         * Airport of departure
+         */
+        'departure_point_name'?: string;
+        
+        /**
+         * Country of delivery
+         */
+        'arrival_country_name'?: string;
+        
+        /**
+         * City of delivery
+         */
+        'arrival_city_name'?: string;
+        
+        /**
+         * Address of departure
+         */
+        'arrival_address'?: string;
+        
+        /**
+         * Airport of destination
+         */
+        'arrival_point_name'?: string;
+        
+        /**
+         * Terms of delivery
+         */
+        'incoterms_name'?: string;
+        
+        /**
+         * Type of flights
+         */
+        'departure_flight_name'?: string;
+        
+        /**
+         * Commodity
+         */
+        'cargo_description'?: string;
+        
+        /**
+         * Тип груза
+         */
+        'cargo_type_name'?: string;
+        
+        /**
+         * Condition of carriage
+         */
+        'cargo_condition_carriage'?: string;
+        
+        /**
+         * Total q-ty
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Total m3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Total kg
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Density
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Chargeable weight, kg
+         */
+        'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Dimensions
+         */
+        'cargo_dimensions'?: string;
+        
+        /**
+         * Notation
+         */
+        'comment'?: string;
+        };
+        
+        /**
+         * Поля автоматического перевода
+         */
+        'translate_auto'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки по запросу от контрагента.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRates$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRates(
+    params: {
+
+    /**
+     * UID запроса (из URL)
+     */
+      uid: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
+}> {
+    return this.requestRates$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
+}>): {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+
+/**
+ * Поля автоматического перевода
+ */
+'translate_auto'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRatesSave()` */
+  static readonly RequestRatesSavePath = '/request_rates_save';
+
+  /**
+   * Сохранение ставок.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRatesSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRatesSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRatesSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение ставок.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRatesSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRatesSave(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Русский язык
+ */
+'ru'?: {
+
+/**
+ * Страна отправления
+ */
+'departure_country_name'?: string;
+
+/**
+ * Город отправления
+ */
+'departure_city_name'?: string;
+
+/**
+ * Адрес забора груза
+ */
+'departure_address'?: string;
+
+/**
+ * Аэропорт вылета
+ */
+'departure_point_name'?: string;
+
+/**
+ * Страна назначения
+ */
+'arrival_country_name'?: string;
+
+/**
+ * Город назначения
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Адрес доставки груза
+ */
+'arrival_address'?: string;
+
+/**
+ * Аэропорт прибытия
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Условия поставки по Инкотермс
+ */
+'incoterms_name'?: string;
+
+/**
+ * Рейсы
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Товар
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Условия перевозки
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Кол-во
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Габариты груза
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+};
+
+/**
+ * Английский язык
+ */
+'en'?: {
+
+/**
+ * Country of dispatch
+ */
+'departure_country_name'?: string;
+
+/**
+ * City of dispatch
+ */
+'departure_city_name'?: string;
+
+/**
+ * Address of pick-up
+ */
+'departure_address'?: string;
+
+/**
+ * Airport of departure
+ */
+'departure_point_name'?: string;
+
+/**
+ * Country of delivery
+ */
+'arrival_country_name'?: string;
+
+/**
+ * City of delivery
+ */
+'arrival_city_name'?: string;
+
+/**
+ * Address of departure
+ */
+'arrival_address'?: string;
+
+/**
+ * Airport of destination
+ */
+'arrival_point_name'?: string;
+
+/**
+ * Terms of delivery
+ */
+'incoterms_name'?: string;
+
+/**
+ * Type of flights
+ */
+'departure_flight_name'?: string;
+
+/**
+ * Commodity
+ */
+'cargo_description'?: string;
+
+/**
+ * Тип груза
+ */
+'cargo_type_name'?: string;
+
+/**
+ * Condition of carriage
+ */
+'cargo_condition_carriage'?: string;
+
+/**
+ * Total q-ty
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Total m3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Total kg
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Density
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Chargeable weight, kg
+ */
+'cargo_places_paid_weight'?: number;
+
+/**
+ * Dimensions
+ */
+'cargo_dimensions'?: string;
+
+/**
+ * Notation
+ */
+'comment'?: string;
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRatesSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
 }
