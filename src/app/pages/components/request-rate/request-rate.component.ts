@@ -89,6 +89,14 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.id = id;
     this.getRequest();
     this.getRequestTraqnslate();
+
+    this.requestForm.valueChanges
+      .pipe(
+        takeUntil(this._destroy$)
+      )
+      .subscribe(value => {
+        console.log('rates', value);
+      });
   }
 
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ РЕЙТОВ

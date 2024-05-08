@@ -42,6 +42,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
+
+  testbul=false;
+
   constructor(
     private fb: FormBuilder,
     private cargoService:CargoService,
@@ -51,13 +54,14 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.rateForm = this.fb.group({
       charges: fb.array([
         this.fb.group({
-          test1:[true,[]],
+          test1:[ true,[]],
           test2: ['pole 1-2',[]]
         }),
-        this.fb.group({
-          test1:[false,[]],
-          test2: ['pole 2-2',[]]
-        }),
+
+        // this.fb.group({
+        //   test1:[false,[]],
+        //   test2: ['pole 2-2',[]]
+        // }),
       ], []),
       chargeable_weight: [,[]],
       airline: [,[]],
@@ -78,7 +82,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       )
       .subscribe(value => {
         this.onChange(value);
-        console.log('CHANGE');
+        // console.log('rate', value);
       });
 
     this.rateForm.statusChanges
@@ -121,8 +125,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   addCharge() {
     this.charges.push(this.fb.group({
-      test1: [,[]],
-      test2: [,[]],
+      test1: [false,[]],
+      test2: ['',[]],
     }));
     this.rateForm.markAsTouched();
   }
@@ -148,12 +152,11 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.transportService.transportCarrier({kind_id:this.requestKindId})
       .pipe(
         tap(transportCarrier => {
-          console.log(transportCarrier);
           if (!transportCarrier) {
             throw ({ error: { error_message: `Перевозчиков не существует` } });
           }
         }),
-        takeUntil(this._destroy$)
+        takeUntil(this._destroy$),
       )
       .subscribe({
         next: (transportCarrier) => {

@@ -148,11 +148,17 @@
     </div>
     <div class="form-row rate" formArrayName="rates">
       <div *ngFor="let rate of rates.controls; let i=index">
-        <app-rate-editor
+        <!-- <app-rate-editor
           *ngIf="i===test"
           [formControlName]="i"
           [requestKindId]="request.transport_kind_id"
 
+        >
+        </app-rate-editor> -->
+        <app-rate-editor
+          [ngClass]="{'dn':i!==test}"
+          [formControlName]="i"
+          [requestKindId]="request.transport_kind_id"
         >
         </app-rate-editor>
       </div>

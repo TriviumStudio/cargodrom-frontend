@@ -63,14 +63,16 @@
         <div>The rate includes following charges</div>
 
         <div formArrayName="charges" *ngFor="let charge of charges.controls; let i = index;">
-          <div [formGroupName]="i" *ngIf="charge.value.test1===true">
+          <div [formGroupName]="i" *ngIf="charge.value.test1==true">
 
             <div style="display: flex; gap: 10px; margin-top: 40px;">
 
               <label class="radio">
-                <input  type="checkbox" formControlName="test1">
+                <input  type="checkbox" formControlName="test1" >
                 <i></i>
               </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
 
               <div>
                 <input type="text" formControlName="test2" />
@@ -87,7 +89,7 @@
         <div>List of Charges</div>
 
         <div formArrayName="charges" *ngFor="let charge of charges.controls; let i = index;">
-          <div [formGroupName]="i" *ngIf="charge.value.test1===false">
+          <div [formGroupName]="i" *ngIf="charge.value.test1==false">
 
             <div style="display: flex; gap: 10px; margin-top: 40px;">
 
@@ -95,12 +97,12 @@
                 <input  type="checkbox" formControlName="test1">
                 <i></i>
               </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
 
               <div>
                 <input type="text" formControlName="test2" />
               </div>
-
-              <button (click)="consoleLog(charge)">console log</button>
 
             </div>
 
@@ -112,8 +114,6 @@
     </div>
 
     <button (click)="addCharge()">addCharge</button>
-
-
 
   </div>
 
