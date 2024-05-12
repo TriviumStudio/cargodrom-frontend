@@ -117,18 +117,19 @@
 
     </div>
 
-    <div class="form-row bg ">
+    <!-- <div class="form-row bg ">
+
       <div class="form-item-layout mb40px">
         <div class="form-row-title">Rates</div>
 
         <label class="radio">
-          <input  type="radio"   [value]="1">
+          <input type="radio" [value]="true">
           <i></i>
           <span>With Details</span>
         </label>
 
         <label class="radio">
-          <input type="radio"   [value]="2">
+          <input type="radio" [value]="false">
           <i></i>
           <span>With single Amount</span>
         </label>
@@ -145,20 +146,27 @@
         <button class="btn-dup-rate" (click)="removeRate(test)">Delete Rate</button>
       </div>
 
-    </div>
+    </div> -->
+
     <div class="form-row rate" formArrayName="rates">
       <div *ngFor="let rate of rates.controls; let i=index">
         <!-- <app-rate-editor
           *ngIf="i===test"
           [formControlName]="i"
-          [requestKindId]="request.transport_kind_id"
-
-        >
+          [requestKindId]="request.transport_kind_id">
         </app-rate-editor> -->
+
         <app-rate-editor
+          (removeRate)="removeRate(i)"
+          (addRate)="addRate()"
+          (indexRateChange)="indexRateChange($event)"
+          (duplicateRate)="duplicateRate()"
           [ngClass]="{'dn':i!==test}"
           [formControlName]="i"
           [requestKindId]="request.transport_kind_id"
+          [rates]="requestForm.value.rates"
+          [test]="test"
+
         >
         </app-rate-editor>
       </div>

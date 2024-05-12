@@ -1,5 +1,36 @@
 <form [formGroup]="rateForm" class="form-item-table-row">
 
+  <div class="form-row bg ">
+
+    <div class="form-item-layout mb40px">
+      <div class="form-row-title">Rates</div>
+
+      <label class="radio">
+        <input type="radio" [value]="true" formControlName="details">
+        <i></i>
+        <span>With Details</span>
+      </label>
+
+      <label class="radio">
+        <input type="radio" [value]="false" formControlName="details">
+        <i></i>
+        <span>With single Amount</span>
+      </label>
+
+    </div>
+
+    <div class="rate_labels">
+      <div *ngFor="let rate of rates; let i=index">
+        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate{{i}}</div>
+      </div>
+
+      <button class="btn-add-rate" (click)="onAddRate()">Add Rate</button>
+      <button class="btn-dup-rate">Duplicate Rate</button>
+      <button class="btn-dup-rate" (click)="onDeleteRate()">Delete Rate</button>
+    </div>
+
+  </div>
+
   <div class="form-row rate">
     <div class="form-item-layout">
 

@@ -123,8 +123,10 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   // Публичные методы:
-  indexRateChange(i:number){
-    this.test=i;
+  indexRateChange(e:any){
+    console.log(e);
+    this.test=e;
+
   }
   copyDispatchText(){
     window.navigator.clipboard.writeText(this.request.departure_text!)
@@ -151,8 +153,6 @@ export class RequestRateComponent implements OnInit, OnDestroy {
           this.request=request;
           // this.getTransportCarrier();
           if(this.rates.length === 0){
-            this.addRate();
-            this.addRate();
             this.addRate();
           };
         },

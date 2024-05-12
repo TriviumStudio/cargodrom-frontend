@@ -30,6 +30,20 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   @Input() requestKindId?:number;
 
+  @Output() removeRate = new EventEmitter<void>();
+  @Output() addRate = new EventEmitter<void>();
+
+
+  @Output() indexRateChange = new EventEmitter<Number>();
+
+  @Output() duplicateRate = new EventEmitter<void>();
+
+  @Input() rates?:any;
+
+  @Input() test?:number;
+
+
+
   onChange = (value: Partial<any>) => { };
   onTouched = () => { };
   private touched = false;
@@ -52,10 +66,12 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private snackBar: MatSnackBar,
   ) {
     this.rateForm = this.fb.group({
+      details: [false,[]],
       charges: fb.array([
         this.fb.group({
-          test1:[ true,[]],
-          test2: ['pole 1-2',[]]
+          test1: [false, []],
+          test2: ['pole 1-2', []],
+
         }),
 
         // this.fb.group({
@@ -119,6 +135,21 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     return control.value && this.rateForm.valid ? null : { contact: true };
   }
 
+  // Rates
+  onDeleteRate(): void {
+    this.removeRate.emit();
+  }
+  onAddRate(): void {
+    this.addRate.emit();
+  }
+  onChangeRate(i:number): void {
+    this.indexRateChange.emit(i)
+
+    // this.testChange.emit(this.test)=i;
+    // console.log(i);
+
+  }
+
   // Charges
   onDeletePlace(): void {
     // this.removePlace.emit();
@@ -127,6 +158,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.charges.push(this.fb.group({
       test1: [false,[]],
       test2: ['',[]],
+      test3:['',[]],
+
     }));
     this.rateForm.markAsTouched();
   }
@@ -145,6 +178,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       airline_id: e.id,
     });
   }
+
 
   // Приватные методы
   // получаем перевозчиков(airline and airline iata)
