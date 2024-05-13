@@ -21,7 +21,7 @@
 
     <div class="rate_labels">
       <div *ngFor="let rate of rates; let i=index">
-        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate{{i}}</div>
+        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate{{i+1}}</div>
       </div>
 
       <button class="btn-add-rate" (click)="onAddRate()">Add Rate</button>
@@ -75,14 +75,36 @@
       <div class="form-item">
         <div class="form-label">The departure schedule:</div>
         <div class="form-data">
-          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select formControlName="departure_schedule" multiple>
+              <mat-option
+                *ngFor="let day of daysOfTheWeek;"
+                [value]="day.id"
+                >
+                {{ day.day }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
 
       <div class="form-item">
         <div class="form-label">The nearest flight etd:</div>
         <div class="form-data">
-          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+          <div>
+            <span *ngFor="let test of daysSelected">{{test}}</span>
+          </div>
+
+          <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu">
+            <div (click)="$event.stopPropagation()">
+              <mat-calendar #calendar
+                (selectedChange)="select($event,calendar)"
+                [dateClass]="isSelected">
+              </mat-calendar>
+            </div>
+          </mat-menu>
+
         </div>
       </div>
 

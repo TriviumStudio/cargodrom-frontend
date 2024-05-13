@@ -1,7 +1,7 @@
 import { Country } from '../../../api/custom_models/country';
 import { Contact, responsibilityDirections } from '../../../api/custom_models';
 import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, FormArray, FormControl } from '@angular/forms';
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/constants';
@@ -13,6 +13,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
   selector: 'app-rate-editor',
   templateUrl: './rate-editor.component.html',
   // styleUrls: ['./rate-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -29,20 +30,13 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
 
   @Input() requestKindId?:number;
+  @Input() rates?:any;
+  @Input() test?:number;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
-
-
   @Output() indexRateChange = new EventEmitter<Number>();
-
   @Output() duplicateRate = new EventEmitter<void>();
-
-  @Input() rates?:any;
-
-  @Input() test?:number;
-
-
 
   onChange = (value: Partial<any>) => { };
   onTouched = () => { };
@@ -56,8 +50,40 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
+  daysSelected: any[] = [];
 
   testbul=false;
+
+  daysOfTheWeek=[
+    {
+      day:'Monday',
+      id:1
+    },
+    {
+      day:'Tuesday',
+      id:2
+    },
+    {
+      day:'Wednesday',
+      id:3
+    },
+    {
+      day:'Thursday',
+      id:4
+    },
+    {
+      day:'Friday',
+      id:5
+    },
+    {
+      day:'Saturday',
+      id:6
+    },
+    {
+      day:'Sunday',
+      id:7
+    }
+  ]
 
   constructor(
     private fb: FormBuilder,
@@ -71,21 +97,14 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         this.fb.group({
           test1: [false, []],
           test2: ['pole 1-2', []],
-
-        }),
-
-        // this.fb.group({
-        //   test1:[false,[]],
-        //   test2: ['pole 2-2',[]]
-        // }),
-      ], []),
+        }),], []),
       chargeable_weight: [,[]],
       airline: [,[]],
       airline_id: [,[]],
       airline_iata: [,[]],
       route: [,[]],
       departure_schedule: [,[]],
-      nearest_flight_etd: [,[]],
+      nearest_flight_etd: [[],[]],
     });
   }
 
@@ -98,9 +117,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       )
       .subscribe(value => {
         this.onChange(value);
-        // console.log('rate', value);
       });
-
     this.rateForm.statusChanges
       .pipe(
         takeUntil(this._destroy$)
@@ -143,11 +160,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.addRate.emit();
   }
   onChangeRate(i:number): void {
-    this.indexRateChange.emit(i)
-
-    // this.testChange.emit(this.test)=i;
-    // console.log(i);
-
+    this.indexRateChange.emit(i);
   }
 
   // Charges
@@ -159,7 +172,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       test1: [false,[]],
       test2: ['',[]],
       test3:['',[]],
-
     }));
     this.rateForm.markAsTouched();
   }
@@ -179,6 +191,21 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
   }
 
+  // Datepicker multy
+  isSelected = (event: any) => {
+    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    return this.daysSelected.find(x => x == date) ? "selected" : '';
+  }
+  select(event: any, calendar: any) {
+    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    const index = this.daysSelected.findIndex(x => x == date);
+
+    if (index < 0) this.daysSelected.push(date);
+    else this.daysSelected.splice(index, 1);
+
+    calendar.updateTodaysDate();
+    console.log(this.daysSelected);
+  }
 
   // Приватные методы
   // получаем перевозчиков(airline and airline iata)
@@ -201,6 +228,12 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         }
       });
   }
+
+
+
+
+
+
 
   // private getСargoPackages() {
   //   this.cargoService.cargoPackage()

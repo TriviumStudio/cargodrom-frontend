@@ -193,3 +193,20 @@
 
 
 
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: #DB563B;
+}
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #DB563B;
+}
+
+
+.mat-calendar-body-cell.selected
+{
+  background-color:red!important;
+  border-radius: 50%
+}
+.drop-calendar
+{
+  width:30rem
+}

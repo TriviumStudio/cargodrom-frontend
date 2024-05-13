@@ -14,12 +14,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDateRangePicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import {MatTableModule} from '@angular/material/table';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 
 @NgModule({
@@ -48,6 +50,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatTableModule,
     MatButtonToggleModule,
     MatTabsModule,
+    MatMenuModule,
   ],
   exports: [
     MatDialogModule,
@@ -69,6 +72,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     PhoneMaskDirective,
     MatButtonToggleModule,
     MatTabsModule,
+    MatMenuModule,
+
   ]
 })
 export class MaterialModule { }
