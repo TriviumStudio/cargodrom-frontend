@@ -110,13 +110,13 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.rates.push(this.fb.control({
       chargeable_weight: this.request.cargo_places_weight
     }));
+    this.test=this.rates.length-1;
     this.requestForm.markAsTouched();
   }
   duplicateRate(){
     console.log(this.requestForm.value);
     this.rates.push(this.fb.control(this.requestForm.value.rates[this.test]));
     this.requestForm.markAsTouched();
-
   }
   get rates() {
     return <FormArray>this.requestForm.get('rates');
@@ -124,9 +124,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   // Публичные методы:
   indexRateChange(e:any){
-    console.log(e);
     this.test=e;
-
   }
   copyDispatchText(){
     window.navigator.clipboard.writeText(this.request.departure_text!)
@@ -136,7 +134,6 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   // Приватные методы:
-
   //получаем данные запроса
   private getRequest():void{
     this.requestService.requestInfo({id:this.id})

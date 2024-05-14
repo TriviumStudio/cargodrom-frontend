@@ -168,8 +168,7 @@
 }
 
 .rate .form-item-layout{
-  border-bottom: 1px solid #C3CCD6;
-  padding-bottom: 40px;
+  
 }
 
 .charges{
@@ -203,10 +202,35 @@
 
 .mat-calendar-body-cell.selected
 {
-  background-color:red!important;
-  border-radius: 50%
+  background-color:#DB563B;
+  border-radius: 6px;
+
 }
 .drop-calendar
 {
   width:30rem
 }
+
+.test1234{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 206px;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  height: 39.88px;
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.mat-menu-panel{
+  width: 206px;
+}
+
+

@@ -91,11 +91,14 @@
       <div class="form-item">
         <div class="form-label">The nearest flight etd:</div>
         <div class="form-data">
-          <div>
-            <span *ngFor="let test of daysSelected">{{test}}</span>
+          <!-- <div class="test1234">
+            {{testTextData(daysSelected)}}
           </div>
+           <div>
+            <span *ngFor="let test of daysSelected">{{test}}</span>
+          </div> -->
 
-          <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+          <button class="test1234"  [matMenuTriggerFor]="menu">{{testTextData()}}</button>
           <mat-menu #menu="matMenu">
             <div (click)="$event.stopPropagation()">
               <mat-calendar #calendar

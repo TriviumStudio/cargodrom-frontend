@@ -51,6 +51,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
   daysSelected: any[] = [];
+  daysSelectedObj: any[] = [];
 
   testbul=false;
 
@@ -84,6 +85,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       id:7
     }
   ]
+
+  testArrDate=[]
 
   constructor(
     private fb: FormBuilder,
@@ -191,20 +194,61 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
   }
 
+  testTextData(){
+    let text='';
+    // let m=''
+    // this.daysSelectedObj.forEach((e:any) => {
+    //   if(this.daysSelected.length<=1){
+    //     text = e.day + e.mount;
+    //   } else {
+
+    //   }
+    // });
+    this.daysSelected.forEach((i)=>{
+      text=i+text
+    })
+
+
+
+    return text;
+  }
+
   // Datepicker multy
   isSelected = (event: any) => {
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    // const date ={
+    //   day:("00" + event.getDate()).slice(-2) ,
+    //   mount:event.toLocaleString('en-US', { month: 'short' }) ,
+    // }
     return this.daysSelected.find(x => x == date) ? "selected" : '';
   }
   select(event: any, calendar: any) {
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
+    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    const dateTest ={
+      day:("00" + event.getDate()).slice(-2) ,
+      mount:event.toLocaleString('en-US', { month: 'short' }) ,
+    }
+
+    // console.log(event.toDateString(),'toDateString');
+    // console.log(event.getMonth(),'getMount');
+    // console.log(event.toLocaleString('en-US', { month: 'short' }),'toLocaleString');
+
     const index = this.daysSelected.findIndex(x => x == date);
-
-    if (index < 0) this.daysSelected.push(date);
-    else this.daysSelected.splice(index, 1);
-
+    // if (index < 0) this.daysSelected.push(date);
+    // else this.daysSelected.splice(index, 1);
+    if (index < 0) {
+      this.daysSelected.push(date);
+      this.daysSelectedObj.push(dateTest)
+    } else {
+      this.daysSelected.splice(index, 1);
+      this.daysSelectedObj.splice(index, 1)
+    }
     calendar.updateTodaysDate();
-    console.log(this.daysSelected);
+    console.log(this.daysSelected,'daysSelected');
+    console.log(this.daysSelectedObj,'daysSelectedObj');
+
   }
 
   // Приватные методы
