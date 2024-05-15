@@ -204,10 +204,33 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
     //   }
     // });
-    this.daysSelected.forEach((i)=>{
-      text=i+text
-    })
 
+    // this.daysSelected.forEach((i)=>{
+    //   text=i+text
+    // })
+
+    let m=this.daysSelectedObj[0]?.mount;
+
+    this.daysSelectedObj.forEach((i)=>{
+
+
+      // if(m===i.mount){
+      //   text=text+i.day
+
+      // }
+      // if(m!==i.mount){
+
+      //   text=text+m
+      //   text=text+i.day
+      //   m=i.mount
+      //   text=text+m
+
+      // }
+
+
+
+
+    })
 
 
     return text;
