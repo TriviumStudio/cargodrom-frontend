@@ -112,7 +112,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
       request_type_id: [1, [Validators.required]],// +
-      transport_kind_id: [, [Validators.required]],// +
+      transport_kind_id: ['', [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [Validators.required,Validators.minLength(2)]],// +
@@ -898,25 +898,34 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.id = id;
     this.requestService.requestInfo({id})
-      .pipe(tap(request => {
-        if (!request) {
-          throw ({ error: { error_message: `Запрос не существует` } });
-        }
-      }))
+      .pipe(
+        tap(request => {
+          console.log('получили данные запроса',request);
+          if (!request) {
+            throw ({ error: { error_message: `Запрос не существует` } });
+          } else {
+            request.cargo_places?.forEach(element => {
+              this.addPlace();
+            });
+            this.requestForm.patchValue(request);
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
       .subscribe({
         next: request => {
+          // this.requestForm.patchValue(request);
+          // this.getFile(id);
+          // this.getDangerFile(id);
+          // this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+          // this.getIncoterms(this.requestForm.value.transport_kind_id);
+          // this.getRequestServices(this.requestForm.value.transport_kind_id);
+          // this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+          // this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
+          // this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
           this.getFile(id);
           this.getDangerFile(id);
-          console.log('получили данные запроса',request);
-
-
-          request.cargo_places?.forEach(element => {
-            this.addPlace()
-          });
-
-          this.requestForm.patchValue(request);
-          //тут нужны будут еще проверки
-          this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
+          this.getTransportFormatsById(request.transport_kind_id!);
           this.getIncoterms(this.requestForm.value.transport_kind_id);
           this.getRequestServices(this.requestForm.value.transport_kind_id);
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
