@@ -12,3 +12,11 @@ export interface TransportType {
   id: number;
   name: string;
 }
+
+//Перевозчик
+export interface TransportCarrier {
+  id?: number;
+  kind_id?: number;
+  name?: string;
+  iata?: string;
+}

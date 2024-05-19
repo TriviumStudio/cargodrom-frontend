@@ -101,7 +101,7 @@
           <button class="test1234"  [matMenuTriggerFor]="menu">{{testTextData()}}</button>
           <mat-menu #menu="matMenu">
             <div (click)="$event.stopPropagation()">
-              <mat-calendar #calendar
+              <mat-calendar #calendar 
                 (selectedChange)="select($event,calendar)"
                 [dateClass]="isSelected">
               </mat-calendar>

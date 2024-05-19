@@ -66,6 +66,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
+  transport_kind_id?:number;
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -644,12 +645,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   }
   //изменение поля вида перевозки
-  onTransportationFormatsChange() {
+  onTransportationFormatsChange(e:any) {
     this.requestForm.controls['transport_type_id'].reset();
     this.requestForm.controls['incoterms_id'].reset();
     this.requestForm.controls['departure_point_id'].reset();
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
+    this.transport_kind_id=e;
     this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
@@ -909,6 +911,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
             });
             this.requestForm.patchValue(request);
           }
+          this.transport_kind_id=request.transport_kind_id;
         }),
         takeUntil(this._destroy$),
       )
