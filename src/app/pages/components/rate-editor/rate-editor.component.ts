@@ -8,7 +8,7 @@ import { unknownCountry } from 'src/app/constants';
 import { CargoPackage } from 'src/app/api/custom_models/cargo';
 import { CargoService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { TransportCarrier } from 'src/app/api/custom_models/transport';
+import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 
 @Component({
   selector: 'app-rate-editor',
@@ -33,6 +33,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @Input() requestKindId?:number;
   @Input() rates?:any;
   @Input() test?:number;
+  @Input() charge?:any;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -46,7 +47,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   private _destroy$ = new Subject();
 
   rateForm: FormGroup;
-  transportCarrier:TransportCarrier[]=[];
+  transportCarrier: TransportCarrier[]=[];
+  transportRoute: TransportRoute[]=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -115,6 +117,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   // Методы ЖЦ
   ngOnInit(): void {
     this.getTransportCarrier();
+    this.getTransportRoute();
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
       .subscribe(value => {this.onChange(value);});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
@@ -204,7 +207,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     m=this.daysSelectedObj[0]?.mount;
 
     this.daysSelectedObj.forEach((i)=>{
-      text= text + i.day + i.mount + ', ';
+      text= text + i.day +  ' ' + i.mount + ', ';
 
 
       // if(m===i.mount){
@@ -280,6 +283,26 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса перевозчиков: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  // получаем маршруты(route)
+  private getTransportRoute():void{
+    this.transportService.transportRoute({kind_id:this.requestKindId})
+      .pipe(
+        tap(transportRoute => {
+          if (!transportRoute) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (transportRoute) => {
+          this.transportRoute=transportRoute;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }

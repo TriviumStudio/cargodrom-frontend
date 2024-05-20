@@ -49,6 +49,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   test=0;
 
+  testStructyra:any=[];
+
   transportCarrier:any=[];
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
@@ -212,18 +214,18 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (rates:any) => {
           console.log('getRequestRates', rates);
+          this.testStructyra=rates.charges;
+          console.log('testStructyra',this.testStructyra);
+          console.log('testRates',rates.rates);
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
         }
       });
   }
-
-
 }
 
-// "charges": {
-//   "1": {
+//    {
 //     "field_name": "freight",
 //     "name": "Airfreight rate",
 //     "title": "Тариф авиаперевозки",
@@ -236,8 +238,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 //     "requare": true
 //   },
 
-
-// freight": {
+//  {
 //   "field": "freight",
 //   "min": 400,
 //   "price": 1.71,
@@ -246,4 +247,24 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 //   "cost": 4275,
 //   "comment": "",
 //   "select": true
+// },
+
+
+//    {
+//   "field_name": "freight",
+//   "name": "Airfreight rate",
+//   "title": "Тариф авиаперевозки",
+//   "note": "",
+//   "unit": "kg",
+//   "field_min": true,
+//   "field_fix": false,
+//   "field_comment": false,
+//   "status": true,
+//   "requare": true
+//   "min": 400,
+//   "price": 1.71,
+//   "value": 2500,
+//   "fix": 0,
+//   "cost": 4275,
+//   "comment": "",
 // },

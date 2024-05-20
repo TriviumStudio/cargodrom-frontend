@@ -68,7 +68,16 @@
       <div class="form-item">
         <div class="form-label">Route:</div>
         <div class="form-data">
-          <!-- <div>{{requestEn.cargo_type_name}}</div> -->
+          <mat-form-field appearance="outline" class="ui-select">
+            <mat-select>
+             <mat-option
+               *ngFor="let transportRoute of transportRoute;"
+               [value]="transportRoute.id"
+               >
+               {{ transportRoute.name }}
+             </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
 
@@ -130,7 +139,7 @@
               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
               </mat-checkbox> -->
 
-              <div>
+              <div >
                 <input type="text" formControlName="test2" />
               </div>
 
@@ -167,6 +176,72 @@
 
       </div>
 
+    </div>
+
+    <div class="charges" style="border: 1px solid red;">
+
+      <div class="included-fees" >
+        <div>The rate includes following charges</div>
+
+        <div formArrayName="charges" *ngFor="let charge of charge; let i = index;">
+          <div *ngIf="charge.status===true">
+
+            <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+              <label class="radio">
+                <input  type="checkbox" checked="true" [disabled]="charge.requare===true">
+                <i></i>
+              </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
+
+              <div style="width: 140px;">{{charge.name}}</div>
+
+              <div>
+                <input type="text"  />
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="list-charges">
+        <div>List of Charges</div>
+
+        <div formArrayName="charges" *ngFor="let charge of charge; let i = index;">
+          <div *ngIf="charge.status===false">
+
+            <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+              <label class="radio">
+                <input  type="checkbox" [disabled]="charge.requare===true" >
+                <i></i>
+              </label>
+              <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+              </mat-checkbox> -->
+
+              <div style="width: 140px;">{{charge.name}}</div>
+
+              <div>
+                <input type="text"  />
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngFor="let charge of charge; let i = index;" [ngSwitch]="test">
+      <ng-template ngSwitchCase=1>тест 1</ng-template>
+      <ng-template ngSwitchCase=2>тест 2</ng-template>
+      <ng-template ngSwitchCase=3>тест 3</ng-template>
     </div>
 
     <button (click)="addCharge()">addCharge</button>
