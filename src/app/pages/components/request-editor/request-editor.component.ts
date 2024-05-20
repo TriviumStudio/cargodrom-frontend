@@ -285,12 +285,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services_optional: body.services_optional,
     }
     //удаляем доп поля
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -345,12 +345,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services_optional: body.services_optional,
     }
     //удаляем доп поля
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -420,12 +420,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(!body.cargo_temperature.cargo_temperature_control) {
       delete data.cargo_temperature;
     }
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -489,12 +489,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(!body.cargo_temperature.cargo_temperature_control) {
       delete data.cargo_temperature;
     }
-    if(body.transport_kind_id !== 'avia') {
+    if(body.transport_kind_id !== 1) {
       delete data.departure_point_id;
       delete data.arrival_point_id;
       delete data.cargo_places_paid_weight;
     }
-    if(body.transport_kind_id === 'road'){
+    if(body.transport_kind_id === 2){
       delete data.incoterms_city_id;
       delete data.incoterms_id;
       delete data.services;
@@ -656,6 +656,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
     this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
+  }
+  //изменение поля тип груза
+  onCargoTypeChange(e:any) {
+    if(e.param !=='temperature'){
+      this.requestForm.controls['cargo_temperature'].reset();
+    }
   }
   //изменение поля города отправления
   onDepartureCityChange(city: DirectionCity): void {
