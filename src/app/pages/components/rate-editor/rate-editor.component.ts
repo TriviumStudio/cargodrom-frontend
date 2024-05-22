@@ -98,28 +98,43 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private snackBar: MatSnackBar,
   ) {
     this.rateForm = this.fb.group({
-      details: [false,[]],
-      charges: fb.array([
-        this.fb.group({
-          test1: [false, []],
-          test2: ['pole 1-2', []],
-        }),], []),
-      chargeable_weight: [,[]],
-      airline: [,[]],
-      airline_id: [,[]],
-      airline_iata: [,[]],
-      route: [,[]],
+      carrier_id: [,[]],
+      comment: [,[]],
       departure_schedule: [,[]],
-      nearest_flight_etd: [[],[]],
+      id: [,[]],
+      nearest_flight: [,[]],
+      num: [,[]],
+      profit_include: [true,[]],
+      rate_type: ['detail',[]],
+      route_id: [,[]],
+      total_cost: [,[]],
+      values: fb.array([
+        // this.fb.group({
+        //   comment: [,[]],
+        //   cost: [,[]],
+        //   field: [,[]],
+        //   fix: [,[]],
+        //   min: [,[]],
+        //   price: [,[]],
+        //   select: [,[]],
+        //   value: [,[]],
+        // })
+      ], []),
+
     });
   }
 
   // Методы ЖЦ
   ngOnInit(): void {
+
     this.getTransportCarrier();
     this.getTransportRoute();
+
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
-      .subscribe(value => {this.onChange(value);});
+      .subscribe(value => {
+        console.log('curent rate===', this.test ,value);
+        this.onChange(value)
+      ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         if (!this.touched) {
@@ -127,6 +142,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
           this.touched = true;
         }
       });
+    this.rateForm.markAsTouched();
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
@@ -134,11 +150,17 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   ngOnChanges(changes: SimpleChanges): void {
     // this.onCalkTotalVolumeAndWeight()
+    // console.log(changes);
+
   }
 
   // ControlValueAccessor
-  writeValue(contact: Partial<Contact>): void {
-    this.rateForm.patchValue(contact);
+  writeValue(contact: any): void {
+    this.charge.forEach((e:any)=>{
+      this.addCharge()
+      this.rateForm.patchValue(contact);
+    })
+
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -167,61 +189,34 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   addCharge() {
     this.charges.push(this.fb.group({
-      test1: [false,[]],
-      test2: ['',[]],
-      test3:['',[]],
+      comment: [,[]],
+      cost: [,[]],
+      field: [,[]],
+      fix: [,[]],
+      min: [,[]],
+      price: [,[]],
+      select: [,[]],
+      value: [,[]],
     }));
     this.rateForm.markAsTouched();
   }
   get charges() {
-    return <FormArray>this.rateForm.get('charges');
+    return <FormArray>this.rateForm.get('values');
   }
 
   // Публичные методы
-  consoleLog(e:any){
-    console.log(e);
-  }
   onAirlineIataChange(transportCarrier:TransportCarrier){
-    this.rateForm.patchValue({
-      airline: transportCarrier.name,
-      airline_iata: transportCarrier.iata,
-      airline_id: transportCarrier.id,
-    });
+    // this.rateForm.patchValue({
+    //   airline: transportCarrier.name,
+    //   airline_iata: transportCarrier.iata,
+    //   airline_id: transportCarrier.id,
+    // });
   }
 
   testTextData(){
     let text='';
-    let m=''
-    // this.daysSelectedObj.forEach((e:any) => {
-    //   if(this.daysSelected.length<=1){
-    //     text = e.day + e.mount;
-    //   } else {
-
-    //   }
-    // });
-
-    // this.daysSelected.forEach((i)=>{
-    //   text=i+text
-    // })
-
-    m=this.daysSelectedObj[0]?.mount;
-
     this.daysSelectedObj.forEach((i)=>{
       text= text + i.day +  ' ' + i.mount + ', ';
-
-
-      // if(m===i.mount){
-      //   text=text+i.day
-
-      // }
-      // if(m!==i.mount){
-
-      //   text=text+m
-      //   text=text+i.day
-      //   m=i.mount
-      //   text=text+m
-
-      // }
     })
     return text;
   }
@@ -243,12 +238,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       day:("00" + event.getDate()).slice(-2),
       mount:event.toLocaleString('en-US', { month: 'short' }),
     }
-    console.log('calendar',calendar);
-
-
-    // console.log(event.toDateString(),'toDateString');
-    // console.log(event.getMonth(),'getMount');
-    // console.log(event.toLocaleString('en-US', { month: 'short' }),'toLocaleString');
 
     const index = this.daysSelected.findIndex(x => x == date);
     // if (index < 0) this.daysSelected.push(date);
@@ -261,8 +250,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       this.daysSelectedObj.splice(index, 1);
     }
     calendar.updateTodaysDate();
-    console.log(this.daysSelected,'daysSelected');
-    console.log(this.daysSelectedObj,'daysSelectedObj');
   }
 
   // Приватные методы
@@ -387,3 +374,120 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       // other_charges: [false,[]]
 
 }
+
+
+// <div class="charges">
+
+//       <div class="included-fees" >
+//         <div>The rate includes following charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charges.controls; let i = index;">
+//           <div [formGroupName]="i" *ngIf="charge.value.test1==true">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" formControlName="test1" >
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div >
+//                 <input type="text" formControlName="test2" />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//       <div class="list-charges">
+//         <div>List of Charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charges.controls; let i = index;">
+//           <div [formGroupName]="i" *ngIf="charge.value.test1==false">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" formControlName="test1">
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div>
+//                 <input type="text" formControlName="test2" />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//     </div>
+
+//     <div class="charges" style="border: 1px solid red;">
+
+//       <div class="included-fees" >
+//         <div>The rate includes following charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charge; let i = index;">
+//           <div *ngIf="charge.status===true">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" checked="true" [disabled]="charge.requare===true">
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div style="width: 140px;">{{charge.name}}</div>
+
+//               <div>
+//                 <input type="text"  />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//       <div class="list-charges">
+//         <div>List of Charges</div>
+
+//         <div formArrayName="values" *ngFor="let charge of charge; let i = index;">
+//           <div *ngIf="charge.status===false">
+
+//             <div style="display: flex; gap: 10px; margin-top: 40px;">
+
+//               <label class="radio">
+//                 <input  type="checkbox" [disabled]="charge.requare===true" >
+//                 <i></i>
+//               </label>
+//               <!-- <mat-checkbox  [disabled]="testbul" formControlName="test1">
+//               </mat-checkbox> -->
+
+//               <div style="width: 140px;">{{charge.name}}</div>
+
+//               <div>
+//                 <input type="text"  />
+//               </div>
+
+//             </div>
+
+//           </div>
+//         </div>
+
+//       </div>
+
+//     </div>
