@@ -101,7 +101,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   addRate() {
     this.rates.push(this.fb.control(
       {
-        
+
       }
     ));
     this.test=this.rates.length-1;
@@ -116,6 +116,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   // Публичные методы:
+  consoleLog(){
+    console.log(this.requestForm.value);
+  }
   indexRateChange(e:any){
     this.test=e;
   }

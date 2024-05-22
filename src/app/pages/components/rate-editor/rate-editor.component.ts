@@ -126,13 +126,26 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.charge.forEach((i:any)=>{
+      this.charges.push(this.fb.group({
+        comment: [,[]],
+        cost: [,[]],
+        field: [i.field_name,[]],
+        fix: [,[]],
+        min: [,[]],
+        price: [,[]],
+        select: [i.status,[]],
+        value: [,[]],
+      }));
+      this.rateForm.markAsTouched();
+    })
 
     this.getTransportCarrier();
     this.getTransportRoute();
 
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
       .subscribe(value => {
-        console.log('curent rate===', this.test ,value);
+        // console.log('curent rate===', this.test ,value);
         this.onChange(value)
       ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
@@ -151,16 +164,11 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   ngOnChanges(changes: SimpleChanges): void {
     // this.onCalkTotalVolumeAndWeight()
     // console.log(changes);
-
   }
 
   // ControlValueAccessor
   writeValue(contact: any): void {
-    this.charge.forEach((e:any)=>{
-      this.addCharge()
-      this.rateForm.patchValue(contact);
-    })
-
+    this.rateForm.patchValue(contact);
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -195,7 +203,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       fix: [,[]],
       min: [,[]],
       price: [,[]],
-      select: [,[]],
+      select: [false,[]],
       value: [,[]],
     }));
     this.rateForm.markAsTouched();
