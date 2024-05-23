@@ -229,6 +229,20 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     return text;
   }
 
+
+  calck(control:any){
+    console.log(1);
+    control.patchValue({
+      cost: control.value.price * control.value.value
+    })
+  }
+  calckCost(control:any){
+    control.patchValue({
+      value: control.value.cost,
+      price: 1,
+    })
+  }
+
   // Datepicker multy
   isSelected = (event: any) => {
     // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
