@@ -34,6 +34,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @Input() rates?:any;
   @Input() test?:number;
   @Input() charge?:any;
+  @Input() weight?:number;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -89,6 +90,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     }
   ]
 
+
+
   testArrDate=[]
 
   constructor(
@@ -135,7 +138,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         min: [,[]],
         price: [,[]],
         select: [i.status,[]],
-        value: [,[]],
+        value: [i.unit==='kg'?this.weight:0,[]],
       }));
       this.rateForm.markAsTouched();
     })
@@ -147,6 +150,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       .subscribe(value => {
         // console.log('curent rate===', this.test ,value);
         this.onChange(value)
+        this.calckTotalCost()
       ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
@@ -240,6 +244,15 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     control.patchValue({
       value: control.value.cost,
       price: 1,
+    })
+  }
+  calckTotalCost(){
+    let cost=0
+    this.rateForm.value.values.forEach((v:any)=>{
+      cost=cost+v.cost
+    })
+    this.rateForm.patchValue({
+      total_cost:cost
     })
   }
 

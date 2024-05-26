@@ -158,8 +158,6 @@
                   </div>
                 </div>
 
-
-
                 <div class="form-item charges-values" *ngIf="chargeModel.unit">
                   <div class="form-data">
                     <input type="text" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price">$/{{chargeModel.unit}}
@@ -177,8 +175,6 @@
                     <input type="text" class="values-input" readonly formControlName="value">{{chargeModel.unit}}
                   </div>
                 </div>
-
-
 
                 <div class="form-item charges-values" *ngIf="!chargeModel.unit">
                   <div class="form-data">
@@ -225,8 +221,17 @@
           </div>
         </div>
       </div>
-
     </div>
+
+    <div class="form-item charges-values">
+      <div class="form-data">
+        Total
+        <input type="text" class="values-input" formControlName="total_cost">
+        <input type="text" class="values-input" readonly formControlName="total_cost">
+      </div>
+    </div>
+
+
 
     <!-- <button (click)="addCharge()">addCharge</button> -->
 

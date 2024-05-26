@@ -169,6 +169,27 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (rates:any) => {
           this.testStructyra=rates.charges;
+          this.request=rates;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+        }
+      });
+  }
+  //сохраняем рейты
+  saveRequestRates(){
+    console.log(this.requestForm.value);
+    this.requestService.requestRatesSave(this.requestForm.value)
+      .pipe(
+        tap((res)=> {
+          console.log(res);
+          if (!res) {
+            throw ({ error: { error_message: `Ошибка сохранения` } });
+          }
+        }),
+        takeUntil(this._destroy$))
+      .subscribe({
+        next: (res:any) => {
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

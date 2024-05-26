@@ -167,6 +167,7 @@
           [rates]="requestForm.value.rates"
           [test]="test"
           [charge]="testStructyra"
+          [weight]="request.cargo_places_weight"
         >
         </app-rate-editor>
       </div>
@@ -176,7 +177,7 @@
 
 
     <div class="form-row bg">
-      <button type="submit" (click)="consoleLog()">Send Rates</button>
+      <button type="submit" (click)="saveRequestRates()">Send Rates</button>
     </div>
 
 
