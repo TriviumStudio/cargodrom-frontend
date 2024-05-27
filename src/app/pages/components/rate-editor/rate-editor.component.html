@@ -84,7 +84,7 @@
       <div class="form-item">
         <div class="form-label">The departure schedule:</div>
         <div class="form-data">
-          <!-- <mat-form-field appearance="outline" class="ui-select">
+          <mat-form-field appearance="outline" class="ui-select">
             <mat-select formControlName="departure_schedule" multiple>
               <mat-option
                 *ngFor="let day of daysOfTheWeek;"
@@ -93,7 +93,7 @@
                 {{ day.day }}
               </mat-option>
             </mat-select>
-          </mat-form-field> -->
+          </mat-form-field>
         </div>
       </div>
 
@@ -147,7 +147,7 @@
 
                   <div class="form-item charges-values" *ngIf="chargeModel.field_min">
                     <div class="form-data">
-                      min $<input type="text" class="values-input" formControlName="min">
+                      min $<input type="number" class="values-input" formControlName="min" (ngModelChange)="calck(chargeValue)">
                     </div>
                   </div>
 
@@ -160,31 +160,31 @@
 
                 <div class="form-item charges-values" *ngIf="chargeModel.unit">
                   <div class="form-data">
-                    <input type="text" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price">$/{{chargeModel.unit}}
+                    <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price">$/{{chargeModel.unit}}
                   </div>
                 </div>
 
                 <div class="form-item charges-values" *ngIf="chargeModel.unit!=='kg' && chargeModel.unit">
                   <div class="form-data">
-                    <input type="text" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="value">{{chargeModel.unit}}
+                    <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="value">{{chargeModel.unit}}
                   </div>
                 </div>
 
                 <div class="form-item charges-values" *ngIf="chargeModel.unit==='kg'">
                   <div class="form-data">
-                    <input type="text" class="values-input" readonly formControlName="value">{{chargeModel.unit}}
+                    <input type="number" class="values-input" readonly formControlName="value">{{chargeModel.unit}}
                   </div>
                 </div>
 
                 <div class="form-item charges-values" *ngIf="!chargeModel.unit">
                   <div class="form-data">
-                    <input type="text" class="values-input" (change)="calckCost(chargeValue)" formControlName="cost">$
+                    <input type="number" class="values-input" (change)="calckCost(chargeValue)" formControlName="cost">$
                   </div>
                 </div>
 
                 <div class="form-item charges-values" *ngIf="chargeModel.unit">
                   <div class="form-data">
-                    <input type="text" class="values-input" readonly formControlName="cost">$
+                    =<input type="number" class="values-input" readonly formControlName="cost">$
                   </div>
                 </div>
 
@@ -210,7 +210,7 @@
                   <div class="form-data">
                     <span class="kg">
                       {{chargeModel.name}}
-                      <input type="text" class="values-input" formControlName="cost">
+                      <input type="number" class="values-input" formControlName="cost">
                       $
                     </span>
                   </div>
@@ -226,8 +226,14 @@
     <div class="form-item charges-values">
       <div class="form-data">
         Total
-        <input type="text" class="values-input" formControlName="total_cost">
-        <input type="text" class="values-input" readonly formControlName="total_cost">
+        <input type="number" class="values-input" formControlName="total_cost" *ngIf="rateForm.value.rate_type==='detail'">
+        <input type="number" class="values-input" readonly formControlName="total_cost" *ngIf="rateForm.value.rate_type==='nodetail'">
+      </div>
+    </div>
+
+    <div class="form-item charges-values">
+      <div class="form-data">
+        <input type="text" class="values-input" formControlName="comment" placeholder="Your Comment...">
       </div>
     </div>
 

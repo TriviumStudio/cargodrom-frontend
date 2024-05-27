@@ -61,6 +61,10 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   daysOfTheWeek=[
     {
+      day:'Sunday',
+      id:0
+    },
+    {
       day:'Monday',
       id:1
     },
@@ -84,10 +88,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       day:'Saturday',
       id:6
     },
-    {
-      day:'Sunday',
-      id:7
-    }
   ]
 
 
@@ -150,13 +150,15 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       .subscribe(value => {
         // console.log('curent rate===', this.test ,value);
         this.onChange(value)
-        this.calckTotalCost()
+        // this.calckTotalCost()
       ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
+
         if (!this.touched) {
           this.onTouched();
           this.touched = true;
+
         }
       });
     this.rateForm.markAsTouched();
@@ -166,6 +168,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this._destroy$.complete();
   }
   ngOnChanges(changes: SimpleChanges): void {
+    this.calckTotalCost()
     // this.onCalkTotalVolumeAndWeight()
     // console.log(changes);
   }
@@ -235,10 +238,22 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
 
   calck(control:any){
+    // console.log(1);
+    // control.patchValue({
+    //   cost: control.value.price * control.value.value
+    // })
     console.log(1);
-    control.patchValue({
-      cost: control.value.price * control.value.value
-    })
+    if(control.value.min){
+      control.patchValue({
+        cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
+      })
+    } else {
+      control.patchValue({
+        cost: control.value.price * control.value.value
+      })
+
+    }
+
   }
   calckCost(control:any){
     control.patchValue({
@@ -249,7 +264,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   calckTotalCost(){
     let cost=0
     this.rateForm.value.values.forEach((v:any)=>{
-      cost=cost+v.cost
+      if(v.select){
+        cost=cost+v.cost
+      }
     })
     this.rateForm.patchValue({
       total_cost:cost

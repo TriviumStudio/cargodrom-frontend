@@ -43,7 +43,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
 
   requestForm: FormGroup;
-  request: Partial<Request> = {};
+  // request: Partial<Request> = {};
+  request: any;
   requestEn: any = {};
   files:any
 
@@ -123,10 +124,10 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.test=e;
   }
   copyDispatchText(){
-    window.navigator.clipboard.writeText(this.request.departure_text!)
+    window.navigator.clipboard.writeText('1')
   }
   copyDestinationText(){
-    window.navigator.clipboard.writeText(this.request.arrival_text!)
+    window.navigator.clipboard.writeText('2')
   }
 
   // Приватные методы:
@@ -153,7 +154,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
 
   //получаем данные запроса и рейтов
   private getRequestRates(){
-    this.requestService.requestRates({uid: '638d85d28962c195e5ff113ad5e01e43'})
+    this.requestService.requestRates({uid: "638d85d28962c195e5ff113ad5e01e43"})
       .pipe(
         tap((rates)=> {
           console.log('getRequestRates', rates);
@@ -179,7 +180,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   //сохраняем рейты
   saveRequestRates(){
     console.log(this.requestForm.value);
-    this.requestService.requestRatesSave(this.requestForm.value)
+    this.requestService.requestRatesSave({body:this.requestForm.value})
       .pipe(
         tap((res)=> {
           console.log(res);
