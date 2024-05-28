@@ -15,7 +15,7 @@
               <div style="width: 100%;">{{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}</div>
             </div>
             <button (click)="copyDispatchText()" >Copy</button>
-            <button >On map</button>
+            <a class="dispatch-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}" target="_blank">On map</a>
           </div>
         </div>
 
@@ -26,7 +26,7 @@
               <div>{{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}</div>
             </div>
             <button (click)="copyDestinationText()" >Copy</button>
-            <button >On map</button>
+            <a class="dispatch-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}" target="_blank">On map</a>
           </div>
         </div>
 

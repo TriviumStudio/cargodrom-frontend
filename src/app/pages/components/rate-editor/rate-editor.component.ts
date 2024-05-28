@@ -9,6 +9,7 @@ import { CargoPackage } from 'src/app/api/custom_models/cargo';
 import { CargoService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-rate-editor',
@@ -108,7 +109,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       nearest_flight: [,[]],
       num: [,[]],
       profit_include: [true,[]],
-      rate_type: ['detail',[]],
+      rate_type: ['nodetail',[]],
       route_id: [,[]],
       total_cost: [,[]],
       values: fb.array([
@@ -123,7 +124,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         //   value: [,[]],
         // })
       ], []),
-
     });
   }
 
@@ -141,11 +141,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         value: [i.unit==='kg'?this.weight:0,[]],
       }));
       this.rateForm.markAsTouched();
-    })
-
+    });
     this.getTransportCarrier();
     this.getTransportRoute();
-
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$))
       .subscribe(value => {
         // console.log('curent rate===', this.test ,value);
@@ -154,11 +152,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       ;});
     this.rateForm.statusChanges.pipe(takeUntil(this._destroy$))
       .subscribe(() => {
-
         if (!this.touched) {
           this.onTouched();
           this.touched = true;
-
         }
       });
     this.rateForm.markAsTouched();
@@ -168,9 +164,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this._destroy$.complete();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.calckTotalCost()
-    // this.onCalkTotalVolumeAndWeight()
-    // console.log(changes);
+    if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
 
   // ControlValueAccessor
@@ -179,7 +173,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
-    // this.onCalkTotalVolumeAndWeight()
   }
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
@@ -198,6 +191,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   onChangeRate(i:number): void {
     this.indexRateChange.emit(i);
   }
+
   // Charges
   onDeletePlace(): void {
     // this.removePlace.emit();
@@ -228,78 +222,96 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     // });
   }
 
-  testTextData(){
-    let text='';
-    this.daysSelectedObj.forEach((i)=>{
-      text= text + i.day +  ' ' + i.mount + ', ';
+  testResetForm(){
+    this.charges.controls.forEach((e:any)=>{
+      e.controls['comment'].reset();
+      e.controls['cost'].reset();
+      // e.controls['field'].reset();
+      e.controls['fix'].reset();
+      e.controls['min'].reset();
+      e.controls['price'].reset();
+      // e.controls['select'].reset();
+      // e.controls['value'].reset();
     })
-    return text;
+    this.rateForm.controls['total_cost'].reset()
   }
 
 
+
+  //Calck
   calck(control:any){
-    // console.log(1);
-    // control.patchValue({
-    //   cost: control.value.price * control.value.value
-    // })
-    console.log(1);
     if(control.value.min){
       control.patchValue({
         cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
-      })
+      });
     } else {
-      control.patchValue({
-        cost: control.value.price * control.value.value
-      })
-
+      control.patchValue({cost: control.value.price * control.value.value});
     }
-
+    // if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
   calckCost(control:any){
     control.patchValue({
       value: control.value.cost,
       price: 1,
-    })
+    });
+    // if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
   calckTotalCost(){
-    let cost=0
+    let cost=0;
     this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select){
-        cost=cost+v.cost
-      }
-    })
-    this.rateForm.patchValue({
-      total_cost:cost
-    })
+      if(v.select)cost=cost+v.cost
+    });
+    this.rateForm.patchValue({total_cost:cost});
   }
 
   // Datepicker multy
+  testTextData(){
+    let text='';
+    let dateOnj:any=[]
+    // this.daysSelectedObj.forEach((i)=>{
+    //   text= text + i.day +  ' ' + i.mount + ', ';
+    // });
+    this.rateForm.value.nearest_flight?.forEach((e:any)=>{
+      const date = new Date(e);
+      const dateTest ={
+        day:("00" + date.getDate()).slice(-2),
+        mount:date.toLocaleString('en-US', { month: 'short' }),
+      }
+      dateOnj?.push(dateTest);
+    })
+    dateOnj?.forEach((i:any)=>{
+      text= text + i.day +  ' ' + i.mount + ', ';
+    });
+    return text;
+  }
   isSelected = (event: any) => {
     // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
     // const date ={
     //   day:("00" + event.getDate()).slice(-2) ,
     //   mount:event.toLocaleString('en-US', { month: 'short' }) ,
     // }
-    return this.daysSelected.find(x => x == date) ? "selected" : '';
+    // return this.daysSelected.find(x => x == date) ? "selected" : '';
+    return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
   }
   select(event: any, calendar: any) {
-    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('ru', {month: 'long',day: 'numeric'}).split(' ')[1] + "-" + (event.getFullYear());
-    const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
+    // const test =  (event.getFullYear()) + "-" + event.toLocaleString('en-US',{month: 'numeric'}) + "-" + event.toLocaleString('en-US',{day: 'numeric'}) + event.getMonth();
+    // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
     const dateTest ={
       day:("00" + event.getDate()).slice(-2),
       mount:event.toLocaleString('en-US', { month: 'short' }),
     }
-
-    const index = this.daysSelected.findIndex(x => x == date);
-    // if (index < 0) this.daysSelected.push(date);
-    // else this.daysSelected.splice(index, 1);
+    const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
     if (index < 0) {
-      this.daysSelected.push(date);
+      // this.daysSelected.push(date);
       this.daysSelectedObj.push(dateTest);
+      this.rateForm.value.nearest_flight.push(date);
     } else {
-      this.daysSelected.splice(index, 1);
+      // this.daysSelected.splice(index, 1);
       this.daysSelectedObj.splice(index, 1);
+      this.rateForm.value.nearest_flight.splice(index, 1);
     }
     calendar.updateTodaysDate();
   }

@@ -171,11 +171,7 @@
 
 }
 
-.charges{
-  display: flex;
-  margin-top: 40px;
 
-}
 
 .included-fees{
   width: 65%;
@@ -245,7 +241,7 @@
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 input[type='number'] {
   -moz-appearance: textfield;
@@ -267,6 +263,16 @@ input[type='number'] {
   background: transparent;
   border: 1px dashed #C3CCD6;
   color: #2C3640;
+}
+
+.charges{
+  display: flex;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #E0E5EB;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #E0E5EB;
 }
 
 
