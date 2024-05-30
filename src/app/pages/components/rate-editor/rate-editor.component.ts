@@ -60,6 +60,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   testbul=false;
 
+  currentAirline:TransportCarrier={};
+
   daysOfTheWeek=[
     {
       day:'Sunday',
@@ -214,12 +216,17 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
 
   // Публичные методы
-  onAirlineIataChange(transportCarrier:TransportCarrier){
-    // this.rateForm.patchValue({
-    //   airline: transportCarrier.name,
-    //   airline_iata: transportCarrier.iata,
-    //   airline_id: transportCarrier.id,
-    // });
+  // onAirlineIataChange(transportCarrier:any){
+  //   this.currentAirline=transportCarrier;
+  // }
+  returnAirlineName(id:number):string{
+    let name:any=''
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(id==i.id){
+        name=i.name;
+      };
+    });
+    return name;
   }
 
   testResetForm(){
@@ -235,8 +242,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     })
     this.rateForm.controls['total_cost'].reset()
   }
-
-
 
   //Calck
   calck(control:any){
@@ -274,13 +279,25 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.rateForm.value.nearest_flight?.forEach((e:any)=>{
       const date = new Date(e);
       const dateTest ={
-        day:("00" + date.getDate()).slice(-2),
+        // day:("00" + date.getDate()).slice(-2),
+        day: date.toLocaleString('en-US', { day: 'numeric' }),
         mount:date.toLocaleString('en-US', { month: 'short' }),
+        // mountId: date.toLocaleString('en-US',{month: 'numeric'})
+        date: e
       }
       dateOnj?.push(dateTest);
     })
-    dateOnj?.forEach((i:any)=>{
-      text= text + i.day +  ' ' + i.mount + ', ';
+    const sortedArray=dateOnj.sort((a:any, b:any) => new Date(a.date) > new Date(b.date)? 1 : -1);
+
+    // let sortedArray=dateOnj.sort((a:any, b:any) => a.mountId < b.mountId ? -1 : 1 && a.day < b.day );
+    // let dateArrSortD=dateArrSortM.sort((a:any, b:any) => a.day > b.day ? 1 : -1);
+
+    // const sortedArray = dateOnj.map((object:any) => ({ ...object }))
+    // .sort((a:any, b:any) => a.mountId > b.mountId ? 1 : -1 || a.day > b.day ? 1 : -1);
+    let m=''
+
+    sortedArray?.forEach((i:any,index:number)=>{
+      text= text + i.day + ' ' + i.mount + ', ';
     });
     return text;
   }
@@ -299,21 +316,24 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     const date=formatDate(event,'yyyy-MM-dd','en-US');
     // const test =  (event.getFullYear()) + "-" + event.toLocaleString('en-US',{month: 'numeric'}) + "-" + event.toLocaleString('en-US',{day: 'numeric'}) + event.getMonth();
     // const date = ("00" + event.getDate()).slice(-2) + "-" + event.toLocaleString('en-US', { month: 'short' });
-    const dateTest ={
-      day:("00" + event.getDate()).slice(-2),
-      mount:event.toLocaleString('en-US', { month: 'short' }),
-    }
+    // const dateTest ={
+    //   day:("00" + event.getDate()).slice(-2),
+    //   mount:event.toLocaleString('en-US', { month: 'short' }),
+    //   // mountId: new Number(formatDate(event,'MM','en-US'))
+    //   mountId: event.toLocaleString('en-US',{month: 'numeric'})
+    // }
     const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
     if (index < 0) {
       // this.daysSelected.push(date);
-      this.daysSelectedObj.push(dateTest);
+      // this.daysSelectedObj.push(dateTest);
       this.rateForm.value.nearest_flight.push(date);
     } else {
       // this.daysSelected.splice(index, 1);
-      this.daysSelectedObj.splice(index, 1);
+      // this.daysSelectedObj.splice(index, 1);
       this.rateForm.value.nearest_flight.splice(index, 1);
     }
     calendar.updateTodaysDate();
+    console.log(this.rateForm.value.nearest_flight);
   }
 
   // Приватные методы

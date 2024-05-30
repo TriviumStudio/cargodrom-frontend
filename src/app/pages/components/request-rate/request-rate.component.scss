@@ -230,13 +230,10 @@
 }
 
 
-.charges-values{
-  width: 200px;
-  flex-grow: 0;
-}
+
 
 .charges-values .values-input{
-  max-width: 100px;
+  max-width: 80px;
 }
 
 input::-webkit-outer-spin-button,
@@ -273,6 +270,21 @@ input[type='number'] {
   margin-bottom: 40px;
   padding-bottom: 40px;
   border-bottom: 1px solid #E0E5EB;
+}
+
+
+.charges-title-block{
+  display: flex;
+  align-items: baseline;
+  gap:20px;
+  width: 300px;
+  justify-content: space-between;
+}
+.charges-title-block .charges-title{
+ width: 130px;
+}
+.charges-title-block .form-item{
+  width: 80px;
 }
 
 
