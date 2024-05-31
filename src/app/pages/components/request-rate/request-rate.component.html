@@ -70,7 +70,7 @@
           <div class="form-item">
             <div class="form-label">Details total:</div>
             <div class="form-data">
-              <div>{{request.cargo_places_count}}pcs,{{request.cargo_places_volume}}m3,{{request.cargo_places_weight}}kg,{{request.cargo_places_density}}kg/m3</div>
+              <div>{{request.cargo_places_count}}pcs / {{request.cargo_places_volume}}m3 / {{request.cargo_places_weight}}kg / {{request.cargo_places_density}}kg/m3</div>
             </div>
           </div>
         </div>
@@ -186,8 +186,8 @@
 
 
 
-    <div class="form-row bg">
-      <button type="submit" (click)="saveRequestRates()">Send Rates</button>
+    <div class="form-row bg" style="display: flex;justify-content: end;">
+      <button type="submit" class="btn-save-rates" (click)="saveRequestRates()">Send Rates</button>
     </div>
 
 

@@ -21,7 +21,7 @@
 
     <div class="rate_labels">
       <div *ngFor="let rate of rates; let i=index">
-        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate{{i+1}}</div>
+        <div class="rate_label"  (click)="onChangeRate(i)" [ngClass]="{'active-rate':i===test}"> Rate #{{i+1}} ({{returnAirlineIata(rate.carrier_id)}})</div>
       </div>
 
       <button class="btn-add-rate" (click)="onAddRate()">Add Rate</button>
@@ -118,64 +118,116 @@
     <!-- DETAIL MAKET -->
     <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
 
-      <div style="width: 75%;">
+      <div style="width: 75%; margin-right: 40px;">
         <div>The rate includes following charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
             <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
 
-              <div *ngIf="chargeValue.value.select" style="display: flex; align-items: baseline; width: 100%; justify-content: space-between;">
+              <div *ngIf="chargeValue.value.select" style="display: flex; align-items: baseline; width: 100%; justify-content: space-between; margin-bottom: 25px;" >
 
-                <div class="charges-title-block">
+                <label *ngIf="!chargeModel.requare">
+                  <input  type="checkbox" [checked]="chargeModel.requare===true" formControlName="select">
+                  <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
+                </label>
 
-                  <label *ngIf="!chargeModel.requare">
-                    <input  type="checkbox" [checked]="chargeModel.requare===true" formControlName="select">
-                    <i></i>
-                    <span class="charges-title">{{chargeModel.name}}</span>
-                  </label>
+                <label *ngIf="chargeModel.requare">
+                  <input  type="checkbox" [checked]="chargeModel.requare" [disabled]="chargeModel.requare">
+                  <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
+                </label>
 
-                  <label *ngIf="chargeModel.requare">
-                    <input  type="checkbox" [checked]="chargeModel.requare" [disabled]="chargeModel.requare">
-                    <i></i>
-                    <span class="charges-title">{{chargeModel.name}}</span>
-                  </label>
+                <!-- 1 -->
+                <div *ngIf="chargeModel.field_min && !chargeModel.field_comment" class="input-box">
+                  <div class="form-item charges-values br">
+                    <div class="form-data">
+                      <span class="unit">Min $:</span>
+                      <input type="number" class="values-input"  formControlName="min" (ngModelChange)="calck(chargeValue)">
+                    </div>
+                  </div>
 
-                  <span *ngIf="chargeModel.field_min">min $<input type="number"  formControlName="min" (ngModelChange)="calck(chargeValue)"></span>
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price"><span class="unit">$/{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
 
-                </div>
+                  <div class="cross"></div>
 
+                  <div class="form-item charges-values" *ngIf="chargeModel.unit!=='kg'">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="value"><span class="unit">{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
 
-                <input type="text" class="values-input" formControlName="comment" *ngIf="chargeModel.field_comment">
+                  <div class="form-item charges-values" *ngIf="chargeModel.unit==='kg'">
+                    <div class="form-data">
+                      <input type="number" class="values-input" readonly formControlName="value"><span class="unit">{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
 
+                  <div style="margin-right: 10px;">=</div>
 
-
-                <div class="form-item charges-values" *ngIf="chargeModel.unit">
-                  <div class="form-data">
-                    <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price">$/{{chargeModel.unit}}
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" readonly formControlName="cost"><span class="unit">$</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-item charges-values" *ngIf="chargeModel.unit!=='kg' && chargeModel.unit">
-                  <div class="form-data">
-                    <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="value">{{chargeModel.unit}}
+                <!-- 2 -->
+                <div *ngIf="!chargeModel.field_min && !chargeModel.field_comment && chargeModel.unit" class="input-box">
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="price"><span class="unit">$/{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
+
+                  <div class="cross"></div>
+
+                  <div class="form-item charges-values" *ngIf="chargeModel.unit!=='kg'">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (ngModelChange)="calck(chargeValue)" formControlName="value"><span class="unit">{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
+
+                  <div class="form-item charges-values" *ngIf="chargeModel.unit==='kg'">
+                    <div class="form-data">
+                      <input type="number" class="values-input" readonly formControlName="value"><span class="unit">{{chargeModel.unit}}</span>
+                    </div>
+                  </div>
+
+                  <div style="margin-right: 10px;">=</div>
+
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" readonly formControlName="cost"><span class="unit">$</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-item charges-values" *ngIf="chargeModel.unit==='kg'">
-                  <div class="form-data">
-                    <input type="number" class="values-input" readonly formControlName="value">{{chargeModel.unit}}
+                <!-- 3 -->
+                <div *ngIf="!chargeModel.field_min && chargeModel.field_comment && !chargeModel.unit" class="input-box" style="width: 70%;">
+                  <div class="form-item " style="margin-right: 10px;">
+                    <div class="form-data">
+                      <input type="text"  formControlName="comment">
+                    </div>
+                  </div>
+
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (change)="calckCost(chargeValue)" formControlName="cost"><span class="unit">$</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-item charges-values" *ngIf="!chargeModel.unit">
-                  <div class="form-data">
-                    <input type="number" class="values-input" (change)="calckCost(chargeValue)" formControlName="cost">$
-                  </div>
-                </div>
-
-                <div class="form-item charges-values" *ngIf="chargeModel.unit">
-                  <div class="form-data">
-                    =<input type="number" class="values-input" readonly formControlName="cost">$
+                <!-- 4 -->
+                <div *ngIf="!chargeModel.field_min && !chargeModel.field_comment && !chargeModel.unit" class="input-box">
+                  <div class="form-item charges-values">
+                    <div class="form-data">
+                      <input type="number" class="values-input" (change)="calckCost(chargeValue)" formControlName="cost"><span class="unit">$</span>
+                    </div>
                   </div>
                 </div>
 
@@ -191,17 +243,17 @@
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" >
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
             <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
-              <div *ngIf="!chargeValue.value.select" style="display: flex; align-items: baseline;">
+              <div *ngIf="!chargeValue.value.select" style="display: flex; align-items: baseline; width: 100%; justify-content: space-between; margin-bottom: 25px;">
 
-                <label class="radio">
+                <label class="">
                   <input  type="checkbox" formControlName="select" >
                   <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
                 </label>
 
                 <div class="form-item charges-values">
                   <div class="form-data">
                     <span class="kg">
-                      {{chargeModel.name}}
                       <input type="number" class="values-input" formControlName="cost">
                       $
                     </span>
@@ -223,18 +275,18 @@
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
             <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
-              <div *ngIf="chargeValue.value.select" style="display: flex; align-items: baseline;">
+              <div *ngIf="chargeValue.value.select" style="display: flex; align-items: baseline; width: 100%; justify-content: space-between; margin-bottom: 25px;">
 
-                {{chargeModel.name}}
-
-                <label class="radio" *ngIf="!chargeModel.requare">
+                <label *ngIf="!chargeModel.requare">
                   <input  type="checkbox" [checked]="chargeModel.requare===true" formControlName="select">
                   <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
                 </label>
 
-                <label class="radio" *ngIf="chargeModel.requare">
-                  <input  type="checkbox" [checked]="chargeModel.requare" disabled>
+                <label *ngIf="chargeModel.requare">
+                  <input  type="checkbox" [checked]="chargeModel.requare" [disabled]="chargeModel.requare">
                   <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
                 </label>
 
               </div>
@@ -248,13 +300,12 @@
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" >
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
             <ng-template *ngFor="let chargeModel of charge;let i = index;" [ngSwitchCase]="chargeModel.field_name">
-              <div *ngIf="!chargeValue.value.select" style="display: flex; align-items: baseline;">
+              <div *ngIf="!chargeValue.value.select" style="display: flex; align-items: baseline; width: 100%; justify-content: space-between; margin-bottom: 25px;">
 
-                {{chargeModel.name}}
-
-                <label class="radio">
+                <label>
                   <input  type="checkbox" formControlName="select" >
                   <i></i>
+                  <span class="charges-title">{{chargeModel.name}}</span>
                 </label>
 
               </div>
@@ -265,18 +316,30 @@
 
     </div>
 
-    <div class="form-item charges-values">
-      <div class="form-data">
-        Total, USD:
-        <!-- <input type="text" class="values-input" formControlName="total_cost" *ngIf="rateForm.value.rate_type==='nodetail'">
-        <input type="number" class="values-input" readonly formControlName="total_cost" *ngIf="rateForm.value.rate_type==='detail'"> -->
-        <input type="number" class="values-input" [readonly]="rateForm.value.rate_type==='detail'" formControlName="total_cost">
+    <div class="form-item-layout" style="display: flex; align-items: baseline;">
+      <div class="form-item charges-values" style="width: 160px;">
+        <div class="form-data">
+          Total, USD:
+          <!-- <input type="text" class="values-input" formControlName="total_cost" *ngIf="rateForm.value.rate_type==='nodetail'">
+          <input type="number" class="values-input" readonly formControlName="total_cost" *ngIf="rateForm.value.rate_type==='detail'"> -->
+          <input type="number" class="values-input" [readonly]="rateForm.value.rate_type==='detail'" formControlName="total_cost">
+        </div>
       </div>
+
+      <label>
+        <input  type="checkbox" formControlName="profit_include" >
+        <i></i>
+        <span class="charges-title">Profit is included</span>
+      </label>
+
+
     </div>
 
-    <div class="form-item charges-values">
-      <div class="form-data">
-        <input type="text" class="values-input" formControlName="comment" placeholder="Your Comment...">
+    <div class="form-item-layout" style="margin-top: 40px; width: 100%;">
+      <div class="form-item charges-values" style="width: 100%;">
+        <div class="form-data" style="width: 100%;">
+          <input type="text" class="values-input" formControlName="comment" placeholder="Your Comment..." style="max-width: 100%;">
+        </div>
       </div>
     </div>
 

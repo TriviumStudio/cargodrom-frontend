@@ -126,6 +126,9 @@
 }
 
 .rate_label{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   height: 100%;
   width: 100px;
@@ -232,9 +235,7 @@
 
 
 
-.charges-values .values-input{
-  max-width: 80px;
-}
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -253,7 +254,7 @@ input[type='number'] {
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
-  padding: 11px 13px 9px;
+  padding: 11px 7px 9px;
 }
 
 .form-block input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] {
@@ -272,19 +273,61 @@ input[type='number'] {
   border-bottom: 1px solid #E0E5EB;
 }
 
+.charges-values{
+  // width: 125px;
+  flex-grow: 0;
 
-.charges-title-block{
+}
+// .charges-values:last-child{
+//   width: 80px;
+// }
+.charges-values .values-input{
+  max-width: 75px;
+}
+// .charges-values .values-input:first-child{
+//   margin-right: 0px;
+// }
+
+.charges-values .form-data{
+  font-size: 13px;
+  line-height: 13px;
+  display: flex;
+  text-wrap: nowrap;
+  align-items: baseline;
+}
+
+.input-box{
   display: flex;
   align-items: baseline;
-  gap:20px;
-  width: 300px;
-  justify-content: space-between;
+
 }
-.charges-title-block .charges-title{
- width: 130px;
+
+.cross{
+  background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  background-size: contain;
+  width: 10px;
+  height: 10px;
+  margin-right: 20px;
+  margin-left: 10px;
 }
-.charges-title-block .form-item{
-  width: 80px;
+
+.br{
+  border-right: 1px solid #E0E5EB;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+.unit{
+  width: 45px;
+  display: block;
+  margin-left: 5px;
+}
+
+.btn-save-rates{
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
 }
 
 

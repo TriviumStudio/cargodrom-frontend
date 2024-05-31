@@ -228,6 +228,15 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
     return name;
   }
+  returnAirlineIata(id:number):string{
+    let name:any=''
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(id==i.id){
+        name=i.iata;
+      };
+    });
+    return name;
+  }
 
   testResetForm(){
     this.charges.controls.forEach((e:any)=>{
@@ -299,6 +308,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     sortedArray?.forEach((i:any,index:number)=>{
       text= text + i.day + ' ' + i.mount + ', ';
     });
+
+
     return text;
   }
   isSelected = (event: any) => {
