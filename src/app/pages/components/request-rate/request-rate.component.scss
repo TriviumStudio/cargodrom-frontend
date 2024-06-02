@@ -303,7 +303,10 @@ input[type='number'] {
 }
 
 .cross{
-  background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  // background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  // background-image: url(../../../../assets/pic-btn-copy.svg);
+  // background-image: url(../../../../assets/pic-btn-map.svg);
+
   background-size: contain;
   width: 10px;
   height: 10px;
@@ -328,6 +331,39 @@ input[type='number'] {
   border-radius: 6px;
   padding: 10px;
   color: white;
+  display: flex;
+  width: 120px;
 }
+.icon-btn-save-rates{
+  background-image: url(../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin-right: 5px;
+}
+
+.btn-copy{
+  background-image: url(../../../../assets/pic-btn-copy.svg);
+  background-repeat: no-repeat;
+  background-color: white;
+  border: none;
+  color: #DB563B;
+  width: 70px;
+}
+
+.btn-map{
+  background-image: url(../../../../assets/pic-btn-map.svg);
+  background-repeat: no-repeat;
+  background-color: white;
+  border: none;
+  color: #DB563B;
+  width: 90px;
+  text-decoration: none;
+  display: flex;
+  padding-left: 18px;
+
+}
+
 
 

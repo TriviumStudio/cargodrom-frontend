@@ -14,8 +14,11 @@
             <div class="form-data">
               <div style="width: 100%;">{{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}</div>
             </div>
-            <button (click)="copyDispatchText()" >Copy</button>
-            <a class="dispatch-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}" target="_blank">On map</a>
+            <div style="display: flex;">
+              <button (click)="copyDispatchText()" class="btn-copy">Copy</button>
+              <a class="btn-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.departure_country_name}},{{request?.departure_city_name}},{{request?.departure_address}},{{request?.departure_point_name}}" target="_blank">On map</a>
+            </div>
+
           </div>
         </div>
 
@@ -25,8 +28,11 @@
             <div class="form-data">
               <div>{{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}</div>
             </div>
-            <button (click)="copyDestinationText()" >Copy</button>
-            <a class="dispatch-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}" target="_blank">On map</a>
+            <div style="display: flex;">
+              <button (click)="copyDestinationText()" class="btn-copy">Copy</button>
+              <a class="btn-map" title="Open dispatch address in Google maps" href="https://www.google.com/maps/search/?api=1&amp;query={{request?.arrival_country_name}},{{request?.arrival_city_name}},{{request?.arrival_address}},{{request?.arrival_point_name}}" target="_blank">On map</a>
+            </div>
+
           </div>
         </div>
 
@@ -184,12 +190,9 @@
 
     </div>
 
-
-
     <div class="form-row bg" style="display: flex;justify-content: end;">
-      <button type="submit" class="btn-save-rates" (click)="saveRequestRates()">Send Rates</button>
+      <button type="submit" class="btn-save-rates" (click)="saveRequestRates()"><span class="icon-btn-save-rates"></span>Send Rates</button>
     </div>
-
 
   </div>
 </form>

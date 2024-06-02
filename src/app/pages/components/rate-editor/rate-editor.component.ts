@@ -93,10 +93,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     },
   ]
 
-
-
-  testArrDate=[]
-
   constructor(
     private fb: FormBuilder,
     private cargoService:CargoService,
@@ -292,7 +288,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         day: date.toLocaleString('en-US', { day: 'numeric' }),
         mount:date.toLocaleString('en-US', { month: 'short' }),
         // mountId: date.toLocaleString('en-US',{month: 'numeric'})
-        date: e
+        date: e,
       }
       dateOnj?.push(dateTest);
     })
@@ -303,12 +299,19 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
     // const sortedArray = dateOnj.map((object:any) => ({ ...object }))
     // .sort((a:any, b:any) => a.mountId > b.mountId ? 1 : -1 || a.day > b.day ? 1 : -1);
-    let m=''
+
+    // sortedArray?.forEach((i:any,index:number)=>{
+    //   text= text + i.day + ' ' + i.mount + ', ';
+    // });
 
     sortedArray?.forEach((i:any,index:number)=>{
-      text= text + i.day + ' ' + i.mount + ', ';
+      let ind=index+1;
+      if(sortedArray[ind]?.mount===i.mount){
+        text= text + i.day + ',';
+      } else {
+        text= text + i.day + ' ' + i.mount + ', ';
+      }
     });
-
 
     return text;
   }
@@ -344,7 +347,6 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       this.rateForm.value.nearest_flight.splice(index, 1);
     }
     calendar.updateTodaysDate();
-    console.log(this.rateForm.value.nearest_flight);
   }
 
   // Приватные методы
