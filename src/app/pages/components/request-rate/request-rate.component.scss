@@ -41,7 +41,7 @@
 }
 
 .form-col .form-col-title{
-  color: #2C3640;
+  color: #4B66AD;
   font-weight: bold;
   font-size: 20px;
   line-height: 20px;
@@ -54,6 +54,9 @@
   font-size: 20px;
   line-height: 20px;
   padding-bottom: 25px;
+}
+.form-row .color-blue{
+  color: #4B66AD;
 }
 
 .file-box{
@@ -210,23 +213,7 @@
   width:30rem
 }
 
-.test1234{
-  background: #F7F9FC;
-  border: 1px solid #E0E5EB;
-  color: #2C3640;
-  font-size: 15px;
-  line-height: 15px;
-  border-radius: 6px;
-  width: 206px;
-  box-sizing: border-box;
-  padding: 11px 13px 9px;
-  height: 39.88px;
-  white-space: nowrap;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: left;
-}
 
 .mat-menu-panel{
   width: 206px;
@@ -303,7 +290,7 @@ input[type='number'] {
 }
 
 .cross{
-  // background-image: url(../../../../assets/pic-btn-cancel-black.svg);
+  background-image: url(../../../../assets/pic-btn-cancel-black.svg);
   // background-image: url(../../../../assets/pic-btn-copy.svg);
   // background-image: url(../../../../assets/pic-btn-map.svg);
 
@@ -364,6 +351,54 @@ input[type='number'] {
   padding-left: 18px;
 
 }
+
+.calendar-icon{
+  background-image: url(../../../../assets/pic-btn-calendar.svg);
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+}
+.calendar{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 206px;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  height: 39.88px;
+  display: flex;
+
+}
+.calendar-value{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  width: 100%;
+}
+
+.departure-schedule mat-form-field.mat-form-field-appearance-outline .mat-select-arrow {
+  background: url(../../../../assets/pic-btn-calendar.svg) no-repeat;
+  width: 15px;
+  height: 15px;
+}
+
+.form-block .form-data.total input[type="number"][readonly], .form-block .form-data.total span{
+  color:red;
+  border:none;
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+.form-block .form-data.total input[type="number"]{
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
 
 
 

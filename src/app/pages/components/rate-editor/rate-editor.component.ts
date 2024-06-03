@@ -189,6 +189,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   onChangeRate(i:number): void {
     this.indexRateChange.emit(i);
   }
+  onDuplicateRate(): void {
+    this.duplicateRate.emit();
+  }
 
   // Charges
   onDeletePlace(): void {
@@ -309,7 +312,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       if(sortedArray[ind]?.mount===i.mount){
         text= text + i.day + ',';
       } else {
-        text= text + i.day + ' ' + i.mount + ', ';
+        // text= text + i.day + ' ' + i.mount + ', ';
+        text= text + i.day + ' ' + i.mount + (sortedArray.length==ind?'':', ');
       }
     });
 
@@ -336,6 +340,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     //   // mountId: new Number(formatDate(event,'MM','en-US'))
     //   mountId: event.toLocaleString('en-US',{month: 'numeric'})
     // }
+    if(this.rateForm.value.nearest_flight===null)this.rateForm.value.nearest_flight=[]
     const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
     if (index < 0) {
       // this.daysSelected.push(date);
