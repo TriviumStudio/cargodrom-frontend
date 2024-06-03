@@ -123,7 +123,7 @@
     <!-- DETAIL MAKET -->
     <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
 
-      <div style="width: 75%; margin-right: 40px;">
+      <div style="width: 70%; margin-right: 80px;">
         <div style="margin-bottom: 40px;">The rate includes following charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
@@ -243,7 +243,7 @@
         </div>
       </div>
 
-      <div style="width: 25%;">
+      <div style="width: 30%;">
         <div style="margin-bottom: 40px;">List of Charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" >
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">

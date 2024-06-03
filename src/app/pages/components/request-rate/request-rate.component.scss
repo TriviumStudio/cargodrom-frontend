@@ -3,6 +3,13 @@
 //   border: solid red 1px;
 // }
 
+.edit-form {
+  width: 1280px;
+}
+.form-block .form-label {
+  text-transform: none;
+}
+
 .df{
   display: flex;
 }
@@ -391,7 +398,7 @@ input[type='number'] {
   border:none;
   font-size: 20px;
   font-weight: bold;
-  
+
 }
 .form-block .form-data.total input[type="number"]{
   font-size: 20px;
