@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-item i10">
-        <div class="form-label">Airline (iata):<span class="req">•</span></div>
+        <div class="form-label">Airline (iata):</div>
         <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
            <mat-select formControlName="carrier_id" >
@@ -124,7 +124,7 @@
     <!-- DETAIL MAKET -->
     <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
 
-      <div style="width: 70%; margin-right: 80px;">
+      <div style="width: 70%; margin-right: 120px;">
         <div class="form-block-sub-title">The rate includes following charges</div>
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
@@ -334,7 +334,7 @@
 
       <div class="total-nodetail" *ngIf="rateForm.value.rate_type==='nodetail'">
         <div>Total, USD:</div>
-        <div class="total-cost">{{rateForm.value.total_cost}}</div>
+        <input type="number" class="total-cost" formControlName="total_cost">
       </div>
 
       <label>

@@ -3,14 +3,45 @@
 //   border: solid red 1px;
 // }
 
+
+.form-block .form-item-layout + .form-item-layout {
+  margin-top: 40px;
+}
+div{
+  text-rendering: optimizeLegibility
+}
 .edit-form {
-  width: 1280px;
+  width: 1280px;;
+}
+.edit-form.title {
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: bold;
+  color: #2C3640;
 }
 .form-col  .form-label {
   text-transform: none;
   font-size: 12px;
   line-height: 12px;
   font-weight: normal;
+  margin-bottom: 15px;
+}
+
+.details-total{
+  text-wrap: nowrap;
+}
+.details-total span{
+
+  font-size: 15px;
+  font-weight: normal;
+}
+.space{
+  margin: 0 7px;
+  color: #606A74;
+  font-size: 17px;
+}
+.details-total sup{
+  font-size: 10px;
 }
 
 .df{
@@ -219,7 +250,6 @@
   border: 1px solid #E0E5EB;
   color: #2C3640;
   font-size: 15px;
-  line-height: 15px;
   border-radius: 6px;
   width: 206px;
   box-sizing: border-box;
@@ -292,7 +322,7 @@
   margin-left: 5px;
 }
 .list-charges .unit{
-  margin-right: 100px;
+  margin-right: 80px;
 }
 .charges-values:last-child .unit{
   width: 10px;
@@ -302,10 +332,10 @@
 .total{
   display: flex;
   gap:40px;
-  align-items: baseline;
+  align-items: center;
 
 }
-.total-detail{
+.total .total-detail{
   display: flex;
   gap:5px;
   font-weight: bold;
@@ -313,7 +343,7 @@
   line-height: 22px;
   color: #2C3640;
 }
-.total-nodetail{
+.total .total-nodetail{
   display: flex;
   gap:5px;
   font-weight: bold;
@@ -322,12 +352,17 @@
   color: #2C3640;
   align-items: baseline;
 }
-.total-cost{
+.total-nodetail .total-cost{
   background: #F7F9FC;
   border: 1px solid #E0E5EB;
   color: #2C3640;
   border-radius: 6px;
   padding: 11px 7px 9px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  max-width: 70px;
+  text-align: end;
 }
 .color-red{
   color: #DB563B;
@@ -368,7 +403,7 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
-.form-block input[type="number"], .form-block select {
+.form-block .charges input[type="number"], .form-block select {
   font-family: 'regular', 'arial', 'sans-serif';
   background: #F7F9FC;
   border: 1px solid #E0E5EB;
@@ -378,7 +413,8 @@ input[type='number'] {
   border-radius: 6px;
   width: 100%;
   box-sizing: border-box;
-  padding: 11px 7px 9px;
+  padding: 11px 10px 9px;
+  text-align: end;
 }
 
 .form-block input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly] {
@@ -416,7 +452,7 @@ input[type='number'] {
   background-image: url(../../../../assets/pic-btn-cancel-black.svg);
   background-size: contain;
   width: 10px;  height: 10px;
-  margin: 0 20px 0 10px;
+  margin: 0 10px;
 }
 .equal{
   color: black;
@@ -429,8 +465,16 @@ input[type='number'] {
   margin-right: 10px;
 }
 
+.transport-point{
+  margin-top: 15px;
+  font-weight: normal;
+}
 
-
+.copy-map{
+  display: flex;
+  align-items: baseline;
+  margin-top: 15px;
+}
 
 .btn-copy{
   background-image: url(../../../../assets/pic-btn-copy.svg);
@@ -439,8 +483,10 @@ input[type='number'] {
   border: none;
   color: #DB563B;
   width: 70px;
+  cursor: pointer;
+  padding: 0;
+  height: 20px;
 }
-
 .btn-map{
   background-image: url(../../../../assets/pic-btn-map.svg);
   background-repeat: no-repeat;
@@ -451,7 +497,11 @@ input[type='number'] {
   text-decoration: none;
   display: flex;
   padding-left: 18px;
-
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  height: 20px;
 }
 
 
@@ -471,6 +521,7 @@ input[type='number'] {
   color: white;
   display: flex;
   width: 120px;
+  cursor: pointer;
 }
 .icon-btn-save-rates{
   background-image: url(../../../../assets/pic-btn-send-white.svg);

@@ -228,13 +228,15 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     return name;
   }
   returnAirlineIata(id:number):string{
+    console.log(id);
+
     let name:any=''
     this.transportCarrier.forEach((i:TransportCarrier)=>{
       if(id==i.id){
         name=i.iata;
       };
     });
-    return name;
+    return id===undefined?' ? ':name
   }
 
   testResetForm(){
