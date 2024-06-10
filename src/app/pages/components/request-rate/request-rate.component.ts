@@ -30,7 +30,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 
 export class RequestRateComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
-  id: number=0;//id нужен будет для документов, при создании будет получать его в ответе, при редактировании будет сразу с остальными данными
+  id: number=0;
   //снек бар
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -38,24 +38,13 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   private _destroy$ = new Subject();
   //переменные окружения
   production = environment.production;
-
-  @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
-  @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
-
   requestForm: FormGroup;
-  // request: Partial<Request> = {};
   request: any;
-  requestEn: any = {};
   files:any
-
-  test=0;
-
-  testStructyra:any=[];
-
+  currentRateNumber:number=0;
+  chargeModel:any=[];
   transportCarrier:any=[];
-
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -79,10 +68,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     });
 
   }
-
   // Методы ЖЦ:
   ngOnDestroy(): void {
-    console.log('ngOnDestroy', this.test);
+    console.log('ngOnDestroy', this.currentRateNumber);
 
     this._destroy$.next(null);
     this._destroy$.complete();
@@ -97,22 +85,19 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   removeRate(i: number): void {
     this.rates.removeAt(i);
     this.requestForm.markAsTouched();
-    this.test=this.rates.length-1;
+    this.currentRateNumber=this.rates.length-1;
   }
   addRate() {
     if(this.rates.length<8){
       this.rates.push(this.fb.control(
-        {
-
-        }
+        {}
       ));
-      this.test=this.rates.length-1;
+      this.currentRateNumber=this.rates.length-1;
       this.requestForm.markAsTouched();
     }
-
   }
   duplicateRate(){
-    this.rates.push(this.fb.control(this.requestForm.value.rates[this.test]));
+    this.rates.push(this.fb.control(this.requestForm.value.rates[this.currentRateNumber]));
     this.requestForm.markAsTouched();
   }
   get rates() {
@@ -120,11 +105,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   // Публичные методы:
-  consoleLog(){
-    console.log(this.requestForm.value);
-  }
   indexRateChange(e:any){
-    this.test=e;
+    this.currentRateNumber=e;
   }
   copyDispatchText(){
     window.navigator.clipboard.writeText('1')
@@ -161,9 +143,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       .pipe(
         tap((rates)=> {
           console.log('getRequestRates', rates);
-          if (!rates) {
-            throw ({ error: { error_message: `Запрос не существует` } });
-          }
+          if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
           rates.rates?.forEach((e:any) => {
             this.addRate();
             this.requestForm.patchValue(rates);
@@ -172,7 +152,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$))
       .subscribe({
         next: (rates:any) => {
-          this.testStructyra=rates.charges;
+          this.chargeModel=rates.charges;
           this.request=rates;
         },
         error: (err) => {
@@ -194,6 +174,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$))
       .subscribe({
         next: (res:any) => {
+          this.snackBar.open(`Данные сохранены`, undefined, this.snackBarWithLongDuration);
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -201,47 +182,3 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       });
   }
 }
-
-//    {
-//     "field_name": "freight",
-//     "name": "Airfreight rate",
-//     "title": "Тариф авиаперевозки",
-//     "note": "",
-//     "unit": "kg",
-//     "field_min": true,
-//     "field_fix": false,
-//     "field_comment": false,
-//     "status": true,
-//     "requare": true
-//   },
-
-//  {
-//   "field": "freight",
-//   "min": 400,
-//   "price": 1.71,
-//   "value": 2500,
-//   "fix": 0,
-//   "cost": 4275,
-//   "comment": "",
-//   "select": true
-// },
-
-
-//    {
-//   "field_name": "freight",
-//   "name": "Airfreight rate",
-//   "title": "Тариф авиаперевозки",
-//   "note": "",
-//   "unit": "kg",
-//   "field_min": true,
-//   "field_fix": false,
-//   "field_comment": false,
-//   "status": true,
-//   "requare": true
-//   "min": 400,
-//   "price": 1.71,
-//   "value": 2500,
-//   "fix": 0,
-//   "cost": 4275,
-//   "comment": "",
-// },

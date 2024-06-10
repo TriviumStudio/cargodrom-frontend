@@ -112,6 +112,10 @@ div{
   color: #DB563B;
   text-wrap: nowrap;
   cursor: pointer;
+  background: url(../../../../assets/pic-btn-download.svg) no-repeat;
+  background-position: left;
+  padding-left: 35px;
+  background-position: 10px;
 }
 .file-box:hover{
   opacity: 0.7;
@@ -267,16 +271,14 @@ div{
 }
 .departure-schedule mat-form-field.mat-form-field-appearance-outline .mat-select-arrow {
   background: url(../../../../assets/pic-btn-calendar.svg) no-repeat;
+
   width: 15px;
   height: 15px;
 }
 //THE NEAREST FLIGHT ETD:
-.mat-calendar-body-cell.selected{
-  background-color:#DB563B;
-  border-radius: 6px;
-}
-.drop-calendar
-{
+
+
+.drop-calendar{
   width:30rem
 }
 .mat-menu-panel{
