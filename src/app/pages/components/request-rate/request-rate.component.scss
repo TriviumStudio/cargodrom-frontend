@@ -18,6 +18,21 @@ div{
   line-height: 30px;
   font-weight: bold;
   color: #2C3640;
+  display: flex;
+  justify-content:space-between;
+}
+.time-add {
+  text-transform: none;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: normal;
+  color: #606A74;
+}
+.time-add span{
+  font-weight: bold;
+  color: #2C3640;
+  font-size: 14px;
+
 }
 .form-col  .form-label {
   text-transform: none;
@@ -128,6 +143,9 @@ div{
 .radio{
   margin-left: 20px;
   margin-bottom: 25px;
+}
+.comment{
+  color: #2C3640;
 }
 
 // .form-row .mat-tab-group {

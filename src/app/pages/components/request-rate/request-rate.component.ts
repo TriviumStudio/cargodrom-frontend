@@ -66,19 +66,15 @@ export class RequestRateComponent implements OnInit, OnDestroy {
       uid: [,[]],
       rates: fb.array([], []),
     });
-
   }
   // Методы ЖЦ:
   ngOnDestroy(): void {
-    console.log('ngOnDestroy', this.currentRateNumber);
-
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.id = id;
-    this.getRequestRates();
+    const uid = this.route.snapshot.paramMap.get('uid');
+    this.getRequestRates(uid);
   }
 
   //ВЛОЖЕННАЯ ФОРМА РЕДАКТИРОВАНИ РЕЙТОВ
@@ -89,9 +85,7 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   addRate() {
     if(this.rates.length<8){
-      this.rates.push(this.fb.control(
-        {}
-      ));
+      this.rates.push(this.fb.control({}));
       this.currentRateNumber=this.rates.length-1;
       this.requestForm.markAsTouched();
     }
@@ -109,10 +103,10 @@ export class RequestRateComponent implements OnInit, OnDestroy {
     this.currentRateNumber=e;
   }
   copyDispatchText(){
-    window.navigator.clipboard.writeText('1')
+    window.navigator.clipboard.writeText(`${this.request.departure_country_name}, ${this.request.departure_city_name}, ${this.request.departure_address}, ${this.request.departure_point_name}`)
   }
   copyDestinationText(){
-    window.navigator.clipboard.writeText('2')
+    window.navigator.clipboard.writeText(`${this.request.arrival_country_name}, ${this.request.arrival_city_name}, ${this.request.arrival_address}, ${this.request.arrival_point_name}`)
   }
 
   // Приватные методы:
@@ -138,8 +132,8 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
 
   //получаем данные запроса и рейтов
-  private getRequestRates(){
-    this.requestService.requestRates({uid: "638d85d28962c195e5ff113ad5e01e43"})
+  private getRequestRates(uid:any){
+    this.requestService.requestRates({uid:uid})
       .pipe(
         tap((rates)=> {
           console.log('getRequestRates', rates);
