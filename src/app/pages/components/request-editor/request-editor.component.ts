@@ -172,7 +172,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  linkRate(){
+   linkRate(){
     this.router.navigate(['rate_request', '638d85d28962c195e5ff113ad5e01e43']);
   }
   //МЕТОДЫ ЖЦ
