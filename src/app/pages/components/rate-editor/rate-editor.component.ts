@@ -100,6 +100,9 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.getTransportCarrier();
+    this.getTransportRoute();
+
     this.chargeModel.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
@@ -113,8 +116,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       }));
       this.rateForm.markAsTouched();
     });
-    this.getTransportCarrier();
-    this.getTransportRoute();
+
     this.rateForm.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(value => {
       this.onChange(value)
     });

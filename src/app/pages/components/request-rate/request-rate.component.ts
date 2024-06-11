@@ -104,9 +104,11 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   copyDispatchText(){
     window.navigator.clipboard.writeText(`${this.request.departure_country_name}, ${this.request.departure_city_name}, ${this.request.departure_address}, ${this.request.departure_point_name}`)
+    this.snackBar.open(`Address copied: ` + `${this.request.departure_country_name}, ${this.request.departure_city_name}, ${this.request.departure_address}, ${this.request.departure_point_name}` , undefined, this.snackBarWithLongDuration);
   }
   copyDestinationText(){
     window.navigator.clipboard.writeText(`${this.request.arrival_country_name}, ${this.request.arrival_city_name}, ${this.request.arrival_address}, ${this.request.arrival_point_name}`)
+    this.snackBar.open(`Address copied: ` + `${this.request.arrival_country_name}, ${this.request.arrival_city_name}, ${this.request.arrival_address}, ${this.request.arrival_point_name}`, undefined, this.snackBarWithLongDuration);
   }
 
   // Приватные методы:
