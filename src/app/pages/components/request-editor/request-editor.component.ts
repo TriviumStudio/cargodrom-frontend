@@ -553,11 +553,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     }
     //патчим форму
     this.requestForm.patchValue({
-      cargo_places_volume: volume,
-      cargo_places_weight: weight,
+      cargo_places_volume: volume.toFixed(2),
+      cargo_places_weight: weight.toFixed(2),
       cargo_places_count: count,
-      cargo_places_paid_weight: paidWeight,
-      cargo_places_density: density,
+      cargo_places_paid_weight: paidWeight.toFixed(2),
+      cargo_places_density: density.toFixed(2),
     });
   }
   //расчет плотности и оплач.веса при совместных местах
@@ -576,8 +576,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     }
     //патчим форму
     this.requestForm.patchValue({
-      cargo_places_density: density,
-      cargo_places_paid_weight: paidWeight,
+      cargo_places_density: density.toFixed(2),
+      cargo_places_paid_weight: paidWeight.toFixed(2),
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
