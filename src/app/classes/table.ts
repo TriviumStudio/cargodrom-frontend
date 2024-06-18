@@ -53,6 +53,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('removeDialogRef') removeDialogRef!: TemplateRef<T>;
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
+  @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -303,6 +304,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
     return NEVER;
   }
+  protected requestSaveBidding(body: {id: number, confirm:boolean}): Observable<any> {
+    return NEVER;
+  }
 
   protected requestInfo(id:number): Observable<any> {
     return NEVER;
@@ -474,6 +478,27 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       },
       error: (err) => this.snackBar.open(`Не получилось изменить список контракторов выбравших запрос ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
+  }
+
+  saveContractorSelectRequest() {
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestSaveBidding({id:requestId,confirm: false})
+      .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$))
+      .subscribe({
+        next:()=>{},
+        error:(err)=>{
+          this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()
+            .subscribe(res => {
+              if(res){
+                this.requestSaveBidding({id:requestId, confirm: true})
+                .pipe(tap((res)=>{}), takeUntil(this.destroy$))
+                .subscribe()
+              }
+            })
+        }
+      })
   }
 
   isCheck(id:number){

@@ -72,6 +72,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
   }
+  protected override requestSaveBidding(body:{id:number,confirm: boolean}){
+    return this.requestService.requestSaveBidding({body})
+  }
 
   getSpecializationClass(n:number){
     let classSpec='';

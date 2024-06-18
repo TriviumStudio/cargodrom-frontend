@@ -9976,10 +9976,10 @@ export class RequestService extends BaseService {
 /**
  * ID Контрагента
  */
-'contractor_id': Array<number>;
+'contractor_id'?: Array<number>;
 
 /**
- * Признак
+ * Признак выделения
  */
 'checked'?: boolean;
 }
@@ -10035,10 +10035,10 @@ export class RequestService extends BaseService {
 /**
  * ID Контрагента
  */
-'contractor_id': Array<number>;
+'contractor_id'?: Array<number>;
 
 /**
- * Признак
+ * Признак выделения
  */
 'checked'?: boolean;
 }
@@ -10148,6 +10148,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -10252,6 +10257,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -10382,6 +10392,11 @@ export class RequestService extends BaseService {
         'incoterms_name'?: string;
         
         /**
+         * Город/Порт
+         */
+        'incoterms_city_name'?: string;
+        
+        /**
          * Рейсы
          */
         'departure_flight_name'?: string;
@@ -10486,6 +10501,11 @@ export class RequestService extends BaseService {
          * Terms of delivery
          */
         'incoterms_name'?: string;
+        
+        /**
+         * City/Port
+         */
+        'incoterms_city_name'?: string;
         
         /**
          * Type of flights
@@ -10629,6 +10649,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -10733,6 +10758,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -10854,6 +10884,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -10958,6 +10993,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -11077,6 +11117,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -11181,6 +11226,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -11319,6 +11369,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -11423,6 +11478,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -11580,6 +11640,11 @@ export class RequestService extends BaseService {
 'incoterms_name'?: string;
 
 /**
+ * Город/Порт
+ */
+'incoterms_city_name'?: string;
+
+/**
  * Рейсы
  */
 'departure_flight_name'?: string;
@@ -11684,6 +11749,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -11792,9 +11862,24 @@ export class RequestService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
+ * ID Запроса
+ */
+'id': number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Country of dispatch
@@ -11840,6 +11925,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -12079,9 +12169,24 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
+         * ID Запроса
+         */
+        'id': number;
+        
+        /**
          * UID
          */
         'uid': string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add'?: string;
+        
+        /**
+         * Готовность
+         */
+        'cargo_readiness'?: string;
         
         /**
          * Country of dispatch
@@ -12127,6 +12232,11 @@ export class RequestService extends BaseService {
          * Terms of delivery
          */
         'incoterms_name'?: string;
+        
+        /**
+         * City/Port
+         */
+        'incoterms_city_name'?: string;
         
         /**
          * Type of flights
@@ -12379,9 +12489,24 @@ export class RequestService extends BaseService {
   ): Observable<{
 
 /**
+ * ID Запроса
+ */
+'id': number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Country of dispatch
@@ -12427,6 +12552,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -12657,9 +12787,24 @@ export class RequestService extends BaseService {
       map((r: StrictHttpResponse<{
 
 /**
+ * ID Запроса
+ */
+'id': number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Country of dispatch
@@ -12705,6 +12850,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -12933,9 +13083,24 @@ export class RequestService extends BaseService {
 }>): {
 
 /**
+ * ID Запроса
+ */
+'id': number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Country of dispatch
@@ -12981,6 +13146,11 @@ export class RequestService extends BaseService {
  * Terms of delivery
  */
 'incoterms_name'?: string;
+
+/**
+ * City/Port
+ */
+'incoterms_city_name'?: string;
 
 /**
  * Type of flights
@@ -13228,9 +13398,24 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
+ * ID Запроса
+ */
+'id'?: number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Ставки
@@ -13374,9 +13559,24 @@ export class RequestService extends BaseService {
       body?: {
 
 /**
+ * ID Запроса
+ */
+'id'?: number;
+
+/**
  * UID
  */
 'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add'?: string;
+
+/**
+ * Готовность
+ */
+'cargo_readiness'?: string;
 
 /**
  * Ставки

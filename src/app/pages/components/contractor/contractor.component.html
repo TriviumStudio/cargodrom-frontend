@@ -105,7 +105,7 @@
 
 </div>
 
-<app-table-filter [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors"></app-table-filter>
+<app-table-filter [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors" (saveBidding)="saveContractorSelectRequest()"></app-table-filter>
 
 <div class="table-list">
   <table mat-table [dataSource]="rows">
@@ -265,7 +265,7 @@
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let row; columns: column;"></tr>
-    
+
   </table>
 </div>
 
@@ -314,6 +314,32 @@
       class="download"
       >
       Скачать файл с результатами обработки
+    </button>
+    <button
+      mat-button
+      mat-dialog-close
+      class="cancel"
+      >
+      ОТМЕНА
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #saveBiddingRef let-data>
+  <h1 mat-dialog-title>Проигнорировать ошибки и начать торги?</h1>
+  <!-- <div mat-dialog-content>
+    Проигнорировать ошибки и начать торги ?
+  </div> -->
+  <div mat-dialog-content>
+    <p *ngIf="data.err.error">{{ data.err.error.error_message_description }}</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      [mat-dialog-close]="1"
+      class="save"
+      >
+      Начать торги
     </button>
     <button
       mat-button

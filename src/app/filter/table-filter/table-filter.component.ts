@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FilterService } from '../services/filter.service';
 
 @Component({
@@ -16,6 +16,8 @@ export class TableFilterComponent implements OnInit {
   @Input() isBiddingMode?: boolean;
   @Input() quantityContractors?: number;
 
+  @Output() saveBidding = new EventEmitter<any>();
+
   constructor(
     public filterService: FilterService,
   ) { }
@@ -25,6 +27,10 @@ export class TableFilterComponent implements OnInit {
 
   toggleMore(): void {
     this.showMore = !this.showMore;
+  }
+
+  saveBiddingBtn(): void {
+    this.saveBidding.emit();
   }
 
 }
