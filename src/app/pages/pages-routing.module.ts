@@ -16,6 +16,7 @@ import { ClientEditorComponent } from './components/client-editor/client-editor.
 import { AuthGuard } from '../auth/auth.guard';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
+import { RequestDetailsComponent } from './components/request-details/request-details.component';
 
 
 
@@ -73,6 +74,13 @@ const routes: Routes = [
       //   title: 'Rate',
       //   canActivate: [AuthGuard],
       // },
+      {
+        path: 'request/details/:id',
+        component: RequestDetailsComponent,
+        pathMatch: 'full',
+        title: 'Request Details',
+        canActivate: [AuthGuard],
+      },
       {
         path: 'request/bidding/:id',
         component: ContractorComponent,

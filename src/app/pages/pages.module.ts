@@ -34,6 +34,7 @@ import { RequestRateComponent } from './components/request-rate/request-rate.com
 import { RateEditorComponent } from './components/rate-editor/rate-editor.component';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { RequestDetailsComponent } from './components/request-details/request-details.component';
 
 
 
@@ -68,6 +69,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     RequestRateComponent,
 
     RateEditorComponent,
+    RequestDetailsComponent
   ],
   imports: [
     CommonModule,
