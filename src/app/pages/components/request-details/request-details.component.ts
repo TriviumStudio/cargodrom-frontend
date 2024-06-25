@@ -9,15 +9,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
   styleUrls: ['./request-details.component.scss'],
-  providers: [FilterService]
+  providers: [FilterService],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 
 export class RequestDetailsComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
+
+  expandedElement: any | null;
 
   params:any;
 
