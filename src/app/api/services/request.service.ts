@@ -38,71 +38,6 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -111,22 +46,6 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
-
-    /**
-     * Сортировка
-     */
-      sort?: Array<{
-
-/**
- * Поле сортировки
- */
-'field'?: 'id' | 'time_add';
-
-/**
- * Направление сортировки
- */
-'dir'?: 'asc' | 'desc';
-}>;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -574,30 +493,11 @@ export class RequestService extends BaseService {
  * Параметры таблицы
  */
 'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
     if (params) {
-      rb.query('id', params.id, {});
-      rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {"style":"form","explode":false});
-      rb.query('request_type_id', params.request_type_id, {});
-      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
-      rb.query('departure_country_id', params.departure_country_id, {});
-      rb.query('arrival_country_id', params.arrival_country_id, {});
-      rb.query('customer_id', params.customer_id, {});
-      rb.query('rate_contractor_id', params.rate_contractor_id, {});
-      rb.query('departure_city_id', params.departure_city_id, {});
-      rb.query('arrival_city_id', params.arrival_city_id, {});
-      rb.query('manager_executor_id', params.manager_executor_id, {});
-      rb.query('transport_kind_id', params.transport_kind_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
-      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(
@@ -1050,11 +950,6 @@ export class RequestService extends BaseService {
          * Параметры таблицы
          */
         'column'?: Array<string>;
-        
-        /**
-         * Поля сортировки
-         */
-        'sort'?: Array<string>;
         }>;
       })
     );
@@ -1074,71 +969,6 @@ export class RequestService extends BaseService {
     params?: {
 
     /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
      * Начальная позиция
      */
       start?: number;
@@ -1147,22 +977,6 @@ export class RequestService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
-
-    /**
-     * Сортировка
-     */
-      sort?: Array<{
-
-/**
- * Поле сортировки
- */
-'field'?: 'id' | 'time_add';
-
-/**
- * Направление сортировки
- */
-'dir'?: 'asc' | 'desc';
-}>;
     },
     context?: HttpContext
   ): Observable<{
@@ -1610,11 +1424,6 @@ export class RequestService extends BaseService {
  * Параметры таблицы
  */
 'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }> {
     return this.requestList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -2062,11 +1871,6 @@ export class RequestService extends BaseService {
  * Параметры таблицы
  */
 'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>): {
 
 /**
@@ -2512,11 +2316,6 @@ export class RequestService extends BaseService {
  * Параметры таблицы
  */
 'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 } => r.body)
     );
   }
@@ -3473,693 +3272,6 @@ export class RequestService extends BaseService {
  * Сортировка по умолчанию
  */
 'dir'?: string;
-}>;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestListSearch()` */
-  static readonly RequestListSearchPath = '/request_list_search';
-
-  /**
-   * Параметры формы поиска.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestListSearch()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestListSearch$Response(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListSearchPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Поиск в заголовке
-         */
-        'header'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск основной
-         */
-        'main'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск расширенный
-         */
-        'additional'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Параметры формы поиска.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestListSearch$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestListSearch(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}> {
-    return this.requestListSearch$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>): {
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
 }>;
 } => r.body)
     );
@@ -9110,87 +8222,6 @@ export class RequestService extends BaseService {
    */
   requestExport$Response(
     params?: {
-
-    /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
-     * Сортировка
-     */
-      sort?: Array<{
-
-/**
- * Поле сортировки
- */
-'field'?: 'id' | 'time_add';
-
-/**
- * Направление сортировки
- */
-'dir'?: 'asc' | 'desc';
-}>;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -9207,20 +8238,6 @@ export class RequestService extends BaseService {
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestExportPath, 'get');
     if (params) {
-      rb.query('id', params.id, {});
-      rb.query('time_add', params.time_add, {});
-      rb.query('status_id', params.status_id, {"style":"form","explode":false});
-      rb.query('request_type_id', params.request_type_id, {});
-      rb.query('status_crm_id', params.status_crm_id, {"style":"form","explode":false});
-      rb.query('departure_country_id', params.departure_country_id, {});
-      rb.query('arrival_country_id', params.arrival_country_id, {});
-      rb.query('customer_id', params.customer_id, {});
-      rb.query('rate_contractor_id', params.rate_contractor_id, {});
-      rb.query('departure_city_id', params.departure_city_id, {});
-      rb.query('arrival_city_id', params.arrival_city_id, {});
-      rb.query('manager_executor_id', params.manager_executor_id, {});
-      rb.query('transport_kind_id', params.transport_kind_id, {});
-      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(
@@ -9256,87 +8273,6 @@ export class RequestService extends BaseService {
    */
   requestExport(
     params?: {
-
-    /**
-     * Поиск запроса по номеру...
-     */
-      id?: string;
-
-    /**
-     * Период (day, week, month, dd.mm.YYYY-dd.mm.YYYY)
-     */
-      time_add?: any;
-
-    /**
-     * Статус запроса (ID берем из запроса - request_status)
-     */
-      status_id?: Array<string>;
-
-    /**
-     * Вид запроса (ID берем из запроса - request_type)
-     */
-      request_type_id?: number;
-
-    /**
-     * Статус CRM (ID берем из запроса - request_status_crm)
-     */
-      status_crm_id?: Array<string>;
-
-    /**
-     * Страна отправления (ID берем из запроса - direction_country)
-     */
-      departure_country_id?: number;
-
-    /**
-     * Страна назначения (ID берем из запроса - direction_country)
-     */
-      arrival_country_id?: number;
-
-    /**
-     * Клиент (ID берем из запроса - customer_list)
-     */
-      customer_id?: number;
-
-    /**
-     * Подрядчик (ID берем из запроса - contractor_list)
-     */
-      rate_contractor_id?: number;
-
-    /**
-     * Город отправления (ID берем из запроса - direction_city)
-     */
-      departure_city_id?: number;
-
-    /**
-     * Город назначения (ID берем из запроса - direction_city)
-     */
-      arrival_city_id?: number;
-
-    /**
-     * Сотрудник (ID берем из запроса - company_employee_list)
-     */
-      manager_executor_id?: number;
-
-    /**
-     * Вид перевозки (ID берем из запроса - transport_kind)
-     */
-      transport_kind_id?: number;
-
-    /**
-     * Сортировка
-     */
-      sort?: Array<{
-
-/**
- * Поле сортировки
- */
-'field'?: 'id' | 'time_add';
-
-/**
- * Направление сортировки
- */
-'dir'?: 'asc' | 'desc';
-}>;
     },
     context?: HttpContext
   ): Observable<{
@@ -12039,6 +10975,22 @@ export class RequestService extends BaseService {
 'nearest_flight'?: Array<string>;
 
 /**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
+
+/**
  * Стоимость (Cost)
  */
 'total_cost'?: number;
@@ -12344,6 +11296,22 @@ export class RequestService extends BaseService {
          * Ближайшие рейсы (Nearest flight etd)
          */
         'nearest_flight'?: Array<string>;
+        
+        /**
+         * Время транзита
+         */
+        'transit_time'?: {
+        
+        /**
+         * Время транзита От
+         */
+        'transit_time_from'?: number;
+        
+        /**
+         * Время транзита До
+         */
+        'transit_time_to'?: number;
+        };
         
         /**
          * Стоимость (Cost)
@@ -12666,6 +11634,22 @@ export class RequestService extends BaseService {
 'nearest_flight'?: Array<string>;
 
 /**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
+
+/**
  * Стоимость (Cost)
  */
 'total_cost'?: number;
@@ -12964,6 +11948,22 @@ export class RequestService extends BaseService {
 'nearest_flight'?: Array<string>;
 
 /**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
+
+/**
  * Стоимость (Cost)
  */
 'total_cost'?: number;
@@ -13260,6 +12260,22 @@ export class RequestService extends BaseService {
 'nearest_flight'?: Array<string>;
 
 /**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
+
+/**
  * Стоимость (Cost)
  */
 'total_cost'?: number;
@@ -13453,6 +12469,22 @@ export class RequestService extends BaseService {
 'nearest_flight'?: Array<string>;
 
 /**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
+
+/**
  * Стоимость (Cost)
  */
 'total_cost'?: number;
@@ -13612,6 +12644,22 @@ export class RequestService extends BaseService {
  * Ближайшие рейсы (Nearest flight etd)
  */
 'nearest_flight'?: Array<string>;
+
+/**
+ * Время транзита
+ */
+'transit_time'?: {
+
+/**
+ * Время транзита От
+ */
+'transit_time_from'?: number;
+
+/**
+ * Время транзита До
+ */
+'transit_time_to'?: number;
+};
 
 /**
  * Стоимость (Cost)
@@ -13804,6 +12852,2750 @@ export class RequestService extends BaseService {
  * Статус выполнения
  */
 'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingFinalList()` */
+  static readonly RequestBiddingFinalListPath = '/request_bidding_final_list';
+
+  /**
+   * Ставки итоговые.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingFinalList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingFinalList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Срок.дн
+ */
+'period': string;
+
+/**
+ * До границы
+ */
+'customs_rate': string;
+
+/**
+ * Локальные
+ */
+'local_rate': string;
+
+/**
+ * Итого
+ */
+'total_rate': string;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingFinalListPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * Дата запроса
+         */
+        'time_request': date_list;
+        
+        /**
+         * Подрядчик
+         */
+        'contractor_text': string;
+        
+        /**
+         * Подрядчик (ID берем из запроса - contractor_list)
+         */
+        'contractor_id': number;
+        
+        /**
+         * AIR
+         */
+        'carrier_iata': number;
+        
+        /**
+         * Авиалиния
+         */
+        'carrier_text': string;
+        
+        /**
+         * Авиалиния (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id': string;
+        
+        /**
+         * Тип
+         */
+        'kind_key': string;
+        
+        /**
+         * Расписание
+         */
+        'departure_schedule_text': Array<string>;
+        
+        /**
+         * Расписание
+         */
+        'departure_schedule': Array<string>;
+        
+        /**
+         * Маршрут
+         */
+        'route_text': string;
+        
+        /**
+         * Срок.дн
+         */
+        'period': string;
+        
+        /**
+         * До границы
+         */
+        'customs_rate': string;
+        
+        /**
+         * Локальные
+         */
+        'local_rate': string;
+        
+        /**
+         * Итого
+         */
+        'total_rate': string;
+        
+        /**
+         * В итоговом
+         */
+        'select': boolean;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'column'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки итоговые.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingFinalList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingFinalList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Срок.дн
+ */
+'period': string;
+
+/**
+ * До границы
+ */
+'customs_rate': string;
+
+/**
+ * Локальные
+ */
+'local_rate': string;
+
+/**
+ * Итого
+ */
+'total_rate': string;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}> {
+    return this.requestBiddingFinalList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Срок.дн
+ */
+'period': string;
+
+/**
+ * До границы
+ */
+'customs_rate': string;
+
+/**
+ * Локальные
+ */
+'local_rate': string;
+
+/**
+ * Итого
+ */
+'total_rate': string;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>): {
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Срок.дн
+ */
+'period': string;
+
+/**
+ * До границы
+ */
+'customs_rate': string;
+
+/**
+ * Локальные
+ */
+'local_rate': string;
+
+/**
+ * Итого
+ */
+'total_rate': string;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingCustomsList()` */
+  static readonly RequestBiddingCustomsListPath = '/request_bidding_customs_list';
+
+  /**
+   * Ставки запроса До границы .
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingCustomsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingCustomsList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата ответа
+ */
+'time_bidding_answer': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Маршрут (ID берем из запроса - transport_route)
+ */
+'route_id': number;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Ставка
+ */
+'total_cost': string;
+
+/**
+ * Срок.дн
+ */
+'transit_time': string;
+
+/**
+ * Свободные места
+ */
+'nearest_flight': Array<string>;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingCustomsListPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * Дата ответа
+         */
+        'time_bidding_answer': date_list;
+        
+        /**
+         * Подрядчик
+         */
+        'contractor_text': string;
+        
+        /**
+         * Подрядчик (ID берем из запроса - contractor_list)
+         */
+        'contractor_id': number;
+        
+        /**
+         * AIR
+         */
+        'carrier_iata': number;
+        
+        /**
+         * Авиалиния
+         */
+        'carrier_text': string;
+        
+        /**
+         * Авиалиния (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id': string;
+        
+        /**
+         * Маршрут
+         */
+        'route_text': string;
+        
+        /**
+         * Маршрут (ID берем из запроса - transport_route)
+         */
+        'route_id': number;
+        
+        /**
+         * Тип
+         */
+        'kind_key': string;
+        
+        /**
+         * Расписание
+         */
+        'departure_schedule_text': Array<string>;
+        
+        /**
+         * Расписание
+         */
+        'departure_schedule': Array<string>;
+        
+        /**
+         * Ставка
+         */
+        'total_cost': string;
+        
+        /**
+         * Срок.дн
+         */
+        'transit_time': string;
+        
+        /**
+         * Свободные места
+         */
+        'nearest_flight': Array<string>;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer': boolean;
+        
+        /**
+         * В итоговом
+         */
+        'select': boolean;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'column'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса До границы .
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingCustomsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingCustomsList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата ответа
+ */
+'time_bidding_answer': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Маршрут (ID берем из запроса - transport_route)
+ */
+'route_id': number;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Ставка
+ */
+'total_cost': string;
+
+/**
+ * Срок.дн
+ */
+'transit_time': string;
+
+/**
+ * Свободные места
+ */
+'nearest_flight': Array<string>;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}> {
+    return this.requestBiddingCustomsList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата ответа
+ */
+'time_bidding_answer': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Маршрут (ID берем из запроса - transport_route)
+ */
+'route_id': number;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Ставка
+ */
+'total_cost': string;
+
+/**
+ * Срок.дн
+ */
+'transit_time': string;
+
+/**
+ * Свободные места
+ */
+'nearest_flight': Array<string>;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>): {
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата ответа
+ */
+'time_bidding_answer': date_list;
+
+/**
+ * Подрядчик
+ */
+'contractor_text': string;
+
+/**
+ * Подрядчик (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * AIR
+ */
+'carrier_iata': number;
+
+/**
+ * Авиалиния
+ */
+'carrier_text': string;
+
+/**
+ * Авиалиния (ID берем из запроса - transport_carrier)
+ */
+'carrier_id': string;
+
+/**
+ * Маршрут
+ */
+'route_text': string;
+
+/**
+ * Маршрут (ID берем из запроса - transport_route)
+ */
+'route_id': number;
+
+/**
+ * Тип
+ */
+'kind_key': string;
+
+/**
+ * Расписание
+ */
+'departure_schedule_text': Array<string>;
+
+/**
+ * Расписание
+ */
+'departure_schedule': Array<string>;
+
+/**
+ * Ставка
+ */
+'total_cost': string;
+
+/**
+ * Срок.дн
+ */
+'transit_time': string;
+
+/**
+ * Свободные места
+ */
+'nearest_flight': Array<string>;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingPointList()` */
+  static readonly RequestBiddingPointListPath = '/request_bidding_point_list';
+
+  /**
+   * Ставки запроса Складские (СВХ).
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingPointList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingPointList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Наименование Аэропорта
+ */
+'point': string;
+
+/**
+ * Вид прайса
+ */
+'price_type': string;
+
+/**
+ * Наименование статей затрат
+ */
+'cost_items': string;
+
+/**
+ * Сумма
+ */
+'cost': string;
+
+/**
+ * Примечание
+ */
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingPointListPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * Наименование Аэропорта
+         */
+        'point': string;
+        
+        /**
+         * Вид прайса
+         */
+        'price_type': string;
+        
+        /**
+         * Наименование статей затрат
+         */
+        'cost_items': string;
+        
+        /**
+         * Сумма
+         */
+        'cost': string;
+        
+        /**
+         * Примечание
+         */
+        'notice'?: string;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer': boolean;
+        
+        /**
+         * В итоговом
+         */
+        'select': boolean;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'column'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса Складские (СВХ).
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingPointList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingPointList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Наименование Аэропорта
+ */
+'point': string;
+
+/**
+ * Вид прайса
+ */
+'price_type': string;
+
+/**
+ * Наименование статей затрат
+ */
+'cost_items': string;
+
+/**
+ * Сумма
+ */
+'cost': string;
+
+/**
+ * Примечание
+ */
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}> {
+    return this.requestBiddingPointList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Наименование Аэропорта
+ */
+'point': string;
+
+/**
+ * Вид прайса
+ */
+'price_type': string;
+
+/**
+ * Наименование статей затрат
+ */
+'cost_items': string;
+
+/**
+ * Сумма
+ */
+'cost': string;
+
+/**
+ * Примечание
+ */
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>): {
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Наименование Аэропорта
+ */
+'point': string;
+
+/**
+ * Вид прайса
+ */
+'price_type': string;
+
+/**
+ * Наименование статей затрат
+ */
+'cost_items': string;
+
+/**
+ * Сумма
+ */
+'cost': string;
+
+/**
+ * Примечание
+ */
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingTransporterList()` */
+  static readonly RequestBiddingTransporterListPath = '/request_bidding_transporter_list';
+
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingTransporterList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingTransporterList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Дата ответа
+ */
+'time_answer': date_list;
+'contractor_text': string;
+'contractor_id': number;
+'transport_type_text': string;
+'transport_type_id': number;
+'period': string;
+'cost': string;
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingTransporterListPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('start', params.start, {});
+      rb.query('count', params.count, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Всего позиций
+         */
+        'total'?: number;
+        
+        /**
+         * Позиции
+         */
+        'items'?: Array<{
+        
+        /**
+         * Дата запроса
+         */
+        'time_request': date_list;
+        
+        /**
+         * Дата ответа
+         */
+        'time_answer': date_list;
+        'contractor_text': string;
+        'contractor_id': number;
+        'transport_type_text': string;
+        'transport_type_id': number;
+        'period': string;
+        'cost': string;
+        'notice'?: string;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer': boolean;
+        
+        /**
+         * В итоговом
+         */
+        'select': boolean;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'column'?: Array<string>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingTransporterList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingTransporterList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Начальная позиция
+     */
+      start?: number;
+
+    /**
+     * Лимит позиций на страницу
+     */
+      count?: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Дата ответа
+ */
+'time_answer': date_list;
+'contractor_text': string;
+'contractor_id': number;
+'transport_type_text': string;
+'transport_type_id': number;
+'period': string;
+'cost': string;
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}> {
+    return this.requestBiddingTransporterList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Дата ответа
+ */
+'time_answer': date_list;
+'contractor_text': string;
+'contractor_id': number;
+'transport_type_text': string;
+'transport_type_id': number;
+'period': string;
+'cost': string;
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+}>): {
+
+/**
+ * Всего позиций
+ */
+'total'?: number;
+
+/**
+ * Позиции
+ */
+'items'?: Array<{
+
+/**
+ * Дата запроса
+ */
+'time_request': date_list;
+
+/**
+ * Дата ответа
+ */
+'time_answer': date_list;
+'contractor_text': string;
+'contractor_id': number;
+'transport_type_text': string;
+'transport_type_id': number;
+'period': string;
+'cost': string;
+'notice'?: string;
+
+/**
+ * В коммерческом предложении
+ */
+'offer': boolean;
+
+/**
+ * В итоговом
+ */
+'select': boolean;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'column'?: Array<string>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingListParam()` */
+  static readonly RequestBiddingListParamPath = '/request_bidding_list_param';
+
+  /**
+   * Параметры вывода запросов.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingListParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingListParam$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingListParamPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('method', params.method, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры вывода запросов.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingListParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingListParam(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.requestBiddingListParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
 } => r.body)
     );
   }

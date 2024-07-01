@@ -122,6 +122,22 @@
       </div>
 
     </div>
+
+    <div class="form-item-layout" formGroupName="transit_time">
+      <div class="form-item i10">
+        <div class="form-label">Chargeable weight:</div>
+        <div class="form-data">
+          <input type="number" formControlName="transit_time_from" >
+        </div>
+      </div>
+
+      <div class="form-item i10">
+        <div class="form-label">Chargeable weight:</div>
+        <div class="form-data">
+          <input type="number" formControlName="transit_time_to" >
+        </div>
+      </div>
+    </div>
     <!-- DETAIL MAKET -->
     <div class="charges" *ngIf="rateForm.value.rate_type==='detail'">
 
