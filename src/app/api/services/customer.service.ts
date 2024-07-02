@@ -38,6 +38,31 @@ export class CustomerService extends BaseService {
     params?: {
 
     /**
+     * Поиск клиента по названию...
+     */
+      name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+      group_id?: number;
+
+    /**
+     * ИНН
+     */
+      inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+      contact_fio?: string;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -46,6 +71,22 @@ export class CustomerService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -390,16 +431,17 @@ export class CustomerService extends BaseService {
  */
 'order_delay_payment'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, CustomerService.CustomerListPath, 'get');
     if (params) {
+      rb.query('name', params.name, {});
+      rb.query('country_id', params.country_id, {});
+      rb.query('group_id', params.group_id, {});
+      rb.query('inn', params.inn, {});
+      rb.query('contact_fio', params.contact_fio, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
+      rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
     return this.http.request(
@@ -749,11 +791,6 @@ export class CustomerService extends BaseService {
          */
         'order_delay_payment'?: string;
         }>;
-        
-        /**
-         * Параметры таблицы
-         */
-        'column'?: Array<string>;
         }>;
       })
     );
@@ -773,6 +810,31 @@ export class CustomerService extends BaseService {
     params?: {
 
     /**
+     * Поиск клиента по названию...
+     */
+      name?: string;
+
+    /**
+     * Страна (ID берем из запроса - direction_country)
+     */
+      country_id?: number;
+
+    /**
+     * Группа (ID берем из запроса - customer_group_list)
+     */
+      group_id?: number;
+
+    /**
+     * ИНН
+     */
+      inn?: string;
+
+    /**
+     * Контактное лицо
+     */
+      contact_fio?: string;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -781,6 +843,22 @@ export class CustomerService extends BaseService {
      * Лимит позиций на страницу
      */
       count?: number;
+
+    /**
+     * Сортировка
+     */
+      sort?: Array<{
+
+/**
+ * Поле сортировки
+ */
+'field'?: 'id' | 'name' | 'order_count' | 'order_day_last' | 'order_delay_payment';
+
+/**
+ * Направление сортировки
+ */
+'dir'?: 'asc' | 'desc';
+}>;
     },
     context?: HttpContext
   ): Observable<{
@@ -1125,11 +1203,6 @@ export class CustomerService extends BaseService {
  */
 'order_delay_payment'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
 }> {
     return this.customerList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -1474,11 +1547,6 @@ export class CustomerService extends BaseService {
  */
 'order_delay_payment'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
 }>): {
 
 /**
@@ -1821,11 +1889,6 @@ export class CustomerService extends BaseService {
  */
 'order_delay_payment'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
 } => r.body)
     );
   }

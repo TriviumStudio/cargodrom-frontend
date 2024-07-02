@@ -26,7 +26,6 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 
 export class RequestDetailsTableTotalComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
-  @Output() test1 = new EventEmitter<void>();
 
   expandedElement: any | null;
 
@@ -46,9 +45,7 @@ export class RequestDetailsTableTotalComponent extends Table<Contractor, 'trade_
     super(route, router, dialog, snackBar, filter);
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
-  tst2(){
-    this.test1.emit()
-  }
+
 
   //методы для таблицы
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
@@ -61,7 +58,7 @@ export class RequestDetailsTableTotalComponent extends Table<Contractor, 'trade_
     return this.contractorService.contractorListParam().pipe(map(val => val as any));
   }
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
-    return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
+    return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
   }
   //методы для импорта экспорта
   protected override exportData(): Observable<{data: string; name: string}> {

@@ -458,16 +458,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
     if (params) {
@@ -851,16 +841,6 @@ export class ContractorService extends BaseService {
          */
         'time_edit'?: string;
         }>;
-        
-        /**
-         * Параметры таблицы
-         */
-        'column'?: Array<string>;
-        
-        /**
-         * Поля сортировки
-         */
-        'sort'?: Array<string>;
         }>;
       })
     );
@@ -1300,16 +1280,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }> {
     return this.contractorList$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -1676,16 +1646,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 }>): {
 
 /**
@@ -2050,16 +2010,6 @@ export class ContractorService extends BaseService {
  */
 'time_edit'?: string;
 }>;
-
-/**
- * Параметры таблицы
- */
-'column'?: Array<string>;
-
-/**
- * Поля сортировки
- */
-'sort'?: Array<string>;
 } => r.body)
     );
   }

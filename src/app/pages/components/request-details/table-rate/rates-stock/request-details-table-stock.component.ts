@@ -56,7 +56,7 @@ export class RequestDetailsTableStockComponent extends Table<Contractor, 'trade_
     return this.contractorService.contractorListParam().pipe(map(val => val as any));
   }
   protected override loadFilterSchema(): Observable<SearchFilterSchema> {
-    return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
+    return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
   }
   //методы для импорта экспорта
   protected override exportData(): Observable<{data: string; name: string}> {
