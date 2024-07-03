@@ -66,7 +66,7 @@
 <div class="table-list">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
-    <ng-container matColumnDef="contractor">
+    <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef class="w20">
         <div class="td-block">
           <div class="column w10" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
@@ -85,7 +85,7 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="specialization">
+    <ng-container matColumnDef="contractor">
       <th mat-header-cell *matHeaderCellDef class="w25">
         <div class="td-block">
           <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Специализация</div>
@@ -102,7 +102,7 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="rating">
+    <ng-container matColumnDef="route">
 
       <th mat-header-cell *matHeaderCellDef class="w30">
         <div class="td-block">
@@ -152,7 +152,99 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="contact">
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rates">
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="select">details
+      <th mat-header-cell *matHeaderCellDef class="w25">
+        <div class="td-block">
+          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
+          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column w25">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
+            </ng-container>
+          </div>
+          <div class="column w75 gray">
+            <ng-container *ngFor="let contact of contractor.contacts">
+              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
+            </ng-container>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef class="w25">
         <div class="td-block">
           <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>

@@ -16,26 +16,35 @@ import { RequestService } from 'src/app/api/services';
   providers: [FilterService],
 })
 export class RequestDetailsComponent implements OnInit, OnDestroy {
-  detailsMode:string='total';
+  detailsMode:string|null='total';
+  id:number=0;
 
   constructor(
     private contractorService: ContractorService,
     private requestService: RequestService,
     dialog: MatDialog,
     snackBar: MatSnackBar,
-    route: ActivatedRoute,
-    router: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private filter: FilterService,
   ) {
 
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
-
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const mode = this.route.snapshot.paramMap.get('mode');
+    this.detailsMode=mode
+    this.id=id;
+    console.log(id,mode);
   }
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
+  }
+
+  test(add:any){
+   this.router.navigate(['pages/request/details', this.id, add])
+   this.ngOnInit()
   }
 
 

@@ -10,6 +10,7 @@ import { SearchFilterSchema } from '../api/custom_models';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export interface LoadParams<T, F> {
+  id?:number;
   start?: number;
   count?: number;
   sort?: SortColumn<T>[];
@@ -70,10 +71,17 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
+
+    if(segments[1]==='details'){
+      console.log('this is details mode');
+
+    }
+
     if(this.isBiddingMode){
       const id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(id);
     }
+
     this.filterService.onApply().subscribe(filter => {
       this.onFilterChange(filter as F);
     });
@@ -87,11 +95,13 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    this.load({ start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
+    // this.load({ id:91,start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
+    this.load({ id:91,start: this.start, count: this.count, ...this.filter })
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
         this.total = rows.total;
+
         if(this.isBiddingMode){
           this.arrRowsId=[];
           rows.items.forEach((element:any) => {
@@ -99,6 +109,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
+
       });
   }
 
@@ -534,7 +545,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   getListParam(){
-    this.loadFilterSchemaTest().subscribe({
+    this.loadFilterSchemaTest().pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
         this.filterService.setSearchFilterSchema(schema.search);
 
@@ -550,14 +561,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.column?.pop();
         }
 
-        this.sortField = schema.sort[0].field;
-        this.sortDir = schema.sort[0].dir;
+        // this.sortField = schema.sort[0].field;
+        // this.sortDir = schema.sort[0].dir;
 
-        this.router.navigate(['.'], {
-          queryParams: { sortField: schema.sort[0].field, sortDir: schema.sort[0].dir },
-          queryParamsHandling: 'merge',
-          relativeTo: this.route,
-        });
+        // this.router.navigate(['.'], {
+        //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
+        //   queryParamsHandling: 'merge',
+        //   relativeTo: this.route,
+        // });
         // this.filterService.apply();
       },
       error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),

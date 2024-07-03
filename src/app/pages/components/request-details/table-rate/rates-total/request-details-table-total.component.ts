@@ -24,14 +24,14 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   // ],
 })
 
-export class RequestDetailsTableTotalComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
-  sortField = 'name' as const;
+export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating', ContractorFilter> {
+  sortField = '' as const;
 
   expandedElement: any | null;
 
   params:any;
 
-  trackById = (_index: number, contractor: Contractor) => contractor.id!;
+  trackById = (_index: number, contractor: any) => contractor.id!;
 
   constructor(
     private contractorService: ContractorService,
@@ -48,18 +48,18 @@ export class RequestDetailsTableTotalComponent extends Table<Contractor, 'trade_
 
 
   //методы для таблицы
-  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
+  load<row>(params: LoadParams<any, any>): Observable<{ total: number; items: row[]; }> {
     this.params=params;
-    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    console.log(params);
 
-
+    return this.requestService.requestBiddingFinalList(params as any) as unknown as Observable<{ total: number; items: row[]; }>;
   }
   protected override loadFilterSchemaTest(): Observable<any>  {
-    return this.contractorService.contractorListParam().pipe(map(val => val as any));
+    return this.requestService.requestBiddingListParam({id:91, method:'final'}).pipe(map(val => val as any));
   }
-  protected override loadFilterSchema(): Observable<SearchFilterSchema> {
-    return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
-  }
+  // protected override loadFilterSchema(): Observable<SearchFilterSchema> {
+  //   return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
+  // }
   //методы для импорта экспорта
   protected override exportData(): Observable<{data: string; name: string}> {
     return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;

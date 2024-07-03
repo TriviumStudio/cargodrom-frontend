@@ -17,6 +17,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RequestEditorTranslateComponent } from './components/request-editor-translate/request-editor-translate.component';
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
+import { RequestDetailsTableTotalComponent } from './components/request-details/table-rate/rates-total/request-details-table-total.component';
 
 
 
@@ -72,10 +73,17 @@ const routes: Routes = [
         component: RequestRateComponent,
         pathMatch: 'full',
         title: 'Rate',
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       {
         path: 'request/details/:id',
+        component: RequestDetailsComponent,
+        pathMatch: 'full',
+        title: 'Request Details',
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'request/details/:id/:mode',
         component: RequestDetailsComponent,
         pathMatch: 'full',
         title: 'Request Details',
