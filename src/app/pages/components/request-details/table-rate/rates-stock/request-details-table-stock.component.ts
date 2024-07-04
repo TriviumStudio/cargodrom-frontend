@@ -46,9 +46,9 @@ export class RequestDetailsTableStockComponent extends Table<Contractor, 'trade_
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
   //методы для таблицы
-  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
+  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>):any{
     this.params=params;
-    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    if(1===1) return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
 
 
   }

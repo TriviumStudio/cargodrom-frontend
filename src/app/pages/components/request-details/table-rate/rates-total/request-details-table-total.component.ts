@@ -10,6 +10,27 @@ import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+
+interface LoadRows{
+  id?:number| undefined;
+  carrier_iata?: string;
+  carrier_id?: number;
+  carrier_text?: string;
+  contractor_id?: number;
+  contractor_text?: string;
+  departure_schedule?: [number];
+  departure_schedule_text?: [string];
+  kind_key?: string;
+  nearest_flight?: [string];
+  offer?: boolean;
+  route_id?: number;
+  route_text?: string;
+  select?: boolean;
+  total_cost?: string;
+  transit_time?: string;
+  time_answer?:string;
+  time_request?:string;
+}
 @Component({
   selector: 'app-request-details-table-total',
   templateUrl: './request-details-table-total.component.html',
@@ -25,13 +46,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 })
 
 export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating', ContractorFilter> {
-  sortField = '' as const;
+  sortField = 'contractor_id' as const;
 
   expandedElement: any | null;
 
   params:any;
 
-  trackById = (_index: number, contractor: any) => contractor.id!;
+  trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
   constructor(
     private contractorService: ContractorService,
@@ -43,19 +64,18 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     filter: FilterService,
   ) {
     super(route, router, dialog, snackBar, filter);
-    this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
 
 
   //методы для таблицы
-  load<row>(params: LoadParams<any, any>): Observable<{ total: number; items: row[]; }> {
-    this.params=params;
-    console.log(params);
+  load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[]; }> {
+    // this.params=params;
+    // console.log(params);
 
-    return this.requestService.requestBiddingFinalList(params as any) as unknown as Observable<{ total: number; items: row[]; }>;
+    return this.requestService.requestBiddingList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>;
   }
-  protected override loadFilterSchemaTest(): Observable<any>  {
-    return this.requestService.requestBiddingListParam({id:91, method:'final'}).pipe(map(val => val as any));
+  protected override loadFilterSchemaTest(par:any): Observable<any>  {
+    return this.requestService.requestBiddingListParam(par).pipe(map(val => val as any));
   }
   // protected override loadFilterSchema(): Observable<SearchFilterSchema> {
   //   return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
@@ -103,8 +123,9 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     console.log(e);
     console.log(this.column);
     console.log(this.rows);
+  }
 
-
-
+  onTableMethodChange(method:any){
+    this.router.navigate(['pages/request/details', method, this.requestId])
   }
 }

@@ -30,11 +30,16 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   quantityContractors:number=0;
   currentQuantityContractors:number=0
   currentRequest:any={};
+  contractorsSelectedForRequest:any=[];
+
+  isRateDetailsMode=false;
+  detailsMethod:string='';
+  requestId:number=0;
 
   schemaTest:any
 
 
-  contractorsSelectedForRequest:any=[]
+
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -61,7 +66,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    protected router: Router,
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
@@ -71,15 +76,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[1] === 'bidding';
+    this.isRateDetailsMode = segments[1] === 'details';
 
-    if(segments[1]==='details'){
-      console.log('this is details mode');
-
-    }
-
-    if(this.isBiddingMode){
-      const id = Number(this.route.snapshot.paramMap.get('id'));
-      this.getRequestInfo(id);
+    if(this.isRateDetailsMode || this.isBiddingMode){
+      if(this.isRateDetailsMode) this.detailsMethod=segments[2];
+      this.requestId = Number(this.route.snapshot.paramMap.get('id'));
+      this.getRequestInfo(this.requestId);
     }
 
     this.filterService.onApply().subscribe(filter => {
@@ -95,8 +97,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    // this.load({ id:91,start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter })
-    this.load({ id:91,start: this.start, count: this.count, ...this.filter })
+    const params = this.isRateDetailsMode?
+      { id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      :
+      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter };
+
+    this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
@@ -323,7 +329,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
-  protected loadFilterSchemaTest(): Observable<any> {
+  protected loadFilterSchemaTest(par:any): Observable<any> {
     return NEVER;
   }
 
@@ -534,19 +540,24 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestInfo(id).subscribe({
       next: (request) => {
         this.currentRequest=request;
-        this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
-        this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
-        this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-        // this.filterService.value["rating"]=this.currentRequest.request_type_id;
-        this.filterService.apply();
+        if(this.isBiddingMode){
+          this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;
+          this.filterService.value["country_arrival"]=this.currentRequest.arrival_country_id;
+          this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
+          // this.filterService.value["rating"]=this.currentRequest.request_type_id;
+          this.filterService.apply();
+        }
       },
       error: (err) => this.snackBar.open(`Ошибка получения данных запроса ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
 
   getListParam(){
-    this.loadFilterSchemaTest().pipe(tap(),takeUntil(this.destroy$)).subscribe({
+    const param=this.isRateDetailsMode?{id:this.requestId ,method:this.detailsMethod }:undefined;
+    this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
+        console.log(schema);
+
         this.filterService.setSearchFilterSchema(schema.search);
 
         schema.column.forEach((col:any)=>{

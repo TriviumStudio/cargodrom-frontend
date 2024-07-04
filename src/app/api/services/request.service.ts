@@ -596,440 +596,440 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Всего позиций
          */
         'total'?: number;
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
-
+        
         /**
          * Контрагент
          */
         'customer_name'?: string;
-
+        
         /**
          * Телефон контрагента
          */
         'customer_phone'?: string;
-
+        
         /**
          * Email контрагента
          */
         'customer_email'?: string;
-
+        
         /**
          * Email контрагента
          */
         'customer_text'?: string;
-
+        
         /**
          * Вид запроса (ID берем из запроса - request_type)
          */
         'request_type_id'?: number;
-
+        
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
         'transport_kind_id'?: number;
-
+        
         /**
          * Вид перевозки
          */
         'transport_kind_name'?: string;
-
+        
         /**
          * Тип транспорта (ID берем из запроса - transport_type)
          */
         'transport_type_id'?: number;
-
+        
         /**
          * Тип транспорта
          */
         'transport_type_name'?: number;
-
+        
         /**
          * Наименование груза
          */
         'cargo_description'?: string;
-
+        
         /**
          * Тип груза (ID берем из запроса - cargo_type)
          */
         'cargo_type_id'?: number;
-
+        
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
-
+        
         /**
          * Температурный режим
          */
         'cargo_temperature'?: {
-
+        
         /**
          * Температурный режим - признак
          */
         'cargo_temperature_control'?: boolean;
-
+        
         /**
          * Температурный режим - минимальная температура
          */
         'cargo_temperature_min'?: number;
-
+        
         /**
          * Температурный режим - максимальная температура
          */
         'cargo_temperature_max'?: number;
         };
-
+        
         /**
          * Наличие батареек, элементов питания или жидкостей
          */
         'cargo_danger'?: boolean;
-
+        
         /**
          * Грузовые места
          */
         'cargo_places'?: Array<{
-
+        
         /**
          * Номер места
          */
         'num'?: number;
-
+        
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
-
+        
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'stacking'?: boolean;
-
+        
         /**
          * Длина, см
          */
         'length'?: number;
-
+        
         /**
          * Ширина, см
          */
         'width'?: number;
-
+        
         /**
          * Высота, см
          */
         'height'?: number;
-
+        
         /**
          * Вес, кг
          */
         'weight'?: number;
-
+        
         /**
          * Количество
          */
         'count'?: number;
         }>;
-
+        
         /**
          * Раздельные места
          */
         'cargo_separately'?: boolean;
-
+        
         /**
          * Итого мест
          */
         'cargo_places_count'?: number;
-
+        
         /**
          * Итого вес
          */
         'cargo_places_weight'?: number;
-
+        
         /**
          * Итого объем
          */
         'cargo_places_volume'?: number;
-
+        
         /**
          * Оплачиваемый вес
          */
         'cargo_places_paid_weight'?: number;
-
+        
         /**
          * Плотность, кг/м3
          */
         'cargo_places_density'?: number;
-
+        
         /**
          * Стоимость груза
          */
         'cargo_cost'?: number;
-
+        
         /**
          * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
          */
         'cargo_currency_id'?: string;
-
+        
         /**
          * Готовность
          */
         'cargo_readiness'?: string;
-
+        
         /**
          * Груз
          */
         'cargo_text'?: string;
-
+        
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'cargo_places_stacking'?: boolean;
-
+        
         /**
          * Документы по грузу
          */
         'cargo_file'?: {
         };
-
+        
         /**
          * Город отправления (ID берем из запроса - direction_city)
          */
         'departure_city_id'?: number;
-
+        
         /**
          * Город отправления
          */
         'departure_city_name'?: string;
-
+        
         /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
         'departure_country_id'?: number;
-
+        
         /**
          * Страна отправления
          */
         'departure_country_name'?: string;
-
+        
         /**
          * Аэропорт вылета (ID берем из запроса - direction_point)
          */
         'departure_point_id'?: number;
-
+        
         /**
          * Аэропорт вылета
          */
         'departure_point_name'?: string;
-
+        
         /**
          * Отправление
          */
         'departure_text'?: string;
-
+        
         /**
          * Адрес забора груза
          */
         'departure_address'?: string;
-
+        
         /**
          * Город назначения (ID берем из запроса - direction_city)
          */
         'arrival_city_id'?: number;
-
+        
         /**
          * Город назначения
          */
         'arrival_city_name'?: string;
-
+        
         /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
         'arrival_country_id'?: number;
-
+        
         /**
          * Страна назначения
          */
         'arrival_country_name'?: string;
-
+        
         /**
          * Аэропорт прибытия (ID берем из запроса - direction_point)
          */
         'arrival_point_id'?: number;
-
+        
         /**
          * Аэропорт прибытия
          */
         'arrival_point_name'?: string;
-
+        
         /**
          * Прибытие
          */
         'arrival_text'?: string;
-
+        
         /**
          * Адрес доставки груза
          */
         'arrival_address'?: string;
-
+        
         /**
          * Рейсы (ID берем из запроса - direction_flight)
          */
         'departure_flight'?: string;
-
+        
         /**
          * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
          */
         'incoterms_id'?: number;
-
+        
         /**
          * Условия поставки по Инкотермс
          */
         'incoterms_name'?: string;
-
+        
         /**
          * Город/Порт (ID берем из запроса - direction_city)
          */
         'incoterms_city_id'?: number;
-
+        
         /**
          * Город/Порт
          */
         'incoterms_city_name'?: string;
-
+        
         /**
          * Ставки дали
          */
         'rates'?: string;
-
+        
         /**
          * Минимальная ставка Подрядчик ID
          */
         'rate_contractor_id'?: number;
-
+        
         /**
          * Минимальная ставка Подрядчик
          */
         'rate_contractor_name'?: string;
-
+        
         /**
          * Минимальная ставка Срок, дней
          */
         'rate_delivery_days'?: string;
-
+        
         /**
          * Минимальная ставка Сумма
          */
         'rate_delivery_cost'?: string;
-
+        
         /**
          * Профит сумма
          */
         'profit_amount'?: string;
-
+        
         /**
          * Профит процент
          */
         'profit_percent'?: string;
-
+        
         /**
          * Ставка клиенту
          */
         'bid_client'?: string;
-
+        
         /**
          * Признак начала торгов
          */
         'flag_bidding_start'?: boolean;
-
+        
         /**
          * Время начала торгов
          */
         'time_bidding_start'?: string;
-
+        
         /**
          * Время рассылки информации по торгам
          */
         'time_bidding_send'?: string;
-
+        
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
          */
         'services'?: Array<string>;
-
+        
         /**
          * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
          */
         'services_optional'?: Array<string>;
-
+        
         /**
          * Примечание по Запросу
          */
         'comment'?: string;
-
+        
         /**
          * Статус Запроса (ID берем из запроса - request_status)
          */
         'status_id'?: number;
-
+        
         /**
          * Статус CRM (ID берем из запроса - request_status_crm)
          */
         'status_crm_id'?: number;
-
+        
         /**
          * Статус CRM
          */
         'status_crm_name'?: string;
-
+        
         /**
          * Ответственный инициатор (ID берем из запроса - company_employee_list)
          */
         'manager_initiator_id'?: number;
-
+        
         /**
          * Ответственный инициатор
          */
         'manager_initiator_name'?: string;
-
+        
         /**
          * Ответственный создатель (ID берем из запроса - company_employee_list)
          */
         'manager_creator_id'?: number;
-
+        
         /**
          * Ответственный создатель
          */
         'manager_creator_name'?: string;
-
+        
         /**
          * Ответственный исполнитель (ID берем из запроса - company_employee_list)
          */
         'manager_executor_id'?: number;
-
+        
         /**
          * Ответственный исполнитель
          */
         'manager_executor_name'?: string;
-
+        
         /**
          * Дата создания
          */
@@ -2680,131 +2680,131 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Параметры поиска
          */
         'search'?: Array<{
-
+        
         /**
          * Поиск в заголовке
          */
         'header'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
         }>;
         }>;
-
+        
         /**
          * Поиск основной
          */
         'main'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
         }>;
         }>;
-
+        
         /**
          * Поиск расширенный
          */
         'additional'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
@@ -2812,49 +2812,49 @@ export class RequestService extends BaseService {
         }>;
         }>;
         }>;
-
+        
         /**
          * Параметры таблицы
          */
         'table'?: Array<{
-
+        
         /**
          * Блок колонок
          */
         'column'?: Array<string>;
-
+        
         /**
          * Данные колонок
          */
         'items'?: Array<{
-
+        
         /**
          * Поле
          */
         'field'?: string;
-
+        
         /**
          * Заголовок поля
          */
         'title'?: string;
-
+        
         /**
          * Ширина поля
          */
         'width'?: number;
         }>;
         }>;
-
+        
         /**
          * Параметры сортировки
          */
         'order'?: Array<{
-
+        
         /**
          * Поле
          */
         'field'?: string;
-
+        
         /**
          * Сортировка по умолчанию
          */
@@ -3897,435 +3897,435 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Клиент (ID берем из запроса - customer_list)
          */
         'customer_id'?: number;
-
+        
         /**
          * Контрагент
          */
         'customer_name'?: string;
-
+        
         /**
          * Телефон контрагента
          */
         'customer_phone'?: string;
-
+        
         /**
          * Email контрагента
          */
         'customer_email'?: string;
-
+        
         /**
          * Email контрагента
          */
         'customer_text'?: string;
-
+        
         /**
          * Вид запроса (ID берем из запроса - request_type)
          */
         'request_type_id'?: number;
-
+        
         /**
          * Вид перевозки (ID берем из запроса - transport_kind)
          */
         'transport_kind_id'?: number;
-
+        
         /**
          * Вид перевозки
          */
         'transport_kind_name'?: string;
-
+        
         /**
          * Тип транспорта (ID берем из запроса - transport_type)
          */
         'transport_type_id'?: number;
-
+        
         /**
          * Тип транспорта
          */
         'transport_type_name'?: number;
-
+        
         /**
          * Наименование груза
          */
         'cargo_description'?: string;
-
+        
         /**
          * Тип груза (ID берем из запроса - cargo_type)
          */
         'cargo_type_id'?: number;
-
+        
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
-
+        
         /**
          * Температурный режим
          */
         'cargo_temperature'?: {
-
+        
         /**
          * Температурный режим - признак
          */
         'cargo_temperature_control'?: boolean;
-
+        
         /**
          * Температурный режим - минимальная температура
          */
         'cargo_temperature_min'?: number;
-
+        
         /**
          * Температурный режим - максимальная температура
          */
         'cargo_temperature_max'?: number;
         };
-
+        
         /**
          * Наличие батареек, элементов питания или жидкостей
          */
         'cargo_danger'?: boolean;
-
+        
         /**
          * Грузовые места
          */
         'cargo_places'?: Array<{
-
+        
         /**
          * Номер места
          */
         'num'?: number;
-
+        
         /**
          * Вид упаковки (ID берем из запроса - cargo_package)
          */
         'cargo_package_id'?: number;
-
+        
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'stacking'?: boolean;
-
+        
         /**
          * Длина, см
          */
         'length'?: number;
-
+        
         /**
          * Ширина, см
          */
         'width'?: number;
-
+        
         /**
          * Высота, см
          */
         'height'?: number;
-
+        
         /**
          * Вес, кг
          */
         'weight'?: number;
-
+        
         /**
          * Количество
          */
         'count'?: number;
         }>;
-
+        
         /**
          * Раздельные места
          */
         'cargo_separately'?: boolean;
-
+        
         /**
          * Итого мест
          */
         'cargo_places_count'?: number;
-
+        
         /**
          * Итого вес
          */
         'cargo_places_weight'?: number;
-
+        
         /**
          * Итого объем
          */
         'cargo_places_volume'?: number;
-
+        
         /**
          * Оплачиваемый вес
          */
         'cargo_places_paid_weight'?: number;
-
+        
         /**
          * Плотность, кг/м3
          */
         'cargo_places_density'?: number;
-
+        
         /**
          * Стоимость груза
          */
         'cargo_cost'?: number;
-
+        
         /**
          * Валюта стоимости груза (ID берем из запроса - settings_get из поля currency)
          */
         'cargo_currency_id'?: string;
-
+        
         /**
          * Готовность
          */
         'cargo_readiness'?: string;
-
+        
         /**
          * Груз
          */
         'cargo_text'?: string;
-
+        
         /**
          * Признак возможности штабелировать груз (ID берем из запроса - cargo_package)
          */
         'cargo_places_stacking'?: boolean;
-
+        
         /**
          * Паспорта безопасности (файлы)
          */
         'cargo_file'?: {
         };
-
+        
         /**
          * Город отправления (ID берем из запроса - direction_city)
          */
         'departure_city_id'?: number;
-
+        
         /**
          * Город отправления
          */
         'departure_city_name'?: string;
-
+        
         /**
          * Страна отправления (ID берем из запроса - direction_country)
          */
         'departure_country_id'?: number;
-
+        
         /**
          * Страна отправления
          */
         'departure_country_name'?: string;
-
+        
         /**
          * Аэропорт вылета (ID берем из запроса - direction_point)
          */
         'departure_point_id'?: number;
-
+        
         /**
          * Аэропорт вылета
          */
         'departure_point_name'?: string;
-
+        
         /**
          * Отправление
          */
         'departure_text'?: string;
-
+        
         /**
          * Адрес забора груза
          */
         'departure_address'?: string;
-
+        
         /**
          * Город назначения (ID берем из запроса - direction_city)
          */
         'arrival_city_id'?: number;
-
+        
         /**
          * Город назначения
          */
         'arrival_city_name'?: string;
-
+        
         /**
          * Страна назначения (ID берем из запроса - direction_country)
          */
         'arrival_country_id'?: number;
-
+        
         /**
          * Страна назначения
          */
         'arrival_country_name'?: string;
-
+        
         /**
          * Аэропорт прибытия (ID берем из запроса - direction_point)
          */
         'arrival_point_id'?: number;
-
+        
         /**
          * Аэропорт прибытия
          */
         'arrival_point_name'?: string;
-
+        
         /**
          * Прибытие
          */
         'arrival_text'?: string;
-
+        
         /**
          * Адрес доставки груза
          */
         'arrival_address'?: string;
-
+        
         /**
          * Рейсы (ID берем из запроса - direction_flight)
          */
         'departure_flight'?: string;
-
+        
         /**
          * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
          */
         'incoterms_id'?: number;
-
+        
         /**
          * Условия поставки по Инкотермс
          */
         'incoterms_name'?: string;
-
+        
         /**
          * Город/Порт (ID берем из запроса - direction_city)
          */
         'incoterms_city_id'?: number;
-
+        
         /**
          * Город/Порт
          */
         'incoterms_city_name'?: string;
-
+        
         /**
          * Ставки дали
          */
         'rates'?: string;
-
+        
         /**
          * Минимальная ставка Подрядчик ID
          */
         'rate_contractor_id'?: number;
-
+        
         /**
          * Минимальная ставка Подрядчик
          */
         'rate_contractor_name'?: string;
-
+        
         /**
          * Минимальная ставка Срок, дней
          */
         'rate_delivery_days'?: string;
-
+        
         /**
          * Минимальная ставка Сумма
          */
         'rate_delivery_cost'?: string;
-
+        
         /**
          * Профит сумма
          */
         'profit_amount'?: string;
-
+        
         /**
          * Профит процент
          */
         'profit_percent'?: string;
-
+        
         /**
          * Ставка клиенту
          */
         'bid_client'?: string;
-
+        
         /**
          * Признак начала торгов
          */
         'flag_bidding_start'?: boolean;
-
+        
         /**
          * Время начала торгов
          */
         'time_bidding_start'?: string;
-
+        
         /**
          * Время рассылки информации по торгам
          */
         'time_bidding_send'?: string;
-
+        
         /**
          * Услуги включаемые в ставку (ID берем из запроса - request_services)
          */
         'services'?: Array<string>;
-
+        
         /**
          * Дополнительные услуги включаемые в ставку (ID берем из запроса - request_services_additional)
          */
         'services_optional'?: Array<string>;
-
+        
         /**
          * Примечание по Запросу
          */
         'comment'?: string;
-
+        
         /**
          * Статус Запроса (ID берем из запроса - request_status)
          */
         'status_id'?: number;
-
+        
         /**
          * Статус CRM (ID берем из запроса - request_status_crm)
          */
         'status_crm_id'?: number;
-
+        
         /**
          * Статус CRM
          */
         'status_crm_name'?: string;
-
+        
         /**
          * Ответственный инициатор (ID берем из запроса - company_employee_list)
          */
         'manager_initiator_id'?: number;
-
+        
         /**
          * Ответственный инициатор
          */
         'manager_initiator_name'?: string;
-
+        
         /**
          * Ответственный создатель (ID берем из запроса - company_employee_list)
          */
         'manager_creator_id'?: number;
-
+        
         /**
          * Ответственный создатель
          */
         'manager_creator_name'?: string;
-
+        
         /**
          * Ответственный исполнитель (ID берем из запроса - company_employee_list)
          */
         'manager_executor_id'?: number;
-
+        
         /**
          * Ответственный исполнитель
          */
         'manager_executor_name'?: string;
-
+        
         /**
          * Дата создания
          */
         'time_add'?: string;
-
+        
         /**
          * Документы (файлы)
          */
@@ -5950,12 +5950,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID созданной записи
          */
         'id': number;
-
+        
         /**
          * Статус выполнения
          */
@@ -6561,7 +6561,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -6915,7 +6915,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -7056,47 +7056,47 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * ID элемента
          */
         'item_id': number;
-
+        
         /**
          * Переменная формы
          */
         'var': string;
-
+        
         /**
          * Ссылка на файл
          */
         'path'?: string;
-
+        
         /**
          * Информация по файлу
          */
         'file_info'?: Array<string>;
-
+        
         /**
          * Время загрузки файла
          */
         'file_time'?: string;
-
+        
         /**
          * Наименование файла
          */
         'file_name'?: string;
-
+        
         /**
          * Время создания
          */
         'time_add'?: string;
-
+        
         /**
          * Время изменения
          */
@@ -7331,12 +7331,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID созданной записи
          */
         'id': number;
-
+        
         /**
          * Статус выполнения
          */
@@ -7468,7 +7468,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -7582,22 +7582,22 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Тип
          */
         'type'?: string;
-
+        
         /**
          * Цвет
          */
@@ -7739,22 +7739,22 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Тип
          */
         'type'?: string;
-
+        
         /**
          * Цвет
          */
@@ -7891,17 +7891,17 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Ключ
          */
         'key'?: string;
-
+        
         /**
          * Наименование
          */
@@ -8024,12 +8024,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
@@ -8142,12 +8142,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
@@ -8265,17 +8265,17 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Услуги
          */
@@ -8492,12 +8492,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Base64 строка файла
          */
@@ -8680,12 +8680,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Base64 строка файла
          */
@@ -8801,12 +8801,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Код обновления
          */
         'import_key'?: string;
-
+        
         /**
          * Результат обновления
          */
@@ -8925,7 +8925,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -9023,12 +9023,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Base64 строка файла
          */
@@ -9141,12 +9141,12 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID Контрагента
          */
         'contractor_id'?: number;
-
+        
         /**
          * Время создания
          */
@@ -9266,7 +9266,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -9598,234 +9598,234 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID
          */
         'id': number;
-
+        
         /**
          * Русский язык
          */
         'ru'?: {
-
+        
         /**
          * Страна отправления
          */
         'departure_country_name'?: string;
-
+        
         /**
          * Город отправления
          */
         'departure_city_name'?: string;
-
+        
         /**
          * Адрес забора груза
          */
         'departure_address'?: string;
-
+        
         /**
          * Аэропорт вылета
          */
         'departure_point_name'?: string;
-
+        
         /**
          * Страна назначения
          */
         'arrival_country_name'?: string;
-
+        
         /**
          * Город назначения
          */
         'arrival_city_name'?: string;
-
+        
         /**
          * Адрес доставки груза
          */
         'arrival_address'?: string;
-
+        
         /**
          * Аэропорт прибытия
          */
         'arrival_point_name'?: string;
-
+        
         /**
          * Условия поставки по Инкотермс
          */
         'incoterms_name'?: string;
-
+        
         /**
          * Город/Порт
          */
         'incoterms_city_name'?: string;
-
+        
         /**
          * Рейсы
          */
         'departure_flight_name'?: string;
-
+        
         /**
          * Товар
          */
         'cargo_description'?: string;
-
+        
         /**
          * Тип груза
          */
         'cargo_type_name'?: string;
-
+        
         /**
          * Условия перевозки
          */
         'cargo_condition_carriage'?: string;
-
+        
         /**
          * Кол-во
          */
         'cargo_places_count'?: number;
-
+        
         /**
          * Объем, м3
          */
         'cargo_places_volume'?: number;
-
+        
         /**
          * Вес, кг
          */
         'cargo_places_weight'?: number;
-
+        
         /**
          * Плотность, кг/м3
          */
         'cargo_places_density'?: number;
-
+        
         /**
          * Оплачиваемый вес, кг
          */
         'cargo_places_paid_weight'?: number;
-
+        
         /**
          * Габариты груза
          */
         'cargo_dimensions'?: string;
-
+        
         /**
          * Примечание
          */
         'comment'?: string;
         };
-
+        
         /**
          * Английский язык
          */
         'en'?: {
-
+        
         /**
          * Country of dispatch
          */
         'departure_country_name'?: string;
-
+        
         /**
          * City of dispatch
          */
         'departure_city_name'?: string;
-
+        
         /**
          * Address of pick-up
          */
         'departure_address'?: string;
-
+        
         /**
          * Airport of departure
          */
         'departure_point_name'?: string;
-
+        
         /**
          * Country of delivery
          */
         'arrival_country_name'?: string;
-
+        
         /**
          * City of delivery
          */
         'arrival_city_name'?: string;
-
+        
         /**
          * Address of departure
          */
         'arrival_address'?: string;
-
+        
         /**
          * Airport of destination
          */
         'arrival_point_name'?: string;
-
+        
         /**
          * Terms of delivery
          */
         'incoterms_name'?: string;
-
+        
         /**
          * City/Port
          */
         'incoterms_city_name'?: string;
-
+        
         /**
          * Type of flights
          */
         'departure_flight_name'?: string;
-
+        
         /**
          * Commodity
          */
         'cargo_description'?: string;
-
+        
         /**
          * Тип груза
          */
         'cargo_type_name'?: string;
-
+        
         /**
          * Condition of carriage
          */
         'cargo_condition_carriage'?: string;
-
+        
         /**
          * Total q-ty
          */
         'cargo_places_count'?: number;
-
+        
         /**
          * Total m3
          */
         'cargo_places_volume'?: number;
-
+        
         /**
          * Total kg
          */
         'cargo_places_weight'?: number;
-
+        
         /**
          * Density
          */
         'cargo_places_density'?: number;
-
+        
         /**
          * Chargeable weight, kg
          */
         'cargo_places_paid_weight'?: number;
-
+        
         /**
          * Dimensions
          */
         'cargo_dimensions'?: string;
-
+        
         /**
          * Notation
          */
         'comment'?: string;
         };
-
+        
         /**
          * Поля автоматического перевода
          */
@@ -10823,7 +10823,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -11446,312 +11446,312 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * ID Запроса
          */
         'id': number;
-
+        
         /**
          * UID
          */
         'uid': string;
-
+        
         /**
          * Дата создания
          */
         'time_add'?: string;
-
+        
         /**
          * Готовность
          */
         'cargo_readiness'?: string;
-
+        
         /**
          * Country of dispatch
          */
         'departure_country_name'?: string;
-
+        
         /**
          * City of dispatch
          */
         'departure_city_name'?: string;
-
+        
         /**
          * Address of pick-up
          */
         'departure_address'?: string;
-
+        
         /**
          * Airport of departure
          */
         'departure_point_name'?: string;
-
+        
         /**
          * Country of delivery
          */
         'arrival_country_name'?: string;
-
+        
         /**
          * City of delivery
          */
         'arrival_city_name'?: string;
-
+        
         /**
          * Address of departure
          */
         'arrival_address'?: string;
-
+        
         /**
          * Airport of destination
          */
         'arrival_point_name'?: string;
-
+        
         /**
          * Terms of delivery
          */
         'incoterms_name'?: string;
-
+        
         /**
          * City/Port
          */
         'incoterms_city_name'?: string;
-
+        
         /**
          * Type of flights
          */
         'departure_flight_name'?: string;
-
+        
         /**
          * Commodity
          */
         'cargo_description'?: string;
-
+        
         /**
          * Тип груза
          */
         'cargo_type_name'?: string;
-
+        
         /**
          * Condition of carriage
          */
         'cargo_condition_carriage'?: string;
-
+        
         /**
          * Total q-ty
          */
         'cargo_places_count'?: number;
-
+        
         /**
          * Total m3
          */
         'cargo_places_volume'?: number;
-
+        
         /**
          * Total kg
          */
         'cargo_places_weight'?: number;
-
+        
         /**
          * Density
          */
         'cargo_places_density'?: number;
-
+        
         /**
          * Chargeable weight, kg
          */
         'cargo_places_paid_weight'?: number;
-
+        
         /**
          * Dimensions
          */
         'cargo_dimensions'?: string;
-
+        
         /**
          * Notation
          */
         'comment'?: string;
-
+        
         /**
          * Документы (файлы)
          */
         'documents_file'?: {
         };
-
+        
         /**
          * Паспорта безопасности (файлы)
          */
         'cargo_file'?: {
         };
-
+        
         /**
          * Ставки
          */
         'rates'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: number;
-
+        
         /**
          * Тип ставки
          */
         'rate_type': 'detail' | 'single';
-
+        
         /**
          * Порядковый номер
          */
         'num'?: string;
-
+        
         /**
          * Транспортная компания (Airline) (ID берем из запроса - transport_carrier)
          */
         'carrier_id': number;
-
+        
         /**
          * Маршрут (Route) (ID берем из запроса - transport_route)
          */
         'route_id': number;
-
+        
         /**
          * Расписание отправления (Departure schedule)
          */
         'departure_schedule'?: Array<string>;
-
+        
         /**
          * Ближайшие рейсы (Nearest flight etd)
          */
         'nearest_flight'?: Array<string>;
-
+        
         /**
          * Время транзита
          */
         'transit_time'?: {
-
+        
         /**
          * Время транзита От
          */
         'transit_time_from'?: number;
-
+        
         /**
          * Время транзита До
          */
         'transit_time_to'?: number;
         };
-
+        
         /**
          * Стоимость (Cost)
          */
         'total_cost'?: number;
-
+        
         /**
          * Включение прибыли (Profit is included)
          */
         'profit_include'?: boolean;
-
+        
         /**
          * Комментарий (Your Comment)
          */
         'comment'?: number;
-
+        
         /**
          * Значения ставок
          */
         'values'?: Array<{
-
+        
         /**
          * Наименование поля
          */
         'field': string;
-
+        
         /**
          * Минимальная цена
          */
         'min'?: number;
-
+        
         /**
          * Цена за единицу
          */
         'price'?: number;
-
+        
         /**
          * Количество
          */
         'value'?: number;
-
+        
         /**
          * Фиксированная надбавка
          */
         'fix'?: number;
-
+        
         /**
          * Общая стоимость
          */
         'cost'?: number;
-
+        
         /**
          * Комментарий
          */
         'comment'?: number;
-
+        
         /**
          * Признак выбора
          */
         'select'?: boolean;
         }>;
         }>;
-
+        
         /**
          * Расходы
          */
         'charges'?: Array<{
-
+        
         /**
          * Наименование переменной
          */
         'field_name': string;
-
+        
         /**
          * Наименование
          */
         'name': string;
-
+        
         /**
          * Заголовок
          */
         'title': string;
-
+        
         /**
          * Примечание
          */
         'note': string;
-
+        
         /**
          * Единица изменений
          */
         'unit': string;
-
+        
         /**
          * Возможно минимальное значение
          */
         'field_min'?: boolean;
-
+        
         /**
          * Возможно фиксированное значение
          */
         'field_fix'?: boolean;
-
+        
         /**
          * Возможен комментарий
          */
         'field_comment'?: boolean;
-
+        
         /**
          * Признак выбранного
          */
         'status'?: boolean;
-
+        
         /**
          * Запрет изменения
          */
@@ -12893,7 +12893,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -13123,7 +13123,7 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Статус выполнения
          */
@@ -13220,6 +13220,11 @@ export class RequestService extends BaseService {
       departure_flight?: string;
 
     /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
+
+    /**
      * Аэропорт прибытия (ID берем из запроса - direction_point)
      */
       arrival_point?: number;
@@ -13266,7 +13271,7 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Подрядчик
@@ -13345,6 +13350,7 @@ export class RequestService extends BaseService {
       rb.query('contractor', params.contractor, {});
       rb.query('carrier', params.carrier, {"style":"form","explode":false});
       rb.query('departure_flight', params.departure_flight, {});
+      rb.query('departure_point', params.departure_point, {});
       rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
@@ -13357,87 +13363,87 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Всего позиций
          */
         'total'?: number;
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
         /**
          * Дата запроса
          */
-        'time_request': any;
-
+        'time_request': string;
+        
         /**
          * Подрядчик
          */
         'contractor_text': string;
-
+        
         /**
          * Подрядчик (ID берем из запроса - contractor_list)
          */
         'contractor_id': number;
-
+        
         /**
          * AIR
          */
         'carrier_iata': number;
-
+        
         /**
          * Авиалиния
          */
         'carrier_text': string;
-
+        
         /**
          * Авиалиния (ID берем из запроса - transport_carrier)
          */
         'carrier_id': string;
-
+        
         /**
          * Тип
          */
         'kind_key': string;
-
+        
         /**
          * Расписание
          */
         'departure_schedule_text': Array<string>;
-
+        
         /**
          * Расписание
          */
         'departure_schedule': Array<string>;
-
+        
         /**
          * Маршрут
          */
         'route_text': string;
-
+        
         /**
          * Срок.дн
          */
         'period': string;
-
+        
         /**
          * До границы
          */
         'customs_rate': string;
-
+        
         /**
          * Локальные
          */
         'local_rate': string;
-
+        
         /**
          * Итого
          */
         'total_rate': string;
-
+        
         /**
          * В итоговом
          */
@@ -13480,6 +13486,11 @@ export class RequestService extends BaseService {
      * Тип маршрута (ID берем из запроса - direction_flight)
      */
       departure_flight?: string;
+
+    /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
 
     /**
      * Аэропорт прибытия (ID берем из запроса - direction_point)
@@ -13528,7 +13539,7 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Подрядчик
@@ -13617,7 +13628,7 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Подрядчик
@@ -13704,7 +13715,7 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Подрядчик
@@ -13817,6 +13828,11 @@ export class RequestService extends BaseService {
       departure_flight?: string;
 
     /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
+
+    /**
      * Аэропорт прибытия (ID берем из запроса - direction_point)
      */
       arrival_point?: number;
@@ -13861,9 +13877,14 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
  * Дата ответа
  */
-'time_bidding_answer': any;
+'time_answer': string;
 
 /**
  * Подрядчик
@@ -13931,6 +13952,11 @@ export class RequestService extends BaseService {
 'nearest_flight': Array<string>;
 
 /**
+ * Свободные места
+ */
+'nearest_flight_text': string;
+
+/**
  * В коммерческом предложении
  */
 'offer': boolean;
@@ -13947,6 +13973,7 @@ export class RequestService extends BaseService {
       rb.query('contractor', params.contractor, {});
       rb.query('carrier', params.carrier, {"style":"form","explode":false});
       rb.query('departure_flight', params.departure_flight, {});
+      rb.query('departure_point', params.departure_point, {});
       rb.query('arrival_point', params.arrival_point, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
@@ -13959,92 +13986,102 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Всего позиций
          */
         'total'?: number;
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
+        /**
+         * Дата запроса
+         */
+        'time_request': string;
+        
         /**
          * Дата ответа
          */
-        'time_bidding_answer': any;
-
+        'time_answer': string;
+        
         /**
          * Подрядчик
          */
         'contractor_text': string;
-
+        
         /**
          * Подрядчик (ID берем из запроса - contractor_list)
          */
         'contractor_id': number;
-
+        
         /**
          * AIR
          */
         'carrier_iata': number;
-
+        
         /**
          * Авиалиния
          */
         'carrier_text': string;
-
+        
         /**
          * Авиалиния (ID берем из запроса - transport_carrier)
          */
         'carrier_id': string;
-
+        
         /**
          * Маршрут
          */
         'route_text': string;
-
+        
         /**
          * Маршрут (ID берем из запроса - transport_route)
          */
         'route_id': number;
-
+        
         /**
          * Тип
          */
         'kind_key': string;
-
+        
         /**
          * Расписание
          */
         'departure_schedule_text': Array<string>;
-
+        
         /**
          * Расписание
          */
         'departure_schedule': Array<string>;
-
+        
         /**
          * Ставка
          */
         'total_cost': string;
-
+        
         /**
          * Срок.дн
          */
         'transit_time': string;
-
+        
         /**
          * Свободные места
          */
         'nearest_flight': Array<string>;
-
+        
+        /**
+         * Свободные места
+         */
+        'nearest_flight_text': string;
+        
         /**
          * В коммерческом предложении
          */
         'offer': boolean;
-
+        
         /**
          * В итоговом
          */
@@ -14087,6 +14124,11 @@ export class RequestService extends BaseService {
      * Тип маршрута (ID берем из запроса - direction_flight)
      */
       departure_flight?: string;
+
+    /**
+     * Аэропорт вылета (ID берем из запроса - direction_point)
+     */
+      departure_point?: number;
 
     /**
      * Аэропорт прибытия (ID берем из запроса - direction_point)
@@ -14133,9 +14175,14 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
  * Дата ответа
  */
-'time_bidding_answer': any;
+'time_answer': string;
 
 /**
  * Подрядчик
@@ -14155,12 +14202,12 @@ export class RequestService extends BaseService {
 /**
  * Авиалиния
  */
-'carrier_text': any;
+'carrier_text': string;
 
 /**
  * Авиалиния (ID берем из запроса - transport_carrier)
  */
-'carrier_id': any;
+'carrier_id': string;
 
 /**
  * Маршрут
@@ -14201,6 +14248,11 @@ export class RequestService extends BaseService {
  * Свободные места
  */
 'nearest_flight': Array<string>;
+
+/**
+ * Свободные места
+ */
+'nearest_flight_text': string;
 
 /**
  * В коммерческом предложении
@@ -14227,9 +14279,14 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
  * Дата ответа
  */
-'time_bidding_answer': any;
+'time_answer': string;
 
 /**
  * Подрядчик
@@ -14295,6 +14352,11 @@ export class RequestService extends BaseService {
  * Свободные места
  */
 'nearest_flight': Array<string>;
+
+/**
+ * Свободные места
+ */
+'nearest_flight_text': string;
 
 /**
  * В коммерческом предложении
@@ -14319,9 +14381,14 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * Дата запроса
+ */
+'time_request': string;
+
+/**
  * Дата ответа
  */
-'time_bidding_answer': any;
+'time_answer': string;
 
 /**
  * Подрядчик
@@ -14387,6 +14454,11 @@ export class RequestService extends BaseService {
  * Свободные места
  */
 'nearest_flight': Array<string>;
+
+/**
+ * Свободные места
+ */
+'nearest_flight_text': string;
 
 /**
  * В коммерческом предложении
@@ -14524,47 +14596,47 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Всего позиций
          */
         'total'?: number;
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
         /**
          * Наименование Аэропорта
          */
         'point': string;
-
+        
         /**
          * Вид прайса
          */
         'price_type': string;
-
+        
         /**
          * Наименование статей затрат
          */
         'cost_items': string;
-
+        
         /**
          * Сумма
          */
         'cost': string;
-
+        
         /**
          * Примечание
          */
         'notice'?: string;
-
+        
         /**
          * В коммерческом предложении
          */
         'offer': boolean;
-
+        
         /**
          * В итоговом
          */
@@ -14855,12 +14927,12 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Дата ответа
  */
-'time_answer': any;
+'time_answer': string;
 'contractor_text': string;
 'contractor_id': number;
 'transport_type_text': string;
@@ -14897,26 +14969,26 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Всего позиций
          */
         'total'?: number;
-
+        
         /**
          * Позиции
          */
         'items'?: Array<{
-
+        
         /**
          * Дата запроса
          */
-        'time_request': any;
-
+        'time_request': string;
+        
         /**
          * Дата ответа
          */
-        'time_answer': any;
+        'time_answer': string;
         'contractor_text': string;
         'contractor_id': number;
         'transport_type_text': string;
@@ -14924,12 +14996,12 @@ export class RequestService extends BaseService {
         'period': string;
         'cost': string;
         'notice'?: string;
-
+        
         /**
          * В коммерческом предложении
          */
         'offer': boolean;
-
+        
         /**
          * В итоговом
          */
@@ -15015,12 +15087,12 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Дата ответа
  */
-'time_answer': any;
+'time_answer': string;
 'contractor_text': string;
 'contractor_id': number;
 'transport_type_text': string;
@@ -15056,12 +15128,12 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Дата ответа
  */
-'time_answer': any;
+'time_answer': string;
 'contractor_text': string;
 'contractor_id': number;
 'transport_type_text': string;
@@ -15095,12 +15167,12 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': any;
+'time_request': string;
 
 /**
  * Дата ответа
  */
-'time_answer': any;
+'time_answer': string;
 'contractor_text': string;
 'contractor_id': number;
 'transport_type_text': string;
@@ -15118,6 +15190,985 @@ export class RequestService extends BaseService {
  * В итоговом
  */
 'select': boolean;
+}>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestBiddingList()` */
+  static readonly RequestBiddingListPath = '/request_bidding_list';
+
+  /**
+   * Ставки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestBiddingList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingList$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestBiddingListPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('method', params.method, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Параметры поиска
+         */
+        'search'?: Array<{
+        
+        /**
+         * Поиск в заголовке
+         */
+        'header'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск основной
+         */
+        'main'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        
+        /**
+         * Поиск расширенный
+         */
+        'additional'?: Array<{
+        
+        /**
+         * Переменная
+         */
+        'field'?: string;
+        
+        /**
+         * Элемент формы
+         */
+        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        
+        /**
+         * Источник
+         */
+        'source'?: string;
+        
+        /**
+         * Массив данных
+         */
+        'array'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id'?: string;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+        }>;
+        }>;
+        
+        /**
+         * Параметры таблицы
+         */
+        'table'?: Array<{
+        
+        /**
+         * Блок колонок
+         */
+        'column'?: Array<string>;
+        
+        /**
+         * Данные колонок
+         */
+        'items'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Заголовок поля
+         */
+        'title'?: string;
+        
+        /**
+         * Ширина поля
+         */
+        'width'?: number;
+        }>;
+        }>;
+        
+        /**
+         * Параметры сортировки
+         */
+        'order'?: Array<{
+        
+        /**
+         * Поле
+         */
+        'field'?: string;
+        
+        /**
+         * Сортировка по умолчанию
+         */
+        'dir'?: string;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestBiddingList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestBiddingList(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      id: number;
+
+    /**
+     * Метод (final, customs, point, transporter)
+     */
+      method: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}> {
+    return this.requestBiddingList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
+}>;
+}>): {
+
+/**
+ * Параметры поиска
+ */
+'search'?: Array<{
+
+/**
+ * Поиск в заголовке
+ */
+'header'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск основной
+ */
+'main'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+
+/**
+ * Поиск расширенный
+ */
+'additional'?: Array<{
+
+/**
+ * Переменная
+ */
+'field'?: string;
+
+/**
+ * Элемент формы
+ */
+'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
+
+/**
+ * Наименование
+ */
+'name'?: string;
+
+/**
+ * Источник
+ */
+'source'?: string;
+
+/**
+ * Массив данных
+ */
+'array'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: string;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>;
+}>;
+}>;
+
+/**
+ * Параметры таблицы
+ */
+'table'?: Array<{
+
+/**
+ * Блок колонок
+ */
+'column'?: Array<string>;
+
+/**
+ * Данные колонок
+ */
+'items'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Заголовок поля
+ */
+'title'?: string;
+
+/**
+ * Ширина поля
+ */
+'width'?: number;
+}>;
+}>;
+
+/**
+ * Параметры сортировки
+ */
+'order'?: Array<{
+
+/**
+ * Поле
+ */
+'field'?: string;
+
+/**
+ * Сортировка по умолчанию
+ */
+'dir'?: string;
 }>;
 } => r.body)
     );
@@ -15344,131 +16395,131 @@ export class RequestService extends BaseService {
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
         return r as StrictHttpResponse<{
-
+        
         /**
          * Параметры поиска
          */
         'search'?: Array<{
-
+        
         /**
          * Поиск в заголовке
          */
         'header'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
         }>;
         }>;
-
+        
         /**
          * Поиск основной
          */
         'main'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
         'name'?: string;
         }>;
         }>;
-
+        
         /**
          * Поиск расширенный
          */
         'additional'?: Array<{
-
+        
         /**
          * Переменная
          */
         'field'?: string;
-
+        
         /**
          * Элемент формы
          */
         'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
+        
         /**
          * Наименование
          */
         'name'?: string;
-
+        
         /**
          * Источник
          */
         'source'?: string;
-
+        
         /**
          * Массив данных
          */
         'array'?: Array<{
-
+        
         /**
          * ID
          */
         'id'?: string;
-
+        
         /**
          * Наименование
          */
@@ -15476,49 +16527,49 @@ export class RequestService extends BaseService {
         }>;
         }>;
         }>;
-
+        
         /**
          * Параметры таблицы
          */
         'table'?: Array<{
-
+        
         /**
          * Блок колонок
          */
         'column'?: Array<string>;
-
+        
         /**
          * Данные колонок
          */
         'items'?: Array<{
-
+        
         /**
          * Поле
          */
         'field'?: string;
-
+        
         /**
          * Заголовок поля
          */
         'title'?: string;
-
+        
         /**
          * Ширина поля
          */
         'width'?: number;
         }>;
         }>;
-
+        
         /**
          * Параметры сортировки
          */
         'order'?: Array<{
-
+        
         /**
          * Поле
          */
         'field'?: string;
-
+        
         /**
          * Сортировка по умолчанию
          */

@@ -55,6 +55,14 @@
   </div>
 </div>
 
+<div>кп</div>
+<div>
+  <div (click)="onTableMethodChange('final')">Итоговые</div>
+  <div (click)="onTableMethodChange('customs')">До границы</div>
+  <div (click)="onTableMethodChange('point')">Склад (СВХ)</div>
+  <div (click)="onTableMethodChange('transporter')">Вывоз</div>
+</div>
+
 
 <app-table-filter
   [isBiddingMode]="isBiddingMode"
@@ -66,44 +74,155 @@
 <div class="table-list">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
+    <!-- details table -->
+
+    <!-- customs table -->
     <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef class="w20">
+      <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w10" [attr.title]="getColTitle('id')" (click)="sort('id')" [ngClass]="getSortClass('id')">№</div>
-          <div class="column" [attr.title]="getColTitle('name')" (click)="sort('name')" [ngClass]="getSortClass('name')">Подрядчик</div>
-          <div class="column w40" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Страна</div>
+          <div class="column ">Дата запроса</div>
+          <div class="column">Дата ответа</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
-          <div class="column w10">{{ contractor.id }}</div>
-          <div class="column">{{ contractor.name }}</div>
-          <div class="column w40">{{ contractor.country_name }}</div>
+          <div class="column">{{ contractor.time_request }}</div>
+          <div class="column">{{ contractor.time_answer }}</div>
         </div>
       </td>
-
-
     </ng-container>
 
     <ng-container matColumnDef="contractor">
-      <th mat-header-cell *matHeaderCellDef class="w25">
+      <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('country_name')" (click)="sort('country_name')" [ngClass]="getSortClass('country_name')">Специализация</div>
-          <div class="column w50" [attr.title]="getColTitle('city_name')" (click)="sort('city_name')" [ngClass]="getSortClass('city_name')">Грузы</div>
+          <div class="column">Подрядчик</div>
+          <div class="column">AIR</div>
+          <div class="column">Авиалиния</div>
+          <div class="column">Маршрут</div>
+          <div class="column">Тип</div>
+          <div class="column">Расписание</div>
+          <div class="column">Срок.дн.</div>
+          <div class="column">+</div>
         </div>
       </th>
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
-          <div class="column w50">
-              <span class="type" *ngFor="let spec of contractor.specialization" [ngClass]="getSpecializationClass(spec)"></span>
-          </div>
-          <div class="column w50">{{ contractor.container.join(', ') }}</div>
+          <div class="column">{{ contractor.contractor_text }}</div>
+          <div class="column">{{ contractor.carrier_iata }}</div>
+          <div class="column">{{ contractor.carrier_text }}</div>
+          <div class="column">{{ contractor.route_text }}</div>
+          <div class="column">{{ contractor.kind_key }}</div>
+          <div class="column">{{ contractor.departure_schedule_text.join(', ') }}</div>
+          <div class="column">{{ contractor.transit_time }}</div>
+          <div class="column"></div>
         </div>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="route">
+    <ng-container matColumnDef="rating">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Ставка</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">{{ contractor.total_cost }}</div>
+        </div>
+      </td>
+    </ng-container>
 
+    <ng-container matColumnDef="nearest_flight">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Свободные места</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">{{ contractor.nearest_flight_text}}</div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="offer">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">КП</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">
+            <mat-checkbox class="testclass"></mat-checkbox>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">
+            <mat-checkbox class="testclass"></mat-checkbox>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">
+            <mat-checkbox class="testclass"></mat-checkbox>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- details point -->
+    <ng-container matColumnDef="items">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Наименнование Аэропорта</div>
+          <div class="column">Вид рейса</div>
+          <div class="column">Наименнование статей затрат</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+          <div class="column"></div>
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Сумма</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notice">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Примечание</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- details point -->
+    <ng-container matColumnDef="route">
       <th mat-header-cell *matHeaderCellDef class="w30">
         <div class="td-block">
           <div class="column w20" [attr.title]="getColTitle('rating_nps_text')" (click)="sort('rating_nps_text')" [ngClass]="getSortClass('rating_nps_text')">Рейтинг</div>
@@ -149,7 +268,6 @@
 
         </div>
       </td>
-
     </ng-container>
 
     <ng-container matColumnDef="period">
@@ -198,80 +316,15 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="rating">
-      <th mat-header-cell *matHeaderCellDef class="w25">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
-          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w25">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
-            </ng-container>
-          </div>
-          <div class="column w75 gray">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
-            </ng-container>
-          </div>
-        </div>
-      </td>
-    </ng-container>
 
-    <ng-container matColumnDef="select">details
-      <th mat-header-cell *matHeaderCellDef class="w25">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
-          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w25">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
-            </ng-container>
-          </div>
-          <div class="column w75 gray">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
-            </ng-container>
-          </div>
-        </div>
-      </td>
-    </ng-container>
+
+
 
     <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef class="w25">
-        <div class="td-block">
-          <div class="column w50" [attr.title]="getColTitle('contact_name')" (click)="sort('contact_name')" [ngClass]="getSortClass('contact_name')">Контактные лица</div>
-          <div class="column w50" [attr.title]="getColTitle('contact_info')" (click)="sort('contact_info')" [ngClass]="getSortClass('contact_info')">Связь</div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column w25">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              {{ contact.name_f }} <span class="gray" *ngIf="contact.city_name">({{contact.city_name}})</span>
-            </ng-container>
-          </div>
-          <div class="column w75 gray">
-            <ng-container *ngFor="let contact of contractor.contacts">
-              Тел.: <span class="bk">{{contact.phone}}</span>, E-mail.: <span class="bk">{{contact.email}}</span>
-            </ng-container>
-          </div>
-        </div>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="settings">
       <th mat-header-cell *matHeaderCellDef class="setting">
         <div class="setting-link"></div>
       </th>
-      <td mat-cell *matCellDef="let contractor" class="setting">
+      <td mat-cell *matCellDef="let contractor" >
         <!-- <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit',contractor.id]" title="Редактировать"></a> -->
         <button mat-icon-button
           aria-label="expand row"
@@ -283,7 +336,14 @@
 
     <ng-container matColumnDef="expandedDetail" >
       <td  mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
-        <div class="example-element-detail" *ngIf="element===expandedElement">{{element.id}}
+        <div class="example-element-detail" *ngIf="element===expandedElement">
+          <div class="column">{{ element.contractor_text }}</div>
+          <div class="column">{{ element.carrier_iata }}</div>
+          <div class="column">{{ element.carrier_text }}</div>
+          <div class="column">{{ element.route_text }}</div>
+          <div class="column">{{ element.kind_key }}</div>
+          <div class="column">{{ element.departure_schedule_text.join(', ') }}</div>
+          <div class="column">{{ element.transit_time }}</div>
         </div>
       </td>
     </ng-container>
@@ -292,7 +352,7 @@
     <tr mat-row *matRowDef="let element; columns: column;"
       class="example-element-row"
       [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
+      >
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 
