@@ -145,7 +145,31 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="offer">
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">
+            <mat-checkbox class="testclass"
+              [indeterminate]="isIndeterminateDetailsCheckedCheck()"
+              [checked]="isAllDetailsCheckedCheck()"
+              (change)="updateAllArrDetailsCheckedCheck($event)">
+            </mat-checkbox>
+          </div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">
+            <mat-checkbox class="testclass"
+              [checked]="isDetailsCheckedCheck(contractor.id)"
+              (change)="updateArrDetailsCheckedCheck(contractor.id,$event)">
+            </mat-checkbox>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="checked">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
           <div class="column">КП</div>
@@ -154,24 +178,7 @@
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
           <div class="column">
-            <mat-checkbox class="testclass"></mat-checkbox>
-          </div>
-        </div>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
-          <div class="column">
-            <mat-checkbox class="testclass"></mat-checkbox>
-          </div>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
-          <div class="column">
-            <mat-checkbox class="testclass"></mat-checkbox>
+            <mat-checkbox class="testclass" [checked]="contractor.selected"></mat-checkbox>
           </div>
         </div>
       </td>

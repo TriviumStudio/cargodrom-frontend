@@ -88,6 +88,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.onFilterChange(filter as F);
     });
     this.getListParam();
+    this.subscribeRouteQueryParamMap();
   }
 
   ngOnDestroy(): void {
@@ -98,9 +99,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadRows(): void {
     const sortCol = this.getSort();
     const params = this.isRateDetailsMode?
-      { id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
       :
-      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter };
+      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
 
     this.load(params)
       .subscribe(rows => {
@@ -553,7 +554,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   }
 
   getListParam(){
-    const param=this.isRateDetailsMode?{id:this.requestId ,method:this.detailsMethod }:undefined;
+    const param=this.isRateDetailsMode?{request_id:this.requestId ,method:this.detailsMethod }:null;
     this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
         console.log(schema);
@@ -584,7 +585,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       },
       error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
       complete:()=> {
-        this.subscribeRouteQueryParamMap();
+        // this.subscribeRouteQueryParamMap();
       }
     });
   }

@@ -10,6 +10,7 @@ import { Observable, map, of } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 interface LoadRows{
   id?:number| undefined;
@@ -50,6 +51,8 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
 
   expandedElement: any | null;
 
+  arrDetailsCheckedCheck:number[]=[];
+
   params:any;
 
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
@@ -72,10 +75,18 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     // this.params=params;
     // console.log(params);
 
-    return this.requestService.requestBiddingList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>;
+    if(this.detailsMethod==='final') {
+      return this.requestService.requestRateFinalList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>;
+    } else if (this.detailsMethod==='customs') {
+      return this.requestService.requestRateCustomsList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
+    } else if (this.detailsMethod==='point') {
+      return this.requestService.requestRatePointList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
+    } else {
+      return this.requestService.requestRateTransporterList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
+    }
   }
   protected override loadFilterSchemaTest(par:any): Observable<any>  {
-    return this.requestService.requestBiddingListParam(par).pipe(map(val => val as any));
+    return this.requestService.requestRateListParam(par).pipe(map(val => val as any));
   }
   // protected override loadFilterSchema(): Observable<SearchFilterSchema> {
   //   return this.contractorService.contractorList().pipe(map(val => val as SearchFilterSchema));
@@ -120,12 +131,80 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
   }
 
   test(e:any){
-    console.log(e);
-    console.log(this.column);
     console.log(this.rows);
   }
 
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
   }
+
+  isDetailsCheckedCheck(contractor_id:number){
+    let isCheck
+    this.arrDetailsCheckedCheck.forEach((i:any)=>{
+      if(i===contractor_id){
+        isCheck=true;
+      }
+    })
+    return isCheck;
+  }
+  updateArrDetailsCheckedCheck(contractor_id:number,{ checked }: MatCheckboxChange){
+    if(checked){
+      this.arrDetailsCheckedCheck.push(contractor_id)
+
+    } else {
+      this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== contractor_id)
+
+    }
+  }
+  isAllDetailsCheckedCheck(){
+    let arrIdRows:number[]=[];
+    let arrIdRowsCheck:number[]=[];
+
+    this.rows.forEach((i:any)=>{
+      arrIdRows.push(i.id);
+    });
+    this.arrDetailsCheckedCheck.forEach((i:any)=>{
+      this.rows.forEach((ir:any)=>{
+        if(i===ir.id){
+          arrIdRowsCheck.push(i);
+        }
+      });
+    });
+    return this.arrDetailsCheckedCheck.length > 0 && arrIdRows.sort().toString()===arrIdRowsCheck.sort().toString();
+  }
+
+  isIndeterminateDetailsCheckedCheck(){
+    let arrIdRows:number[]=[];
+    let arrIdRowsCheck:number[]=[];
+
+    this.rows.forEach((i:any)=>{
+      arrIdRows.push(i.id);
+    });
+    this.arrDetailsCheckedCheck.forEach((i:any)=>{
+      this.rows.forEach((ir:any)=>{
+        if(i===ir.id){
+          arrIdRowsCheck.push(i);
+        }
+      });
+    });
+    return arrIdRows.length>arrIdRowsCheck.length && arrIdRowsCheck.length>0;
+  }
+
+  updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange){
+    if(checked){
+      this.rows.forEach((i:any)=>{
+        this.arrDetailsCheckedCheck.push(i.id);
+      })
+      this.arrDetailsCheckedCheck=[...new Set(this.arrDetailsCheckedCheck)];
+    } else {
+      this.arrDetailsCheckedCheck.forEach((i:any)=>{
+        this.rows.forEach((ir:any)=>{
+          if(i===ir.id){
+            this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== i)
+          }
+        });
+      });
+    }
+  }
+
 }
