@@ -53,6 +53,8 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
 
   arrDetailsCheckedCheck:number[]=[];
 
+  testswi=true
+
   params:any;
 
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
@@ -130,7 +132,7 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     return classSpec;
   }
 
-  test(e:any){
+  onSwitcherChange(){
     console.log(this.rows);
   }
 
