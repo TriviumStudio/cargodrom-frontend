@@ -181,7 +181,7 @@
             <!-- <mat-checkbox class="testclass" [checked]="contractor.selected"></mat-checkbox> -->
             <!-- <mat-checkbox class="switch outer" [checked]="contractor.selected"></mat-checkbox> -->
             <label class="switch outer">
-              <input type="checkbox" [checked]="contractor.selected" (change)="onSwitcherChange()"  >
+              <input type="checkbox" [checked]="contractor.selected" (change)="onSwitcherChange($event)" >
               <div class="switcher">
                 <span class="bg"></span>
                 <span class="thumb"></span>

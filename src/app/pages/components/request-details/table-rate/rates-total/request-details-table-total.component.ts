@@ -132,8 +132,8 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     return classSpec;
   }
 
-  onSwitcherChange(){
-    console.log(this.rows);
+  onSwitcherChange(e:any){
+    console.log(e);
   }
 
   onTableMethodChange(method:any){
@@ -210,3 +210,9 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
   }
 
 }
+
+// 1) Дизайн шапки(инфа про запрос + кнопки(детали,правка,дубль,удалить))
+// 2) Блок ком.предложения(тайтал+пустая таблица)
+// 3) Тайтал ставки + сылки на таблицы
+// 4) фильтра таблиц(кнопки +ставка,дубль,торги,удалить)
+// 5) Таблица ставки(ширина стобцов и так далее)
