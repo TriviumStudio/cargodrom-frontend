@@ -14,6 +14,8 @@ export class TableFilterComponent implements OnInit {
   asd=false;
 
   @Input() isBiddingMode?: boolean;
+  @Input() isRateDetailsMode?: boolean;
+
   @Input() quantityContractors?: number;
 
   @Output() saveBidding = new EventEmitter<any>();

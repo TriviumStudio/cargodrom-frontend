@@ -1,6 +1,7 @@
 .table-list{
   margin: 0 20px;
 }
+// расшир табл
 tr{
   border-left: 1px solid rgba(0, 0, 0, 0.12);
   border-right: 1px solid rgba(0, 0, 0, 0.12);
@@ -14,45 +15,114 @@ tr{
 .table-list table tr.example-expanded-row td {
   background: #F7F9FC;
 }
-
 tr.example-detail-row {
   height: 0;
-  // border: 0;
 }
-// tr.example-element-row:not(.example-expanded-row):hover {
-//   background: whitesmoke;
-// }
-
-// tr.example-element-row:not(.example-expanded-row):active {
-//   background: #efefef;
-// }
-
-
-
-
-
-
 .example-element-detail {
   overflow: hidden;
   display: flex;
-  // background: red;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
-
-
 }
-
-// .expand{
-//   border: none;
-
-
-// }
-
 .example-element-row td {
   border-bottom-width: 0;
 }
-
 .example-element-detail {
   overflow: hidden;
   display: flex;
 }
+// сабхеадер
+.subheader{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px #C3CCD6 solid;
+}
+.request-info{
+  display: flex;
+  gap: 24px;
+}
+.request-actions{
+  display: flex;
+  gap: 10px;
+}
+.request-actions button{
+  display: block;
+  padding: 9px 8px 7px;
+  min-width: 64px;
+  min-height: 56px;
+  box-sizing: border-box;
+  font-size: 10px;
+  line-height: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 6px;
+  border: 0;
+}
+.request-actions button:before {
+  content: "";
+  display: block;
+  height: 20px;
+  background: no-repeat 50% 50%;
+  margin: 0;
+  margin-bottom: 10px;
+}
+.request-actions button.del{
+  background: #606A74;
+  color: white;
+}
+
+.request-actions button.det:before{
+  background-image: url(../../../../../../assets/pic-btn-detail.svg);
+}
+.request-actions button.edi:before{
+  background-image: url(../../../../../../assets/pic-btn-edit.svg);
+}
+.request-actions button.dub:before{
+  background-image: url(../../../../../../assets/pic-btn-double.svg);
+}
+.request-actions button.del:before{
+  background-image: url(../../../../../../assets/pic-btn-del.svg);
+}
+
+.subtitle{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 20px;
+}
+
+.kp-none{
+  background-color: white;
+  color: black;
+  margin: 20px;
+  text-align: center;
+  padding: 40px 0 40px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rate-links{
+  display: flex;
+  gap: 10px;
+}
+.rate-links div{
+  padding: 10px;
+
+  color: #83909E;
+  font-size: 15px;
+  line-height: 14px;
+  font-weight: 700;
+}
+.rate-links .table-active{
+  color: black;
+  background-color: white;
+  border-bottom: 1px solid #DB563B;
+}
+
+
+
+
+
 

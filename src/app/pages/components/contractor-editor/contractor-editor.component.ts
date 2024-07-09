@@ -1,6 +1,6 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, takeUntil, tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -13,7 +13,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
 import { Location } from '@angular/common';
 import { TaxSystem } from 'src/app/api/custom_models';
-import { SystemService } from 'src/app/api/services';
+import { SystemService, TransportService } from 'src/app/api/services';
 import { Counterparty } from 'src/app/api/custom_models/counterparty';
 
 
@@ -55,6 +55,7 @@ export class ContractorEditorComponent implements OnInit {
   // counterpartys:Counterparty[]=[];
   counterpartys:any[]=[];
   // private _destroy$ = new Subject();
+  transportCarrier:any[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +67,7 @@ export class ContractorEditorComponent implements OnInit {
     private router: Router,
     private location: Location,
     private systemService: SystemService,
+    private transportService: TransportService
   ) {
     this.contractorForm = this.fb.group({
       id: [''],
@@ -88,6 +90,8 @@ export class ContractorEditorComponent implements OnInit {
       // exclude_from_trade: [false]
       allow_trade:[false],
       counterparty_id: ['', [Validators.required]],
+      transportCarrier_name:[,[]],
+      carrier_id:[,[]]
     });
   }
 
@@ -104,6 +108,7 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
     this.getTaxSystems();
     this.getCounterparty();
+    this.subTest()
 
   }
 
@@ -221,6 +226,26 @@ export class ContractorEditorComponent implements OnInit {
   //       takeUntil(this._destroy$)
   //     ).subscribe();
   // }
+  subTest(){
+    this.contractorForm.value.transportCarrier_name.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      
+    ).subscribe(()=>{
+      console.log(123);
+
+    })
+  }
+
+  onTransportCarrierChange(i:any){
+    console.log(i);
+
+  }
+
+  getTransportCarrier(e:any){
+    this.transportService.transportCarrier({name:e.target.value})
+      .subscribe(transportCarrier => this.transportCarrier = transportCarrier);
+  }
 
   private getCounterparty(){
     this.systemService.systemCounterparty()
@@ -289,3 +314,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
 }
+function rxjsFilter(arg0: (val: any) => boolean): any {
+  throw new Error('Function not implemented.');
+}
+

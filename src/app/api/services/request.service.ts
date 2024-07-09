@@ -7533,6 +7533,348 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestContractorSelectGet()` */
+  static readonly RequestContractorSelectGetPath = '/request_contractor_select_get';
+
+  /**
+   * Получение ID контрагентов выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestContractorSelectGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestContractorSelectGet$Response(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectGetPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID Контрагента
+         */
+        'contractor_id'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение ID контрагентов выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestContractorSelectGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestContractorSelectGet(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}> {
+    return this.requestContractorSelectGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>): {
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestContractorSelectUpdate()` */
+  static readonly RequestContractorSelectUpdatePath = '/request_contractor_select_update';
+
+  /**
+   * Обновление выбора контрагента для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestContractorSelectUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestContractorSelectUpdate$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: Array<number>;
+
+/**
+ * Признак выделения
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectUpdatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Обновление выбора контрагента для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestContractorSelectUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestContractorSelectUpdate(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Контрагента
+ */
+'contractor_id'?: Array<number>;
+
+/**
+ * Признак выделения
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestContractorSelectUpdate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestSaveBidding()` */
+  static readonly RequestSaveBiddingPath = '/request_save_bidding';
+
+  /**
+   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestSaveBidding()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveBidding$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestSaveBiddingPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestSaveBidding$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveBidding(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestSaveBidding$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
   /** Path part for operation `requestStatus()` */
   static readonly RequestStatusPath = '/request_status';
 
@@ -9092,241 +9434,6 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestContractorSelectGet()` */
-  static readonly RequestContractorSelectGetPath = '/request_contractor_select_get';
-
-  /**
-   * Получение ID контрагентов выбранных для отправки запроса.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestContractorSelectGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestContractorSelectGet$Response(
-    params: {
-
-    /**
-     * ID запроса
-     */
-      id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: number;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectGetPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * ID Контрагента
-         */
-        'contractor_id'?: number;
-        
-        /**
-         * Время создания
-         */
-        'time_add'?: string;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Получение ID контрагентов выбранных для отправки запроса.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestContractorSelectGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestContractorSelectGet(
-    params: {
-
-    /**
-     * ID запроса
-     */
-      id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: number;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-}> {
-    return this.requestContractorSelectGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: number;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-}>): {
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: number;
-
-/**
- * Время создания
- */
-'time_add'?: string;
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `requestContractorSelectUpdate()` */
-  static readonly RequestContractorSelectUpdatePath = '/request_contractor_select_update';
-
-  /**
-   * Обновление выбора контрагента для отправки запроса.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestContractorSelectUpdate()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  requestContractorSelectUpdate$Response(
-    params?: {
-      body?: {
-
-/**
- * ID запроса
- */
-'id': number;
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: Array<number>;
-
-/**
- * Признак выделения
- */
-'checked'?: boolean;
-}
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectUpdatePath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Статус выполнения
-         */
-        'result': 'OK';
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Обновление выбора контрагента для отправки запроса.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestContractorSelectUpdate$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  requestContractorSelectUpdate(
-    params?: {
-      body?: {
-
-/**
- * ID запроса
- */
-'id': number;
-
-/**
- * ID Контрагента
- */
-'contractor_id'?: Array<number>;
-
-/**
- * Признак выделения
- */
-'checked'?: boolean;
-}
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}> {
-    return this.requestContractorSelectUpdate$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}>): {
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
 } => r.body)
     );
   }
@@ -13076,113 +13183,6 @@ export class RequestService extends BaseService {
     );
   }
 
-  /** Path part for operation `requestSaveBidding()` */
-  static readonly RequestSaveBiddingPath = '/request_save_bidding';
-
-  /**
-   * Проверка и сохранения выбора контрагентов для отправки запроса.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestSaveBidding()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  requestSaveBidding$Response(
-    params?: {
-      body?: {
-
-/**
- * ID запроса
- */
-'id': number;
-
-/**
- * Подтверждение (игнорировать ошибки)
- */
-'confirm'?: boolean;
-}
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestSaveBiddingPath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Статус выполнения
-         */
-        'result': 'OK';
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Проверка и сохранения выбора контрагентов для отправки запроса.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestSaveBidding$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  requestSaveBidding(
-    params?: {
-      body?: {
-
-/**
- * ID запроса
- */
-'id': number;
-
-/**
- * Подтверждение (игнорировать ошибки)
- */
-'confirm'?: boolean;
-}
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}> {
-    return this.requestSaveBidding$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-}>): {
-
-/**
- * Статус выполнения
- */
-'result': 'OK';
-} => r.body)
-    );
-  }
-
   /** Path part for operation `requestRateFinalList()` */
   static readonly RequestRateFinalListPath = '/request_rate_final_list';
 
@@ -13267,6 +13267,11 @@ export class RequestService extends BaseService {
  * Позиции
  */
 'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
 
 /**
  * Дата запроса
@@ -13368,6 +13373,11 @@ export class RequestService extends BaseService {
          * Позиции
          */
         'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
         
         /**
          * Дата запроса
@@ -13527,6 +13537,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -13611,6 +13626,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -13691,6 +13711,11 @@ export class RequestService extends BaseService {
  * Позиции
  */
 'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
 
 /**
  * Дата запроса
@@ -13852,6 +13877,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -13966,6 +13996,11 @@ export class RequestService extends BaseService {
          * Позиции
          */
         'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
         
         /**
          * Дата запроса
@@ -14140,6 +14175,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -14239,6 +14279,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -14334,6 +14379,11 @@ export class RequestService extends BaseService {
  * Позиции
  */
 'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
 
 /**
  * Дата запроса
@@ -14495,6 +14545,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Наименование Аэропорта
  */
 'point': string;
@@ -14551,6 +14606,11 @@ export class RequestService extends BaseService {
          * Позиции
          */
         'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
         
         /**
          * Наименование Аэропорта
@@ -14655,6 +14715,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Наименование Аэропорта
  */
 'point': string;
@@ -14699,6 +14764,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Наименование Аэропорта
  */
 'point': string;
@@ -14739,6 +14809,11 @@ export class RequestService extends BaseService {
  * Позиции
  */
 'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
 
 /**
  * Наименование Аэропорта
@@ -14850,6 +14925,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -14899,6 +14979,11 @@ export class RequestService extends BaseService {
          * Позиции
          */
         'items'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
         
         /**
          * Дата запроса
@@ -15000,6 +15085,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -15036,6 +15126,11 @@ export class RequestService extends BaseService {
 'items'?: Array<{
 
 /**
+ * ID
+ */
+'id': number;
+
+/**
  * Дата запроса
  */
 'time_request': string;
@@ -15068,6 +15163,11 @@ export class RequestService extends BaseService {
  * Позиции
  */
 'items'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
 
 /**
  * Дата запроса

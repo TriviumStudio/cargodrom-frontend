@@ -1,24 +1,24 @@
 <div class="subheader">
-  <div class="request" style="display: flex;gap: 24px;">
+  <div class="request-info">
     <div  style="border-right: 1px solid #C3CCD6">
       <div class="title">
         Запрос №{{currentRequest.id}}
       </div>
-      <div class="subtitle">
+      <div >
         {{currentRequest.customer_name}}
       </div>
     </div>
 
     <div class="info-block">
       <div class="title">Дата:</div>
-      <div class="subtitle">
+      <div >
         {{currentRequest.time_add}}
       </div>
     </div>
 
     <div class="info-block">
       <div class="title">Откуда:</div>
-      <div class="subtitle">
+      <div>
         {{currentRequest.departure_country_name}}
         ({{currentRequest.departure_city_name}})
       </div>
@@ -26,7 +26,7 @@
 
     <div class="info-block">
       <div class="title">Куда:</div>
-      <div class="subtitle">
+      <div >
         {{currentRequest.arrival_country_name}}
         ({{currentRequest.arrival_city_name}})
       </div>
@@ -34,38 +34,59 @@
 
     <div class="info-block">
       <div class="title">Груз:</div>
-      <div class="subtitle">
+      <div >
         {{currentRequest.cargo_text}}
       </div>
     </div>
 
     <div class="info-block">
       <div class="title">INC:</div>
-      <div class="subtitle">
+      <div>
         {{currentRequest.incoterms_name}}
       </div>
     </div>
 
     <div class="info-block">
       <div class="title">Статус:</div>
-      <div class="subtitle">
+      <div>
         {{currentRequest.status_crm_name}}
       </div>
     </div>
   </div>
+
+  <div class="request-actions">
+    <button class="det">Детали</button>
+    <button class="edi">Правка</button>
+    <button class="dub">Дубль</button>
+    <button class="del">Удалить</button>
+  </div>
 </div>
 
-<div>кп</div>
-<div>
-  <div (click)="onTableMethodChange('final')">Итоговые</div>
-  <div (click)="onTableMethodChange('customs')">До границы</div>
-  <div (click)="onTableMethodChange('point')">Склад (СВХ)</div>
-  <div (click)="onTableMethodChange('transporter')">Вывоз</div>
-</div>
+<div class="subtitle">Коммерческие предложения: 0</div>
+<div class="kp-none">Коммерческих предложений нет</div>
 
+<div style="display: flex; align-items: center;">
+  <div class="subtitle">Ставки: 5/8</div>
+
+  <!-- <div class="rate-links">
+    <div (click)="onTableMethodChange('final')" *ngClass="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div (click)="onTableMethodChange('customs')" *ngClass="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div (click)="onTableMethodChange('point')" *ngClass="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div (click)="onTableMethodChange('transporter')" *ngClass="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+  </div> -->
+
+  <div class="rate-links">
+    <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+
+  </div>
+</div>
 
 <app-table-filter
   [isBiddingMode]="isBiddingMode"
+  [isRateDetailsMode]="isRateDetailsMode"
   [quantityContractors]="quantityContractors"
   (saveBidding)="saveContractorSelectRequest()">
 </app-table-filter>

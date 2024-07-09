@@ -167,6 +167,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -548,6 +558,16 @@ export class ContractorService extends BaseService {
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
         
         /**
          * Вид подрядчика
@@ -989,6 +1009,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -1355,6 +1385,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -1717,6 +1757,16 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика
@@ -3056,6 +3106,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -3418,6 +3478,16 @@ export class ContractorService extends BaseService {
          * Язык общения (ID берем из запроса - settings_get из поля language)
          */
         'language_id'?: string;
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
         
         /**
          * Вид подрядчика
@@ -3797,6 +3867,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -4152,6 +4232,16 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -4503,6 +4593,16 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика
@@ -4857,6 +4957,11 @@ export class ContractorService extends BaseService {
 'language_id': string;
 
 /**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id': string;
@@ -5066,6 +5171,11 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id': string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5288,6 +5398,11 @@ export class ContractorService extends BaseService {
 'language_id'?: string;
 
 /**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id'?: string;
@@ -5497,6 +5612,11 @@ export class ContractorService extends BaseService {
  * Язык общения (ID берем из запроса - settings_get из поля language)
  */
 'language_id'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)

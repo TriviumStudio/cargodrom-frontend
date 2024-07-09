@@ -770,6 +770,11 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
       kind_id?: number;
+
+    /**
+     * Наименование
+     */
+      name?: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -797,6 +802,7 @@ export class TransportService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportCarrierPath, 'get');
     if (params) {
       rb.query('kind_id', params.kind_id, {});
+      rb.query('name', params.name, {});
     }
 
     return this.http.request(
@@ -847,6 +853,11 @@ export class TransportService extends BaseService {
      * Вид перевозки
      */
       kind_id?: number;
+
+    /**
+     * Наименование
+     */
+      name?: string;
     },
     context?: HttpContext
   ): Observable<Array<{
