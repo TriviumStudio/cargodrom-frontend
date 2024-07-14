@@ -57,6 +57,8 @@ export class ContractorEditorComponent implements OnInit {
   // private _destroy$ = new Subject();
   transportCarrier:any[]=[];
 
+  change$ = new Subject<string|undefined>();
+
   constructor(
     private route: ActivatedRoute,
     private contractorService: ContractorService,
@@ -93,6 +95,18 @@ export class ContractorEditorComponent implements OnInit {
       transportCarrier_name:[,[]],
       carrier_id:[,[]]
     });
+
+    this.change$.pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      // rxjsFilter(val => val === '' || val.length > 1),
+    )
+      .subscribe((e) => {
+        this.getTransportCarrier(e)
+
+        console.log(e);
+
+      });
   }
 
   ngOnInit(): void {
@@ -108,13 +122,17 @@ export class ContractorEditorComponent implements OnInit {
     this.getRequestFormats();
     this.getTaxSystems();
     this.getCounterparty();
-    this.subTest()
+
 
   }
 
   ngOnDestroy(): void {
     // this._destroy$.next(null);
     // this._destroy$.complete();
+  }
+
+  onChange(query: string|undefined) {
+    this.change$.next(query);
   }
 
   goBack(): void {
@@ -226,16 +244,7 @@ export class ContractorEditorComponent implements OnInit {
   //       takeUntil(this._destroy$)
   //     ).subscribe();
   // }
-  subTest(){
-    this.contractorForm.value.transportCarrier_name.pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      
-    ).subscribe(()=>{
-      console.log(123);
 
-    })
-  }
 
   onTransportCarrierChange(i:any){
     console.log(i);
@@ -243,7 +252,7 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   getTransportCarrier(e:any){
-    this.transportService.transportCarrier({name:e.target.value})
+    this.transportService.transportCarrier({name:e})
       .subscribe(transportCarrier => this.transportCarrier = transportCarrier);
   }
 
@@ -314,7 +323,5 @@ export class ContractorEditorComponent implements OnInit {
   }
 
 }
-function rxjsFilter(arg0: (val: any) => boolean): any {
-  throw new Error('Function not implemented.');
-}
+
 

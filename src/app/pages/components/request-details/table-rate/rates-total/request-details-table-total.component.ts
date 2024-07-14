@@ -6,7 +6,7 @@ import { LoadParams, Table } from '../../../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -50,6 +50,7 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
   sortField = 'contractor_id' as const;
 
   expandedElement: any | null;
+  expandedElementInfo: any | null;
 
   arrDetailsCheckedCheck:number[]=[];
 
@@ -121,6 +122,76 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
   }
   protected override requestSaveBidding(body:{id:number,confirm: boolean}){
     return this.requestService.requestSaveBidding({body})
+  }
+
+  onRateInfoChange(request_id:number,rate_id:number){
+    if(this.detailsMethod==='final') {
+      this.getRequestFinalInfo(request_id,rate_id)
+    } else if (this.detailsMethod==='customs') {
+      this.getRequestCustomsInfo(request_id,rate_id)
+    } else if (this.detailsMethod==='point') {
+      this.getRequestPointInfo(request_id,rate_id)
+    } else {
+      this.getRequestTransporterInfo(request_id,rate_id)
+    }
+  }
+
+  getRequestFinalInfo(request_id:number,rate_id:number){
+    this.requestService.requestRateFinalInfo({id:rate_id, request_id:request_id})
+      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+      .subscribe({
+        next: (info) =>{
+          this.expandedElementInfo=info;
+
+          console.log(info);
+        },
+        error:(err)=>{
+
+        }
+      })
+  }
+
+  getRequestCustomsInfo(request_id:number,rate_id:number){
+    this.requestService.requestRateCustomsInfo({id:rate_id, request_id:request_id})
+      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+      .subscribe({
+        next: (info) =>{
+          this.expandedElementInfo=info;
+
+          console.log(info);
+        },
+        error:(err)=>{
+
+        }
+      })
+  }
+
+  getRequestPointInfo(request_id:number,rate_id:number){
+    this.requestService.requestRatePointInfo({id:rate_id, request_id:request_id})
+      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+      .subscribe({
+        next: (info) =>{
+          this.expandedElementInfo=info;
+
+          console.log(info);
+        },
+        error:(err)=>{
+        }
+      })
+  }
+
+  getRequestTransporterInfo(request_id:number,rate_id:number){
+    this.requestService.requestRateTransporterInfo({id:rate_id, request_id:request_id})
+      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+      .subscribe({
+        next: (info) =>{
+          this.expandedElementInfo=info;
+
+          console.log(info);
+        },
+        error:(err)=>{
+        }
+      })
   }
 
   getSpecializationClass(n:number){

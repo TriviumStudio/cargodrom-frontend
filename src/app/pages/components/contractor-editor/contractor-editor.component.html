@@ -38,7 +38,7 @@
           </div>
         </div> -->
 
-        <div class="form-item">
+        <!-- <div class="form-item">
           <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
           <div class="form-data">
             <input appearance="outline" class="ui-select"
@@ -47,6 +47,22 @@
               formControlName="transportCarrier_name"
               [matAutocomplete]="auto"
               (keyup)="getTransportCarrier($event)"
+              placeholder="—" >
+            <mat-autocomplete  #auto="matAutocomplete">
+              <mat-option class="" *ngFor="let customer of transportCarrier;" [value]="customer.name" (click)="onTransportCarrierChange(customer)">{{ customer.name }}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div> -->
+
+        <div class="form-item">
+          <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
+          <div class="form-data">
+            <input appearance="outline" class="ui-select"
+              type="text"
+              name="customer_name"
+              formControlName="transportCarrier_name"
+              [matAutocomplete]="auto"
+              (ngModelChange)="onChange($event)"
               placeholder="—" >
             <mat-autocomplete  #auto="matAutocomplete">
               <mat-option class="" *ngFor="let customer of transportCarrier;" [value]="customer.name" (click)="onTransportCarrierChange(customer)">{{ customer.name }}</mat-option>
