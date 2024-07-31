@@ -67,24 +67,15 @@
 
 <div style="display: flex; align-items: center;">
   <div class="subtitle">Ставки: 5/8</div>
-
-  <!-- <div class="rate-links">
-    <div (click)="onTableMethodChange('final')" *ngClass="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
-    <div (click)="onTableMethodChange('customs')" *ngClass="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
-    <div (click)="onTableMethodChange('point')" *ngClass="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
-    <div (click)="onTableMethodChange('transporter')" *ngClass="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
-  </div> -->
-
   <div class="rate-links">
     <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
     <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
     <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
     <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
-
   </div>
 </div>
 
-<app-table-filter class="test"
+<app-table-filter class="table-filter"
   [isBiddingMode]="isBiddingMode"
   [isRateDetailsMode]="isRateDetailsMode"
   [quantityContractors]="quantityContractors"
@@ -95,17 +86,14 @@
 <div class="table-list">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
-    <!-- details table -->
-
-    <!-- customs table -->
     <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w10">
         <div class="td-block">
           <div class="column ">Дата запроса</div>
           <div class="column">Дата ответа</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w10">
         <div class="td-block">
           <div class="column">{{ contractor.time_request }}</div>
           <div class="column">{{ contractor.time_answer }}</div>
@@ -114,52 +102,52 @@
     </ng-container>
 
     <ng-container matColumnDef="contractor">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w50">
         <div class="td-block">
-          <div class="column">Подрядчик</div>
-          <div class="column">AIR</div>
-          <div class="column">Авиалиния</div>
-          <div class="column">Маршрут</div>
-          <div class="column">Тип</div>
-          <div class="column">Расписание</div>
-          <div class="column">Срок.дн.</div>
-          <div class="column">+</div>
+          <div class="column w10">Подрядчик</div>
+          <div class="column w5">AIR</div>
+          <div class="column w10">Авиалиния</div>
+          <div class="column w35">Маршрут</div>
+          <div class="column w5">Тип</div>
+          <div class="column w15">Расписание</div>
+          <div class="column w10">Срок.дн.</div>
+          <div class="column w5">+</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w50">
         <div class="td-block">
-          <div class="column">{{ contractor.contractor_text }}</div>
-          <div class="column">{{ contractor.carrier_iata }}</div>
-          <div class="column">{{ contractor.carrier_text }}</div>
-          <div class="column">{{ contractor.route_text }}</div>
-          <div class="column">{{ contractor.kind_key }}</div>
-          <div class="column">{{ contractor.departure_schedule_text.join(', ') }}</div>
-          <div class="column">{{ contractor.transit_time }}</div>
-          <div class="column"></div>
+          <div class="column w10">{{ contractor.contractor_text }}</div>
+          <div class="column w5">{{ contractor.carrier_iata }}</div>
+          <div class="column w10">{{ contractor.carrier_text }}</div>
+          <div class="column w35">{{ contractor.route_text }}</div>
+          <div class="column w5">{{ contractor.kind_key }}</div>
+          <div class="column w15">{{ contractor.departure_schedule_text.join(', ') }}</div>
+          <div class="column w10">{{ contractor.transit_time }}</div>
+          <div class="column w5"></div>
         </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="rating">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w5">
         <div class="td-block">
           <div class="column">Ставка</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w5">
         <div class="td-block">
           <div class="column">{{ contractor.total_cost }}</div>
         </div>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="nearest_flight">
+    <ng-container matColumnDef="nearest_flight" class="w20">
       <th mat-header-cell *matHeaderCellDef>
         <div class="td-block">
           <div class="column">Свободные места</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w20">
         <div class="td-block">
           <div class="column">{{ contractor.nearest_flight_text}}</div>
         </div>
@@ -167,48 +155,48 @@
     </ng-container>
 
     <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w64px">
         <div class="td-block">
           <div class="column">
-            <mat-checkbox class="testclass"
-              [indeterminate]="isIndeterminateDetailsCheckedCheck()"
-              [checked]="isAllDetailsCheckedCheck()"
-              (change)="updateAllArrDetailsCheckedCheck($event)">
-            </mat-checkbox>
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
+                [indeterminate]="isIndeterminateDetailsCheckedCheck()"
+                [checked]="isAllDetailsCheckedCheck()"
+                (change)="updateAllArrDetailsCheckedCheck($event)">
+              </mat-checkbox>
+            </label>
           </div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w64px">
         <div class="td-block">
           <div class="column">
-            <mat-checkbox class="testclass"
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
               [checked]="isDetailsCheckedCheck(contractor.id)"
               (change)="updateArrDetailsCheckedCheck(contractor.id,$event)">
-            </mat-checkbox>
+              </mat-checkbox>
+            </label>
           </div>
         </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="checked">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w64px">
         <div class="td-block">
           <div class="column">КП</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w64px">
         <div class="td-block">
-          <div class="column">
-            <!-- <mat-checkbox class="testclass" [checked]="contractor.selected"></mat-checkbox> -->
-            <!-- <mat-checkbox class="switch outer" [checked]="contractor.selected"></mat-checkbox> -->
-            <label class="switch outer">
-              <input type="checkbox" [checked]="contractor.selected" (change)="onSwitcherChange($event)" >
-              <div class="switcher">
-                <span class="bg"></span>
-                <span class="thumb"></span>
-              </div>
-            </label>
-          </div>
+          <label class="switch outer">
+            <input type="checkbox" [checked]="contractor.selected" (change)="onSwitcherChange($event)" >
+            <div class="switcher">
+              <span class="bg"></span>
+              <span class="thumb"></span>
+            </div>
+          </label>
         </div>
       </td>
     </ng-container>
@@ -352,29 +340,21 @@
       </td>
     </ng-container>
 
-
-
-
-
     <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef class="setting">
+      <th mat-header-cell *matHeaderCellDef class="setting w64px">
         <div class="setting-link"></div>
       </th>
-      <td mat-cell *matCellDef="let contractor" >
-        <!-- <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit',contractor.id]" title="Редактировать"></a> -->
-        <!-- <button mat-icon-button
-          aria-label="expand row"
-          (click)="(expandedElement = expandedElement === contractor ? null : contractor); $event.stopPropagation();"
-        >{{expandedElement===contractor?'close':'open'}}
-        </button> -->
-        <button mat-icon-button
-          aria-label="expand row"
-          (click)="onRateInfoChange(requestId,contractor.id)"
-          (click)="(expandedElement = expandedElement === contractor ? null : contractor);
-          $event.stopPropagation();"
-        >
-        {{expandedElement===contractor?'close':'&#8744;'}}
-        </button>
+      <td mat-cell *matCellDef="let contractor" class="w64px">
+        <div class="td-block">
+          <div class="column">
+            <div
+              (click)="onRateInfoChange(requestId,contractor.id)"
+              (click)="(expandedElement = expandedElement === contractor ? null : contractor);
+              $event.stopPropagation();"
+              [ngClass]="expandedElement===contractor?'arrow-close':'arrow-open'">
+            </div>
+          </div>
+        </div>
       </td>
     </ng-container>
 
@@ -404,9 +384,7 @@
                       <div class="pic phone"></div>
                       <div class="pic mail"></div>
                     </div>
-
                   </div>
-
 
                   <div style="display: flex; justify-content: space-between; margin-top: 40px;">
                     <div class="rating_block">

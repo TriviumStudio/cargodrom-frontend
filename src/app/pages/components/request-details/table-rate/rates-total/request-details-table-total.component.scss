@@ -1,4 +1,4 @@
-.test {
+.table-filter {
   margin: 0 20px;
   height: 82px;
   display: block;
@@ -10,7 +10,6 @@
   position: absolute;
   top: 30px;
   right: 10px;
-
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -41,10 +40,6 @@
   }
   .dub::before{
     background-image:url(../../../../../../assets/pic-btn-double.svg);
-    background-image:url(../../../../../../assets/pic-paginator-arrow.svg);
-    background-image:url(../../../../../../assets/pic-filter-arrow.svg);
-    background-image:url(../../../../../../assets/pic-select-arrow.svg);
-
   }
   .del::before{
     background-image:url(../../../../../../assets/pic-btn-del.svg);
@@ -54,8 +49,57 @@
   }
 }
 
+// .arrow-btn{
+//   display: block;
+//   .arrow-open{
+//     width: 10px;
+//     height: 6px;
+//     background-image:url(../../../../../../assets/pic-select-arrow.svg);
+//     margin: 0 auto;
+//     display: block;
+
+//   }
+//   .arrow-close{
+//     width: 10px;
+//     height: 6px;
+//     background-image:url(../../../../../../assets/pic-filter-arrow.svg);
+//     margin: 0 auto;
+//     display: block;
+//   }
+// }
+
+  .arrow-open{
+    width: 10px;
+    height: 6px;
+    background-image:url(../../../../../../assets/pic-select-arrow.svg);
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  .arrow-close{
+    width: 10px;
+    height: 6px;
+    background-image:url(../../../../../../assets/pic-filter-arrow.svg);
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+  .switch{
+    width: 40px;
+    display: block;
+    margin: 0 auto;
+  }
+.checkbox-label{
+  margin: 0 auto;
+  display: block;
+  width: 20px;
+}
+
 .table-list{
   margin: 0 20px;
+  .w64px{
+    width: 64px;
+    max-width: 64px;
+  }
 }
 // расшир табл
 tr{
