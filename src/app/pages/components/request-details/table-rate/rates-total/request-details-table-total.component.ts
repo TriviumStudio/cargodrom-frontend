@@ -207,6 +207,26 @@ export class RequestDetailsTableTotalComponent extends Table<any, 'trade_rating'
     console.log(e);
   }
 
+  editRequestNav(){
+    this.router.navigate(['pages/request/edit', this.requestId])
+  }
+
+  dubCurRequest(){
+    console.log(this.currentRequest);
+
+    this.requestService.requestCreate({body:this.currentRequest})
+      .pipe(
+        tap((e)=>{
+          console.log(e);
+
+
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
+  }
+
+
+
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
   }

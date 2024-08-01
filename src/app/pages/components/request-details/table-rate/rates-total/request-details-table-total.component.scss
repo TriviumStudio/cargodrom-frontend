@@ -1,3 +1,4 @@
+
 .table-filter {
   margin: 0 20px;
   height: 82px;
@@ -72,6 +73,7 @@
     width: 10px;
     height: 6px;
     background-image:url(../../../../../../assets/pic-select-arrow.svg);
+
     margin: 0 auto;
     cursor: pointer;
   }
@@ -94,12 +96,29 @@
   width: 20px;
 }
 
+.pic-i{
+  background-image:url(../../../../../../assets/pic-i-in-ring.svg);
+
+  min-width: 16px;
+  min-height: 16px;
+}
+
 .table-list{
   margin: 0 20px;
   .w64px{
     width: 64px;
     max-width: 64px;
-    
+  }
+  .transport_type{
+    div{
+      width: 14px;
+      height: 14px;
+      background-position: center;
+      margin: 0 auto;
+    }
+    .avia{
+      background-image: url(../../../../../../assets/pic-transport-type-air.svg);
+    }
   }
 }
 // расшир табл
@@ -308,17 +327,41 @@ tr.example-detail-row {
     .comment_block{
       height: 50px;
       width: 100%;
+      .pic-i-grey{
+        display: flex;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        color: white;
+        background-color:#83909E;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 10px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        margin-right: 5px;
+
+      }
+      .label{
+        display: flex;
+        align-content: baseline;
+        flex-wrap: wrap;
+        line-height: normal;
+      }
       .comment{
 
       }
     }
   }
   .label{
+
     color: #606A74;
     font-size: 13px;
     line-height: 12px;
     font-weight: 400;
     margin-bottom: 10px;
+
   }
 }
 // сабхеадер
