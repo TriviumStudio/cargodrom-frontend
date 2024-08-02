@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 
-
 @Component({
   selector: 'app-request-info-block',
   templateUrl: './request-info-block.component.html',

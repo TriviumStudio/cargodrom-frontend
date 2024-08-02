@@ -494,3 +494,16 @@ tr.example-detail-row {
 
 
 
+.table-list .td-block {
+  padding: 9px 10px 7px;
+}
+.table-list .td-block .column {
+  padding: 0 10px 0 ;
+}
+
+// .table-list .td-block .column:first-child {
+//   padding: 0 0 0 20px;
+// }
+// .table-list .td-block .column:last-child {
+//   padding: 0 20px 0 0;
+// }
