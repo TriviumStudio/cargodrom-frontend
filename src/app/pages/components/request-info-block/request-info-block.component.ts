@@ -6,13 +6,8 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
   styleUrls: ['./request-info-block.component.scss'],
   // encapsulation: ViewEncapsulation.None,
 })
-export class RequestInfoBlock implements OnInit {
+export class RequestInfoBlock {
   @Input() request?: any;
-
   constructor(
   ) { }
-
-  ngOnInit(): void {
-  }
-
 }
