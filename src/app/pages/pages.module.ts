@@ -37,6 +37,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { HttpClientModule } from '@angular/common/http';
 import { RequestInfoBlock } from './components/request-info-block/request-info-block.component';
 import { RequestDetails } from './components/request-details/request-details.component';
+import { RateInfoRow } from './components/request-details/rate-info-row/rate-info-row.component';
 
 
 
@@ -76,6 +77,7 @@ import { RequestDetails } from './components/request-details/request-details.com
 
 
     RequestInfoBlock,
+    RateInfoRow,
 
   ],
   imports: [

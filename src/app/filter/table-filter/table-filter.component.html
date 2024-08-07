@@ -31,12 +31,14 @@
       </div>
     </div>
 
-    <div class="detail-btn" *ngIf="isRateDetailsMode">
+    <ng-content></ng-content>
+
+    <!-- <div class="detail-btn" *ngIf="isRateDetailsMode">
       <button class="plus-rate"><span style="text-wrap: nowrap">+ СТАВКА</span></button>
       <button class="dub">ДУБЛЬ</button>
       <button class="torg">ТОРГИ</button>
       <button class="del">УДАЛИТЬ</button>
-    </div>
+    </div> -->
 
     <div class="item func trade-btn" *ngIf="isBiddingMode && quantityContractors! > 0" >
       <div>

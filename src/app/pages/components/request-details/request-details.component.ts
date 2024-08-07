@@ -1,6 +1,6 @@
 import { ContractorFilter } from '../../../api/custom_models/contractor-filter';
 import { ContractorService } from '../../../api/services/contractor.service';
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -46,6 +46,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   params:any;
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
+  @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
+
   constructor(
     private contractorService: ContractorService,
     private requestService: RequestService,
@@ -54,6 +56,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     route: ActivatedRoute,
     router: Router,
     filter: FilterService,
+    private matDialog: MatDialog,
+
   ) {
     super(route, router, dialog, snackBar, filter);
   }
@@ -266,6 +270,20 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         });
       });
     }
+  }
+
+  onDeleteRate(): void {
+    if (!this.deleteRateDialogRef) { return }
+    this.matDialog.open(this.deleteRateDialogRef)
+      .afterClosed()
+      .subscribe(res => {
+        if (res) { console.log('matdialog', res);
+        }
+    });
+  }
+
+  testDialogClose(){
+    this.matDialog.closeAll()
   }
 
 }
