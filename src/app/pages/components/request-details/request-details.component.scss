@@ -77,18 +77,14 @@ tr.example-detail-row {
   height: 0;
 }
 .example-element-detail {
-  overflow: hidden;
   display: flex;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   position: relative;
+  overflow: hidden;
+  padding: 20px;
 }
 .example-element-row td {
   border-bottom-width: 0;
-}
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-  padding: 20px;
 }
 // сабхеадер
 .subheader{
