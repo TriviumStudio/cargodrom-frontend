@@ -112,30 +112,30 @@
 
      <!-- details point -->
     <ng-container matColumnDef="items">
-      <th mat-header-cell *matHeaderCellDef>
+      <th mat-header-cell *matHeaderCellDef class="w50">
         <div class="td-block">
-          <div class="column">Наименнование Аэропорта</div>
-          <div class="column">Вид рейса</div>
-          <div class="column">Наименнование статей затрат</div>
+          <div class="column w25">Наименнование Аэропорта</div>
+          <div class="column w20">Вид прайса</div>
+          <div class="column w60">Наименнование статей затрат</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
+      <td mat-cell *matCellDef="let contractor" class="w50">
         <div class="td-block">
-          <div class="column">{{ contractor.nearest_flight_text}}</div>
-          <div class="column">{{ contractor.nearest_flight_text}}</div>
-          <div class="column">{{ contractor.total_cost_text}}</div>
+          <div class="column w25">{{ contractor.point_text}}</div>
+          <div class="column w20">{{ contractor.point_action}}</div>
+          <div class="column w60">{{ contractor.service_items}}</div>
         </div>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="cost">
-      <th mat-header-cell *matHeaderCellDef>
-        <div class="td-block">
+      <th mat-header-cell *matHeaderCellDef class="w7">
+        <div class="td-block center">
           <div class="column">Сумма</div>
         </div>
       </th>
-      <td mat-cell *matCellDef="let contractor">
-        <div class="td-block">
+      <td mat-cell *matCellDef="let contractor" class="w7">
+        <div class="td-block center">
           <div class="column">{{ contractor.total_cost_text}}</div>
         </div>
       </td>
@@ -367,7 +367,9 @@
 
 <ng-template #deleteRateDialogRef let-data>
   <h1 mat-dialog-title>+ Ставка?</h1>
-  <div mat-dialog-content>тута будет форма</div>
+  <div mat-dialog-content>
+    <app-rate-add-point [chargesShema]="schemaCharges"></app-rate-add-point>
+  </div>
   <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="1" cdkFocusInitial>Delete</button>
     <button mat-button mat-dialog-close>Cancel</button>

@@ -1,0 +1,63 @@
+<form class="edit-form" [formGroup]="rateForm">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Наименнование Аэропорта:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="point_id">
+               <mat-option
+                 *ngFor="let transportRoute of contractorList;"
+                 [value]="transportRoute.id"
+                 >
+                 {{ transportRoute.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Вид рейса:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="point_action_id">
+               <mat-option
+                 *ngFor="let transportRoute of contractorList;"
+                 [value]="transportRoute.id"
+                 >
+                 {{ transportRoute.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Наименнование статей затрат:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="point_action_id">
+               <mat-option
+                 *ngFor="let transportRoute of contractorList;"
+                 [value]="transportRoute.id"
+                 >
+                 {{ transportRoute.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      Примечание
+
+    </div>
+    <div class="form-row">
+      <div *ngFor=""></div>
+
+    </div>
+  </div>
+
+</form>

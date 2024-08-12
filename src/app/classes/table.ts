@@ -36,10 +36,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   detailsMethod:string='';
   requestId:number=0;
 
-  schemaTest:any
-
-
-
+  // schemaTest:any
+  schemaCharges:any
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -80,6 +78,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
     if(this.isRateDetailsMode || this.isBiddingMode){
       if(this.isRateDetailsMode) this.detailsMethod=segments[2];
+
       this.requestId = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(this.requestId);
     }
@@ -557,6 +556,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const param=this.isRateDetailsMode?{request_id:this.requestId ,method:this.detailsMethod }:null;
     this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
+        this.schemaCharges=schema.forms.charges
+
         console.log(schema);
 
         this.filterService.setSearchFilterSchema(schema.search);
