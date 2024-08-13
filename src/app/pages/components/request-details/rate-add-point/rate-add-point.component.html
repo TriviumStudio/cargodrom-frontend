@@ -55,8 +55,20 @@
 
     </div>
     <div class="form-row">
-      <div *ngFor=""></div>
-
+      <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;">
+        <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field">
+          <ng-template
+            [ngSwitchCase]="chargeModel.field_name"
+            *ngFor="let chargeModel of chargesShema;
+            let i = index;"
+          >
+            <div>{{chargeModel.title}}</div>
+            <input type="text" formControlName="field">
+            <input type="text" formControlName="field">
+            <input type="text" formControlName="field">
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 
