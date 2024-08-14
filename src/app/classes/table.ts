@@ -556,8 +556,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const param=this.isRateDetailsMode?{request_id:this.requestId ,method:this.detailsMethod }:null;
     this.loadFilterSchemaTest(param).pipe(tap(),takeUntil(this.destroy$)).subscribe({
       next: (schema) => {
-        this.schemaCharges=schema.forms.charges
-
+        if(this.isRateDetailsMode){
+          this.schemaCharges=schema.forms.charges
+        }
         console.log(schema);
 
         this.filterService.setSearchFilterSchema(schema.search);

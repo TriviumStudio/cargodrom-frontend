@@ -1,0 +1,32 @@
+.edit-form{
+  width: 1440px;
+}
+.charges-block{
+  display: flex;
+  justify-content: space-between;
+  .charge_on{
+    width: 60%;
+    label{
+      width: 400px;
+    }
+  }
+  .charge_off{
+    width: 35%;
+  }
+
+}
+
+.w100{
+  width: 100%;
+}
+.charge{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: baseline;
+
+}
+
+.charge input{
+  width: 100px;
+}

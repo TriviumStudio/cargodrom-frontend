@@ -78,7 +78,7 @@
           <div class="column w5 transport_type">
             <div [ngClass]="contractor.kind_key"></div>
           </div>
-          <div class="column w15">{{ contractor.departure_schedule_text.join(', ') }}</div>
+          <div class="column w15">{{ contractor?.departure_schedule_text?.join(', ') }}</div>
           <div class="column w7" style="text-align: center;">{{ contractor.transit_time }}</div>
         </div>
       </td>
