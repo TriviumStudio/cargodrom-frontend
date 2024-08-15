@@ -53,6 +53,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     const uid = this.route.snapshot.paramMap.get('uid');
+    this.requestForm.patchValue({
+      uid:uid
+    })
     this.getRequestRates(uid);
   }
 
@@ -119,9 +122,11 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         tap((rates)=> {
           console.log('getRequestRates', rates);
           if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
+          this.rates.push(this.fb.control({}));
           rates.rates?.forEach((e:any) => {
             this.addRate();
             this.requestForm.patchValue(rates);
+
           });
         }),
         takeUntil(this._destroy$))

@@ -539,6 +539,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   getRequestInfo(id:number){
     this.requestInfo(id).subscribe({
       next: (request) => {
+        console.log('request',request);
+
         this.currentRequest=request;
         if(this.isBiddingMode){
           this.filterService.value["country_departure"]=this.currentRequest.departure_country_id;

@@ -366,13 +366,16 @@
 </app-paginator>
 
 <ng-template #deleteRateDialogRef let-data>
-  <h1 mat-dialog-title>+ Ставка?</h1>
-  <div mat-dialog-content>
-    <app-rate-add-point [chargesShema]="schemaCharges"></app-rate-add-point>
-  </div>
-  <div mat-dialog-actions align="end">
+  <!-- <h1 mat-dialog-title>+ Ставка</h1>
+  <div mat-dialog-content> -->
+    <app-rate-add-point
+      [chargesShema]="schemaCharges"
+      [weight]="currentRequest.cargo_places_paid_weight">
+    </app-rate-add-point>
+   <!-- </div>
+ <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="1" cdkFocusInitial>Delete</button>
     <button mat-button mat-dialog-close>Cancel</button>
     <div (click)="testDialogClose()">1234</div>
-  </div>
+  </div> -->
 </ng-template>

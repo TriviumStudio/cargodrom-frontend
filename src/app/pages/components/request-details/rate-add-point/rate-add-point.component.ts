@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -12,8 +12,9 @@ import { ContractorService, TransportService } from 'src/app/api/services';
   styleUrls: ['./rate-add-point.component.scss'],
   // encapsulation: ViewEncapsulation.None,
 })
-export class RateAddPoint {
+export class RateAddPoint implements OnInit, OnDestroy {
   @Input() chargesShema?:any;
+  @Input() weight?:number;
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -30,6 +31,7 @@ export class RateAddPoint {
     private contractorService: ContractorService
   ) {
     this.rateForm = this.fb.group({
+      cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
       point_id: [,[]],
@@ -51,8 +53,7 @@ export class RateAddPoint {
         min: [,[]],
         price: [,[]],
         select: [i.status,[]],
-        // value: [i.unit==='kg'?this.weight:0,[]],
-        value: [,[]],
+        value: [i.unit==='kg'?this.weight:1,[]],
       }));
       this.rateForm.markAsTouched();
     });
@@ -61,9 +62,22 @@ export class RateAddPoint {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+
   // Charges
   get charges() {
     return <FormArray>this.rateForm.get('values');
+  }
+  calckChargeCost(control:any){
+    control.patchValue({cost: Math.ceil(control.value.price * control.value.value)});
+    this.calckRateCost();
+  }
+  calckRateCost(){
+    let cost:number=0;
+    this.rateForm.value.values.forEach((v:any)=>{
+      if(v.select)cost=cost + v.cost
+    });
+    this.rateForm.patchValue({ cost:cost });
+
   }
 
   private getContractor():void{
