@@ -38,6 +38,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   // schemaTest:any
   schemaCharges:any
+  columnsData:any=[];
 
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
@@ -575,6 +576,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         if(this.isBiddingMode){
           this.column?.unshift('checkbox');
           this.column?.pop();
+        }
+
+        if(this.isRateDetailsMode){
+          this.columnsData=schema.table
         }
 
         // this.sortField = schema.sort[0].field;

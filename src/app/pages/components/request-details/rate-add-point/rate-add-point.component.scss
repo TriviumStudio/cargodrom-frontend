@@ -1,7 +1,8 @@
 .edit-form{
   width: 1480px;
-  height: 80vh;
-  overflow-y: auto;
+  // height: 80vh;
+  // overflow-y: auto;
+  margin: 0 auto;
 }
 .charges-block{
   display: flex;
@@ -58,6 +59,27 @@
   .equal{
     color: black;
   }
+}
+
+//  btn save rates
+.btn-save-rates{
+  margin-top: 24px;
+  background-color: #DB563B;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+  display: flex;
+  width: 120px;
+  cursor: pointer;
+}
+.icon-btn-save-rates{
+  background-image: url(../../../../../assets/pic-btn-send-white.svg);
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 15px;
+  display: block;
+  margin-right: 5px;
 }
 
 input::-webkit-outer-spin-button,

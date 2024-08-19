@@ -1339,6 +1339,11 @@ export class TransportService extends BaseService {
    */
   transportPointAction$Response(
     params?: {
+
+    /**
+     * Направление
+     */
+      direction?: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -1355,6 +1360,7 @@ export class TransportService extends BaseService {
 }>>> {
     const rb = new RequestBuilder(this.rootUrl, TransportService.TransportPointActionPath, 'get');
     if (params) {
+      rb.query('direction', params.direction, {});
     }
 
     return this.http.request(
@@ -1390,6 +1396,11 @@ export class TransportService extends BaseService {
    */
   transportPointAction(
     params?: {
+
+    /**
+     * Направление
+     */
+      direction?: string;
     },
     context?: HttpContext
   ): Observable<Array<{

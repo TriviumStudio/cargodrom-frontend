@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
-import { ContractorService, TransportService } from 'src/app/api/services';
+import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-rate-add-point',
@@ -15,10 +15,15 @@ import { ContractorService, TransportService } from 'src/app/api/services';
 export class RateAddPoint implements OnInit, OnDestroy {
   @Input() chargesShema?:any;
   @Input() weight?:number;
+  @Input() requestId?:number;
+  @Input() transportKindId?:number;
+  @Input() cityId?:number;
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
-  contractorList:any=[]
+  contractorList:any=[];
+  pointList:any=[];
+  pointActionList:any=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -28,7 +33,9 @@ export class RateAddPoint implements OnInit, OnDestroy {
     private transportService: TransportService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private contractorService: ContractorService
+    private contractorService: ContractorService,
+    private requestService: RequestService,
+    private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
       cost:[,[]],
@@ -43,7 +50,9 @@ export class RateAddPoint implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
-    this.getContractor()
+    this.getContractor();
+    this.getArrivalPoinst();
+    this.getPointAction();
     this.chargesShema.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
@@ -53,10 +62,11 @@ export class RateAddPoint implements OnInit, OnDestroy {
         min: [,[]],
         price: [,[]],
         select: [i.status,[]],
-        value: [i.unit==='kg'?this.weight:1,[]],
+        value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
       }));
       this.rateForm.markAsTouched();
     });
+    this.rateForm.patchValue({request_id: this.requestId});
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
@@ -68,7 +78,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
     return <FormArray>this.rateForm.get('values');
   }
   calckChargeCost(control:any){
-    control.patchValue({cost: Math.ceil(control.value.price * control.value.value)});
+    control.patchValue({cost: control.value.price * control.value.value});
     this.calckRateCost();
   }
   calckRateCost(){
@@ -77,7 +87,10 @@ export class RateAddPoint implements OnInit, OnDestroy {
       if(v.select)cost=cost + v.cost
     });
     this.rateForm.patchValue({ cost:cost });
-
+  }
+  calckCommentChargePrice(control:any){
+    control.patchValue({price: control.value.cost/1});
+    this.calckRateCost();
   }
 
   private getContractor():void{
@@ -95,6 +108,72 @@ export class RateAddPoint implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.contractorList=contractor.items;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  private getArrivalPoinst():void{
+    this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })
+      .pipe(
+        tap(contractor => {
+          console.log('getArrivalPoinst',contractor);
+
+          if (!contractor) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (poinst) => {
+          this.pointList=poinst
+
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  private getPointAction():void{
+    this.transportService.transportPointAction({direction:'arrival'})
+      .pipe(
+        tap(contractor => {
+          console.log('getArrivalPoinst',contractor);
+
+          if (!contractor) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (poinst) => {
+          this.pointActionList=poinst
+
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  rateSave():void{
+    console.log(this.rateForm.value);
+
+    this.requestService.requestRatePointSave({body:this.rateForm.value})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

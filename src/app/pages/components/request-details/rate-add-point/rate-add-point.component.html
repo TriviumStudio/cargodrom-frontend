@@ -11,15 +11,31 @@
         </div>
 
         <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="contractor_id">
+               <mat-option
+                 *ngFor="let transportRoute of contractorList;"
+                 [value]="transportRoute.id"
+                 >
+                 {{ transportRoute.name }}
+               </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-item">
           <div class="form-label">Наименнование Аэропорта:</div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="point_id">
                <mat-option
-                 *ngFor="let transportRoute of contractorList;"
-                 [value]="transportRoute.id"
+                 *ngFor="let poinst of pointList;"
+                 [value]="poinst.id"
                  >
-                 {{ transportRoute.name }}
+                 {{ poinst.name }}
                </mat-option>
               </mat-select>
             </mat-form-field>
@@ -27,31 +43,15 @@
         </div>
 
         <div class="form-item">
-          <div class="form-label">Вид рейса:</div>
+          <div class="form-label">Вид прайса:</div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
               <mat-select formControlName="point_action_id">
                <mat-option
-                 *ngFor="let transportRoute of contractorList;"
-                 [value]="transportRoute.id"
+                 *ngFor="let poinst of pointActionList;"
+                 [value]="poinst.id"
                  >
-                 {{ transportRoute.name }}
-               </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="form-item">
-          <div class="form-label">Наименнование статей затрат:</div>
-          <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="point_action_id">
-               <mat-option
-                 *ngFor="let transportRoute of contractorList;"
-                 [value]="transportRoute.id"
-                 >
-                 {{ transportRoute.name }}
+                 {{ poinst.name }}
                </mat-option>
               </mat-select>
             </mat-form-field>
@@ -88,7 +88,7 @@
                 <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
                 <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
                 <span class="unit s">
-                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="calckRateCost()">$
+                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
                 </span>
               </ng-template>
             </div>
@@ -107,12 +107,13 @@
                 let i = index;"
               >
                 <label>
+                  <!-- <input  type="checkbox" formControlName="select" (change)="calckRateCost()" (ngModelChange)="calckChargeCost(chargeValue)"> -->
                   <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
                   <i></i>
                   {{chargeModel.title}}
                 </label>
 
-                <span class="unit s"><input type="number" formControlName="cost">$</span>
+                <span class="unit s"><input type="number" readonly formControlName="cost" >$</span>
               </ng-template>
             </div>
           </div>
@@ -120,17 +121,36 @@
       </div>
     </div>
 
-    <div class="form-row">
+    <!-- <div class="form-row" style="display: flex; flex-direction: column;">
       Сумма
-      <input type="number" formControlName="cost" readonly>
+      <input type="number" formControlName="cost" readonly style="margin-bottom: 20px; width: 100px;">
       Примечание
       <input type="text" formControlName="comment">
-    </div>
+    </div> -->
 
-    <div class="form-row">
-      <button>dfs</button>
-    </div>
+    <div class="form-row" >
+      <div class="form-item" style="margin-bottom: 20px; width: 100px;">
+        <div class="form-label">Сумма:</div>
+        <div class="form-data">
+          <input type="number" formControlName="cost" readonly>
+        </div>
+      </div>
 
+      <div class="form-item">
+        <div class="form-label">Примечание:</div>
+        <div class="form-data">
+          <input type="text" formControlName="comment">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display: flex;justify-content: end;">
+    <button type="submit" class="btn-save-rates" (click)="rateSave()">
+      <span class="icon-btn-save-rates"></span>
+      Сохранить
+    </button>
   </div>
 
 </form>

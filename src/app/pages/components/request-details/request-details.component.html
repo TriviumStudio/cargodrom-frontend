@@ -38,7 +38,86 @@
 
 <div class="table-list">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
-    <!-- ДО ГРАНИЦЫ -->
+
+    <div *ngFor="let col of columnsData" [matColumnDef]="col.column">
+      <th mat-header-cell *matHeaderCellDef >
+
+        <div class="td-block" *ngIf="col.column!=='select' ||col.column!=='checked'|| col.column!=='details'">
+          <div class="column" *ngFor="let miniCol of col.items">{{miniCol.title}}</div>
+        </div>
+
+        <div class="td-block" *ngIf="col.column==='select' ||col.column==='checked'|| col.column==='details'">
+          <div class="column">кп</div>
+        </div>
+
+      </th>
+
+      <td mat-cell *matCellDef="let item">
+
+        <div class="td-block">
+          <div class="column" *ngFor="let miniCol of col.items">{{ item[miniCol.field] }}</div>
+        </div>
+
+      </td>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- <ng-container *ngFor="let col of columnsData" [matColumnDef]="col.column">
+      <th mat-header-cell *matHeaderCellDef >
+        <div class="td-block" >
+          <div class="column" *ngFor="let miniCol of col.items">{{miniCol.title}}</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let item">
+        <div class="td-block">
+          <div class="column" *ngFor="let miniCol of col.items">{{ item[miniCol.field] }}</div>
+        </div>
+      </td>
+
+
+    </ng-container> -->
+
+    <ng-container matColumnDef="expandedDetail" >
+      <td  mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
+
+        <div class="example-element-detail" *ngIf="(element===expandedElement && detailsMethod==='customs') || (element===expandedElement && detailsMethod==='final')" >
+          <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo"></app-rate-info-row>
+          <div class="action-bar">
+            <button class="edit"></button>
+            <button class="dub"></button>
+            <button class="del"></button>
+          </div>
+        </div>
+
+        <div class="example-element-detail" *ngIf="(element===expandedElement && detailsMethod==='point') || (element===expandedElement && detailsMethod==='final')">
+          <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo"></app-rate-info-row>
+          <div class="action-bar">
+            <button class="edit"></button>
+            <button class="dub"></button>
+            <button class="del"></button>
+          </div>
+        </div>
+
+        <div class="example-element-detail" *ngIf="(element===expandedElement && detailsMethod==='transporter') || (element===expandedElement && detailsMethod==='final')">
+          <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo"></app-rate-info-row>
+          <div class="action-bar">
+            <button class="edit"></button>
+            <button class="dub"></button>
+            <button class="del"></button>
+          </div>
+        </div>
+
+      </td>
+    </ng-container>
+    <!-- ДО ГРАНИЦЫ
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef class="w10">
         <div class="td-block">
@@ -110,7 +189,7 @@
       </td>
     </ng-container>
 
-     <!-- details point -->
+      details point
     <ng-container matColumnDef="items">
       <th mat-header-cell *matHeaderCellDef class="w50">
         <div class="td-block">
@@ -149,12 +228,25 @@
       </th>
       <td mat-cell *matCellDef="let contractor">
         <div class="td-block">
-          <div class="column"></div>
+          <div class="column">{{ contractor.comment}}</div>
         </div>
       </td>
     </ng-container>
 
-    <!--  -->
+     transporter
+    <ng-container matColumnDef="comment">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="td-block">
+          <div class="column">Примечание</div>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let contractor">
+        <div class="td-block">
+          <div class="column">{{ contractor.comment}}</div>
+        </div>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="route">
       <th mat-header-cell *matHeaderCellDef class="w30">
         <div class="td-block">
@@ -249,8 +341,8 @@
       </td>
     </ng-container>
 
-    <!-- ОБЩИЕ -->
-    <!-- чекбоксы -->
+     ОБЩИЕ
+     чекбоксы
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef class="w64px">
         <div class="td-block">
@@ -278,7 +370,7 @@
         </div>
       </td>
     </ng-container>
-    <!-- ios-чекбоксы -->
+     ios-чекбоксы
     <ng-container matColumnDef="checked">
       <th mat-header-cell *matHeaderCellDef class="w64px">
         <div class="td-block">
@@ -297,7 +389,7 @@
         </div>
       </td>
     </ng-container>
-    <!-- расширение -->
+     расширение
     <ng-container matColumnDef="details">
       <th mat-header-cell *matHeaderCellDef class="setting w64px">
         <div class="setting-link"></div>
@@ -315,7 +407,7 @@
         </div>
       </td>
     </ng-container>
-    <!-- РАСШИРЕННАЯ СТРОКА -->
+     РАСШИРЕННАЯ СТРОКА
     <ng-container matColumnDef="expandedDetail" >
       <td  mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
 
@@ -347,11 +439,12 @@
         </div>
 
       </td>
-    </ng-container>
+    </ng-container> -->
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+
 
   </table>
 </div>
@@ -370,10 +463,13 @@
   <div mat-dialog-content> -->
     <app-rate-add-point
       [chargesShema]="schemaCharges"
-      [weight]="currentRequest.cargo_places_paid_weight">
+      [weight]="currentRequest.cargo_places_paid_weight"
+      [requestId]="currentRequest.id"
+      [transportKindId]="currentRequest.transport_kind_id"
+      [cityId]="currentRequest.arrival_city_id">
     </app-rate-add-point>
-   <!-- </div>
- <div mat-dialog-actions align="end">
+   <!-- </div> -->
+ <!-- <div mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="1" cdkFocusInitial>Delete</button>
     <button mat-button mat-dialog-close>Cancel</button>
     <div (click)="testDialogClose()">1234</div>
