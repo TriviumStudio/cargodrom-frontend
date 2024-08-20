@@ -104,7 +104,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   protected override requestSaveBidding(body:{id:number,confirm: boolean}){
     return this.requestService.requestSaveBidding({body})
   }
-  
+
   onRateInfoChange(request_id:number,rate_id:number){
     if(this.detailsMethod==='final') {
       this.getRequestFinalInfo(request_id,rate_id)
