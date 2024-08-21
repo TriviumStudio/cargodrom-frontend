@@ -66,6 +66,7 @@ tr{
 }
 .table-list table tr:nth-child(even) td {
   background: #F7F9FC;
+
 }
 .table-list table tr:nth-child(odd) td {
   background: white;
@@ -78,9 +79,14 @@ tr.example-detail-row {
 }
 .example-element-detail {
   display: flex;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+
   position: relative;
   overflow: hidden;
+  padding: 0 20px;
+  padding-bottom: 20px;
+}
+.example-element-detail:first-child{
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
   padding: 20px;
 }
 .example-element-row td {

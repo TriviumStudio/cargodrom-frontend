@@ -46,7 +46,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   params:any;
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
-  @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
+  @ViewChild('rateAddPointDialogRef') rateAddPointDialogRef?: TemplateRef<void>;
+  @ViewChild('rateAddTransporterDialogRef') rateAddTransporterDialogRef?: TemplateRef<void>;
 
   constructor(
     private contractorService: ContractorService,
@@ -273,9 +274,30 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     }
   }
 
-  onDeleteRate(): void {
-    if (!this.deleteRateDialogRef) { return }
-    this.matDialog.open(this.deleteRateDialogRef)
+  openAddRateDialog(){
+    if(this.detailsMethod==='final') {
+
+    } else if (this.detailsMethod==='customs') {
+
+    } else if (this.detailsMethod==='point') {
+      this.openDialogRateAddPoint();
+    } else {
+      this.openDialogRateAddTransporter();
+    }
+  }
+
+  openDialogRateAddPoint(): void {
+    if (!this.rateAddPointDialogRef) { return }
+    this.matDialog.open(this.rateAddPointDialogRef)
+      .afterClosed()
+      .subscribe(res => {
+        if (res) { console.log('matdialog', res);
+        }
+    });
+  }
+  openDialogRateAddTransporter(): void {
+    if (!this.rateAddTransporterDialogRef) { return }
+    this.matDialog.open(this.rateAddTransporterDialogRef)
       .afterClosed()
       .subscribe(res => {
         if (res) { console.log('matdialog', res);
