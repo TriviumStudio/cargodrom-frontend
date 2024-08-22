@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 })
 export class RateInfoRow {
   @Input() rate?: any;
+  @Input() detailsMethod?: any;
   constructor(
   ) { }
 }

@@ -3,9 +3,10 @@
   <div class="first_row">
 
     <div class="first_col">
-      <div class="cost_block">
+      <ng-content></ng-content>
+      <!-- <div class="cost_block">
         <div class="cost">{{rate?.total_cost_text}}</div>
-      </div>
+      </div> -->
       <div class="contractor_block">
         <div style="display: flex; justify-content: space-between;">
           <div class="agent_block">
@@ -39,58 +40,134 @@
       </div>
     </div>
 
-    <div class="second_col">
-      <div class="title">Данные по ставке</div>
-      <div class="items">
-        <div class="item">
-          <div class="label">Транзитный срок:</div>
-          <div>{{rate?.valid_time}}</div>
+    <div class="second_col" [ngSwitch]="detailsMethod">
+      <ng-template [ngSwitchCase]="'customs'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Транзитный срок:</div>
+            <div>{{rate?.valid_time}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Ставка до:</div>
+            <div>{{rate?.contractor.trade_success_count}}</div>
+          </div>
         </div>
-        <div class="item">
-          <div class="label">Ставка до:</div>
-          <div>{{rate?.contractor.trade_success_count}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Линия:</div>
+            <div>{{rate?.carrier_text}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Маршрут:</div>
+            <div>{{rate?.route_text}}</div>
+          </div>
         </div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div class="label">Линия:</div>
-          <div>{{rate?.carrier_text}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Плотность груза (кг/м3):</div>
+            <div>{{rate?.request.cargo_places_density}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Оплачиваемый вес (кг):</div>
+            <div>{{rate?.request.cargo_places_paid_weight}}</div>
+          </div>
         </div>
-        <div class="item">
-          <div class="label">Маршрут:</div>
-          <div>{{rate?.route_text}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Кол-во мест:</div>
+            <div>{{rate?.request.cargo_places_count}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Вес брутто, кг:</div>
+            <div>{{rate?.request.cargo_places_weight}}</div>
+          </div>
         </div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div class="label">Плотность груза (кг/м3):</div>
-          <div>{{rate?.request.cargo_places_density}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Свободные места:</div>
+            <div>{{rate?.nearest_flight_text}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Дни вылета:</div>
+            <div>{{rate?.departure_schedule_text?.join(', ').toUpperCase()}}</div>
+          </div>
         </div>
-        <div class="item">
-          <div class="label">Оплачиваемый вес (кг):</div>
-          <div>{{rate?.request.cargo_places_paid_weight}}</div>
+
+      </ng-template>
+      <ng-template [ngSwitchCase]="'point'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Оплачиваемый вес (кг):</div>
+            <div>{{rate?.request.cargo_places_paid_weight}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Фактический вес (кг):</div>
+            <div>{{rate?.request.cargo_places_weight}}</div>
+          </div>
         </div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div class="label">Кол-во мест:</div>
-          <div>{{rate?.request.cargo_places_count}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Кол-во мест:</div>
+            <div>{{rate?.request.cargo_places_count}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Объем (м3):</div>
+            <div></div>
+          </div>
         </div>
-        <div class="item">
-          <div class="label">Вес брутто, кг:</div>
-          <div>{{rate?.request.cargo_places_weight}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">График работы (будни):</div>
+            <div></div>
+          </div>
+          <div class="item">
+            <div class="label">График работы (вых.):</div>
+            <div></div>
+          </div>
         </div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div class="label">Свободные места:</div>
-          <div>{{rate?.nearest_flight_text}}</div>
+
+      </ng-template>
+      <ng-template [ngSwitchCase]="'transporter'">
+        <div class="title">Данные по ставке</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Фактический вес (кг):</div>
+            <div>{{rate?.request.cargo_places_weight}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Оплачиваемый вес (кг):</div>
+            <div>{{rate?.request.cargo_places_paid_weight}}</div>
+          </div>
         </div>
-        <div class="item">
-          <div class="label">Дни вылета:</div>
-          <div>{{rate?.departure_schedule_text?.join(', ').toUpperCase()}}</div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Дни вылета:</div>
+            <div>{{rate?.departure_schedule_text?.join(', ').toUpperCase()}}</div>
+          </div>
+          <div class="item">
+            <div class="label">Срок:</div>
+            <div></div>
+          </div>
         </div>
-      </div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Авиалиния:</div>
+            <div></div>
+          </div>
+          <div class="item">
+            <div class="label">Объем (м3):</div>
+            <div></div>
+          </div>
+        </div>
+        <div class="items">
+          <div class="item">
+            <div class="label">Маршрут::</div>
+            <div></div>
+          </div>
+        </div>
+      </ng-template>
     </div>
 
     <div class="third_col">

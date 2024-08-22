@@ -310,28 +310,3 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
 }
-
-//final
-// {column: 'time', items: Array(1)}
-// {column: 'contractor', items: Array(5)}
-// {column: 'route', items: Array(1)}
-// {column: 'period', items: Array(1)}
-// {column: 'rates', items: Array(1)}
-// {column: 'rating', items: Array(2)}
-
-//customs
-// {column: 'time', items: Array(1)}
-// {column: 'contractor', items: Array(7)}
-// {column: 'rating', items: Array(1)}
-// {column: 'nearest_flight', items: Array(1)}
-
-//point
-// {column: 'items', items: Array(3)}
-// {column: 'cost', items: Array(1)}
-// {column: 'notice', items: Array(1)}
-
-//transporter
-// {column: 'items', items: Array(4)}
-// {column: 'cost', items: Array(1)}
-// {column: 'comment', items: Array(1)}
-

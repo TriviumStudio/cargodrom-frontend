@@ -230,3 +230,15 @@ tr.example-detail-row {
     background-color: #606A74;
   }
 }
+
+
+.cost_block{
+  border-bottom: #E0E5EB 1px solid;
+  padding: 40px;
+  .cost{
+    color: #DB563B;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 48px;
+  }
+}
