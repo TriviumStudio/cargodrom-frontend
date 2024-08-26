@@ -2,42 +2,50 @@
 
   <div class="first_row">
 
-    <div class="first_col">
+    <div class="first_col" [ngSwitch]="detailsMethod">
       <ng-content></ng-content>
-      <!-- <div class="cost_block">
-        <div class="cost">{{rate?.total_cost_text}}</div>
-      </div> -->
-      <div class="contractor_block">
-        <div style="display: flex; justify-content: space-between;">
-          <div class="agent_block">
-            <div class="label">Агент авиалинии:</div>
-            <div>{{rate?.carrier_text}}</div>
-            <div class="detailed">Подробнее  ></div>
-          </div>
-          <div class="link_block">
-            <div class="pic msg"></div>
-            <div class="pic phone"></div>
-            <div class="pic mail"></div>
-          </div>
-        </div>
-        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
-          <div class="rating_block">
-            <div class="label">Рейтинг в системе:</div>
-            <div class="stars">
-              <div class="star_sel"></div>
-              <div class="star_no-sel"></div>
+      <ng-template [ngSwitchDefault]>
+        <div class="contractor_block" >
+          <div style="display: flex; justify-content: space-between;">
+            <div class="agent_block">
+              <div class="label">Агент авиалинии:</div>
+              <div>{{rate?.carrier_text}}</div>
+              <div class="detailed">Подробнее  ></div>
             </div>
-            <div>{{rate?.contractor.rating_nps_text}}</div>
-          </div>
-          <div class="pct_block">
-            <div class="label">% выигранных торгов:</div>
-            <div class="flags">
-              <div><span class="red_flag"></span>{{rate?.contractor.trade_fail_count}}</div>
-              <div><span class="green_flag"></span>{{rate?.contractor.trade_success_count}}</div>
+            <div class="link_block">
+              <div class="pic msg"></div>
+              <div class="pic phone"></div>
+              <div class="pic mail"></div>
             </div>
           </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <div class="rating_block">
+              <div class="label">Рейтинг в системе:</div>
+              <div class="stars">
+                <div class="star_sel"></div>
+                <div class="star_no-sel"></div>
+              </div>
+              <div>{{rate?.contractor.rating_nps_text}}</div>
+            </div>
+            <div class="pct_block">
+              <div class="label">% выигранных торгов:</div>
+              <div class="flags">
+                <div><span class="red_flag"></span>{{rate?.contractor.trade_fail_count}}</div>
+                <div><span class="green_flag"></span>{{rate?.contractor.trade_success_count}}</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'point'">
+        <div class="airport_block">
+          <div class="label">Аэропорт:</div>
+          <div class="data">{{rate?.point.name}}</div>
+          <div class="details">?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1</div>
+        </div>
+      </ng-template>
+
     </div>
 
     <div class="second_col" [ngSwitch]="detailsMethod">
@@ -172,7 +180,7 @@
 
     <div class="third_col">
       <div class="title">В ставку включено <span>/ не включено</span></div>
-      <div class="items">
+      <!-- <div class="items">
         <div class="on_block">
           <div *ngFor="let item of rate?.values" class="last-item">
             <div class="item" *ngIf="item.select">
@@ -189,7 +197,14 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="charges">
+        <div *ngFor="let item of rate?.values" class="charge" [ngClass]="item.select?'on':'off'">
+          <div class="name"><span class="pic"></span>{{item.name}}</div>
+          <div class="label">Включено: <span>{{item.cost_text}}</span></div>
+        </div>
       </div>
+
     </div>
 
   </div>
