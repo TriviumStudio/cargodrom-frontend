@@ -11,4 +11,9 @@ export class RateInfoRow {
   @Input() detailsMethod?: any;
   constructor(
   ) { }
+
+  sort(arr:any):any{
+    return arr?.sort((a:any, b:any) => b.select > a.select ? 1 : -1);
+  }
+
 }

@@ -40,11 +40,10 @@
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
     <ng-container *ngFor="let col of columnsData"
       [matColumnDef]="col.column"
-      [ngSwitch]="col.column==='select' || col.column==='checked' || col.column==='details' ? col.column:'' "
-
+      [ngSwitch]="col.column"
     >
       <!-- обычные элементы табл -->
-      <ng-template [ngSwitchCase]="''">
+      <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
           <div class="td-block">
             <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">{{miniCol.title}}</div>
@@ -117,10 +116,11 @@
 
     <!-- РАСШИРЕННАЯ СТРОКА -->
     <ng-container matColumnDef="expandedDetail" >
-      <td  mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
-        <ng-template [ngSwitchDefault] >
-          <div class="example-element-detail"  *ngIf="element===expandedElement">
-            <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo" [detailsMethod]="detailsMethod">
+      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
+
+        <ng-template [ngSwitchDefault]>
+          <div class="example-element-detail" *ngIf="element===expandedElement">
+            <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="detailsMethod">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
@@ -134,8 +134,19 @@
         </ng-template>
 
         <ng-template [ngSwitchCase]="'final'">
-          <div class="example-element-detail" *ngIf="element===expandedElement" >
-            <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo" [detailsMethod]="'customs'">
+          <div class="example-element-detail" *ngIf="element===expandedElement">
+
+            <div class="costs">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum: '165 450 Р' }"></ng-container>
+              ≈
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: '165 450 Р' }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Склад (СВХ):', sum: '165 450 Р' }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: '165 450 Р' }"></ng-container>
+            </div>
+
+            <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="'customs'">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
@@ -145,10 +156,8 @@
               <button class="dub"></button>
               <button class="del"></button>
             </div>
-          </div>
 
-          <div class="example-element-detail" *ngIf="element===expandedElement" >
-            <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo" [detailsMethod]="'point'">
+            <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="'point'">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
@@ -158,10 +167,8 @@
               <button class="dub"></button>
               <button class="del"></button>
             </div>
-          </div>
 
-          <div class="example-element-detail" *ngIf="element===expandedElement" >
-            <app-rate-info-row style="width: 100%" [rate]="expandedElementInfo" [detailsMethod]="'transporter'">
+            <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="'transporter'">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
@@ -173,6 +180,7 @@
             </div>
           </div>
         </ng-template>
+
       </td>
     </ng-container>
 
@@ -210,4 +218,11 @@
     [transportKindId]="currentRequest.transport_kind_id"
     [cityId]="currentRequest.arrival_city_id">
   </app-rate-add-transporter>
+</ng-template>
+
+<ng-template #costRateBox let-label="label" let-sum="sum">
+  <div class="cost">
+    <div class="label">{{label}}</div>
+    <div class="sum">{{sum}}</div>
+  </div>
 </ng-template>

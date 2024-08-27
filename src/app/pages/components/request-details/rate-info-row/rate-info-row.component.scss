@@ -126,8 +126,8 @@
       line-height: 14px;
       .items{
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
+        flex-wrap: wrap;
+        row-gap: 20px;
         .item{
           width: 50%;
         }
