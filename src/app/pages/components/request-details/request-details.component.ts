@@ -275,11 +275,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
   openAddRateDialog(){
-    if(this.detailsMethod==='final') {
-
-    } else if (this.detailsMethod==='customs') {
-
-    } else if (this.detailsMethod==='point') {
+    if (this.detailsMethod==='point') {
       this.openDialogRateAddPoint();
     } else {
       this.openDialogRateAddTransporter();
@@ -298,6 +294,16 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   openDialogRateAddTransporter(): void {
     if (!this.rateAddTransporterDialogRef) { return }
     this.matDialog.open(this.rateAddTransporterDialogRef)
+      .afterClosed()
+      .subscribe(res => {
+        if (res) { console.log('matdialog', res);
+        }
+    });
+  }
+
+  openDialogRateEditTransporter(): void {
+    if (!this.rateAddTransporterDialogRef) { return }
+    this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElementInfo})
       .afterClosed()
       .subscribe(res => {
         if (res) { console.log('matdialog', res);

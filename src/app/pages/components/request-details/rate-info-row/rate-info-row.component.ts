@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-rate-info-row',
@@ -9,11 +10,11 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 export class RateInfoRow {
   @Input() rate?: any;
   @Input() detailsMethod?: any;
+
   constructor(
-  ) { }
+  ) {}
 
   sort(arr:any):any{
     return arr?.sort((a:any, b:any) => b.select > a.select ? 1 : -1);
   }
-
 }

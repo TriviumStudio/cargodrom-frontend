@@ -18,6 +18,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   @Input() requestId?:number;
   @Input() transportKindId?:number;
   @Input() cityId?:number;
+  @Input() rate?:any;
+
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -52,30 +54,47 @@ export class RateAddTransporter implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
+    if(this.rate){
+      console.log('this edit mode', this.rate);
+
+    }
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-    this.chargesShema.forEach((i:any)=>{
-      this.charges.push(this.fb.group({
-        comment: [,[]],
-        cost: [,[]],
-        field: [i.field_name,[]],
-        fix: [,[]],
-        min: [,[]],
-        price: [,[]],
-        select: [i.status,[]],
-        value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
-      }));
-      this.rateForm.markAsTouched();
-    });
+    // this.chargesShema.forEach((i:any)=>{
+    //   this.charges.push(this.fb.group({
+    //     comment: [,[]],
+    //     cost: [,[]],
+    //     field: [i.field_name,[]],
+    //     fix: [,[]],
+    //     min: [,[]],
+    //     price: [,[]],
+    //     select: [i.status,[]],
+    //     value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
+    //   }));
+    //   this.rateForm.markAsTouched();
+    // });
     this.rateForm.patchValue({request_id: this.requestId});
+    this.rateForm.patchValue(this.rate);
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
 
-  // Charges
+   // Charges
+  addCharge() {
+    this.charges.push(this.fb.group({
+      kind_id: [,[]],
+      departure_city_id: [,[]],
+      arrival_city_id: [,[]],
+      days_min: [,[]],
+      days_max: [,[]],
+      amount: [,[]],
+      comment: [,[]],
+    }));
+    this.rateForm.markAsTouched();
+  }
   get charges() {
     return <FormArray>this.rateForm.get('values');
   }

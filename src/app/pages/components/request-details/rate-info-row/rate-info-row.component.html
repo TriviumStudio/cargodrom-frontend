@@ -3,7 +3,7 @@
   <div class="first_row">
 
     <div class="first_col" [ngSwitch]="detailsMethod">
-      <ng-content></ng-content>
+      <ng-content select="[test1]"></ng-content>
       <ng-template [ngSwitchDefault]>
         <div class="contractor_block" >
           <div style="display: flex; justify-content: space-between;">
@@ -99,6 +99,8 @@
           <div class="label">{{item.select?'Включено:':'Не включено'}} <span *ngIf="item.select">{{item.cost_text}}</span></div>
         </div>
       </div>
+
+      <ng-content select="[test2]"></ng-content>
     </div>
 
   </div>
@@ -112,6 +114,12 @@
     </div>
   </div>
 
+  <!-- <div class="action-bar">
+    <button class="edit"></button>
+    <button class="dub"></button>
+    <button class="del"></button>
+  </div> -->
+
 </div>
 
 <ng-template #rateDataItem let-label="label" let-data="data">
@@ -120,4 +128,5 @@
     <div>{{data}}</div>
   </div>
 </ng-template>
+
 

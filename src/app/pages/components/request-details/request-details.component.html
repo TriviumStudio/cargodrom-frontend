@@ -121,15 +121,16 @@
         <ng-template [ngSwitchDefault]>
           <div class="example-element-detail" *ngIf="element===expandedElement">
             <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="detailsMethod">
-              <div class="cost_block">
+              <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openDialogRateEditTransporter()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
+              </div>
             </app-rate-info-row>
-            <div class="action-bar">
-              <button class="edit"></button>
-              <button class="dub"></button>
-              <button class="del"></button>
-            </div>
           </div>
         </ng-template>
 
@@ -151,33 +152,19 @@
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
             </app-rate-info-row>
-            <div class="action-bar">
-              <button class="edit"></button>
-              <button class="dub"></button>
-              <button class="del"></button>
-            </div>
 
             <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="'point'">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
             </app-rate-info-row>
-            <div class="action-bar">
-              <button class="edit"></button>
-              <button class="dub"></button>
-              <button class="del"></button>
-            </div>
 
             <app-rate-info-row [rate]="expandedElementInfo" [detailsMethod]="'transporter'">
               <div class="cost_block">
                 <div class="cost">{{expandedElementInfo?.total_cost_text}}</div>
               </div>
             </app-rate-info-row>
-            <div class="action-bar">
-              <button class="edit"></button>
-              <button class="dub"></button>
-              <button class="del"></button>
-            </div>
+
           </div>
         </ng-template>
 
@@ -212,6 +199,7 @@
 
 <ng-template #rateAddTransporterDialogRef let-data>
   <app-rate-add-transporter
+    [rate]="data"
     [chargesShema]="schemaCharges"
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
