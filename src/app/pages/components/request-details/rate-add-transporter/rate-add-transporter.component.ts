@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatTable } from '@angular/material/table';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
@@ -30,6 +31,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
+  @ViewChild(MatTable) table?: MatTable<any>;
+
   constructor(
     private fb: FormBuilder,
     private transportService: TransportService,
@@ -46,8 +49,6 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
-      days_min:[,[]],
-      days_max:[,[]],
       values: fb.array([], []),
     });
   }
@@ -76,6 +77,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     // });
     this.rateForm.patchValue({request_id: this.requestId});
     this.rateForm.patchValue(this.rate);
+    // this.addCharge();
+    // this.addCharge()
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
@@ -94,6 +97,9 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       comment: [,[]],
     }));
     this.rateForm.markAsTouched();
+    console.log(this.charges);
+    this.table?.renderRows();
+
   }
   get charges() {
     return <FormArray>this.rateForm.get('values');
