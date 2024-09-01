@@ -1341,7 +1341,7 @@ export class TransportService extends BaseService {
     params?: {
 
     /**
-     * Направление
+     * Направление (arrival,departure)
      */
       direction?: string;
     },
@@ -1398,7 +1398,7 @@ export class TransportService extends BaseService {
     params?: {
 
     /**
-     * Направление
+     * Направление (arrival,departure)
      */
       direction?: string;
     },

@@ -27,6 +27,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   contractorList:any=[];
   pointList:any=[];
   pointActionList:any=[];
+  transportKinds:any=[];
+  directionCitys:any=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -57,35 +59,39 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   ngOnInit(): void {
     if(this.rate){
       console.log('this edit mode', this.rate);
+      this.rate.values.forEach((i:any)=>{
+        this.charges.push(this.fb.group({
+          kind_id: [i.kind_id,[]],
+          departure_city_id: [i.departure_city_id,[]],
+          arrival_city_id: [i.arrival_city_id,[]],
+          days_min: [i.days_min,[]],
+          days_max: [i.days_max,[]],
+          amount: [i.amount,[]],
+          comment: [i.comment,[]],
+        }));
+        // this.rateForm.markAsTouched();
+      });
+      this.calckRateCost();
 
     }
+    this.getTransportKind();
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-    // this.chargesShema.forEach((i:any)=>{
-    //   this.charges.push(this.fb.group({
-    //     comment: [,[]],
-    //     cost: [,[]],
-    //     field: [i.field_name,[]],
-    //     fix: [,[]],
-    //     min: [,[]],
-    //     price: [,[]],
-    //     select: [i.status,[]],
-    //     value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
-    //   }));
-    //   this.rateForm.markAsTouched();
-    // });
+    this.getDirectionCity();
+
     this.rateForm.patchValue({request_id: this.requestId});
     this.rateForm.patchValue(this.rate);
-    // this.addCharge();
-    // this.addCharge()
+    if(this.charges.length===0){
+      this.addCharge();
+    }
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
 
-   // Charges
+  // Charges
   addCharge() {
     this.charges.push(this.fb.group({
       kind_id: [,[]],
@@ -96,29 +102,31 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       amount: [,[]],
       comment: [,[]],
     }));
-    this.rateForm.markAsTouched();
-    console.log(this.charges);
+    // this.rateForm.markAsTouched();
+    // console.log(this.charges);
+    this.calckRateCost();
     this.table?.renderRows();
-
+  }
+  removeCharge(i: number): void {
+    if(this.charges.length>1){
+      this.charges.removeAt(i);
+      this.table?.renderRows();
+      // this.requestForm.markAsTouched();
+      this.calckRateCost();
+    }
   }
   get charges() {
     return <FormArray>this.rateForm.get('values');
   }
-  calckChargeCost(control:any){
-    control.patchValue({cost: control.value.price * control.value.value});
-    this.calckRateCost();
-  }
+
   calckRateCost(){
     let cost:number=0;
     this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost + v.cost
+      cost=cost + v.amount
     });
     this.rateForm.patchValue({ cost:cost });
   }
-  calckCommentChargePrice(control:any){
-    control.patchValue({price: control.value.cost/1});
-    this.calckRateCost();
-  }
+
 
   private getContractor():void{
     this.contractorService.contractorList()
@@ -180,6 +188,48 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       .subscribe({
         next: (poinst) => {
           this.pointActionList=poinst
+
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  private getTransportKind():void{
+    this.transportService.transportKind()
+      .pipe(
+        tap(kinds => {
+          if (!kinds) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (kinds) => {
+          this.transportKinds=kinds
+
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  private getDirectionCity():void{
+    this.directionService.directionCity()
+      .pipe(
+        tap(citys => {
+          if (!citys) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (citys) => {
+          this.directionCitys=citys
 
         },
         error: (err) => {
