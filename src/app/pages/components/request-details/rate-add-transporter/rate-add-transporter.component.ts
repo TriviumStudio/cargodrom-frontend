@@ -45,6 +45,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
+      id:[,[]],
       cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
@@ -57,35 +58,33 @@ export class RateAddTransporter implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
-    if(this.rate){
-      console.log('this edit mode', this.rate);
-      this.rate.values.forEach((i:any)=>{
-        this.charges.push(this.fb.group({
-          kind_id: [i.kind_id,[]],
-          departure_city_id: [i.departure_city_id,[]],
-          arrival_city_id: [i.arrival_city_id,[]],
-          days_min: [i.days_min,[]],
-          days_max: [i.days_max,[]],
-          amount: [i.amount,[]],
-          comment: [i.comment,[]],
-        }));
-        // this.rateForm.markAsTouched();
-      });
-      this.calckRateCost();
-
-    }
     this.getTransportKind();
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
     this.getDirectionCity();
-
-    this.rateForm.patchValue({request_id: this.requestId});
-    this.rateForm.patchValue(this.rate);
-    if(this.charges.length===0){
+    if(this.rate){
+      console.log('this edit mode', this.rate);
+      this.rate.values.forEach((i:any)=>{
+        // this.charges.push(this.fb.group({
+        //   kind_id: [i.kind_id,[]],
+        //   departure_city_id: [i.departure_city_id,[]],
+        //   arrival_city_id: [i.arrival_city_id,[]],
+        //   days_min: [i.days_min,[]],
+        //   days_max: [i.days_max,[]],
+        //   amount: [i.amount,[]],
+        //   comment: [i.comment,[]],
+        // }));
+        this.addCharge()
+      });
+      this.rateForm.patchValue(this.rate);
+      // this.calckRateCost();
+    } else{
       this.addCharge();
     }
+    // this.rateForm.patchValue({request_id: this.requestId});
   }
+
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
@@ -102,29 +101,35 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       amount: [,[]],
       comment: [,[]],
     }));
-    // this.rateForm.markAsTouched();
-    // console.log(this.charges);
-    this.calckRateCost();
     this.table?.renderRows();
+    // this.calckRateCost();
   }
+
   removeCharge(i: number): void {
     if(this.charges.length>1){
       this.charges.removeAt(i);
       this.table?.renderRows();
       // this.requestForm.markAsTouched();
-      this.calckRateCost();
+      // this.calckRateCost();
     }
   }
   get charges() {
     return <FormArray>this.rateForm.get('values');
   }
 
+  // calckRateCost(){
+  //   let cost:number=0;
+  //   this.rateForm.value.values.forEach((v:any)=>{
+  //     cost=cost + v.amount
+  //   });
+  //   this.rateForm.patchValue({ cost:cost });
+  // }
   calckRateCost(){
     let cost:number=0;
     this.rateForm.value.values.forEach((v:any)=>{
       cost=cost + v.amount
     });
-    this.rateForm.patchValue({ cost:cost });
+    return cost
   }
 
 

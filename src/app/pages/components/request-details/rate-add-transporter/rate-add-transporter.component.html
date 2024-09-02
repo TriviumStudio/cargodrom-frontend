@@ -120,7 +120,8 @@
       <div class="form-item" style="margin-bottom: 20px; width: 100px;">
         <div class="form-label">Сумма:</div>
         <div class="form-data">
-          <input type="number" formControlName="cost" readonly>
+          <!-- <input type="number" formControlName="cost" readonly> -->
+          <input type="number" [value]="calckRateCost()" readonly>
         </div>
       </div>
 

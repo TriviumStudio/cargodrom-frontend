@@ -145,53 +145,72 @@
       font-weight: 400;
       line-height: 14px;
 
-      .items{
+      .paths{
         display: flex;
-        justify-content: space-between;
-        .label{
-          margin: 10px 0 0 0;
-          span{
-            font-weight: 700;
-            color: #4B66AD;
-            width: fit-content;
-          }
-        }
-        .item{
-          margin-bottom: 20px;
-          .name{
-            display: flex;
-          }
-        }
-
-        .on_block{
-          width: 50%;
-          .pic{
-            margin-right: 10px;
-            display: block;
-            width: 12px;
-            height: 12px;
-            background-image: url(../../../../../assets/pic-tick-in-ring.svg);
-          }
-          .last-item:last-child .item{
-            margin-bottom: 0;
-          }
-
-        }
-        .off_block{
-          width: 50%;
-          color: #606A74;
-          .pic{
-            margin-right: 10px;
-            display: block;
-            width: 12px;
-            height: 12px;
-            background-image: url(../../../../../assets/pic-cross-in-ring.svg);
-          }
-          .last-item:last-child .item{
-            margin-bottom: 0;
-          }
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 14px;
+        margin-bottom: 20px;
+        div{
+          width: 10%;
         }
       }
+
+      .paths.head{
+        color: #606A74;
+        font-size: 13px;
+        line-height: 12px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      // .items{
+      //   display: flex;
+      //   justify-content: space-between;
+      //   .label{
+      //     margin: 10px 0 0 0;
+      //     span{
+      //       font-weight: 700;
+      //       color: #4B66AD;
+      //       width: fit-content;
+      //     }
+      //   }
+      //   .item{
+      //     margin-bottom: 20px;
+      //     .name{
+      //       display: flex;
+      //     }
+      //   }
+
+      //   .on_block{
+      //     width: 50%;
+      //     .pic{
+      //       margin-right: 10px;
+      //       display: block;
+      //       width: 12px;
+      //       height: 12px;
+      //       background-image: url(../../../../../assets/pic-tick-in-ring.svg);
+      //     }
+      //     .last-item:last-child .item{
+      //       margin-bottom: 0;
+      //     }
+
+      //   }
+      //   .off_block{
+      //     width: 50%;
+      //     color: #606A74;
+      //     .pic{
+      //       margin-right: 10px;
+      //       display: block;
+      //       width: 12px;
+      //       height: 12px;
+      //       background-image: url(../../../../../assets/pic-cross-in-ring.svg);
+      //     }
+      //     .last-item:last-child .item{
+      //       margin-bottom: 0;
+      //     }
+      //   }
+      // }
 
       .charges{
         display: flex;

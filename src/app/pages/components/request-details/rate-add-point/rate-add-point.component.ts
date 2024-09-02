@@ -18,6 +18,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
   @Input() requestId?:number;
   @Input() transportKindId?:number;
   @Input() cityId?:number;
+  @Input() rate?:any;
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -38,6 +39,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
+      id:[,[]],
       cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
@@ -66,6 +68,10 @@ export class RateAddPoint implements OnInit, OnDestroy {
       }));
       this.rateForm.markAsTouched();
     });
+    if(this.rate){
+      console.log('this edit mode', this.rate);
+      this.rateForm.patchValue(this.rate);
+    }
     this.rateForm.patchValue({request_id: this.requestId});
   }
   ngOnDestroy(): void {

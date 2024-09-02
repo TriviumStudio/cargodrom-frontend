@@ -106,71 +106,71 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     return this.requestService.requestSaveBidding({body})
   }
 
-  onRateInfoChange(request_id:number,rate_id:number){
-    if(this.detailsMethod==='final') {
-      this.getRequestFinalInfo(request_id,rate_id)
-    } else if (this.detailsMethod==='customs') {
-      this.getRequestCustomsInfo(request_id,rate_id)
-    } else if (this.detailsMethod==='point') {
-      this.getRequestPointInfo(request_id,rate_id)
-    } else {
-      this.getRequestTransporterInfo(request_id,rate_id)
-    }
-  }
-  getRequestFinalInfo(request_id:number,rate_id:number){
-    this.requestService.requestRateFinalInfo({id:rate_id, request_id:request_id})
-      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-      .subscribe({
-        next: (info) =>{
-          this.expandedElementInfo=info;
+  // onRateInfoChange(request_id:number,rate_id:number){
+  //   if(this.detailsMethod==='final') {
+  //     this.getRequestFinalInfo(request_id,rate_id)
+  //   } else if (this.detailsMethod==='customs') {
+  //     this.getRequestCustomsInfo(request_id,rate_id)
+  //   } else if (this.detailsMethod==='point') {
+  //     this.getRequestPointInfo(request_id,rate_id)
+  //   } else {
+  //     this.getRequestTransporterInfo(request_id,rate_id)
+  //   }
+  // }
+  // getRequestFinalInfo(request_id:number,rate_id:number){
+  //   this.requestService.requestRateFinalInfo({id:rate_id, request_id:request_id})
+  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (info) =>{
+  //         this.expandedElementInfo=info;
 
-          console.log(info);
-        },
-        error:(err)=>{
+  //         console.log(info);
+  //       },
+  //       error:(err)=>{
 
-        }
-      })
-  }
-  getRequestCustomsInfo(request_id:number,rate_id:number){
-    this.requestService.requestRateCustomsInfo({id:rate_id, request_id:request_id})
-      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-      .subscribe({
-        next: (info) =>{
-          this.expandedElementInfo=info;
+  //       }
+  //     })
+  // }
+  // getRequestCustomsInfo(request_id:number,rate_id:number){
+  //   this.requestService.requestRateCustomsInfo({id:rate_id, request_id:request_id})
+  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (info) =>{
+  //         this.expandedElementInfo=info;
 
-          console.log('requestRateCustomsInfo',info);
-        },
-        error:(err)=>{
+  //         console.log('requestRateCustomsInfo',info);
+  //       },
+  //       error:(err)=>{
 
-        }
-      })
-  }
-  getRequestPointInfo(request_id:number,rate_id:number){
-    this.requestService.requestRatePointInfo({id:rate_id, request_id:request_id})
-      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-      .subscribe({
-        next: (info) =>{
-          this.expandedElementInfo=info;
+  //       }
+  //     })
+  // }
+  // getRequestPointInfo(request_id:number,rate_id:number){
+  //   this.requestService.requestRatePointInfo({id:rate_id, request_id:request_id})
+  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (info) =>{
+  //         this.expandedElementInfo=info;
 
-          console.log(info);
-        },
-        error:(err)=>{
-        }
-      })
-  }
-  getRequestTransporterInfo(request_id:number,rate_id:number){
-    this.requestService.requestRateTransporterInfo({id:rate_id, request_id:request_id})
-      .pipe(tap((info)=>{}),takeUntil(this.destroy$))
-      .subscribe({
-        next: (info) =>{
-          this.expandedElementInfo=info;
+  //         console.log(info);
+  //       },
+  //       error:(err)=>{
+  //       }
+  //     })
+  // }
+  // getRequestTransporterInfo(request_id:number,rate_id:number){
+  //   this.requestService.requestRateTransporterInfo({id:rate_id, request_id:request_id})
+  //     .pipe(tap((info)=>{}),takeUntil(this.destroy$))
+  //     .subscribe({
+  //       next: (info) =>{
+  //         this.expandedElementInfo=info;
 
-          console.log(info);
-        },
-        error:(err)=>{
-        }
-      })
-  }
+  //         console.log(info);
+  //       },
+  //       error:(err)=>{
+  //       }
+  //     })
+  // }
   getSpecializationClass(n:number){
     let classSpec='';
     if(n===1)classSpec='avia';
@@ -301,9 +301,27 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     });
   }
 
+  openEditRateDialog(){
+    if (this.detailsMethod==='point') {
+      this.openDialogRateEditPoint();
+    } else {
+      this.openDialogRateEditTransporter();
+    }
+  }
+
   openDialogRateEditTransporter(): void {
     if (!this.rateAddTransporterDialogRef) { return }
-    this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElementInfo})
+    this.matDialog.open(this.rateAddTransporterDialogRef,{data: this.expandedElement})
+      .afterClosed()
+      .subscribe(res => {
+        if (res) { console.log('matdialog', res);
+        }
+    });
+  }
+
+  openDialogRateEditPoint(): void {
+    if (!this.rateAddPointDialogRef) { return }
+    this.matDialog.open(this.rateAddPointDialogRef,{data: this.expandedElement})
       .afterClosed()
       .subscribe(res => {
         if (res) { console.log('matdialog', res);
