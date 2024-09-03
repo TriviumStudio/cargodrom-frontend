@@ -79,6 +79,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       });
       this.rateForm.patchValue(this.rate);
       // this.calckRateCost();
+      // this.table?.renderRows();
     } else{
       this.addCharge();
     }
@@ -101,11 +102,17 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       amount: [,[]],
       comment: [,[]],
     }));
-    this.table?.renderRows();
+    // this.table?.renderRows();
     // this.calckRateCost();
   }
 
+  renderRows(){
+    this.table?.renderRows();
+  }
+
   removeCharge(i: number): void {
+    console.log(this.charges);
+
     if(this.charges.length>1){
       this.charges.removeAt(i);
       this.table?.renderRows();

@@ -14,7 +14,7 @@
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
 
-        <button (click)="addCharge()" class="btn-add-rate">
+        <button (click)="addCharge()" (click)="renderRows()" class="btn-add-rate">
           <span class="icon-btn-save-rates"></span>
           Добавить ставку
         </button>

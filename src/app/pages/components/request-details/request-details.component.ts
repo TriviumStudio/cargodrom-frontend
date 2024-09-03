@@ -181,7 +181,45 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
   onSwitcherChange(e:any){
-    console.log(e);
+    if (this.detailsMethod==='customs') {
+    } else if (this.detailsMethod==='point') {
+      this.ratePointSelectedChange(e)
+    } else {
+      this.rateTransporterSelectedChange(e)
+    }
+  }
+
+  rateTransporterSelectedChange(e:any){
+    this.requestService.requestRateTransporterSave({body:e})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  ratePointSelectedChange(e:any){
+    this.requestService.requestRatePointSave({body:e})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
 
   editRequestNav(){

@@ -85,7 +85,8 @@
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <div class="td-block">
             <label class="switch outer" *ngIf="col.column==='checked'">
-              <input type="checkbox"  [value]="item.selected" (change)="onSwitcherChange(item.selected)" (change)="item.selected=!item.selected" >
+              <!-- (change)="item.selected=!item.selected"  (change)="onSwitcherChange(item.selected, item.id)"  -->
+              <input type="checkbox"  [checked]="item.selected" (change)="item.selected=!item.selected; onSwitcherChange(item)" >
               <div class="switcher">
                 <span class="bg"></span>
                 <span class="thumb"></span>
@@ -102,7 +103,6 @@
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <div class="td-block"
             style="cursor: pointer;"
-
             (click)="(expandedElement = expandedElement === item ? null : item);
             $event.stopPropagation();">
             <div class="column">
