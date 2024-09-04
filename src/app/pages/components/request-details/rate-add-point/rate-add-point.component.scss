@@ -3,6 +3,11 @@
   // height: 80vh;
   // overflow-y: auto;
   margin: 0 auto;
+  max-height: 95vh;
+  // overflow-y: auto;
+
+  overflow-y: auto;
+  height: fit-content;
 }
 .charges-block{
   display: flex;

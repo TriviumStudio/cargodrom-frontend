@@ -106,6 +106,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     return this.requestService.requestSaveBidding({body})
   }
 
+
   // onRateInfoChange(request_id:number,rate_id:number){
   //   if(this.detailsMethod==='final') {
   //     this.getRequestFinalInfo(request_id,rate_id)
@@ -171,6 +172,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   //       }
   //     })
   // }
+
+
   getSpecializationClass(n:number){
     let classSpec='';
     if(n===1)classSpec='avia';
@@ -181,16 +184,26 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
   onSwitcherChange(e:any){
+    const body:any={id:e.id, selected:e.selected};
     if (this.detailsMethod==='customs') {
+      this.rateСustomsSelectedChange(body)
     } else if (this.detailsMethod==='point') {
-      this.ratePointSelectedChange(e)
+      this.ratePointSelectedChange(body)
     } else {
-      this.rateTransporterSelectedChange(e)
+      this.rateTransporterSelectedChange(body)
+      // this.prikol(this.requestService.requestRateTransporterSave({body:body}))
     }
   }
 
-  rateTransporterSelectedChange(e:any){
-    this.requestService.requestRateTransporterSave({body:e})
+  // prikol(i:any){
+  //   i.pipe(
+  //     takeUntil(this.destroy$),
+  //   )
+  //   .subscribe();
+  // }
+
+  rateСustomsSelectedChange(body:any){
+    this.requestService.requestRateCustomsSave({body:body})
       .pipe(
         tap(contractor => {
           console.log(contractor);
@@ -205,8 +218,25 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         }
       });
   }
-  ratePointSelectedChange(e:any){
-    this.requestService.requestRatePointSave({body:e})
+
+  rateTransporterSelectedChange(body:any){
+    this.requestService.requestRateTransporterSave({body:body})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  ratePointSelectedChange(body:any){
+    this.requestService.requestRatePointSave({body:body})
       .pipe(
         tap(contractor => {
           console.log(contractor);
@@ -228,12 +258,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
 
   dubCurRequest(){
     console.log(this.currentRequest);
-
     this.requestService.requestCreate({body:this.currentRequest})
       .pipe(
         tap((e)=>{
           console.log(e);
-
         }),
         takeUntil(this.destroy$)
       ).subscribe();
@@ -252,15 +280,15 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     })
     return isCheck;
   }
+
   updateArrDetailsCheckedCheck(contractor_id:number,{ checked }: MatCheckboxChange){
     if(checked){
       this.arrDetailsCheckedCheck.push(contractor_id)
-
     } else {
       this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== contractor_id)
-
     }
   }
+
   isAllDetailsCheckedCheck(){
     let arrIdRows:number[]=[];
     let arrIdRowsCheck:number[]=[];
@@ -292,7 +320,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         }
       });
     });
-    return arrIdRows.length>arrIdRowsCheck.length && arrIdRowsCheck.length>0;
+    return arrIdRows.length>arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
   }
 
   updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange){
@@ -362,13 +390,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.matDialog.open(this.rateAddPointDialogRef,{data: this.expandedElement})
       .afterClosed()
       .subscribe(res => {
-        if (res) { console.log('matdialog', res);
-        }
-    });
+        console.log('matdialog', res);
+      });
   }
 
   testDialogClose(){
     this.matDialog.closeAll()
   }
-
 }

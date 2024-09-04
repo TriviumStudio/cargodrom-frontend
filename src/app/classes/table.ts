@@ -50,7 +50,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   rows: T[] = [];
   total = 0;
   start = 0;
-  limits = [2, 10, 25, 50, 100];
+  limits = [10, 25, 50, 100];
   count = this.limits[0];
   abstract sortField: keyof T | A;
   readonly nameField?: keyof T | A;
