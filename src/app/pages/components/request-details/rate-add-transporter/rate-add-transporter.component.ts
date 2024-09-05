@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { from, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
 
@@ -111,8 +111,6 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   }
 
   removeCharge(i: number): void {
-    console.log(this.charges);
-
     if(this.charges.length>1){
       this.charges.removeAt(i);
       this.table?.renderRows();
