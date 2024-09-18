@@ -370,7 +370,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   openEditRateDialog(){
     if (this.detailsMethod==='point') {
       this.openDialogRateEditPoint();
-    } else {
+    } else if (this.detailsMethod==='transporter') {
       this.openDialogRateEditTransporter();
     }
   }

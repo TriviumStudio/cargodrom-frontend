@@ -148,20 +148,38 @@
             </div>
 
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'customs'">
-              <div class="cost_block">
+              <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openEditRateDialog()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
               </div>
             </app-rate-info-row>
 
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'point'">
-              <div class="cost_block">
+              <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openDialogRateEditPoint()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
               </div>
             </app-rate-info-row>
 
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'transporter'">
-              <div class="cost_block">
+              <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
+              </div>
+
+              <div test2 class="action-bar" >
+                <button class="edit" (click)="openDialogRateEditTransporter()"></button>
+                <button class="dub"></button>
+                <button class="del"></button>
               </div>
             </app-rate-info-row>
 
