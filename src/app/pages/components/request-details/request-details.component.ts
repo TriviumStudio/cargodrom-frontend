@@ -343,7 +343,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   openAddRateDialog(){
     if (this.detailsMethod==='point') {
       this.openDialogRateAddPoint();
-    } else {
+    } else if(this.detailsMethod==='transporter') {
       this.openDialogRateAddTransporter();
     }
   }
