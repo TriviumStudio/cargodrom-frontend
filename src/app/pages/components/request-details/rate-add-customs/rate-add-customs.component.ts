@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
+import { formatDate } from '@angular/common';
 import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
 
 @Component({
@@ -29,6 +30,126 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
+  daysOfTheWeek=[
+    { day:'Monday', id:1 },
+    { day:'Tuesday', id:2 },
+    { day:'Wednesday', id:3 },
+    { day:'Thursday', id:4 },
+    { day:'Friday', id:5 },
+    { day:'Saturday', id:6 },
+    { day:'Sunday', id:7 },
+  ]
+
+  chargesModel:any=[
+    {
+        "field_name": "freight",
+        "name": "Airfreight rate",
+        "title": "Тариф авиаперевозкиbbb",
+        "unit": "kg",
+        "field_min": true,
+        "field_fix": false,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "handling",
+        "name": "Handling charge",
+        "title": "Сборы за обработку",
+        "unit": "kg",
+        "field_min": true,
+        "field_fix": false,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "terminal",
+        "name": "Terminal charge",
+        "title": "Терминальные сборы",
+        "unit": "kg",
+        "field_min": true,
+        "field_fix": false,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "custom",
+        "name": "Custom clearance",
+        "title": "Таможенное оформление",
+        "unit": "bill",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "document",
+        "name": "Doc & ENS/AMS",
+        "title": "Документы и ENS/AMS",
+        "unit": "AWB",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "pickup",
+        "name": "Pick-up Charge",
+        "title": "Плата за забор",
+        "unit": "kg",
+        "field_min": false,
+        "field_fix": true,
+        "field_comment": false,
+        "status": true,
+        "requare": true
+    },
+    {
+        "field_name": "export_license",
+        "name": "Export License",
+        "title": "Экспортная лицензия",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": false,
+        "status": false,
+        "requare": false
+    },
+    {
+        "field_name": "dgm_test",
+        "name": "DGM Test",
+        "title": "Китайский паспорт безопасности",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": false,
+        "status": false,
+        "requare": false
+    },
+    {
+        "field_name": "magnetic_test",
+        "name": "Magnetic Test",
+        "title": "Магнитный тест",
+        "note": "If needed",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": false,
+        "status": false,
+        "requare": false
+    },
+    {
+        "field_name": "other",
+        "name": "Other Charges",
+        "title": "Другие расходы",
+        "field_min": false,
+        "field_fix": false,
+        "field_comment": true,
+        "status": false,
+        "requare": false
+    }
+ ]
+
   constructor(
     private fb: FormBuilder,
     private transportService: TransportService,
@@ -47,6 +168,8 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       point_action_id: [,[]],
       comment: [,[]],
       values: fb.array([], []),
+      departure_schedule: [,[]],
+      nearest_flight: [,[]],
     });
   }
 
@@ -55,8 +178,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.getContractor();
     this.getArrivalPoinst();
     this.getPointAction();
-    this.chargesShema.forEach((i:any)=>{
+    // this.chargesShema.forEach((i:any)=>{
+      this.chargesModel.forEach((i:any)=>{
       this.charges.push(this.fb.group({
+
         comment: [,[]],
         cost: [,[]],
         field: [i.field_name,[]],
@@ -185,5 +310,47 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
+  }
+
+  // Datepicker multy
+  returnSelectDateText(){
+    let text='';
+    let dateOnj:any=[];
+    this.rateForm.value.nearest_flight?.forEach((e:any)=>{
+      const date = new Date(e);
+      const dateTest ={
+        day: date.toLocaleString('en-US', { day: 'numeric' }),
+        mount: date.toLocaleString('en-US', { month: 'short' }),
+        date: e,
+      }
+      dateOnj?.push(dateTest);
+    })
+    const sortedArray=dateOnj.sort((a:any, b:any) => new Date(a.date) > new Date(b.date)? 1 : -1);
+    sortedArray?.forEach((i:any,index:number)=>{
+      let ind=index+1;
+      if(sortedArray[ind]?.mount===i.mount){
+        text= text + i.day + ',';
+      } else {
+        text= text + i.day + ' ' + i.mount + (sortedArray.length==ind?'':', ');
+      }
+    });
+    return text;
+  }
+  isSelectedDate = (event: any) => {
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
+    return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
+  }
+  selectDate(event: any, calendar: any) {
+    console.log(event,calendar);
+
+    const date=formatDate(event,'yyyy-MM-dd','en-US');
+    if(this.rateForm.value.nearest_flight===null) this.rateForm.value.nearest_flight=[];
+    const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
+    if (index < 0) {
+      this.rateForm.value.nearest_flight.push(date);
+    } else {
+      this.rateForm.value.nearest_flight.splice(index, 1);
+    }
+    calendar.updateTodaysDate();
   }
 }

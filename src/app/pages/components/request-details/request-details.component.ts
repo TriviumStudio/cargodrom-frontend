@@ -42,12 +42,13 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   expandedElement: any | null;
   expandedElementInfo: any | null;
   arrDetailsCheckedCheck:number[]=[];
-  testswi=true
+  // testswi=true
   params:any;
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
-  @ViewChild('rateAddPointDialogRef') rateAddPointDialogRef?: TemplateRef<void>;
-  @ViewChild('rateAddTransporterDialogRef') rateAddTransporterDialogRef?: TemplateRef<void>;
+  @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
+  @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
+  @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
 
   constructor(
     private contractorService: ContractorService,
@@ -340,27 +341,42 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     }
   }
 
-  openAddRateDialog(){
-    if (this.detailsMethod==='point') this.openPointRateCreater();
-    if (this.detailsMethod==='transporter') this.openTransporterRateCreater();
+  openRateEditor(data?:any){
+    if (this.detailsMethod==='point') this.openPointRateEditor(data);
+    if (this.detailsMethod==='transporter') this.openTransporterRateEditor(data);
+    if (this.detailsMethod==='customs') this.openCustomsRateEditor(data);
   }
-  openTransporterRateCreater(): void {
-    this.matDialog.open(this.rateAddTransporterDialogRef!)
+  openTransporterRateEditor(data?:any): void {
+    this.matDialog.open(this.rateTransporterDialogRef!,{data: data})
   }
-  openPointRateCreater(): void {
-    this.matDialog.open(this.rateAddPointDialogRef!)
+  openPointRateEditor(data?:any): void {
+    this.matDialog.open(this.ratePointDialogRef!,{data: data})
+  }
+  openCustomsRateEditor(data?:any): void {
+    this.matDialog.open(this.rateСustomsDialogRef!,{data: data})
   }
 
-  openEditRateDialog(){
-    if (this.detailsMethod==='point') this.openPointRateEditor();
-    if (this.detailsMethod==='transporter') this.openTransporterRateEditor();
-  }
-  openTransporterRateEditor(): void {
-    this.matDialog.open(this.rateAddTransporterDialogRef!,{data: this.expandedElement})
-  }
-  openPointRateEditor(): void {
-    this.matDialog.open(this.rateAddPointDialogRef!,{data: this.expandedElement})
-  }
+  // openAddRateDialog(){
+  //   if (this.detailsMethod==='point') this.openPointRateCreater();
+  //   if (this.detailsMethod==='transporter') this.openTransporterRateCreater();
+  // }
+  // openTransporterRateCreater(): void {
+  //   this.matDialog.open(this.rateAddTransporterDialogRef!)
+  // }
+  // openPointRateCreater(): void {
+  //   this.matDialog.open(this.rateAddPointDialogRef!)
+  // }
+
+  // openEditRateDialog(){
+  //   if (this.detailsMethod==='point') this.openPointRateEditor();
+  //   if (this.detailsMethod==='transporter') this.openTransporterRateEditor();
+  // }
+  // openTransporterRateEditor(): void {
+  //   this.matDialog.open(this.rateAddTransporterDialogRef!,{data: this.expandedElement})
+  // }
+  // openPointRateEditor(): void {
+  //   this.matDialog.open(this.rateAddPointDialogRef!,{data: this.expandedElement})
+  // }
 
   testDialogClose(){
     this.matDialog.closeAll()

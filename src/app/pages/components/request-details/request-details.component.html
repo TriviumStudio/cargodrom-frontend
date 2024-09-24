@@ -29,7 +29,7 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
-      <button class="plus-rate" (click)="openAddRateDialog()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
+      <button class="plus-rate" (click)="openRateEditor()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
       <button class="dub">ДУБЛЬ</button>
       <button class="torg">ТОРГИ</button>
       <button class="del">УДАЛИТЬ</button>
@@ -121,16 +121,14 @@
         <ng-template [ngSwitchDefault]>
           <div class="example-element-detail" *ngIf="element===expandedElement">
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
-
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openEditRateDialog()"></button>
+                <button class="edit" (click)="openRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
-
             </app-rate-info-row>
           </div>
         </ng-template>
@@ -152,9 +150,8 @@
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
-
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openEditRateDialog()"></button>
+                <button class="edit" (click)="openCustomsRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
@@ -164,9 +161,8 @@
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
-
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openPointRateEditor()"></button>
+                <button class="edit" (click)="openPointRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
@@ -176,9 +172,8 @@
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
-
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openTransporterRateEditor()"></button>
+                <button class="edit" (click)="openTransporterRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
                 <button class="del"></button>
               </div>
@@ -206,7 +201,18 @@
   (countChange)="onCountChange($event)">
 </app-paginator>
 
-<ng-template #rateAddPointDialogRef let-data>
+<ng-template #rateСustomsDialogRef let-data>
+  <app-rate-add-customs
+    [rate]="data"
+    [chargesShema]="schemaCharges"
+    [weight]="currentRequest.cargo_places_paid_weight"
+    [requestId]="currentRequest.id"
+    [transportKindId]="currentRequest.transport_kind_id"
+    [cityId]="currentRequest.arrival_city_id">
+  </app-rate-add-customs>
+</ng-template>
+
+<ng-template #ratePointDialogRef let-data>
   <app-rate-add-point
     [rate]="data"
     [chargesShema]="schemaCharges"
@@ -217,7 +223,7 @@
   </app-rate-add-point>
 </ng-template>
 
-<ng-template #rateAddTransporterDialogRef let-data>
+<ng-template #rateTransporterDialogRef let-data>
   <app-rate-add-transporter
     [rate]="data"
     [chargesShema]="schemaCharges"
