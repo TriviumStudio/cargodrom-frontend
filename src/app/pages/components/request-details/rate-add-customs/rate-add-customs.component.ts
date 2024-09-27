@@ -6,6 +6,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { formatDate } from '@angular/common';
 import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
+import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 
 @Component({
   selector: 'app-rate-add-customs',
@@ -24,8 +25,11 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   rateForm: FormGroup;
   private _destroy$ = new Subject();
   contractorList:any=[];
-  pointList:any=[];
-  pointActionList:any=[];
+  // pointList:any=[];
+  // pointActionList:any=[];
+
+  transportCarrier: TransportCarrier[]=[];
+  transportRoute: TransportRoute[]=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -160,28 +164,31 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
-      id:[,[]],
-      cost:[,[]],
-      request_id: [,[]],
-      contractor_id: [,[]],
-      point_id: [,[]],
-      point_action_id: [,[]],
+      carrier_id: [,[]],
       comment: [,[]],
-      values: fb.array([], []),
       departure_schedule: [,[]],
+      id: [,[]],
       nearest_flight: [,[]],
+      num: [,[]],
+      profit_include: [true,[]],
+      rate_type: ['nodetail',[]],
+      route_id: [,[]],
+      total_cost: [,[]],
+      transit_time: this.fb.group({
+        transit_time_from: [, []],
+        transit_time_to: [, []],
+      }),
+      values: fb.array([], []),
     });
   }
 
   // Методы ЖЦ
   ngOnInit(): void {
-    this.getContractor();
-    this.getArrivalPoinst();
-    this.getPointAction();
+    this.getTransportCarrier();
+    this.getTransportRoute();
     // this.chargesShema.forEach((i:any)=>{
       this.chargesModel.forEach((i:any)=>{
       this.charges.push(this.fb.group({
-
         comment: [,[]],
         cost: [,[]],
         field: [i.field_name,[]],
@@ -222,94 +229,6 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});
     this.calckRateCost();
-  }
-
-  private getContractor():void{
-    this.contractorService.contractorList()
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-
-          if (!contractor) {
-            throw ({ error: { error_message: `Маршрутов не существует`} });
-          }
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-          this.contractorList=contractor.items;
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
-
-  private getArrivalPoinst():void{
-    this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })
-      .pipe(
-        tap(contractor => {
-          console.log('getArrivalPoinst',contractor);
-
-          if (!contractor) {
-            throw ({ error: { error_message: `Маршрутов не существует`} });
-          }
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (poinst) => {
-          this.pointList=poinst
-
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
-
-  private getPointAction():void{
-    this.transportService.transportPointAction({direction:'arrival'})
-      .pipe(
-        tap(contractor => {
-          console.log('getArrivalPoinst',contractor);
-
-          if (!contractor) {
-            throw ({ error: { error_message: `Маршрутов не существует`} });
-          }
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (poinst) => {
-          this.pointActionList=poinst
-
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
-
-  rateSave():void{
-    console.log(this.rateForm.value);
-
-    this.requestService.requestRatePointSave({body:this.rateForm.value})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
   }
 
   // Datepicker multy
@@ -353,4 +272,141 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     }
     calendar.updateTodaysDate();
   }
+
+  returnAirlineName(id:number):string{
+    let name:any='';
+    this.transportCarrier.forEach((i:TransportCarrier)=>{
+      if(id==i.id){ name=i.name };
+    });
+    return name;
+  }
+  // Приватные методы
+  // получаем перевозчиков(airline and airline iata controls)
+  private getTransportCarrier():void{
+    this.transportService.transportCarrier({kind_id:this.transportKindId})
+      .pipe(
+        tap(transportCarrier => {
+          if (!transportCarrier) {
+            throw ({ error: { error_message: `Перевозчиков не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (transportCarrier) => {
+          this.transportCarrier=transportCarrier;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса перевозчиков: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  // получаем маршруты(route)
+  private getTransportRoute():void{
+    this.transportService.transportRoute({kind_id:this.transportKindId})
+      .pipe(
+        tap(transportRoute => {
+          if (!transportRoute) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (transportRoute) => {
+          this.transportRoute=transportRoute;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  rateSave():void{
+    console.log(this.rateForm.value);
+
+    // this.requestService.requestRatePointSave({body:this.rateForm.value})
+    //   .pipe(
+    //     tap(contractor => {
+    //       console.log(contractor);
+    //     }),
+    //     takeUntil(this._destroy$),
+    //   )
+    //   .subscribe({
+    //     next: (contractor) => {
+
+    //     },
+    //     error: (err) => {
+    //       this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+    //     }
+    //   });
+  }
+
+  // private getContractor():void{
+  //   this.contractorService.contractorList()
+  //     .pipe(
+  //       tap(contractor => {
+  //         console.log(contractor);
+
+  //         if (!contractor) {
+  //           throw ({ error: { error_message: `Маршрутов не существует`} });
+  //         }
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: (contractor) => {
+  //         this.contractorList=contractor.items;
+  //       },
+  //       error: (err) => {
+  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //       }
+  //     });
+  // }
+
+  // private getArrivalPoinst():void{
+  //   this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })
+  //     .pipe(
+  //       tap(contractor => {
+  //         console.log('getArrivalPoinst',contractor);
+
+  //         if (!contractor) {
+  //           throw ({ error: { error_message: `Маршрутов не существует`} });
+  //         }
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: (poinst) => {
+  //         this.pointList=poinst
+
+  //       },
+  //       error: (err) => {
+  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //       }
+  //     });
+  // }
+
+  // private getPointAction():void{
+  //   this.transportService.transportPointAction({direction:'arrival'})
+  //     .pipe(
+  //       tap(contractor => {
+  //         console.log('getArrivalPoinst',contractor);
+
+  //         if (!contractor) {
+  //           throw ({ error: { error_message: `Маршрутов не существует`} });
+  //         }
+  //       }),
+  //       takeUntil(this._destroy$),
+  //     )
+  //     .subscribe({
+  //       next: (poinst) => {
+  //         this.pointActionList=poinst
+
+  //       },
+  //       error: (err) => {
+  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //       }
+  //     });
+  // }
 }
