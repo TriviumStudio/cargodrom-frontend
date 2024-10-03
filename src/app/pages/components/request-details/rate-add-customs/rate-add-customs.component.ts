@@ -21,6 +21,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() test = new EventEmitter<any>()
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -184,6 +185,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
 
   // Методы ЖЦ
   ngOnInit(): void {
+    this.test.subscribe((e)=>{
+      console.log('eee',e);
+
+    })
     this.getTransportCarrier();
     this.getTransportRoute();
     // this.chargesShema.forEach((i:any)=>{

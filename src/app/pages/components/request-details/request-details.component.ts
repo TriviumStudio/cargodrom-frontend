@@ -107,6 +107,12 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     return this.requestService.requestSaveBidding({body})
   }
 
+  testProps(){
+    console.log(123);
+    return 'test'
+
+  }
+
 
   // onRateInfoChange(request_id:number,rate_id:number){
   //   if(this.detailsMethod==='final') {
