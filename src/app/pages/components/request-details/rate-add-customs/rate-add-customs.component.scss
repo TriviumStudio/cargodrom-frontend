@@ -5,11 +5,11 @@
   font-size: 15px;
   border-radius: 6px;
   width: 100%;
-  max-width: 224px;
   box-sizing: border-box;
   padding: 11px 13px 9px;
   height: 39.88px;
   display: flex;
+  justify-content: space-between;
   cursor: pointer;
 }
 .calendar-value {
@@ -17,7 +17,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  width: 100%;
+  max-width: 90%;
 }
 .calendar-icon {
   background-image: url(../../../../../assets/pic-btn-calendar.svg);
@@ -45,13 +45,18 @@
   border-bottom: 1px solid #E0E5EB;
   padding: 40px 0;
   .charge_on{
-    width: 65%;
+    // width: 65%;
+    // min-width: 50%;
+    min-width: 65%;
+    margin-right: auto;
     label{
       width: 300px;
     }
   }
   .charge_off{
-    width: 22%;
+    // width: 22%;
+    min-width: 22%;
+    margin-right: auto;
   }
 
 }

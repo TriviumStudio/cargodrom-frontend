@@ -208,10 +208,8 @@
     [weight]="currentRequest.cargo_places_paid_weight"
     [requestId]="currentRequest.id"
     [transportKindId]="currentRequest.transport_kind_id"
-    [cityId]="currentRequest.arrival_city_id"
-    (test)="testProps()">
+    [cityId]="currentRequest.arrival_city_id">
   </app-rate-add-customs>
-  <div (click)="testProps()">qwe</div>
 </ng-template>
 
 <ng-template #ratePointDialogRef let-data>

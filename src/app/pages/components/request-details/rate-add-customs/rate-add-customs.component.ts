@@ -21,7 +21,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
-  @Output() test = new EventEmitter<any>()
+
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -45,115 +45,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     { day:'Sunday', id:7 },
   ]
 
-  chargesModel:any=[
-    {
-        "field_name": "freight",
-        "name": "Airfreight rate",
-        "title": "Тариф авиаперевозкиbbb",
-        "unit": "kg",
-        "field_min": true,
-        "field_fix": false,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "handling",
-        "name": "Handling charge",
-        "title": "Сборы за обработку",
-        "unit": "kg",
-        "field_min": true,
-        "field_fix": false,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "terminal",
-        "name": "Terminal charge",
-        "title": "Терминальные сборы",
-        "unit": "kg",
-        "field_min": true,
-        "field_fix": false,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "custom",
-        "name": "Custom clearance",
-        "title": "Таможенное оформление",
-        "unit": "bill",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "document",
-        "name": "Doc & ENS/AMS",
-        "title": "Документы и ENS/AMS",
-        "unit": "AWB",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "pickup",
-        "name": "Pick-up Charge",
-        "title": "Плата за забор",
-        "unit": "kg",
-        "field_min": false,
-        "field_fix": true,
-        "field_comment": false,
-        "status": true,
-        "requare": true
-    },
-    {
-        "field_name": "export_license",
-        "name": "Export License",
-        "title": "Экспортная лицензия",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": false,
-        "status": false,
-        "requare": false
-    },
-    {
-        "field_name": "dgm_test",
-        "name": "DGM Test",
-        "title": "Китайский паспорт безопасности",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": false,
-        "status": false,
-        "requare": false
-    },
-    {
-        "field_name": "magnetic_test",
-        "name": "Magnetic Test",
-        "title": "Магнитный тест",
-        "note": "If needed",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": false,
-        "status": false,
-        "requare": false
-    },
-    {
-        "field_name": "other",
-        "name": "Other Charges",
-        "title": "Другие расходы",
-        "field_min": false,
-        "field_fix": false,
-        "field_comment": true,
-        "status": false,
-        "requare": false
-    }
- ]
+
 
   constructor(
     private fb: FormBuilder,
@@ -165,11 +57,13 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
+      request_id:[this.requestId,[]],
+      contractor_id: [,[]],
       carrier_id: [,[]],
       comment: [,[]],
       departure_schedule: [,[]],
       id: [,[]],
-      nearest_flight: [,[]],
+      nearest_flight: [[],[]],
       num: [,[]],
       profit_include: [true,[]],
       rate_type: ['nodetail',[]],
@@ -182,17 +76,13 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       values: fb.array([], []),
     });
   }
-
   // Методы ЖЦ
   ngOnInit(): void {
-    this.test.subscribe((e)=>{
-      console.log('eee',e);
-
-    })
     this.getTransportCarrier();
     this.getTransportRoute();
+    this.getContractor();
     // this.chargesShema.forEach((i:any)=>{
-      this.chargesModel.forEach((i:any)=>{
+      this.chargesShema.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
         cost: [,[]],
@@ -200,7 +90,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
         fix: [,[]],
         min: [,[]],
         price: [,[]],
-        select: [i.status,[]],
+        select: [i.checked,[]],
         value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
       }));
       this.rateForm.markAsTouched();
@@ -215,13 +105,20 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
-
   // Charges
   get charges() {
     return <FormArray>this.rateForm.get('values');
   }
+  //caclk
   calckChargeCost(control:any){
-    control.patchValue({cost: control.value.price * control.value.value});
+    if(control.value.min){
+      control.patchValue({
+        cost:
+          control.value.min<control.value.price * control.value.value?
+          control.value.price * control.value.value : control.value.min});
+    } else {
+      control.patchValue({cost: control.value.price * control.value.value});
+    }
     this.calckRateCost();
   }
   calckRateCost(){
@@ -229,13 +126,23 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.rateForm.value.values.forEach((v:any)=>{
       if(v.select)cost=cost + v.cost
     });
-    this.rateForm.patchValue({ cost:cost });
+    this.rateForm.patchValue({ total_cost:cost });
   }
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});
     this.calckRateCost();
   }
-
+  //rate type
+  onRateTypeChange(){
+    this.charges.controls.forEach((e:any)=>{
+      e.controls['comment'].reset();
+      e.controls['cost'].reset();
+      e.controls['fix'].reset();
+      e.controls['min'].reset();
+      e.controls['price'].reset();
+    })
+    this.rateForm.controls['total_cost'].reset();
+  }
   // Datepicker multy
   returnSelectDateText(){
     let text='';
@@ -265,8 +172,6 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     return this.rateForm.value.nearest_flight?.find((x:any) => x == date) ? "selected" : '';
   }
   selectDate(event: any, calendar: any) {
-    console.log(event,calendar);
-
     const date=formatDate(event,'yyyy-MM-dd','en-US');
     if(this.rateForm.value.nearest_flight===null) this.rateForm.value.nearest_flight=[];
     const index = this.rateForm.value.nearest_flight.findIndex((x:any) => x == date);
@@ -277,7 +182,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     }
     calendar.updateTodaysDate();
   }
-
+  //airline
   returnAirlineName(id:number):string{
     let name:any='';
     this.transportCarrier.forEach((i:TransportCarrier)=>{
@@ -330,44 +235,44 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   rateSave():void{
     console.log(this.rateForm.value);
 
-    // this.requestService.requestRatePointSave({body:this.rateForm.value})
-    //   .pipe(
-    //     tap(contractor => {
-    //       console.log(contractor);
-    //     }),
-    //     takeUntil(this._destroy$),
-    //   )
-    //   .subscribe({
-    //     next: (contractor) => {
+    this.requestService.requestRateCustomsSave({body:this.rateForm.value})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
 
-    //     },
-    //     error: (err) => {
-    //       this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-    //     }
-    //   });
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
 
-  // private getContractor():void{
-  //   this.contractorService.contractorList()
-  //     .pipe(
-  //       tap(contractor => {
-  //         console.log(contractor);
+  private getContractor():void{
+    this.contractorService.contractorList()
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
 
-  //         if (!contractor) {
-  //           throw ({ error: { error_message: `Маршрутов не существует`} });
-  //         }
-  //       }),
-  //       takeUntil(this._destroy$),
-  //     )
-  //     .subscribe({
-  //       next: (contractor) => {
-  //         this.contractorList=contractor.items;
-  //       },
-  //       error: (err) => {
-  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-  //       }
-  //     });
-  // }
+          if (!contractor) {
+            throw ({ error: { error_message: `Маршрутов не существует`} });
+          }
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.contractorList=contractor.items;
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
 
   // private getArrivalPoinst():void{
   //   this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })

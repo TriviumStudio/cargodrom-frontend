@@ -1,14 +1,32 @@
 <form class="edit-form" [formGroup]="rateForm">
   <div class="form-block">
     <div class="form-row">
-      <div class="form-item-layout">
 
+      <div class="form-item-layout" style="gap: 24px;">
+        <label class="radio">
+          <input type="radio" value="detail" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>With Details</span>
+        </label>
+
+        <label class="radio">
+          <input type="radio" value="nodetail" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>With single Amount</span>
+        </label>
+      </div>
+
+      <div class="form-item-layout">
         <div class="form-item i10">
           <div class="form-label">Оплачиваемый вес:</div>
           <div class="form-data">
             <input type="text" [value]="weight" readonly>
           </div>
         </div>
+
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">
+        </ng-container>
 
         <div class="form-item">
           <div class="form-label">Airline:</div>
@@ -24,9 +42,11 @@
         <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Route:', control: 'route_id', data: transportRoute, key:'name'}">
         </ng-container>
+      </div>
 
+      <div class="form-item-layout" >
         <ng-container *ngTemplateOutlet="formItemSelector;
-          context: { label: 'The departure schedule::', control: 'departure_schedule', data: daysOfTheWeek, key:'day', multiple: true}">
+          context: { label: 'The departure schedule:', control: 'departure_schedule', data: daysOfTheWeek, key:'day', multiple: true}">
         </ng-container>
 
         <div class="form-item">
@@ -49,17 +69,14 @@
           </div>
         </div>
 
-      </div>
-
-      <div class="form-item-layout" formGroupName="transit_time">
-        <div class="form-item w110">
+        <div class="form-item w110" formGroupName="transit_time">
           <div class="form-label">Transit time from:</div>
           <div class="form-data">
             <input type="number" formControlName="transit_time_from" >
           </div>
         </div>
 
-        <div class="form-item w110">
+        <div class="form-item w110" formGroupName="transit_time">
           <div class="form-label">Transit time to:</div>
           <div class="form-data">
             <input type="number" formControlName="transit_time_to" >
@@ -67,19 +84,7 @@
         </div>
       </div>
 
-      <div class="form-item-layout" style="gap: 24px;">
-        <label class="radio">
-          <input type="radio" value="detail" formControlName="rate_type" >
-          <i></i>
-          <span>With Details</span>
-        </label>
 
-        <label class="radio">
-          <input type="radio" value="nodetail" formControlName="rate_type">
-          <i></i>
-          <span>With single Amount</span>
-        </label>
-      </div>
     </div>
 
     <div class="charges-block" style="display: flex;">
@@ -91,7 +96,7 @@
             <div *ngIf="chargeValue.value.select" class="charge w100">
               <ng-template
                 [ngSwitchCase]="chargeModel.field_name"
-                *ngFor="let chargeModel of chargesModel;
+                *ngFor="let chargeModel of chargesShema;
                 let i = index;"
               >
                 <ng-container *ngIf="rateForm.value.rate_type==='detail'">
@@ -102,7 +107,7 @@
                   </label>
 
                   <span class="unit" [style]="!chargeModel.field_min? 'z-index: -1;':''">
-                    Min $: <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
+                    Min $: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
                   </span>
 
                   <span class="unit l" *ngIf="!chargeModel.field_comment && chargeModel.unit">
@@ -120,7 +125,7 @@
                   <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
 
                   <span class="unit s">
-                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
+                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment && chargeModel.unit!==''" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
                   </span>
                 </ng-container>
 
@@ -145,7 +150,7 @@
             <div *ngIf="!chargeValue.value.select" class="charge w100">
               <ng-template
                 [ngSwitchCase]="chargeModel.field_name"
-                *ngFor="let chargeModel of chargesModel;
+                *ngFor="let chargeModel of chargesShema;
                 let i = index;"
               >
                 <label style="height: 37px; align-items: center; display: flex;">
@@ -164,7 +169,7 @@
       <div class="form-item" style="margin-bottom: 20px; width: 100px;">
         <div class="form-label">Сумма:</div>
         <div class="form-data">
-          <input type="number" formControlName="total_cost" readonly>
+          <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type==='detail'">
         </div>
       </div>
 
