@@ -45,8 +45,6 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     { day:'Sunday', id:7 },
   ]
 
-
-
   constructor(
     private fb: FormBuilder,
     private transportService: TransportService,
@@ -65,8 +63,8 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       id: [,[]],
       nearest_flight: [[],[]],
       num: [,[]],
-      profit_include: [true,[]],
-      rate_type: ['nodetail',[]],
+      profit_include: [false,[]],
+      rate_type: ['detail',[]],
       route_id: [,[]],
       total_cost: [,[]],
       transit_time: this.fb.group({
@@ -81,8 +79,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.getTransportCarrier();
     this.getTransportRoute();
     this.getContractor();
-    // this.chargesShema.forEach((i:any)=>{
-      this.chargesShema.forEach((i:any)=>{
+    this.chargesShema.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
         cost: [,[]],
@@ -231,27 +228,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
         }
       });
   }
-
-  rateSave():void{
-    console.log(this.rateForm.value);
-
-    this.requestService.requestRateCustomsSave({body:this.rateForm.value})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this._destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
-
+  //получаем контракторов
   private getContractor():void{
     this.contractorService.contractorList()
       .pipe(
@@ -273,50 +250,22 @@ export class RateAddCustoms implements OnInit, OnDestroy {
         }
       });
   }
-
-  // private getArrivalPoinst():void{
-  //   this.directionService.directionPoint({ city_id:this.cityId, transport_kind_id:this.transportKindId! })
-  //     .pipe(
-  //       tap(contractor => {
-  //         console.log('getArrivalPoinst',contractor);
-
-  //         if (!contractor) {
-  //           throw ({ error: { error_message: `Маршрутов не существует`} });
-  //         }
-  //       }),
-  //       takeUntil(this._destroy$),
-  //     )
-  //     .subscribe({
-  //       next: (poinst) => {
-  //         this.pointList=poinst
-
-  //       },
-  //       error: (err) => {
-  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-  //       }
-  //     });
-  // }
-
-  // private getPointAction():void{
-  //   this.transportService.transportPointAction({direction:'arrival'})
-  //     .pipe(
-  //       tap(contractor => {
-  //         console.log('getArrivalPoinst',contractor);
-
-  //         if (!contractor) {
-  //           throw ({ error: { error_message: `Маршрутов не существует`} });
-  //         }
-  //       }),
-  //       takeUntil(this._destroy$),
-  //     )
-  //     .subscribe({
-  //       next: (poinst) => {
-  //         this.pointActionList=poinst
-
-  //       },
-  //       error: (err) => {
-  //         this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-  //       }
-  //     });
-  // }
+  //сохраняем ставку
+  rateSave():void{
+    console.log(this.rateForm.value);
+    this.requestService.requestRateCustomsSave({body:this.rateForm.value})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this._destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
 }

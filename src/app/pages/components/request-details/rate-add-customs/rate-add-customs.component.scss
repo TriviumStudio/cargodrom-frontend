@@ -1,3 +1,4 @@
+
 .calendar {
   background: #F7F9FC;
   border: 1px solid #E0E5EB;
@@ -5,6 +6,7 @@
   font-size: 15px;
   border-radius: 6px;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   padding: 11px 13px 9px;
   height: 39.88px;
@@ -17,7 +19,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
-  max-width: 90%;
+  // max-width: 90%;
+  width: 90%;
+  // width: 200px;
 }
 .calendar-icon {
   background-image: url(../../../../../assets/pic-btn-calendar.svg);
@@ -26,16 +30,32 @@
   background-repeat: no-repeat;
 }
 
+
+
 .edit-form{
   width: 1480px;
-  // height: 80vh;
-  // overflow-y: auto;
   margin: 0 auto;
-  max-height: 85vh;
-  // overflow-y: auto;
 
-  overflow-y: auto;
-  height: fit-content;
+  // max-height: 85vh;
+  // overflow-y: auto;
+  // height: fit-content;
+  .form-item-layout {
+    .form-item.w240px{
+      width: 240px;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+    .form-item.w80px{
+      width: 80px;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+    .form-item.w110px{
+      width: 110px;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+  }
 }
 .charges-block{
   display: flex;

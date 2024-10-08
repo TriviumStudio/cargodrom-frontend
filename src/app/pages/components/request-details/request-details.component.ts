@@ -359,7 +359,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.matDialog.open(this.ratePointDialogRef!,{data: data})
   }
   openCustomsRateEditor(data?:any): void {
-    this.matDialog.open(this.rateСustomsDialogRef!,{data: data})
+    this.matDialog.open(this.rateСustomsDialogRef!,{data: data, height: '85vh'})
   }
 
   // openAddRateDialog(){

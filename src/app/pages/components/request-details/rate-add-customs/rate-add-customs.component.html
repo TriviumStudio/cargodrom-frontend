@@ -24,10 +24,6 @@
           </div>
         </div>
 
-        <ng-container *ngTemplateOutlet="formItemSelector;
-          context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">
-        </ng-container>
-
         <div class="form-item">
           <div class="form-label">Airline:</div>
           <div class="form-data">
@@ -36,20 +32,18 @@
         </div>
 
         <ng-container *ngTemplateOutlet="formItemSelector;
-          context: { label: 'Airline (iata):', control: 'carrier_id', data: transportCarrier, key:'iata'}">
+          context: { label: 'Airline (iata):', control: 'carrier_id', data: transportCarrier, key:'iata', class:'w80px'}">
+        </ng-container>
+
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">
         </ng-container>
 
         <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Route:', control: 'route_id', data: transportRoute, key:'name'}">
         </ng-container>
-      </div>
 
-      <div class="form-item-layout" >
-        <ng-container *ngTemplateOutlet="formItemSelector;
-          context: { label: 'The departure schedule:', control: 'departure_schedule', data: daysOfTheWeek, key:'day', multiple: true}">
-        </ng-container>
-
-        <div class="form-item">
+        <div class="form-item w240px">
           <div class="form-label">The nearest flight etd:</div>
           <div class="form-data">
             <button class="calendar" [matMenuTriggerFor]="menu">
@@ -69,21 +63,29 @@
           </div>
         </div>
 
-        <div class="form-item w110" formGroupName="transit_time">
+        <ng-container *ngTemplateOutlet="formItemSelector;
+          context: { label: 'The departure schedule:', control: 'departure_schedule', data: daysOfTheWeek, key:'day', multiple: true}">
+        </ng-container>
+
+
+
+      </div>
+
+      <div class="form-item-layout" >
+        <div class="form-item w110px" formGroupName="transit_time">
           <div class="form-label">Transit time from:</div>
           <div class="form-data">
             <input type="number" formControlName="transit_time_from" >
           </div>
         </div>
 
-        <div class="form-item w110" formGroupName="transit_time">
+        <div class="form-item w110px" formGroupName="transit_time">
           <div class="form-label">Transit time to:</div>
           <div class="form-data">
             <input type="number" formControlName="transit_time_to" >
           </div>
         </div>
       </div>
-
 
     </div>
 
@@ -166,12 +168,20 @@
     </div>
 
     <div class="form-row" >
-      <div class="form-item" style="margin-bottom: 20px; width: 100px;">
-        <div class="form-label">Сумма:</div>
-        <div class="form-data">
-          <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type==='detail'">
+      <div style="display: flex;">
+        <div class="form-item" style="margin-bottom: 20px; width: 100px;">
+          <div class="form-label">Сумма:</div>
+          <div class="form-data">
+            <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type==='detail'">
+          </div>
         </div>
+        <label>
+          <input  type="checkbox" formControlName="profit_include" >
+          <i></i>
+          <span class="charges-title">Profit is included</span>
+        </label>
       </div>
+
 
       <div class="form-item">
         <div class="form-label">Примечание:</div>
@@ -192,8 +202,8 @@
 
 </form>
 
-<ng-template #formItemSelector let-label="label" let-control="control" let-data="data" let-key="key" let-multiple="multiple">
-  <div class="form-item" [formGroup]="rateForm">
+<ng-template #formItemSelector let-label="label" let-control="control" let-data="data" let-key="key" let-multiple="multiple" let-class="class">
+  <div class="form-item" [formGroup]="rateForm" [class]="class">
     <div class="form-label">{{label}}</div>
     <div class="form-data">
       <mat-form-field appearance="outline" class="ui-select">
