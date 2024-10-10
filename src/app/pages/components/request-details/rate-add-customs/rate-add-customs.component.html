@@ -71,18 +71,18 @@
 
       </div>
 
-      <div class="form-item-layout" >
-        <div class="form-item w110px" formGroupName="transit_time">
+      <div class="form-item-layout" formGroupName="transit_time">
+        <div class="form-item w110px" >
           <div class="form-label">Transit time from:</div>
           <div class="form-data">
-            <input type="number" formControlName="transit_time_from" >
+            <input type="number" formControlName="from" >
           </div>
         </div>
 
-        <div class="form-item w110px" formGroupName="transit_time">
+        <div class="form-item w110px">
           <div class="form-label">Transit time to:</div>
           <div class="form-data">
-            <input type="number" formControlName="transit_time_to" >
+            <input type="number" formControlName="to" >
           </div>
         </div>
       </div>
@@ -102,8 +102,9 @@
                 let i = index;"
               >
                 <ng-container *ngIf="rateForm.value.rate_type==='detail'">
-                  <label>
-                    <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
+                  <label >
+                    <input *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" [disabled]="true">
+                    <input *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
                     <i></i>
                     {{chargeModel.title}}
                   </label>
@@ -168,25 +169,63 @@
     </div>
 
     <div class="form-row" >
-      <div style="display: flex;">
-        <div class="form-item" style="margin-bottom: 20px; width: 100px;">
+      <!-- <div class="form-item-layout">
+
+         <div class="form-item w110px">
           <div class="form-label">Сумма:</div>
           <div class="form-data">
             <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type==='detail'">
           </div>
         </div>
-        <label>
+
+         <div class="form-item">
+          <div class="form-label">Сумма:</div>
+          <div class="form-data">
+            <label>
+              <input  type="checkbox" formControlName="profit_include" >
+              <i></i>
+              <span class="charges-title">Profit is included</span>
+            </label>
+          </div>
+        </div>
+
+
+         <label>
           <input  type="checkbox" formControlName="profit_include" >
           <i></i>
           <span class="charges-title">Profit is included</span>
         </label>
+      </div> -->
+
+      <div class="form-item-layout">
+        <div class="total">
+          <div class="total-detail" *ngIf="rateForm.value.rate_type==='detail'">
+            <div class="">Total:</div>
+            <div class="color-red">{{rateForm.value.total_cost}}</div>
+            <div class="color-red">$</div>
+          </div>
+
+          <div class="total-nodetail" *ngIf="rateForm.value.rate_type==='nodetail'">
+            <div>Total, USD:</div>
+            <input type="number" class="total-cost" formControlName="total_cost">
+          </div>
+
+          <label>
+            <input  type="checkbox" formControlName="profit_include" >
+            <i></i>
+            <span class="charges-title">Profit is included</span>
+          </label>
+        </div>
       </div>
 
 
-      <div class="form-item">
-        <div class="form-label">Примечание:</div>
-        <div class="form-data">
-          <input type="text" formControlName="comment">
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Примечание:</div>
+          <div class="form-data">
+            <input type="text" formControlName="comment">
+          </div>
         </div>
       </div>
     </div>

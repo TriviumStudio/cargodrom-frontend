@@ -62,14 +62,13 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       departure_schedule: [,[]],
       id: [,[]],
       nearest_flight: [[],[]],
-      num: [,[]],
       profit_include: [false,[]],
       rate_type: ['detail',[]],
       route_id: [,[]],
-      total_cost: [,[]],
+      total_cost: [0,[]],
       transit_time: this.fb.group({
-        transit_time_from: [, []],
-        transit_time_to: [, []],
+        from: [, []],
+        to: [, []],
       }),
       values: fb.array([], []),
     });
@@ -88,6 +87,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
         min: [,[]],
         price: [,[]],
         select: [i.checked,[]],
+        // select:[i.checked,{disabled: i.checked},[]],
         value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
       }));
       this.rateForm.markAsTouched();

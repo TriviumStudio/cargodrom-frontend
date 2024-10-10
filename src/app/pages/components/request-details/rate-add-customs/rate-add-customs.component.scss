@@ -146,4 +146,47 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
+.total{
+  display: flex;
+  gap:40px;
+  align-items: center;
+
+}
+.total .total-detail{
+  display: flex;
+  gap:5px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  color: #2C3640;
+}
+.total .total-nodetail{
+  display: flex;
+  gap:5px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  color: #2C3640;
+  align-items: baseline;
+}
+.total-nodetail .total-cost{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  border-radius: 6px;
+  padding: 11px 7px 9px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 22px;
+  max-width: 70px;
+  text-align: end;
+}
+.color-red{
+  color: #DB563B;
+}
+.form-block .total [type=checkbox]:checked + i + span {
+  font-weight: normal;
+  font-size: 16px;
+}
+
 
