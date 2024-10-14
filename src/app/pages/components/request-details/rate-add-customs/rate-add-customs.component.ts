@@ -15,6 +15,8 @@ import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/tran
   // encapsulation: ViewEncapsulation.None,
 })
 export class RateAddCustoms implements OnInit, OnDestroy {
+  @Output() closeDialog = new EventEmitter<void>();
+
   @Input() chargesShema?:any;
   @Input() weight?:number;
   @Input() requestId?:number;
@@ -35,7 +37,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
-  daysOfTheWeek=[
+  weekDayList=[
     { day:'Monday', id:1 },
     { day:'Tuesday', id:2 },
     { day:'Wednesday', id:3 },
@@ -44,6 +46,12 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     { day:'Saturday', id:6 },
     { day:'Sunday', id:7 },
   ]
+
+  rateTypeOptions = [
+    { value: 'detail', label: 'With Details' },
+    { value: 'nodetail', label: 'With single Amount' }
+  ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -72,6 +80,9 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       }),
       values: fb.array([], []),
     });
+  }
+  handleClick(i:any) {
+    this.closeDialog.emit(i); // Срабатывает событие
   }
   // Методы ЖЦ
   ngOnInit(): void {
@@ -180,13 +191,17 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     calendar.updateTodaysDate();
   }
   //airline
-  returnAirlineName(id:number):string{
-    let name:any='';
-    this.transportCarrier.forEach((i:TransportCarrier)=>{
-      if(id==i.id){ name=i.name };
-    });
-    return name;
+  returnAirlineName(id: number): string | undefined {
+    const carrier = this.transportCarrier.find((i: TransportCarrier) => id === i.id);
+    return carrier ? carrier.name : '';
   }
+  // returnAirlineName(id:number):string{
+  //   let name:any='';
+  //   this.transportCarrier.forEach((i:TransportCarrier)=>{
+  //     if(id==i.id){ name=i.name };
+  //   });
+  //   return name;
+  // }
   // Приватные методы
   // получаем перевозчиков(airline and airline iata controls)
   private getTransportCarrier():void{

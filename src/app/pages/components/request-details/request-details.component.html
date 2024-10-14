@@ -32,7 +32,7 @@
       <button class="plus-rate" (click)="openRateEditor()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
       <button class="dub">ДУБЛЬ</button>
       <button class="torg">ТОРГИ</button>
-      <button class="del">УДАЛИТЬ</button>
+      <button class="del" (click)="deleteRate(arrDetailsCheckedCheck)">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -127,7 +127,7 @@
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
-                <button class="del"></button>
+                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
               </div>
             </app-rate-info-row>
           </div>
@@ -153,7 +153,7 @@
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openCustomsRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
-                <button class="del"></button>
+                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
               </div>
             </app-rate-info-row>
 
@@ -164,7 +164,7 @@
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openPointRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
-                <button class="del"></button>
+                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
               </div>
             </app-rate-info-row>
 
@@ -175,7 +175,7 @@
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openTransporterRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
-                <button class="del"></button>
+                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
               </div>
             </app-rate-info-row>
 
@@ -203,6 +203,7 @@
 
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs
+    (closeDialog)="testDialogClose($event)"
     [rate]="data"
     [chargesShema]="schemaCharges"
     [weight]="currentRequest.cargo_places_paid_weight"

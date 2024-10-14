@@ -107,13 +107,6 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     return this.requestService.requestSaveBidding({body})
   }
 
-  testProps(){
-    console.log(123);
-    return 'test'
-
-  }
-
-
   // onRateInfoChange(request_id:number,rate_id:number){
   //   if(this.detailsMethod==='final') {
   //     this.getRequestFinalInfo(request_id,rate_id)
@@ -180,15 +173,23 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   //     })
   // }
 
-
-  getSpecializationClass(n:number){
-    let classSpec='';
-    if(n===1)classSpec='avia';
-    if(n===2)classSpec='road';
-    if(n===3)classSpec='rw';
-    if(n===4)classSpec='sea';
-    return classSpec;
-  }
+  // getSpecializationClass(n: number): string {
+  //   const specializationMap: { [key: number]: string } = {
+  //     1: 'avia',
+  //     2: 'road',
+  //     3: 'rw',
+  //     4: 'sea'
+  //   };
+  //   return specializationMap[n] || ''; // Возвращаем класс или пустую строку
+  // }
+  // getSpecializationClass(n:number){
+  //   let classSpec='';
+  //   if(n===1)classSpec='avia';
+  //   if(n===2)classSpec='road';
+  //   if(n===3)classSpec='rw';
+  //   if(n===4)classSpec='sea';
+  //   return classSpec;
+  // }
 
   onSwitcherChange(e:any){
     const body:any={id:e.id, selected:e.selected};
@@ -208,6 +209,23 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   //   )
   //   .subscribe();
   // }
+
+  deleteRate(body:any){
+    this.requestService.requestRateDelete({body:{id:body}})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
 
   rateСustomsSelectedChange(body:any){
     this.requestService.requestRateCustomsSave({body:body})
@@ -278,15 +296,20 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.router.navigate(['pages/request/details', method, this.requestId])
   }
 
-  isDetailsCheckedCheck(contractor_id:number){
-    let isCheck
-    this.arrDetailsCheckedCheck.forEach((i:any)=>{
-      if(i===contractor_id){
-        isCheck=true;
-      }
-    })
-    return isCheck;
-  }
+  // isDetailsCheckedCheck(contractor_id:number){
+  //   let isCheck
+  //   this.arrDetailsCheckedCheck.forEach((i:any)=>{
+  //     if(i===contractor_id){
+  //       isCheck=true;
+  //     }
+  //   })
+  //   return isCheck;
+  // }
+
+  isDetailsCheckedCheck(contractor_id: number): boolean {
+    return this.arrDetailsCheckedCheck.includes(contractor_id);
+}
+
 
   updateArrDetailsCheckedCheck(contractor_id:number,{ checked }: MatCheckboxChange){
     if(checked){
@@ -296,22 +319,31 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     }
   }
 
-  isAllDetailsCheckedCheck(){
-    let arrIdRows:number[]=[];
-    let arrIdRowsCheck:number[]=[];
+  // isAllDetailsCheckedCheck(){
+  //   let arrIdRows:number[]=[];
+  //   let arrIdRowsCheck:number[]=[];
 
-    this.rows.forEach((i:any)=>{
-      arrIdRows.push(i.id);
-    });
-    this.arrDetailsCheckedCheck.forEach((i:any)=>{
-      this.rows.forEach((ir:any)=>{
-        if(i===ir.id){
-          arrIdRowsCheck.push(i);
-        }
-      });
-    });
-    return this.arrDetailsCheckedCheck.length > 0 && arrIdRows.sort().toString()===arrIdRowsCheck.sort().toString();
-  }
+  //   this.rows.forEach((i:any)=>{
+  //     arrIdRows.push(i.id);
+  //   });
+  //   this.arrDetailsCheckedCheck.forEach((i:any)=>{
+  //     this.rows.forEach((ir:any)=>{
+  //       if(i===ir.id){
+  //         arrIdRowsCheck.push(i);
+  //       }
+  //     });
+  //   });
+  //   return this.arrDetailsCheckedCheck.length > 0 && arrIdRows.sort().toString()===arrIdRowsCheck.sort().toString();
+  // }
+
+  isAllDetailsCheckedCheck(): boolean {
+    const arrIdRows = this.rows.map((i: any) => i.id);
+    const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter((id: number) => arrIdRows.includes(id));
+
+    return this.arrDetailsCheckedCheck.length > 0 &&
+           arrIdRows.length === arrIdRowsCheck.length &&
+           arrIdRowsCheck.length === new Set(arrIdRowsCheck).size;
+}
 
   isIndeterminateDetailsCheckedCheck(){
     let arrIdRows:number[]=[];
@@ -347,11 +379,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     }
   }
 
-  openRateEditor(data?:any){
-    if (this.detailsMethod==='point') this.openPointRateEditor(data);
-    if (this.detailsMethod==='transporter') this.openTransporterRateEditor(data);
-    if (this.detailsMethod==='customs') this.openCustomsRateEditor(data);
-  }
+  // openRateEditor(data?:any){
+  //   if (this.detailsMethod==='point') this.openPointRateEditor(data);
+  //   if (this.detailsMethod==='transporter') this.openTransporterRateEditor(data);
+  //   if (this.detailsMethod==='customs') this.openCustomsRateEditor(data);
+  // }
   openTransporterRateEditor(data?:any): void {
     this.matDialog.open(this.rateTransporterDialogRef!,{data: data})
   }
@@ -361,6 +393,19 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   openCustomsRateEditor(data?:any): void {
     this.matDialog.open(this.rateСustomsDialogRef!,{data: data, height: '85vh'})
   }
+
+  openRateEditor(data?: any) {
+    const rateEditors: { [key: string]: { ref: any; config?: any } } = {
+        point: { ref: this.ratePointDialogRef },
+        transporter: { ref: this.rateTransporterDialogRef },
+        customs: { ref: this.rateСustomsDialogRef, config: { height: '85vh' } },
+    };
+
+    const editor = rateEditors[this.detailsMethod];
+    if (editor) {
+        this.matDialog.open(editor.ref, { data: data, ...editor.config });
+    }
+}
 
   // openAddRateDialog(){
   //   if (this.detailsMethod==='point') this.openPointRateCreater();
@@ -384,8 +429,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   //   this.matDialog.open(this.rateAddPointDialogRef!,{data: this.expandedElement})
   // }
 
-  testDialogClose(){
-    this.matDialog.closeAll()
+  testDialogClose(i:any){
+    // this.matDialog.closeAll()
+    console.log(i);
+
   }
 
   // openDialogRateEditTransporter(): void {

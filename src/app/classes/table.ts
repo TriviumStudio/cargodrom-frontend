@@ -124,6 +124,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return of();
   }
 
+
   protected loadFilterSchema(): Observable<SearchFilterSchema> {
     return of({ header: [], main: [], additional: [] });
   }
@@ -239,6 +240,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   isSortable(name: keyof T | A): boolean {
     return Array.isArray(this.sortableColumns) && this.sortableColumns.includes(name as any);
   }
+
+
 
   confirmRemove(row: T): void {
     this.dialog.open(this.removeDialogRef, { data: row }).afterClosed().subscribe(res => {

@@ -14197,6 +14197,103 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestRateDelete()` */
+  static readonly RequestRateDeletePath = '/request_rate_delete';
+
+  /**
+   * Удаление ставки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateDelete$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Удаление ставки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateDelete(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
   /** Path part for operation `requestRateCustomsList()` */
   static readonly RequestRateCustomsListPath = '/request_rate_customs_list';
 
@@ -14291,21 +14388,6 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add': string;
-
-/**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
 
 /**
  * ID Запроса
@@ -14452,6 +14534,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -14462,9 +14565,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -14582,21 +14685,6 @@ export class RequestService extends BaseService {
          * Дата создания
          */
         'time_add': string;
-        
-        /**
-         * Дата запроса
-         */
-        'time_request': string;
-        
-        /**
-         * Дата ответа
-         */
-        'time_answer': string;
-        
-        /**
-         * Ставка действует до
-         */
-        'valid_time': string;
         
         /**
          * ID Запроса
@@ -14743,6 +14831,27 @@ export class RequestService extends BaseService {
         'nearest_flight_text': string;
         
         /**
+         * Время транзита
+         */
+        'transit_time': {
+        
+        /**
+         * Время транзита От
+         */
+        'from': number;
+        
+        /**
+         * Время транзита До
+         */
+        'to': number;
+        };
+        
+        /**
+         * Тип ставки
+         */
+        'rate_type': 'detail' | 'single';
+        
+        /**
          * Сумма
          */
         'total_cost': number;
@@ -14753,9 +14862,9 @@ export class RequestService extends BaseService {
         'total_cost_text': string;
         
         /**
-         * Срок.дн
+         * Включение прибыли (Profit is included)
          */
-        'transit_time': string;
+        'profit_include': boolean;
         
         /**
          * Значения ставок
@@ -14931,21 +15040,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -15090,6 +15184,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -15100,9 +15215,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -15205,21 +15320,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -15364,6 +15464,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -15374,9 +15495,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -15477,21 +15598,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -15636,6 +15742,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -15646,9 +15773,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -15770,21 +15897,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -15929,6 +16041,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -15939,9 +16072,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -16041,21 +16174,6 @@ export class RequestService extends BaseService {
          * Дата создания
          */
         'time_add': string;
-        
-        /**
-         * Дата запроса
-         */
-        'time_request': string;
-        
-        /**
-         * Дата ответа
-         */
-        'time_answer': string;
-        
-        /**
-         * Ставка действует до
-         */
-        'valid_time': string;
         
         /**
          * ID Запроса
@@ -16202,6 +16320,27 @@ export class RequestService extends BaseService {
         'nearest_flight_text': string;
         
         /**
+         * Время транзита
+         */
+        'transit_time': {
+        
+        /**
+         * Время транзита От
+         */
+        'from': number;
+        
+        /**
+         * Время транзита До
+         */
+        'to': number;
+        };
+        
+        /**
+         * Тип ставки
+         */
+        'rate_type': 'detail' | 'single';
+        
+        /**
          * Сумма
          */
         'total_cost': number;
@@ -16212,9 +16351,9 @@ export class RequestService extends BaseService {
         'total_cost_text': string;
         
         /**
-         * Срок.дн
+         * Включение прибыли (Profit is included)
          */
-        'transit_time': string;
+        'profit_include': boolean;
         
         /**
          * Значения ставок
@@ -16333,21 +16472,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -16492,6 +16616,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -16502,9 +16647,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -16596,21 +16741,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -16755,6 +16885,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -16765,9 +16916,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -16857,21 +17008,6 @@ export class RequestService extends BaseService {
 'time_add': string;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -17016,6 +17152,27 @@ export class RequestService extends BaseService {
 'nearest_flight_text': string;
 
 /**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Сумма
  */
 'total_cost': number;
@@ -17026,9 +17183,9 @@ export class RequestService extends BaseService {
 'total_cost_text': string;
 
 /**
- * Срок.дн
+ * Включение прибыли (Profit is included)
  */
-'transit_time': string;
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -17132,21 +17289,6 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -17175,6 +17317,37 @@ export class RequestService extends BaseService {
  * Свободные места
  */
 'nearest_flight': Array<string>;
+
+/**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Сумма
+ */
+'total_cost'?: number;
+
+/**
+ * Включение прибыли (Profit is included)
+ */
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -17282,21 +17455,6 @@ export class RequestService extends BaseService {
 'id'?: number;
 
 /**
- * Дата запроса
- */
-'time_request': string;
-
-/**
- * Дата ответа
- */
-'time_answer': string;
-
-/**
- * Ставка действует до
- */
-'valid_time': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
@@ -17325,6 +17483,37 @@ export class RequestService extends BaseService {
  * Свободные места
  */
 'nearest_flight': Array<string>;
+
+/**
+ * Время транзита
+ */
+'transit_time': {
+
+/**
+ * Время транзита От
+ */
+'from': number;
+
+/**
+ * Время транзита До
+ */
+'to': number;
+};
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Сумма
+ */
+'total_cost'?: number;
+
+/**
+ * Включение прибыли (Profit is included)
+ */
+'profit_include': boolean;
 
 /**
  * Значения ставок
@@ -23246,49 +23435,52 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата запроса
+ * Дата создания
  */
-'time_request': string;
+'time_add': string;
 
 /**
- * Подрядчик
+ * ID Ставка до границы
  */
-'contractor_text': string;
+'custom_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
+ * Ставка до границы
  */
-'contractor_id': number;
+'custom': {
+};
 
 /**
- * AIR
+ * ID Ставка СВХ
  */
-'carrier_iata': number;
+'storage_id': number;
 
 /**
- * Авиалиния
+ * Ставка СВХ
  */
-'carrier_text': string;
+'storage': {
+};
 
 /**
- * Авиалиния (ID берем из запроса - transport_carrier)
+ * ID Ставка доставки
  */
-'carrier_id': string;
+'delivery_id': number;
 
 /**
- * Тип
+ * Ставка доставки
  */
-'kind_key': string;
+'delivery': {
+};
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule_text': Array<string>;
+'total_cost': number;
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule': Array<string>;
+'total_cost_text': string;
 
 /**
  * Маршрут
@@ -23296,24 +23488,29 @@ export class RequestService extends BaseService {
 'route_text': string;
 
 /**
- * Срок.дн
+ * Срок (дней), от
  */
-'period': string;
+'days_min'?: string;
 
 /**
- * До границы
+ * Срок (дней), до
  */
-'customs_rate': string;
+'days_max'?: string;
 
 /**
- * Локальные
+ * Срок, дн.
  */
-'local_rate': string;
+'period'?: string;
 
 /**
- * Итого
+ * В итоговом
  */
-'total_rate': string;
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFinalListPath, 'get');
@@ -23352,49 +23549,52 @@ export class RequestService extends BaseService {
         'id': number;
         
         /**
-         * Дата запроса
+         * Дата создания
          */
-        'time_request': string;
+        'time_add': string;
         
         /**
-         * Подрядчик
+         * ID Ставка до границы
          */
-        'contractor_text': string;
+        'custom_id': number;
         
         /**
-         * Подрядчик (ID берем из запроса - contractor_list)
+         * Ставка до границы
          */
-        'contractor_id': number;
+        'custom': {
+        };
         
         /**
-         * AIR
+         * ID Ставка СВХ
          */
-        'carrier_iata': number;
+        'storage_id': number;
         
         /**
-         * Авиалиния
+         * Ставка СВХ
          */
-        'carrier_text': string;
+        'storage': {
+        };
         
         /**
-         * Авиалиния (ID берем из запроса - transport_carrier)
+         * ID Ставка доставки
          */
-        'carrier_id': string;
+        'delivery_id': number;
         
         /**
-         * Тип
+         * Ставка доставки
          */
-        'kind_key': string;
+        'delivery': {
+        };
         
         /**
-         * Расписание
+         * Сумма
          */
-        'departure_schedule_text': Array<string>;
+        'total_cost': number;
         
         /**
-         * Расписание
+         * Сумма
          */
-        'departure_schedule': Array<string>;
+        'total_cost_text': string;
         
         /**
          * Маршрут
@@ -23402,24 +23602,29 @@ export class RequestService extends BaseService {
         'route_text': string;
         
         /**
-         * Срок.дн
+         * Срок (дней), от
          */
-        'period': string;
+        'days_min'?: string;
         
         /**
-         * До границы
+         * Срок (дней), до
          */
-        'customs_rate': string;
+        'days_max'?: string;
         
         /**
-         * Локальные
+         * Срок, дн.
          */
-        'local_rate': string;
+        'period'?: string;
         
         /**
-         * Итого
+         * В итоговом
          */
-        'total_rate': string;
+        'selected'?: boolean;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer'?: boolean;
         }>;
         }>;
       })
@@ -23514,49 +23719,52 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата запроса
+ * Дата создания
  */
-'time_request': string;
+'time_add': string;
 
 /**
- * Подрядчик
+ * ID Ставка до границы
  */
-'contractor_text': string;
+'custom_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
+ * Ставка до границы
  */
-'contractor_id': number;
+'custom': {
+};
 
 /**
- * AIR
+ * ID Ставка СВХ
  */
-'carrier_iata': number;
+'storage_id': number;
 
 /**
- * Авиалиния
+ * Ставка СВХ
  */
-'carrier_text': string;
+'storage': {
+};
 
 /**
- * Авиалиния (ID берем из запроса - transport_carrier)
+ * ID Ставка доставки
  */
-'carrier_id': string;
+'delivery_id': number;
 
 /**
- * Тип
+ * Ставка доставки
  */
-'kind_key': string;
+'delivery': {
+};
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule_text': Array<string>;
+'total_cost': number;
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule': Array<string>;
+'total_cost_text': string;
 
 /**
  * Маршрут
@@ -23564,24 +23772,29 @@ export class RequestService extends BaseService {
 'route_text': string;
 
 /**
- * Срок.дн
+ * Срок (дней), от
  */
-'period': string;
+'days_min'?: string;
 
 /**
- * До границы
+ * Срок (дней), до
  */
-'customs_rate': string;
+'days_max'?: string;
 
 /**
- * Локальные
+ * Срок, дн.
  */
-'local_rate': string;
+'period'?: string;
 
 /**
- * Итого
+ * В итоговом
  */
-'total_rate': string;
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
 }>;
 }> {
     return this.requestRateFinalList$Response(params, context).pipe(
@@ -23603,49 +23816,52 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата запроса
+ * Дата создания
  */
-'time_request': string;
+'time_add': string;
 
 /**
- * Подрядчик
+ * ID Ставка до границы
  */
-'contractor_text': string;
+'custom_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
+ * Ставка до границы
  */
-'contractor_id': number;
+'custom': {
+};
 
 /**
- * AIR
+ * ID Ставка СВХ
  */
-'carrier_iata': number;
+'storage_id': number;
 
 /**
- * Авиалиния
+ * Ставка СВХ
  */
-'carrier_text': string;
+'storage': {
+};
 
 /**
- * Авиалиния (ID берем из запроса - transport_carrier)
+ * ID Ставка доставки
  */
-'carrier_id': string;
+'delivery_id': number;
 
 /**
- * Тип
+ * Ставка доставки
  */
-'kind_key': string;
+'delivery': {
+};
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule_text': Array<string>;
+'total_cost': number;
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule': Array<string>;
+'total_cost_text': string;
 
 /**
  * Маршрут
@@ -23653,24 +23869,29 @@ export class RequestService extends BaseService {
 'route_text': string;
 
 /**
- * Срок.дн
+ * Срок (дней), от
  */
-'period': string;
+'days_min'?: string;
 
 /**
- * До границы
+ * Срок (дней), до
  */
-'customs_rate': string;
+'days_max'?: string;
 
 /**
- * Локальные
+ * Срок, дн.
  */
-'local_rate': string;
+'period'?: string;
 
 /**
- * Итого
+ * В итоговом
  */
-'total_rate': string;
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
 }>;
 }>): {
 
@@ -23690,49 +23911,52 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата запроса
+ * Дата создания
  */
-'time_request': string;
+'time_add': string;
 
 /**
- * Подрядчик
+ * ID Ставка до границы
  */
-'contractor_text': string;
+'custom_id': number;
 
 /**
- * Подрядчик (ID берем из запроса - contractor_list)
+ * Ставка до границы
  */
-'contractor_id': number;
+'custom': {
+};
 
 /**
- * AIR
+ * ID Ставка СВХ
  */
-'carrier_iata': number;
+'storage_id': number;
 
 /**
- * Авиалиния
+ * Ставка СВХ
  */
-'carrier_text': string;
+'storage': {
+};
 
 /**
- * Авиалиния (ID берем из запроса - transport_carrier)
+ * ID Ставка доставки
  */
-'carrier_id': string;
+'delivery_id': number;
 
 /**
- * Тип
+ * Ставка доставки
  */
-'kind_key': string;
+'delivery': {
+};
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule_text': Array<string>;
+'total_cost': number;
 
 /**
- * Расписание
+ * Сумма
  */
-'departure_schedule': Array<string>;
+'total_cost_text': string;
 
 /**
  * Маршрут
@@ -23740,1003 +23964,29 @@ export class RequestService extends BaseService {
 'route_text': string;
 
 /**
- * Срок.дн
+ * Срок (дней), от
  */
-'period': string;
+'days_min'?: string;
 
 /**
- * До границы
+ * Срок (дней), до
  */
-'customs_rate': string;
+'days_max'?: string;
 
 /**
- * Локальные
+ * Срок, дн.
  */
-'local_rate': string;
+'period'?: string;
 
 /**
- * Итого
+ * В итоговом
  */
-'total_rate': string;
-}>;
-} => r.body)
-    );
-  }
+'selected'?: boolean;
 
-  /** Path part for operation `requestRateFinalInfo()` */
-  static readonly RequestRateFinalInfoPath = '/request_rate_final_info';
-
-  /**
-   * Ставка итоговая.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `requestRateFinalInfo()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateFinalInfo$Response(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>;
-
-/**
- * Параметры таблицы
- */
-'table'?: Array<{
-
-/**
- * Блок колонок
- */
-'column'?: string;
-
-/**
- * Данные колонок
- */
-'items'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Заголовок поля
- */
-'title'?: string;
-
-/**
- * Ширина поля
- */
-'width'?: number;
-}>;
-}>;
-
-/**
- * Параметры сортировки
- */
-'order'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Сортировка по умолчанию
- */
-'dir'?: string;
-}>;
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFinalInfoPath, 'get');
-    if (params) {
-      rb.query('id', params.id, {});
-      rb.query('request_id', params.request_id, {});
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Параметры поиска
-         */
-        'search'?: Array<{
-        
-        /**
-         * Поиск в заголовке
-         */
-        'header'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск основной
-         */
-        'main'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        
-        /**
-         * Поиск расширенный
-         */
-        'additional'?: Array<{
-        
-        /**
-         * Переменная
-         */
-        'field'?: string;
-        
-        /**
-         * Элемент формы
-         */
-        'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        
-        /**
-         * Источник
-         */
-        'source'?: string;
-        
-        /**
-         * Массив данных
-         */
-        'array'?: Array<{
-        
-        /**
-         * ID
-         */
-        'id'?: string;
-        
-        /**
-         * Наименование
-         */
-        'name'?: string;
-        }>;
-        }>;
-        }>;
-        
-        /**
-         * Параметры таблицы
-         */
-        'table'?: Array<{
-        
-        /**
-         * Блок колонок
-         */
-        'column'?: string;
-        
-        /**
-         * Данные колонок
-         */
-        'items'?: Array<{
-        
-        /**
-         * Поле
-         */
-        'field'?: string;
-        
-        /**
-         * Заголовок поля
-         */
-        'title'?: string;
-        
-        /**
-         * Ширина поля
-         */
-        'width'?: number;
-        }>;
-        }>;
-        
-        /**
-         * Параметры сортировки
-         */
-        'order'?: Array<{
-        
-        /**
-         * Поле
-         */
-        'field'?: string;
-        
-        /**
-         * Сортировка по умолчанию
-         */
-        'dir'?: string;
-        }>;
-        }>;
-      })
-    );
-  }
-
-  /**
-   * Ставка итоговая.
-   *
-   *
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `requestRateFinalInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  requestRateFinalInfo(
-    params: {
-
-    /**
-     * ID ставки
-     */
-      id: number;
-
-    /**
-     * ID Запроса
-     */
-      request_id: number;
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>;
-
-/**
- * Параметры таблицы
- */
-'table'?: Array<{
-
-/**
- * Блок колонок
- */
-'column'?: string;
-
-/**
- * Данные колонок
- */
-'items'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Заголовок поля
- */
-'title'?: string;
-
-/**
- * Ширина поля
- */
-'width'?: number;
-}>;
-}>;
-
-/**
- * Параметры сортировки
- */
-'order'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Сортировка по умолчанию
- */
-'dir'?: string;
-}>;
-}> {
-    return this.requestRateFinalInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>;
-
-/**
- * Параметры таблицы
- */
-'table'?: Array<{
-
-/**
- * Блок колонок
- */
-'column'?: string;
-
-/**
- * Данные колонок
- */
-'items'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Заголовок поля
- */
-'title'?: string;
-
-/**
- * Ширина поля
- */
-'width'?: number;
-}>;
-}>;
-
-/**
- * Параметры сортировки
- */
-'order'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Сортировка по умолчанию
- */
-'dir'?: string;
-}>;
-}>): {
-
-/**
- * Параметры поиска
- */
-'search'?: Array<{
-
-/**
- * Поиск в заголовке
- */
-'header'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск основной
- */
-'main'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-
-/**
- * Поиск расширенный
- */
-'additional'?: Array<{
-
-/**
- * Переменная
- */
-'field'?: string;
-
-/**
- * Элемент формы
- */
-'form'?: 'autocomplete' | 'period' | 'select' | 'text' | 'checkbox' | 'checkbox_reset';
-
-/**
- * Наименование
- */
-'name'?: string;
-
-/**
- * Источник
- */
-'source'?: string;
-
-/**
- * Массив данных
- */
-'array'?: Array<{
-
-/**
- * ID
- */
-'id'?: string;
-
-/**
- * Наименование
- */
-'name'?: string;
-}>;
-}>;
-}>;
-
-/**
- * Параметры таблицы
- */
-'table'?: Array<{
-
-/**
- * Блок колонок
- */
-'column'?: string;
-
-/**
- * Данные колонок
- */
-'items'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
-/**
- * Заголовок поля
- */
-'title'?: string;
-
-/**
- * Ширина поля
- */
-'width'?: number;
-}>;
-}>;
-
-/**
- * Параметры сортировки
- */
-'order'?: Array<{
-
-/**
- * Поле
- */
-'field'?: string;
-
 /**
- * Сортировка по умолчанию
+ * В коммерческом предложении
  */
-'dir'?: string;
+'offer'?: boolean;
 }>;
 } => r.body)
     );

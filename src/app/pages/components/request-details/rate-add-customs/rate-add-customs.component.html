@@ -2,7 +2,7 @@
   <div class="form-block">
     <div class="form-row">
 
-      <div class="form-item-layout" style="gap: 24px;">
+      <!-- <div class="form-item-layout" style="gap: 24px;">
         <label class="radio">
           <input type="radio" value="detail" formControlName="rate_type" (change)="onRateTypeChange()">
           <i></i>
@@ -14,11 +14,19 @@
           <i></i>
           <span>With single Amount</span>
         </label>
+      </div> -->
+
+      <div class="form-item-layout" style="gap: 24px;">
+        <label class="radio" *ngFor="let option of rateTypeOptions">
+          <input type="radio" [value]="option.value" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>{{ option.label }}</span>
+        </label>
       </div>
 
       <div class="form-item-layout">
         <div class="form-item i10">
-          <div class="form-label">Оплачиваемый вес:</div>
+          <div class="form-label" (click)="handleClick(1122)">Оплачиваемый вес:</div>
           <div class="form-data">
             <input type="text" [value]="weight" readonly>
           </div>
@@ -27,7 +35,7 @@
         <div class="form-item">
           <div class="form-label">Airline:</div>
           <div class="form-data">
-            <input type="text"   readonly [value]="returnAirlineName(rateForm.value.carrier_id)">
+            <input type="text" readonly [value]="returnAirlineName(rateForm.value.carrier_id)">
           </div>
         </div>
 
@@ -64,7 +72,7 @@
         </div>
 
         <ng-container *ngTemplateOutlet="formItemSelector;
-          context: { label: 'The departure schedule:', control: 'departure_schedule', data: daysOfTheWeek, key:'day', multiple: true}">
+          context: { label: 'The departure schedule:', control: 'departure_schedule', data: weekDayList , key:'day', multiple: true}">
         </ng-container>
 
 
@@ -108,6 +116,7 @@
                     <i></i>
                     {{chargeModel.title}}
                   </label>
+
 
                   <span class="unit" [style]="!chargeModel.field_min? 'z-index: -1;':''">
                     Min $: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
