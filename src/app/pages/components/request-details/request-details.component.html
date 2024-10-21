@@ -135,7 +135,6 @@
 
         <ng-template [ngSwitchCase]="'final'">
           <div class="example-element-detail" *ngIf="element===expandedElement">
-
             <div class="costs">
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum: '165 450 Р' }"></ng-container>
               ≈
@@ -145,40 +144,16 @@
               +
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: '165 450 Р' }"></ng-container>
             </div>
-
-            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'customs'">
+            <app-rate-info-row *ngFor="let row of ['customs', 'point', 'transporter']" [rate]="expandedElement" [detailsMethod]="row">
               <div test1 class="cost_block" select='test1'>
                 <div class="cost">{{expandedElement?.total_cost_text}}</div>
               </div>
               <div test2 class="action-bar" >
-                <button class="edit" (click)="openCustomsRateEditor(expandedElement)"></button>
+                <button class="edit" (click)="openRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
                 <button class="del" (click)="deleteRate([expandedElement.id])"></button>
               </div>
             </app-rate-info-row>
-
-            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'point'">
-              <div test1 class="cost_block" select='test1'>
-                <div class="cost">{{expandedElement?.total_cost_text}}</div>
-              </div>
-              <div test2 class="action-bar" >
-                <button class="edit" (click)="openPointRateEditor(expandedElement)"></button>
-                <button class="dub"></button>
-                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
-              </div>
-            </app-rate-info-row>
-
-            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="'transporter'">
-              <div test1 class="cost_block" select='test1'>
-                <div class="cost">{{expandedElement?.total_cost_text}}</div>
-              </div>
-              <div test2 class="action-bar" >
-                <button class="edit" (click)="openTransporterRateEditor(expandedElement)"></button>
-                <button class="dub"></button>
-                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
-              </div>
-            </app-rate-info-row>
-
           </div>
         </ng-template>
 
@@ -203,7 +178,6 @@
 
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs
-    (closeDialog)="testDialogClose($event)"
     [rate]="data"
     [chargesShema]="schemaCharges"
     [weight]="currentRequest.cargo_places_paid_weight"

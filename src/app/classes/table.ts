@@ -69,8 +69,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     private dialog: MatDialog,
     protected snackBar: MatSnackBar,
     protected filterService: FilterService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -79,7 +78,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
     if(this.isRateDetailsMode || this.isBiddingMode){
       if(this.isRateDetailsMode) this.detailsMethod=segments[2];
-
       this.requestId = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequestInfo(this.requestId);
     }
@@ -98,11 +96,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    const params = this.isRateDetailsMode?
-      { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
-      :
-      { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
-
+    const params = this.isRateDetailsMode
+      ? { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
