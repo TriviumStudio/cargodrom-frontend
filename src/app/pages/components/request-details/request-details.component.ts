@@ -142,7 +142,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   onCommercialOfferChange(i:any){
     this.onSwitcherChange(i)
   }
-  
+
   onSwitcherChange(e: any) {
     const body: any = { id: e.id, selected: !e.selected };
 
@@ -290,6 +290,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
 }
+
+// как сделать так что бы при клике на кнопку в осноном компоненте , срабатывало событие из дочернего компонента , приложение angular
 
 // load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[]; }> {
 //   if(this.detailsMethod==='final') {
