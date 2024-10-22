@@ -97,7 +97,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   protected loadRows(): void {
     const sortCol = this.getSort();
     const params = this.isRateDetailsMode
-      ? { request_id:91, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+      ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
       : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     this.load(params)
       .subscribe(rows => {

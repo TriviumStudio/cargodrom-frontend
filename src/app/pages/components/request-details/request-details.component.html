@@ -1,10 +1,17 @@
 <div class="subheader">
   <app-request-info-block [request]="currentRequest"></app-request-info-block>
   <div class="request-actions">
-    <button class="det">Детали</button>
-    <button class="edi" (click)="editRequestNav()">Правка</button>
-    <button class="dub" (click)="dubCurRequest()">Дубль</button>
-    <button class="del">Удалить</button>
+    <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':''">Детали</button>
+    <button class="edi" (click)="onEditRequestBtnClick()">Правка</button>
+    <button class="dub" (click)="onDubRequestBtnClick()">Дубль</button>
+    <button class="del" (click)="onDeleteRequestBtnClick()">Удалить</button>
+  </div>
+</div>
+
+<div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
+  <div class="block" *ngFor="let item of expandedRequestInfoItems">
+    <div class="field">{{item.field}}</div>
+    <div class="data">{{currentRequest[item.data]}}</div>
   </div>
 </div>
 
@@ -32,7 +39,7 @@
       <button class="plus-rate" (click)="openRateEditor()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
       <button class="dub">ДУБЛЬ</button>
       <button class="torg">ТОРГИ</button>
-      <button class="del" (click)="deleteRate(arrDetailsCheckedCheck)">УДАЛИТЬ</button>
+      <button class="del" (click)="openDeleteRateDialog('Вы уверенны, что хотите удалить '+ arrDetailsCheckedCheck.length + ' ставок', arrDetailsCheckedCheck, 'Удаление ставок')">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -126,8 +133,9 @@
               </div>
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openRateEditor(expandedElement)"></button>
-                <button class="dub"></button>
-                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
+                <button class="dub" ></button>
+                <button class="del" (click)="openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ expandedElement.id, [expandedElement.id], 'Удаление ставки')"></button>
+                <!-- <button class="del" (click)="deleteRate([expandedElement.id])"></button> -->
               </div>
             </app-rate-info-row>
           </div>
@@ -151,7 +159,7 @@
               <div test2 class="action-bar" >
                 <button class="edit" (click)="openRateEditor(expandedElement)"></button>
                 <button class="dub"></button>
-                <button class="del" (click)="deleteRate([expandedElement.id])"></button>
+                <button class="del" (click)="openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ expandedElement.id, [expandedElement.id], 'Удаление ставки')"></button>
               </div>
             </app-rate-info-row>
           </div>
@@ -207,6 +215,15 @@
     [transportKindId]="currentRequest.transport_kind_id"
     [cityId]="currentRequest.arrival_city_id">
   </app-rate-add-transporter>
+</ng-template>
+
+<ng-template #dialogRef let-data>
+  <h1 mat-dialog-title>{{data.title}}</h1>
+  <div mat-dialog-content>{{data.message}}</div>
+  <div mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
+    <button mat-button mat-dialog-close>Нет</button>
+  </div>
 </ng-template>
 
 <ng-template #costRateBox let-label="label" let-sum="sum">

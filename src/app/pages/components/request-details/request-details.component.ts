@@ -46,9 +46,34 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   params:any;
   trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
+  isExpandedRequestInfo:boolean=false;
+  expandedRequestInfoItems:any=[
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+    {
+      field: 'Дата',
+      data: 'arrival_city_name'
+    },
+  ]
+
   @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
   @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
+  @ViewChild('dialogRef') dialogRef!: TemplateRef<void>;
 
   constructor(
     private contractorService: ContractorService,
@@ -78,13 +103,24 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
   }
-  // Link to request editor page
-  editRequestNav(){
-    this.router.navigate(['pages/request/edit', this.requestId])
+  // REQUEST HANDLERS
+  onDetailsRequestBtnClick(){
+    this.isExpandedRequestInfo=!this.isExpandedRequestInfo;
   }
+  onEditRequestBtnClick(){
+    this.navToRequestEditor();
+  }
+  onDubRequestBtnClick(){
+    this.createRequest(this.currentRequest)
+  }
+  onDeleteRequestBtnClick(){
+    this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
+  }
+  // KP HANDLERS
+
   // Duplicating the current request
-  dubCurRequest(){';'
-    this.requestService.requestCreate({body:this.currentRequest})
+  createRequest(body:any){
+    this.requestService.requestCreate({body:body})
       .pipe(
         tap((e)=>{
           console.log(e);
@@ -92,6 +128,25 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         takeUntil(this.destroy$)
       ).subscribe();
   }
+  //
+  openDeleteRequestDialog(message:string, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) { this.deleteRequest(this.requestId)}
+    });
+  }
+  // Link to request editor page
+  navToRequestEditor(){
+    this.router.navigate(['pages/request/edit', this.requestId])
+  }
+  // Link to requests table page
+  navToRequestsTable(){
+    this.router.navigate(['pages/request'])
+  }
+  // Link to rate table
+  navToRateTable(){
+    this.router.navigate(['pages/request'])
+  }
+
   // Сhange table method
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
@@ -107,6 +162,12 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     if (editor) {
       this.matDialog.open(editor.ref, { data: data, ...editor.config });
     }
+  }
+  //
+  openDeleteRateDialog(message:string, data:any, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) { this.deleteRate(data)}
+    });
   }
   // Delete Rate
   deleteRate(body:any){
@@ -124,6 +185,25 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления ставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  //
+  deleteRequest(id:number){
+    this.requestService.requestDelete({body:{id:id}})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`Запрос удален`, undefined, this.snackBarWithShortDuration);
+          this.navToRequestsTable();
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка удаления запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }
