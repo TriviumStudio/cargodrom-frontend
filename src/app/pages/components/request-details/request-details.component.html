@@ -36,10 +36,10 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
-      <button class="plus-rate" (click)="openRateEditor()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
-      <button class="dub">ДУБЛЬ</button>
-      <button class="torg">ТОРГИ</button>
-      <button class="del" (click)="openDeleteRateDialog('Вы уверенны, что хотите удалить '+ arrDetailsCheckedCheck.length + ' ставок', arrDetailsCheckedCheck, 'Удаление ставок')">УДАЛИТЬ</button>
+      <button class="add" (click)="onAddRateBtnClick()"><span style="text-wrap: nowrap" >+ СТАВКА</span></button>
+      <button class="dub" (click)="onDubRateBtnClick()">ДУБЛЬ</button>
+      <button class="bid" (click)="onBidRateBtnClick()">ТОРГИ</button>
+      <button class="del" (click)="onDelRateBtnClick()">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -93,7 +93,8 @@
           <div class="td-block">
             <label class="switch outer" *ngIf="col.column==='checked'">
               <!-- (change)="item.selected=!item.selected"  (change)="onSwitcherChange(item.selected, item.id)"  -->
-              <input type="checkbox"  [checked]="item.selected" (change)="item.selected=!item.selected; onSwitcherChange(item)" >
+              <!-- <input type="checkbox"  [checked]="item.selected" (change)="item.selected=!item.selected; onSwitcherChange(item)" > -->
+              <input type="checkbox"  [checked]="item.selected" (change)="onCommercialOfferChange(item)" >
               <div class="switcher">
                 <span class="bg"></span>
                 <span class="thumb"></span>

@@ -116,7 +116,92 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   onDeleteRequestBtnClick(){
     this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
   }
+
   // KP HANDLERS
+
+  // RATE METODS CHANGE
+  onTableMethodChange(method:any){
+    this.router.navigate(['pages/request/details', method, this.requestId])
+  }
+
+  // HANDLING CHECKBOX ACTIONS
+  onAddRateBtnClick(){
+    this.openRateEditor()
+  }
+  onDubRateBtnClick(){
+
+  }
+  onBidRateBtnClick(){
+
+  }
+  onDelRateBtnClick(){
+    this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок')
+  }
+
+  // SWITCHER CHANGE(Online checkbox,checked col, ios-Swither)
+  onCommercialOfferChange(i:any){
+    this.onSwitcherChange(i)
+  }
+  
+  onSwitcherChange(e: any) {
+    const body: any = { id: e.id, selected: !e.selected };
+
+    const methodMap: { [key: string]: (body: any) => Observable<any> } = {
+      customs: () => this.requestService.requestRateCustomsSave({ body }),
+      point: () => this.requestService.requestRatePointSave({ body }),
+      transporter: () => this.requestService.requestRateTransporterSave({ body })
+    };
+
+    const requestMethod = methodMap[this.detailsMethod];
+
+    requestMethod({body:body})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+
+  // CHECKBOX (Ofline checkbox, select col)
+  isDetailsCheckedCheck(contractor_id: number): boolean {
+    return this.arrDetailsCheckedCheck.includes(contractor_id);
+  }
+  updateArrDetailsCheckedCheck(contractor_id: number, { checked }: MatCheckboxChange) {
+    if (checked) {
+      if (!this.arrDetailsCheckedCheck.includes(contractor_id)) {
+        this.arrDetailsCheckedCheck.push(contractor_id);
+      }
+    } else {
+      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => id !== contractor_id);
+    }
+  }
+  isAllDetailsCheckedCheck(): boolean {
+    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
+    const arrIdRowsCheck = new Set(this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id)));
+    return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
+  }
+  isIndeterminateDetailsCheckedCheck(): boolean {
+    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
+    const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id));
+    return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
+  }
+  updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange) {
+    if (checked) {
+      this.arrDetailsCheckedCheck = [...new Set([...this.arrDetailsCheckedCheck, ...this.rows.map(i => i.id)])];
+    } else {
+      const rowIds = new Set(this.rows.map(i => i.id));
+      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => !rowIds.has(id));
+    }
+  }
 
   // Duplicating the current request
   createRequest(body:any){
@@ -147,10 +232,6 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.router.navigate(['pages/request'])
   }
 
-  // Сhange table method
-  onTableMethodChange(method:any){
-    this.router.navigate(['pages/request/details', method, this.requestId])
-  }
   // Open rate-editor form
   openRateEditor(data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
@@ -207,65 +288,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         }
       });
   }
-  // Online checkbox(checked col, ios-Swither)
-  onSwitcherChange(e: any) {
-    const body: any = { id: e.id, selected: e.selected };
 
-    const methodMap: { [key: string]: (body: any) => Observable<any> } = {
-      customs: () => this.requestService.requestRateCustomsSave({ body }),
-      point: () => this.requestService.requestRatePointSave({ body }),
-      transporter: () => this.requestService.requestRateTransporterSave({ body })
-    };
-
-    const requestMethod = methodMap[this.detailsMethod];
-
-    requestMethod({body:body})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
-  }
-  // Ofline checkbox(select col)
-  isDetailsCheckedCheck(contractor_id: number): boolean {
-    return this.arrDetailsCheckedCheck.includes(contractor_id);
-  }
-  updateArrDetailsCheckedCheck(contractor_id: number, { checked }: MatCheckboxChange) {
-    if (checked) {
-      if (!this.arrDetailsCheckedCheck.includes(contractor_id)) {
-        this.arrDetailsCheckedCheck.push(contractor_id);
-      }
-    } else {
-      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => id !== contractor_id);
-    }
-  }
-  isAllDetailsCheckedCheck(): boolean {
-    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
-    const arrIdRowsCheck = new Set(this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id)));
-    return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
-  }
-  isIndeterminateDetailsCheckedCheck(): boolean {
-    const arrIdRows = new Set(this.rows.map((i: any) => i.id));
-    const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id));
-    return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
-  }
-  updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange) {
-    if (checked) {
-      this.arrDetailsCheckedCheck = [...new Set([...this.arrDetailsCheckedCheck, ...this.rows.map(i => i.id)])];
-    } else {
-      const rowIds = new Set(this.rows.map(i => i.id));
-      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => !rowIds.has(id));
-    }
-  }
 }
 
 // load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[]; }> {
