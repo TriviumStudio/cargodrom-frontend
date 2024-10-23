@@ -15,8 +15,6 @@ import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/tran
   // encapsulation: ViewEncapsulation.None,
 })
 export class RateAddCustoms implements OnInit, OnDestroy {
-  @Output() closeDialog = new EventEmitter<void>();
-
   @Input() chargesShema?:any;
   @Input() weight?:number;
   @Input() requestId?:number;
@@ -81,9 +79,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       values: fb.array([], []),
     });
   }
-  handleClick(i:any) {
-    this.closeDialog.emit(i); // Срабатывает событие
-  }
+
   // Методы ЖЦ
   ngOnInit(): void {
     this.getTransportCarrier();
@@ -117,6 +113,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   get charges() {
     return <FormArray>this.rateForm.get('values');
   }
+
   //caclk
   calckChargeCost(control:any){
     if(control.value.min){

@@ -9,6 +9,8 @@ import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
+import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
 
 interface LoadRows{
   id?:number| undefined;
@@ -74,6 +76,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
   @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
   @ViewChild('dialogRef') dialogRef!: TemplateRef<void>;
+  // @ViewChild(RateAddCustoms) RateAddCustoms!: RateAddCustoms;
 
   constructor(
     private contractorService: ContractorService,
@@ -116,66 +119,41 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   onDeleteRequestBtnClick(){
     this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
   }
-
   // KP HANDLERS
-
   // RATE METODS CHANGE
   onTableMethodChange(method:any){
     this.router.navigate(['pages/request/details', method, this.requestId])
   }
-
   // HANDLING CHECKBOX ACTIONS
   onAddRateBtnClick(){
-    this.openRateEditor()
+    this.openRateEditor();
   }
-  onDubRateBtnClick(){
-
+  onDubSelectRateBtnClick(){
+    console.log(this.arrDetailsCheckedCheck);
+    // const body: any = { id: i.id, selected: !i.selected };
+    // this.saveRate(body);
   }
-  onBidRateBtnClick(){
-
+  onBidSelectRateBtnClick(){
+    this.snackBar.open(`Торги в данный момент не доступны, количество выбранных элементов: `+this.arrDetailsCheckedCheck.length, undefined, this.snackBarWithShortDuration);
   }
-  onDelRateBtnClick(){
+  onDelSelectRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок')
   }
-
   // SWITCHER CHANGE(Online checkbox,checked col, ios-Swither)
   onCommercialOfferChange(i:any){
-    this.onSwitcherChange(i)
+    const body: any = { id: i.id, selected: !i.selected };
+    this.saveRate(body);
   }
-
-  onSwitcherChange(e: any) {
-    const body: any = { id: e.id, selected: !e.selected };
-
-    const methodMap: { [key: string]: (body: any) => Observable<any> } = {
-      customs: () => this.requestService.requestRateCustomsSave({ body }),
-      point: () => this.requestService.requestRatePointSave({ body }),
-      transporter: () => this.requestService.requestRateTransporterSave({ body })
-    };
-
-    const requestMethod = methodMap[this.detailsMethod];
-
-    requestMethod({body:body})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
+  // CHECKBOX CHANGE IN TABLE
+  onCheckboxHeaderTableChange({ checked }: MatCheckboxChange) {
+    if (checked) {
+      this.arrDetailsCheckedCheck = [...new Set([...this.arrDetailsCheckedCheck, ...this.rows.map(i => i.id)])];
+    } else {
+      const rowIds = new Set(this.rows.map(i => i.id));
+      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => !rowIds.has(id));
+    }
   }
-
-  // CHECKBOX (Ofline checkbox, select col)
-  isDetailsCheckedCheck(contractor_id: number): boolean {
-    return this.arrDetailsCheckedCheck.includes(contractor_id);
-  }
-  updateArrDetailsCheckedCheck(contractor_id: number, { checked }: MatCheckboxChange) {
+  onCheckboxBodyTableChange(contractor_id: number, { checked }: MatCheckboxChange) {
     if (checked) {
       if (!this.arrDetailsCheckedCheck.includes(contractor_id)) {
         this.arrDetailsCheckedCheck.push(contractor_id);
@@ -184,24 +162,37 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => id !== contractor_id);
     }
   }
-  isAllDetailsCheckedCheck(): boolean {
+  // CHECKBOX states
+  isCheckboxBodyTableChecked(contractor_id: number): boolean {
+    return this.arrDetailsCheckedCheck.includes(contractor_id);
+  }
+  isCheckboxHeaderTableChecked(): boolean {
     const arrIdRows = new Set(this.rows.map((i: any) => i.id));
     const arrIdRowsCheck = new Set(this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id)));
     return arrIdRows.size > 0 && arrIdRows.size === arrIdRowsCheck.size;
   }
-  isIndeterminateDetailsCheckedCheck(): boolean {
+  isCheckboxHeaderTableIndeterminate(): boolean {
     const arrIdRows = new Set(this.rows.map((i: any) => i.id));
     const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id));
     return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
   }
-  updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange) {
-    if (checked) {
-      this.arrDetailsCheckedCheck = [...new Set([...this.arrDetailsCheckedCheck, ...this.rows.map(i => i.id)])];
-    } else {
-      const rowIds = new Set(this.rows.map(i => i.id));
-      this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => !rowIds.has(id));
-    }
+  // TOGGLE EXPANDED ROW
+  onOpenDetailsRateBtnClick(item:any){
+    this.expandedElement = this.expandedElement === item ? null : item;
   }
+  // HANDLERS in EXPANDED ROW
+  onEditRateBtnClick(){
+    this.openRateEditor(this.expandedElement);
+  }
+  onDubSingleRateBtnClick(){
+    const rate=this.expandedElement;
+    delete rate.id;
+    this.saveRate(rate);
+  }
+  onDelSingleRateBtnClick(){
+    this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
+  }
+
 
   // Duplicating the current request
   createRequest(body:any){
@@ -247,8 +238,37 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   //
   openDeleteRateDialog(message:string, data:any, title:string){
     this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
-      if (res) { this.deleteRate(data)}
+      if (res) {
+        this.deleteRate(data);
+      }
     });
+  }
+  saveRate(body: any) {
+    // const body: any = { id: e.id, selected: !e.selected };
+
+    const methodMap: { [key: string]: (body: any) => Observable<any> } = {
+      customs: () => this.requestService.requestRateCustomsSave({ body }),
+      point: () => this.requestService.requestRatePointSave({ body }),
+      transporter: () => this.requestService.requestRateTransporterSave({ body })
+    };
+
+    const requestMethod = methodMap[this.detailsMethod];
+
+    requestMethod({body:body})
+      .pipe(
+        tap(contractor => {
+          console.log(contractor);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (contractor) => {
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
   // Delete Rate
   deleteRate(body:any){
@@ -290,6 +310,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
 }
+
+
 
 // как сделать так что бы при клике на кнопку в осноном компоненте , срабатывало событие из дочернего компонента , приложение angular
 
