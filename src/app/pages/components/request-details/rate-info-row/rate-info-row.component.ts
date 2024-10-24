@@ -10,11 +10,12 @@ import { MatDialog } from '@angular/material/dialog';
 export class RateInfoRow {
   @Input() rate?: any;
   @Input() detailsMethod?: any;
+  @Input() costClass?: any;
 
   constructor(
   ) {}
 
-  sort(arr:any):any{
-    return arr?.sort((a:any, b:any) => b.select > a.select ? 1 : -1);
-  }
+  // sort(arr:any):any{
+  //   return arr?.sort((a:any, b:any) => b.select > a.select ? 1 : -1);
+  // }
 }

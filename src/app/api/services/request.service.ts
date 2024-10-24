@@ -194,7 +194,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -660,7 +660,7 @@ export class RequestService extends BaseService {
         /**
          * Тип транспорта
          */
-        'transport_type_name'?: number;
+        'transport_type_name'?: string;
         
         /**
          * Наименование груза
@@ -1210,7 +1210,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -1652,7 +1652,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -2092,7 +2092,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -3505,7 +3505,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -3951,7 +3951,7 @@ export class RequestService extends BaseService {
         /**
          * Тип транспорта
          */
-        'transport_type_name'?: number;
+        'transport_type_name'?: string;
         
         /**
          * Наименование груза
@@ -4410,7 +4410,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -4847,7 +4847,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -5282,7 +5282,7 @@ export class RequestService extends BaseService {
 /**
  * Тип транспорта
  */
-'transport_type_name'?: number;
+'transport_type_name'?: string;
 
 /**
  * Наименование груза
@@ -5704,11 +5704,6 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * Тип транспорта
- */
-'transport_type_name'?: number;
-
-/**
  * Наименование груза
  */
 'cargo_description': string;
@@ -5894,11 +5889,6 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
-
-/**
- * Условия поставки по Инкотермс
- */
-'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -6000,11 +5990,6 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * Тип транспорта
- */
-'transport_type_name'?: number;
-
-/**
  * Наименование груза
  */
 'cargo_description': string;
@@ -6190,11 +6175,6 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
-
-/**
- * Условия поставки по Инкотермс
- */
-'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -6303,11 +6283,6 @@ export class RequestService extends BaseService {
  * Тип транспорта (ID берем из запроса - transport_type)
  */
 'transport_type_id'?: number;
-
-/**
- * Тип транспорта
- */
-'transport_type_name'?: number;
 
 /**
  * Наименование груза
@@ -6495,11 +6470,6 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
-
-/**
- * Условия поставки по Инкотермс
- */
-'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -6611,11 +6581,6 @@ export class RequestService extends BaseService {
 'transport_type_id'?: number;
 
 /**
- * Тип транспорта
- */
-'transport_type_name'?: number;
-
-/**
  * Наименование груза
  */
 'cargo_description'?: string;
@@ -6801,11 +6766,6 @@ export class RequestService extends BaseService {
  * Условия поставки по Инкотермс (ID берем из запроса - request_incoterms)
  */
 'incoterms_id'?: number;
-
-/**
- * Условия поставки по Инкотермс
- */
-'incoterms_name'?: string;
 
 /**
  * Город/Порт (ID берем из запроса - direction_city)
@@ -14278,6 +14238,103 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestRateDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateDouble()` */
+  static readonly RequestRateDoublePath = '/request_rate_double';
+
+  /**
+   * Дублирование ставок запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateDouble()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateDouble$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateDoublePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Дублирование ставок запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateDouble$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateDouble(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateDouble$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -23988,6 +24045,601 @@ export class RequestService extends BaseService {
  */
 'offer'?: boolean;
 }>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateFinaleDelete()` */
+  static readonly RequestRateFinaleDeletePath = '/request_rate_finale_delete';
+
+  /**
+   * Удаление финальные пересечения ставок.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateFinaleDelete()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateFinaleDelete$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateFinaleDeletePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Удаление финальные пересечения ставок.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateFinaleDelete$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateFinaleDelete(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateFinaleDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferList()` */
+  static readonly RequestOfferListPath = '/request_offer_list';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferList$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferListPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код ошибки
+         */
+        'error_code'?: number;
+        
+        /**
+         * Тект ошибки
+         */
+        'error_message'?: string;
+        
+        /**
+         * Подробное описание ошибки
+         */
+        'error_message_description'?: string;
+        
+        /**
+         * Подробное описание ошибки по полям
+         */
+        'error_fields_description'?: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferList(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}> {
+    return this.requestOfferList$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}>): {
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferMake()` */
+  static readonly RequestOfferMakePath = '/request_offer_make';
+
+  /**
+   * Создание КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferMake()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferMake$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID сводных запросов
+ */
+'id': Array<string>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferMakePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Создание КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferMake$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferMake(
+    params?: {
+      body?: {
+
+/**
+ * ID сводных запросов
+ */
+'id': Array<string>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferMake$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferEdit()` */
+  static readonly RequestOfferEditPath = '/request_offer_edit';
+
+  /**
+   * Редактирование КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferEdit()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferEdit$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferEditPath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID Запроса
+         */
+        'request_id': number;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Редактирование КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferEdit$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferEdit(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+}> {
+    return this.requestOfferEdit$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+}>): {
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferSave()` */
+  static readonly RequestOfferSavePath = '/request_offer_save';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferSave()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferSave$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferSavePath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Код ошибки
+         */
+        'error_code'?: number;
+        
+        /**
+         * Тект ошибки
+         */
+        'error_message'?: string;
+        
+        /**
+         * Подробное описание ошибки
+         */
+        'error_message_description'?: string;
+        
+        /**
+         * Подробное описание ошибки по полям
+         */
+        'error_fields_description'?: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferSave$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferSave(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}> {
+    return this.requestOfferSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
+}>): {
+
+/**
+ * Код ошибки
+ */
+'error_code'?: number;
+
+/**
+ * Тект ошибки
+ */
+'error_message'?: string;
+
+/**
+ * Подробное описание ошибки
+ */
+'error_message_description'?: string;
+
+/**
+ * Подробное описание ошибки по полям
+ */
+'error_fields_description'?: {
+};
 } => r.body)
     );
   }

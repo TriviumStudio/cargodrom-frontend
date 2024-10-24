@@ -129,6 +129,37 @@
     <ng-container matColumnDef="expandedDetail" >
       <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
 
+        <div class="example-element-detail" *ngIf="element===expandedElement">
+          <ng-template [ngSwitchDefault]>
+            <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
+              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+            </app-rate-info-row>
+          </ng-template>
+          <ng-template [ngSwitchCase]="'final'">
+            <div class="costs">
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:expandedElement.total_cost_text   }"></ng-container>
+              ≈
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'До границы:', sum: expandedElement.custom.total_cost_text }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Склад (СВХ):', sum: expandedElement.storage.total_cost_text }"></ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: expandedElement.delivery.total_cost_text }"></ng-container>
+            </div>
+            <app-rate-info-row [rate]="expandedElement.custom" [detailsMethod]="'customs'" [costClass]="'final'">
+              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+            </app-rate-info-row>
+            <app-rate-info-row [rate]="expandedElement.storage" [detailsMethod]="'point'" [costClass]="'final'">
+              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+            </app-rate-info-row>
+            <app-rate-info-row [rate]="expandedElement.delivery" [detailsMethod]="'transporter'" [costClass]="'final'">
+              <ng-container test2 *ngTemplateOutlet="rateActions"></ng-container>
+            </app-rate-info-row>
+          </ng-template>
+        </div>
+
+      </td>
+      <!-- <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length' [ngSwitch]="detailsMethod">
+
         <ng-template [ngSwitchDefault]>
           <div class="example-element-detail" *ngIf="element===expandedElement">
             <app-rate-info-row [rate]="expandedElement" [detailsMethod]="detailsMethod">
@@ -168,7 +199,7 @@
           </div>
         </ng-template>
 
-      </td>
+      </td> -->
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
@@ -233,5 +264,13 @@
   <div class="cost">
     <div class="label">{{label}}</div>
     <div class="sum">{{sum}}</div>
+  </div>
+</ng-template>
+
+<ng-template #rateActions>
+  <div class="action-bar" >
+    <button class="edit" (click)="onEditRateBtnClick()"></button>
+    <button class="dub" (click)="onDubSingleRateBtnClick()"></button>
+    <button class="del" (click)="onDelSingleRateBtnClick()"></button>
   </div>
 </ng-template>

@@ -129,15 +129,18 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.openRateEditor();
   }
   onDubSelectRateBtnClick(){
-    console.log(this.arrDetailsCheckedCheck);
+    this.duplicateRate(this.arrDetailsCheckedCheck);
+    this.arrDetailsCheckedCheck=[];
     // const body: any = { id: i.id, selected: !i.selected };
     // this.saveRate(body);
   }
   onBidSelectRateBtnClick(){
     this.snackBar.open(`Торги в данный момент не доступны, количество выбранных элементов: `+this.arrDetailsCheckedCheck.length, undefined, this.snackBarWithShortDuration);
+    this.arrDetailsCheckedCheck=[];
   }
   onDelSelectRateBtnClick(){
-    this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок')
+    this.openDeleteRateDialog('Вы уверенны, что хотите удалить '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Удаление ставок');
+    this.arrDetailsCheckedCheck=[];
   }
   // SWITCHER CHANGE(Online checkbox,checked col, ios-Swither)
   onCommercialOfferChange(i:any){
@@ -185,30 +188,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.openRateEditor(this.expandedElement);
   }
   onDubSingleRateBtnClick(){
-    const rate=this.expandedElement;
-    delete rate.id;
-    this.saveRate(rate);
+    this.duplicateRate([this.expandedElement.id]);
   }
   onDelSingleRateBtnClick(){
     this.openDeleteRateDialog('Вы уверенны, что хотите удалить ставку №'+ this.expandedElement.id, [this.expandedElement.id], 'Удаление ставки')
-  }
-
-
-  // Duplicating the current request
-  createRequest(body:any){
-    this.requestService.requestCreate({body:body})
-      .pipe(
-        tap((e)=>{
-          console.log(e);
-        }),
-        takeUntil(this.destroy$)
-      ).subscribe();
-  }
-  //
-  openDeleteRequestDialog(message:string, title:string){
-    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
-      if (res) { this.deleteRequest(this.requestId)}
-    });
   }
   // Link to request editor page
   navToRequestEditor(){
@@ -222,8 +205,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   navToRateTable(){
     this.router.navigate(['pages/request'])
   }
-
-  // Open rate-editor form
+  // OPEN DIALOG
   openRateEditor(data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
       point:       { ref: this.ratePointDialogRef },
@@ -235,7 +217,6 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       this.matDialog.open(editor.ref, { data: data, ...editor.config });
     }
   }
-  //
   openDeleteRateDialog(message:string, data:any, title:string){
     this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
       if (res) {
@@ -243,17 +224,28 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       }
     });
   }
+  openDeleteRequestDialog(message:string, title:string){
+    this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
+      if (res) { this.deleteRequest(this.requestId)}
+    });
+  }
+  // REQUESTS TO BACKEND
+  createRequest(body:any){//dub request
+    this.requestService.requestCreate({body:body})
+      .pipe(
+        tap((e)=>{
+          console.log(e);
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe();
+  }
   saveRate(body: any) {
-    // const body: any = { id: e.id, selected: !e.selected };
-
     const methodMap: { [key: string]: (body: any) => Observable<any> } = {
       customs: () => this.requestService.requestRateCustomsSave({ body }),
       point: () => this.requestService.requestRatePointSave({ body }),
       transporter: () => this.requestService.requestRateTransporterSave({ body })
     };
-
     const requestMethod = methodMap[this.detailsMethod];
-
     requestMethod({body:body})
       .pipe(
         tap(contractor => {
@@ -270,26 +262,45 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         }
       });
   }
-  // Delete Rate
-  deleteRate(body:any){
-    this.requestService.requestRateDelete({body:{id:body}})
-      .pipe(
-        tap(contractor => {
-          console.log(contractor);
-        }),
-        takeUntil(this.destroy$),
-      )
-      .subscribe({
-        next: (contractor) => {
-          this.snackBar.open(`Ставка удалена`, undefined, this.snackBarWithShortDuration);
-          this.loadRows();
-        },
-        error: (err) => {
-          this.snackBar.open(`Ошибка удаления ставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-        }
-      });
+  duplicateRate(body:any){
+    this.requestService.requestRateDouble({ body: { id: body } })
+    .pipe(
+      tap(contractor => {
+        console.log(contractor);
+      }),
+      takeUntil(this.destroy$),
+    )
+    .subscribe({
+      next: (contractor) => {
+        this.snackBar.open(`Количество дублированных ставок: `+ body.length, undefined, this.snackBarWithShortDuration);
+        this.loadRows();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка дублирования: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
   }
-  //
+  deleteRate(body:any){
+    const deleteRate: Observable<any> = this.detailsMethod === 'finale'
+    ? this.requestService.requestRateFinaleDelete({ body: { id: body } })
+    : this.requestService.requestRateDelete({ body: { id: body } });
+
+    deleteRate.pipe(
+      tap(contractor => {
+        console.log(contractor);
+      }),
+      takeUntil(this.destroy$),
+    )
+    .subscribe({
+      next: (contractor) => {
+        this.snackBar.open(`Ставка удалена`, undefined, this.snackBarWithShortDuration);
+        this.loadRows();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка удаления ставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
   deleteRequest(id:number){
     this.requestService.requestDelete({body:{id:id}})
       .pipe(
@@ -310,98 +321,3 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
 
 }
-
-
-
-// как сделать так что бы при клике на кнопку в осноном компоненте , срабатывало событие из дочернего компонента , приложение angular
-
-// load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[]; }> {
-//   if(this.detailsMethod==='final') {
-//     return this.requestService.requestRateFinalList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>;
-//   } else if (this.detailsMethod==='customs') {
-//     return this.requestService.requestRateCustomsList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-//   } else if (this.detailsMethod==='point') {
-//     return this.requestService.requestRatePointList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-//   } else {
-//     return this.requestService.requestRateTransporterList(params as any) as unknown as Observable<{ total: number; items: LoadRows[]; }>
-//   }
-// }
-
-// protected override exportData(): Observable<{data: string; name: string}> {
-//   return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
-// }
-// protected override importData(body: {data: string; name: string}) {
-//   return this.contractorService.contractorImport({body}) as any;
-// }
-// protected override importDataConfirm(body: {import_key: string}) {
-//   return this.contractorService.contractorImportConfirm({import_key: body.import_key});
-// }
-// protected override importResult(body: {import_key: string}) {
-//   return this.contractorService.contractorImportResult({import_key: body.import_key});
-// }
-// protected override importTemplate(): Observable<{data: string; name: string}> {
-//   return this.contractorService.contractorImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
-// }
-// protected override requestContractorSelectGet(id:number): Observable<any> {
-//   return this.requestService.requestContractorSelectGet({id:id});
-// }
-// protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}) {
-//   return this.requestService.requestContractorSelectUpdate({body});
-// }
-
-// protected override requestSaveBidding(body:{id:number,confirm: boolean}){
-//   return this.requestService.requestSaveBidding({body})
-// }
-
-// isDetailsCheckedCheck(contractor_id: number): boolean {
-//   return this.arrDetailsCheckedCheck.includes(contractor_id);
-// }
-
-// updateArrDetailsCheckedCheck(contractor_id:number,{ checked }: MatCheckboxChange){
-//   checked
-//   ? this.arrDetailsCheckedCheck.push(contractor_id)
-//   : this.arrDetailsCheckedCheck = this.arrDetailsCheckedCheck.filter(id => id !== contractor_id);
-// }
-
-// isAllDetailsCheckedCheck(): boolean {
-//   const arrIdRows = this.rows.map((i: any) => i.id);
-//   const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter((id: number) => arrIdRows.includes(id));
-
-//   return this.arrDetailsCheckedCheck.length > 0 &&
-//          arrIdRows.length === arrIdRowsCheck.length &&
-//          arrIdRowsCheck.length === new Set(arrIdRowsCheck).size;
-// }
-
-// isIndeterminateDetailsCheckedCheck(){
-//   let arrIdRows:number[]=[];
-//   let arrIdRowsCheck:number[]=[];
-
-//   this.rows.forEach((i:any)=>{
-//     arrIdRows.push(i.id);
-//   });
-//   this.arrDetailsCheckedCheck.forEach((i:any)=>{
-//     this.rows.forEach((ir:any)=>{
-//       if(i===ir.id){
-//         arrIdRowsCheck.push(i);
-//       }
-//     });
-//   });
-//   return arrIdRows.length>arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
-// }
-
-// updateAllArrDetailsCheckedCheck({ checked }: MatCheckboxChange){
-//   if(checked){
-//     this.rows.forEach((i:any)=>{
-//       this.arrDetailsCheckedCheck.push(i.id);
-//     })
-//     this.arrDetailsCheckedCheck=[...new Set(this.arrDetailsCheckedCheck)];
-//   } else {
-//     this.arrDetailsCheckedCheck.forEach((i:any)=>{
-//       this.rows.forEach((ir:any)=>{
-//         if(i===ir.id){
-//           this.arrDetailsCheckedCheck=this.arrDetailsCheckedCheck.filter((number) => number !== i)
-//         }
-//       });
-//     });
-//   }
-// }
