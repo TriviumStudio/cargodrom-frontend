@@ -42,11 +42,11 @@ interface LoadRows{
 export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter> {
   sortField = 'contractor_id' as const;
   expandedElement: any | null;
-  expandedElementInfo: any | null;
+  // expandedElementInfo: any | null;
   arrDetailsCheckedCheck:number[]=[];
   // testswi=true
-  params:any;
-  trackById = (_index: number, contractor: LoadRows) => contractor.id!;
+  // params:any;
+  // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
   isExpandedRequestInfo:boolean=false;
   expandedRequestInfoItems:any=[
@@ -105,6 +105,21 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
+  }
+  //
+  getVal(obj: any, path: string): any {
+    if (!path.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
   }
   // REQUEST HANDLERS
   onDetailsRequestBtnClick(){

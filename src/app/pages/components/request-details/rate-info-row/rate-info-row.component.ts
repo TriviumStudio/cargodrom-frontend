@@ -9,8 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class RateInfoRow {
   @Input() rate?: any;
-  @Input() detailsMethod?: any;
-  @Input() costClass?: any;
+  @Input() detailsMethod?: string;
+  @Input() costClass?: string;
 
   constructor(
   ) {}
