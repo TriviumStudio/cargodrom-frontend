@@ -19,6 +19,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() closeDialog = new EventEmitter<void>();
 
   rateForm: FormGroup;
   private _destroy$ = new Subject();
@@ -77,6 +78,9 @@ export class RateAddPoint implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+  onCancelBtnClick(){
+    this.closeDialog.emit()
   }
 
   // Charges

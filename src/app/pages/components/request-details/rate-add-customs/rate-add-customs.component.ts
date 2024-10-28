@@ -21,6 +21,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() closeDialog = new EventEmitter<void>();
 
 
   rateForm: FormGroup;
@@ -78,6 +79,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       }),
       values: fb.array([], []),
     });
+  }
+
+  onCancelBtnClick(){
+    this.closeDialog.emit()
   }
 
   // Методы ЖЦ

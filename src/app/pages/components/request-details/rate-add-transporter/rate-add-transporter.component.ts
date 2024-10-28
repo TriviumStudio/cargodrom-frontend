@@ -20,6 +20,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   @Input() transportKindId?:number;
   @Input() cityId?:number;
   @Input() rate?:any;
+  @Output() closeDialog = new EventEmitter<void>();
 
 
   rateForm: FormGroup;
@@ -54,6 +55,9 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       comment: [,[]],
       values: fb.array([], []),
     });
+  }
+  onCancelBtnClick(){
+    this.closeDialog.emit()
   }
 
   // Методы ЖЦ

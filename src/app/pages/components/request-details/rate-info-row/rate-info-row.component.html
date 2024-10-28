@@ -8,15 +8,17 @@
         <div class="cost">{{rate?.total_cost_text}}</div>
       </div>
       <div class="cost_block_black" *ngIf="costClass">
-        <div class="cost">До границы: <span> {{rate?.total_cost_text}}</span></div>
-        <div class='percent'>22% <span>от итоговой ставки</span></div>
+        <div *ngIf="detailsMethod==='customs'" class="cost">До границы: <span> {{rate?.total_cost_text}}</span></div>
+        <div *ngIf="detailsMethod==='point'" class="cost">Склад (СВХ): <span> {{rate?.total_cost_text}}</span></div>
+        <div *ngIf="detailsMethod==='transporter'" class="cost">Вывоз: <span> {{rate?.total_cost_text}}</span></div>
+        <div class='percent'>{{percent | number:'1.0-0'}}% <span>от итоговой ставки</span></div>
       </div>
       <ng-template [ngSwitchDefault]>
         <div class="contractor_block" >
           <div style="display: flex; justify-content: space-between;">
             <div class="agent_block">
-              <div class="label">Агент авиалинии:</div>
-              <div>{{rate?.carrier_text}}</div>
+              <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div>
+              <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div>
               <div class="detailed">Подробнее  ></div>
             </div>
             <div class="link_block">
@@ -29,16 +31,16 @@
             <div class="rating_block">
               <div class="label">Рейтинг в системе:</div>
               <div class="stars">
-                <div class="star_sel"></div>
-                <div class="star_no-sel"></div>
+                <div class="star_sel" *ngFor="let i of [].constructor(rate?.contractor?.rating_nps)"></div>
+                <div class="star_no-sel"*ngFor="let i of [].constructor(10-rate?.contractor?.rating_nps)"></div>
               </div>
-              <div>{{rate?.contractor?.rating_nps_text}}</div>
+              <div>{{rate?.contractor?.rating_nps}}/10 NPS</div>
             </div>
             <div class="pct_block">
               <div class="label">% выигранных торгов:</div>
               <div class="flags">
-                <div><span class="red_flag"></span>{{rate?.contractor?.trade_fail_count}}</div>
-                <div><span class="green_flag"></span>{{rate?.contractor?.trade_success_count}}</div>
+                <div class="red"><span class="red_flag"></span>{{rate?.contractor?.trade_fail_percent}}</div>
+                <div class="green"><span class="green_flag"></span>{{rate?.contractor?.trade_success_percent}}</div>
               </div>
             </div>
           </div>
