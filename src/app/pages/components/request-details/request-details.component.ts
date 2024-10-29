@@ -48,6 +48,8 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // params:any;
   // trackById = (_index: number, contractor: LoadRows) => contractor.id!;
 
+  offerList:any;
+
   isExpandedRequestInfo:boolean=false;
   expandedRequestInfoItems:any=[
     {
@@ -88,6 +90,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     filter: FilterService,
     private matDialog: MatDialog,
   ) { super(route, router, dialog, snackBar, filter) }
+
+  override loadRows(): void {
+    super.loadRows();
+    this.getOfferList();
+  }
 
   //методы для таблицы
   load<LoadRows>(params: LoadParams<any, any>): Observable<{ total: number; items: LoadRows[] }> {
@@ -248,6 +255,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // OPEN DIALOG
   closeAllDialogs(){
     this.matDialog.closeAll();
+    this.loadRows();
   }
   openDeleteRateDialog(message:string, data:any, title:string){
     this.matDialog.open(this.dialogRef,{ data: {message:message, title:title}}).afterClosed().subscribe(res => {
@@ -268,13 +276,22 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // REQUESTS TO BACKEND
   createOffer(body:any){//create kp
-    this.requestService.requestOfferMake({body:body})
+    this.requestService.requestOfferMake({body:{id:body}})
       .pipe(
         tap((e)=>{
           console.log(e);
         }),
         takeUntil(this.destroy$)
-      ).subscribe();
+      ).subscribe({
+        next: (contractor) => {
+          this.loadRows();
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+          this.arrDetailsCheckedCheck=[];
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
   createRequest(body:any){//dub request
     this.requestService.requestCreate({body:body})
@@ -283,7 +300,16 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
           console.log(e);
         }),
         takeUntil(this.destroy$)
-      ).subscribe();
+      ).subscribe({
+        next: (contractor) => {
+          this.loadRows();
+          this.snackBar.open(`кп успех`, undefined, this.snackBarWithShortDuration);
+          this.arrDetailsCheckedCheck=[];
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
   }
   saveRate(body: any) {
     const methodMap: { [key: string]: (body: any) => Observable<any> } = {
@@ -327,7 +353,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     });
   }
   deleteRate(body:any){
-    const deleteRate: Observable<any> = this.detailsMethod === 'finale'
+    const deleteRate: Observable<any> = this.detailsMethod === 'final'
     ? this.requestService.requestRateFinaleDelete({ body: { id: body } })
     : this.requestService.requestRateDelete({ body: { id: body } });
 
@@ -362,6 +388,27 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
+      });
+  }
+  getOfferList(){
+    this.requestService.requestOfferList({request_id:this.requestId})
+      .pipe(
+        tap(offers => {
+          console.log('OfferList',offers);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe({
+        next: (offers) => {
+          this.offerList=offers;
+          this.offerList.colList=[];
+          this.offerList.columns.forEach((i:any) => {
+            this.offerList.colList.push(i.column);
+          })
+        },
+        error: (err) => {
+          this.snackBar.open(`Ошибка получения кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
   }
