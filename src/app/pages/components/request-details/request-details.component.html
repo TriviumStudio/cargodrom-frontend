@@ -8,11 +8,21 @@
   </div>
 </div>
 
-<div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
+<!-- <div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
   <div class="block" *ngFor="let item of expandedRequestInfoItems">
     <div class="field">{{item.field}}</div>
     <div class="data">{{currentRequest[item.data]}}</div>
   </div>
+</div> -->
+
+<div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
+  <div class="block">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+  <div class="block">ds</div>
+  <div class="block">ds</div>
 </div>
 
 <ng-container *ngIf="!offerList?.items">
@@ -27,27 +37,63 @@
       <ng-container
         *ngFor="let col of offerList.columns"
         [matColumnDef]="col.column"
+        [ngSwitch]="col.column"
       >
-        <th mat-header-cell *matHeaderCellDef >
-          <div class="td-block">
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-            >
-              {{miniCol.title}}
+        <ng-template [ngSwitchDefault]>
+          <th mat-header-cell *matHeaderCellDef >
+            <div class="td-block">
+              <div class="column"
+                *ngFor="let miniCol of col.items"
+              >
+                {{miniCol.title}}
+              </div>
             </div>
-          </div>
-        </th>
+          </th>
 
-        <td mat-cell *matCellDef="let item">
-          <div class="td-block" >
-            <div class="column"
-              *ngFor="let miniCol of col.items"
-            >
-              <!-- {{item[miniCol.field]}} -->
-              {{ getVal(item,miniCol.field) }}
+          <td mat-cell *matCellDef="let item">
+            <div class="td-block" >
+              <div class="column"
+                *ngFor="let miniCol of col.items"
+              >
+                <!-- {{item[miniCol.field]}} -->
+                {{ getVal(item,miniCol.field) }}
+              </div>
             </div>
-          </div>
-        </td>
+          </td>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="'checked'">
+          <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+            <label class="checkbox-label">
+              <mat-checkbox class="testclass"
+                [indeterminate]="isCheckboxHeaderTableIndeterminate()"
+                [checked]="isCheckboxHeaderTableChecked()"
+                (change)="onCheckboxHeaderTableChange($event)"
+              >
+              </mat-checkbox>
+            </label>
+          </th>
+          <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+            <div class="td-block">
+
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isCheckboxBodyTableChecked(item.id)"
+                  (change)="onCheckboxBodyTableChange(item.id,$event)"
+                >
+                </mat-checkbox>
+              </label>
+              <div class="kp-btns">
+                <button class="edi" (click)="onEditKpBtnClick()"></button>
+                <button class="dub" (click)="onDubKpBtnClick()"></button>
+                <button class="cop" (click)="onCopyKpBtnClick()"></button>
+                <button class="pdf" (click)="onPdfKpBtnClick()"></button>
+                <button class="txt" (click)="onTxtKpBtnClick()"></button>
+                <button class="del" (click)="onDelKpBtnClick(item.id)"></button>
+              </div>
+            </div>
+          </td>
+        </ng-template>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>

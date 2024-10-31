@@ -2,23 +2,41 @@
   padding: 15px 12px 12px 24px;
   background: #fff;
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+
+  
   border-bottom: 1px #C3CCD6 solid;
-  .field{
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 13px;
-    text-align: left;
-    color: #606A74;
-    margin-bottom: 5px;
+  // .field{
+  //   font-size: 13px;
+  //   font-weight: 400;
+  //   line-height: 13px;
+  //   text-align: left;
+  //   color: #606A74;
+  //   margin-bottom: 5px;
+  // }
+  // .data{
+  //   font-size: 15px;
+  //   font-weight: 700;
+  //   line-height: 15px;
+  //   text-align: left;
+  //   color: #2C3640;
+  // }
+  .block{
+    display: flex;
+    border-top: 1px solid #C3CCD6;
+    .col{
+      padding: 40px;
+      border-right: 1px solid #C3CCD6;
+      width: 100%;
+    }
+    .col:last-child{
+      border:none;
+    }
   }
-  .data{
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 15px;
-    text-align: left;
-    color: #2C3640;
+  .block:first-child{
+    border:none;
   }
+
 }
 .table-filter {
   margin: 0 20px;
@@ -297,5 +315,46 @@ tr.example-detail-row {
     font-size: 48px;
     font-weight: 700;
     line-height: 48px;
+  }
+}
+
+.kp-btns{
+  display: flex;
+  gap:20px;
+  button{
+    cursor: pointer;
+    border: none;
+    background-color: transparent ;
+    padding: 0;
+    margin: 0;
+  }
+  button::before{
+    content: "";
+    display: block;
+    background: no-repeat 50% 50%;
+    width: 16px;
+    height: 16px;
+  }
+  .del::before{
+    background-image:url(../../../../assets/pic-btn-del-gray.svg);
+  }
+  .txt::before{
+    width: 21px;
+    height: 10px;
+    background-image:url(../../../../assets/pic-btn-txt-no-row.svg);
+  }
+  .pdf::before{
+    width: 22px;
+    height: 10px;
+    background-image:url(../../../../assets/pic-btn-pdf.svg);
+  }
+  .cop::before{
+    background-image:url(../../../../assets/pic-btn-copy.svg);
+  }
+  .dub::before{
+    background-image:url(../../../../assets/pic-btn-double.svg);
+  }
+  .edi::before{
+    background-image:url(../../../../assets/pic-btn-edit.svg);
   }
 }
