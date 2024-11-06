@@ -146,6 +146,9 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.openDeleteRequestDialog('Вы уверенны, что хотите удалить запрос?', 'Удаление запроса')
   }
   // KP TABLE HANDLERS
+  onSendKpBtnClick(){
+
+  }
   onEditKpBtnClick(){
 
   }
