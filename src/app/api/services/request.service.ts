@@ -568,6 +568,16 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add'?: string;
+
+/**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestListPath, 'get');
@@ -1034,6 +1044,16 @@ export class RequestService extends BaseService {
          * Дата создания
          */
         'time_add'?: string;
+        
+        /**
+         * Кол-во отправленных заявок на запрос
+         */
+        'count_rate_send'?: number;
+        
+        /**
+         * Кол-во отвеченных заявок на запрос
+         */
+        'count_rate_answer'?: number;
         }>;
         }>;
       })
@@ -1584,6 +1604,16 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add'?: string;
+
+/**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
 }>;
 }> {
     return this.requestList$Response(params, context).pipe(
@@ -2026,6 +2056,16 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add'?: string;
+
+/**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
 }>;
 }>): {
 
@@ -2466,6 +2506,16 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add'?: string;
+
+/**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
 }>;
 } => r.body)
     );
@@ -3881,6 +3931,16 @@ export class RequestService extends BaseService {
 'time_add'?: string;
 
 /**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -4325,6 +4385,16 @@ export class RequestService extends BaseService {
          * Дата создания
          */
         'time_add'?: string;
+        
+        /**
+         * Кол-во отправленных заявок на запрос
+         */
+        'count_rate_send'?: number;
+        
+        /**
+         * Кол-во отвеченных заявок на запрос
+         */
+        'count_rate_answer'?: number;
         
         /**
          * Документы (файлы)
@@ -4786,6 +4856,16 @@ export class RequestService extends BaseService {
 'time_add'?: string;
 
 /**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5223,6 +5303,16 @@ export class RequestService extends BaseService {
 'time_add'?: string;
 
 /**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
+
+/**
  * Документы (файлы)
  */
 'documents_file'?: {
@@ -5656,6 +5746,16 @@ export class RequestService extends BaseService {
  * Дата создания
  */
 'time_add'?: string;
+
+/**
+ * Кол-во отправленных заявок на запрос
+ */
+'count_rate_send'?: number;
+
+/**
+ * Кол-во отвеченных заявок на запрос
+ */
+'count_rate_answer'?: number;
 
 /**
  * Документы (файлы)
@@ -21129,24 +21229,309 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Вх. ставка
  */
-'income_rate'?: string;
+'rate_amount'?: string;
 
 /**
  * Профит
  */
-'profit'?: string;
+'profit_amount'?: string;
 
 /**
  * %
  */
-'percent'?: string;
+'profit_percent'?: string;
 
 /**
  * Ставка итого
  */
-'total_rate'?: string;
+'rate_total'?: string;
 
 /**
  * Валидность
@@ -21156,12 +21541,23 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Статус
  */
 'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
 
 /**
  * Примечание
@@ -21245,24 +21641,309 @@ export class RequestService extends BaseService {
         };
         
         /**
+         * Параметры профитов
+         */
+        'param': {
+        
+        /**
+         * Массив ставок До границы
+         */
+        'custom': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        
+        /**
+         * Массив ставок Склад (СВХ)
+         */
+        'storage': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        
+        /**
+         * Массив ставок Вывоз
+         */
+        'delivery': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        };
+        
+        /**
          * Вх. ставка
          */
-        'income_rate'?: string;
+        'rate_amount'?: string;
         
         /**
          * Профит
          */
-        'profit'?: string;
+        'profit_amount'?: string;
         
         /**
          * %
          */
-        'percent'?: string;
+        'profit_percent'?: string;
         
         /**
          * Ставка итого
          */
-        'total_rate'?: string;
+        'rate_total'?: string;
         
         /**
          * Валидность
@@ -21272,12 +21953,23 @@ export class RequestService extends BaseService {
         /**
          * Статус
          */
-        'status'?: string;
+        'status'?: number;
         
         /**
          * Статус
          */
         'status_text'?: string;
+        
+        /**
+         * Данные для формы
+         */
+        'form_data': {
+        
+        /**
+         * Статусы
+         */
+        'statuses': Array<string>;
+        };
         
         /**
          * Примечание
@@ -21382,24 +22074,309 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Вх. ставка
  */
-'income_rate'?: string;
+'rate_amount'?: string;
 
 /**
  * Профит
  */
-'profit'?: string;
+'profit_amount'?: string;
 
 /**
  * %
  */
-'percent'?: string;
+'profit_percent'?: string;
 
 /**
  * Ставка итого
  */
-'total_rate'?: string;
+'rate_total'?: string;
 
 /**
  * Валидность
@@ -21409,12 +22386,23 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Статус
  */
 'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
 
 /**
  * Примечание
@@ -21487,24 +22475,309 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Вх. ставка
  */
-'income_rate'?: string;
+'rate_amount'?: string;
 
 /**
  * Профит
  */
-'profit'?: string;
+'profit_amount'?: string;
 
 /**
  * %
  */
-'percent'?: string;
+'profit_percent'?: string;
 
 /**
  * Ставка итого
  */
-'total_rate'?: string;
+'rate_total'?: string;
 
 /**
  * Валидность
@@ -21514,12 +22787,23 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Статус
  */
 'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
 
 /**
  * Примечание
@@ -21590,24 +22874,309 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Вх. ставка
  */
-'income_rate'?: string;
+'rate_amount'?: string;
 
 /**
  * Профит
  */
-'profit'?: string;
+'profit_amount'?: string;
 
 /**
  * %
  */
-'percent'?: string;
+'profit_percent'?: string;
 
 /**
  * Ставка итого
  */
-'total_rate'?: string;
+'rate_total'?: string;
 
 /**
  * Валидность
@@ -21617,12 +23186,23 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Статус
  */
 'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
 
 /**
  * Примечание
@@ -21735,6 +23315,1984 @@ export class RequestService extends BaseService {
     );
   }
 
+  /** Path part for operation `requestOfferInfo()` */
+  static readonly RequestOfferInfoPath = '/request_offer_info';
+
+  /**
+   * Данны по КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferInfo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferInfo$Response(
+    params: {
+
+    /**
+     * ID КП
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
+ * Вх. ставка
+ */
+'rate_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount'?: string;
+
+/**
+ * %
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: number;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * UID
+         */
+        'uid': string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
+        
+        /**
+         * ID Запроса
+         */
+        'request_id': number;
+        
+        /**
+         * Запрос
+         */
+        'request': {
+        
+        /**
+         * Кол-во мест
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        };
+        
+        /**
+         * Параметры профитов
+         */
+        'param': {
+        
+        /**
+         * Массив ставок До границы
+         */
+        'custom': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        
+        /**
+         * Массив ставок Склад (СВХ)
+         */
+        'storage': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        
+        /**
+         * Массив ставок Вывоз
+         */
+        'delivery': {
+        
+        /**
+         * Единый профит на все ставки
+         */
+        'one_profit': boolean;
+        
+        /**
+         * Единый профит на все ставки - Сумма
+         */
+        'one_profit_amount': number;
+        
+        /**
+         * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+         */
+        'one_profit_amount_currency': number;
+        
+        /**
+         * Единый профит на все ставки - Процент
+         */
+        'one_profit_percent': number;
+        
+        /**
+         * Детализировать ставку в КП
+         */
+        'detail_items': boolean;
+        
+        /**
+         * Ставки
+         */
+        'rows': Array<{
+        
+        /**
+         * ID ставки
+         */
+        'id': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Услуги
+         */
+        'services': Array<{
+        
+        /**
+         * ID Услуги
+         */
+        'field': string;
+        
+        /**
+         * Стоимость
+         */
+        'amount': number;
+        
+        /**
+         * Профит - Сумма
+         */
+        'profit_amount': number;
+        
+        /**
+         * Профит - Процент
+         */
+        'profit_percent': number;
+        
+        /**
+         * Итого
+         */
+        'total_cost': number;
+        
+        /**
+         * Включено
+         */
+        'selected': boolean;
+        }>;
+        }>;
+        };
+        };
+        
+        /**
+         * Вх. ставка
+         */
+        'rate_amount'?: string;
+        
+        /**
+         * Профит
+         */
+        'profit_amount'?: string;
+        
+        /**
+         * %
+         */
+        'profit_percent'?: string;
+        
+        /**
+         * Ставка итого
+         */
+        'rate_total'?: string;
+        
+        /**
+         * Валидность
+         */
+        'valid'?: string;
+        
+        /**
+         * Статус
+         */
+        'status'?: number;
+        
+        /**
+         * Статус
+         */
+        'status_text'?: string;
+        
+        /**
+         * Данные для формы
+         */
+        'form_data': {
+        
+        /**
+         * Статусы
+         */
+        'statuses': Array<string>;
+        };
+        
+        /**
+         * Примечание
+         */
+        'comment'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Данны по КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferInfo(
+    params: {
+
+    /**
+     * ID КП
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
+ * Вх. ставка
+ */
+'rate_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount'?: string;
+
+/**
+ * %
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: number;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}> {
+    return this.requestOfferInfo$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
+ * Вх. ставка
+ */
+'rate_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount'?: string;
+
+/**
+ * %
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: number;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+}>): {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * UID
+ */
+'uid': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Параметры профитов
+ */
+'param': {
+
+/**
+ * Массив ставок До границы
+ */
+'custom': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery': {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit': boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount': number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency': number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent': number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items': boolean;
+
+/**
+ * Ставки
+ */
+'rows': Array<{
+
+/**
+ * ID ставки
+ */
+'id': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Услуги
+ */
+'services': Array<{
+
+/**
+ * ID Услуги
+ */
+'field': string;
+
+/**
+ * Стоимость
+ */
+'amount': number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount': number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent': number;
+
+/**
+ * Итого
+ */
+'total_cost': number;
+
+/**
+ * Включено
+ */
+'selected': boolean;
+}>;
+}>;
+};
+};
+
+/**
+ * Вх. ставка
+ */
+'rate_amount'?: string;
+
+/**
+ * Профит
+ */
+'profit_amount'?: string;
+
+/**
+ * %
+ */
+'profit_percent'?: string;
+
+/**
+ * Ставка итого
+ */
+'rate_total'?: string;
+
+/**
+ * Валидность
+ */
+'valid'?: string;
+
+/**
+ * Статус
+ */
+'status'?: number;
+
+/**
+ * Статус
+ */
+'status_text'?: string;
+
+/**
+ * Данные для формы
+ */
+'form_data': {
+
+/**
+ * Статусы
+ */
+'statuses': Array<string>;
+};
+
+/**
+ * Примечание
+ */
+'comment'?: string;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `requestOfferSave()` */
   static readonly RequestOfferSavePath = '/request_offer_save';
 
@@ -21758,6 +25316,246 @@ export class RequestService extends BaseService {
 'uid': string;
 
 /**
+ * Параметры профитов
+ */
+'param'?: {
+
+/**
+ * Массив ставок До границы
+ */
+'custom'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Валидность
  */
 'valid'?: string;
@@ -21765,7 +25563,7 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Примечание
@@ -21822,6 +25620,246 @@ export class RequestService extends BaseService {
 'uid': string;
 
 /**
+ * Параметры профитов
+ */
+'param'?: {
+
+/**
+ * Массив ставок До границы
+ */
+'custom'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Склад (СВХ)
+ */
+'storage'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+
+/**
+ * Массив ставок Вывоз
+ */
+'delivery'?: {
+
+/**
+ * Единый профит на все ставки
+ */
+'one_profit'?: boolean;
+
+/**
+ * Единый профит на все ставки - Сумма
+ */
+'one_profit_amount'?: number;
+
+/**
+ * Единый профит на все ставки - Валюта (ID берем из запроса - system_currency)
+ */
+'one_profit_amount_currency'?: number;
+
+/**
+ * Единый профит на все ставки - Процент
+ */
+'one_profit_percent'?: number;
+
+/**
+ * Детализировать ставку в КП
+ */
+'detail_items'?: boolean;
+
+/**
+ * Ставки
+ */
+'rows'?: Array<{
+
+/**
+ * ID ставки
+ */
+'id'?: number;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Услуги
+ */
+'services'?: Array<{
+
+/**
+ * ID Услуги
+ */
+'field'?: string;
+
+/**
+ * Профит - Сумма
+ */
+'profit_amount'?: number;
+
+/**
+ * Профит - Процент
+ */
+'profit_percent'?: number;
+
+/**
+ * Включено
+ */
+'selected'?: boolean;
+}>;
+}>;
+};
+};
+
+/**
  * Валидность
  */
 'valid'?: string;
@@ -21829,7 +25867,7 @@ export class RequestService extends BaseService {
 /**
  * Статус
  */
-'status'?: string;
+'status'?: number;
 
 /**
  * Примечание
@@ -21943,6 +25981,103 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestOfferDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferTxt()` */
+  static readonly RequestOfferTxtPath = '/request_offer_txt';
+
+  /**
+   * Скачивание КП в формате TXT.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferTxt()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferTxt$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferTxtPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Скачивание КП в формате TXT.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferTxt$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferTxt(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferTxt$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

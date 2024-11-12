@@ -1,0 +1,109 @@
+<form [formGroup]="kpForm" class="edit-form" (ngSubmit)="onSubmit()" style="width: 1488px;">
+
+  <div formGroupName="param">
+    <!-- Секция Custom -->
+    <div formGroupName="custom" class="block">
+      <h3>Custom</h3>
+      <div formArrayName="rows">
+        <div *ngFor="let row of customRows.controls; let i = index" [formGroupName]="i">
+          <h4>Row {{ i + 1 }}</h4>
+
+          <!-- Строка -->
+          <label for="profit_amount">Profit Amount</label>
+          <input formControlName="profit_amount" type="number">
+          <div>{{offer?.param.custom.rows[i].carrier_iata}}</div>
+          <div>{{offer?.param.custom.rows[i].carrier_name}}</div>
+          <div>{{offer?.param.custom.rows[i].route_name}}</div>
+          <div>{{offer?.param.custom.rows[i].schedule}}</div>
+          <div>{{offer?.param.custom.rows[i].nearest_flight}}</div>
+          <div>{{offer?.param.custom.rows[i].transit_time}}</div>
+
+          <!-- Услуги -->
+          <div formArrayName="services">
+            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
+              <label for="field">Service {{ j + 1 }}:</label>
+              <div>{{offer?.param.custom.rows[i].services[j].name}}</div>
+              <input formControlName="profit_amount" type="number">
+              <input formControlName="profit_percent" type="number">
+              <input formControlName="selected" type="checkbox">
+            </div>
+          </div>
+
+          <!-- Кнопка для добавления новой услуги -->
+          <button type="button" (click)="addServiceCustom(i)">Add Service</button>
+        </div>
+      </div>
+      <button type="button" (click)="addCustomRow()">Add Row</button>
+    </div>
+
+    <!-- Секция Storage -->
+    <div formGroupName="storage">
+      <h3>Storage</h3>
+      <div formArrayName="rows">
+        <div *ngFor="let row of storageRows.controls; let i = index" [formGroupName]="i">
+          <h4>Row {{ i + 1 }}</h4>
+
+          <!-- Строка -->
+          <label for="profit_amount">Profit Amount</label>
+          <input formControlName="profit_amount" type="number">
+
+          <!-- Услуги -->
+          <div formArrayName="services">
+            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j">
+              <label for="field">Service {{ j + 1 }}:</label>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <input formControlName="profit_amount" type="number">
+              <input formControlName="profit_percent" type="number">
+              <input formControlName="selected" type="checkbox">
+            </div>
+          </div>
+
+          <!-- Кнопка для добавления новой услуги -->
+          <button type="button" (click)="addServiceStorage(i)">Add Service</button>
+        </div>
+      </div>
+      <button type="button" (click)="addStorageRow()">Add Row</button>
+    </div>
+
+    <!-- Секция Delivery -->
+    <div formGroupName="delivery">
+      <h3>Delivery</h3>
+      <div formArrayName="rows">
+        <div *ngFor="let row of deliveryRows.controls; let i = index" [formGroupName]="i">
+          <h4>Row {{ i + 1 }}</h4>
+
+          <!-- Строка -->
+          <label for="profit_amount">Profit Amount</label>
+          <input formControlName="profit_amount" type="number">
+
+          <!-- Услуги -->
+          <div formArrayName="services">
+            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j">
+              <label for="field">Service {{ j + 1 }}:</label>
+              <div>{{offer?.param.delivery.rows[i].services[j].name}}</div>
+              <input formControlName="profit_amount" type="number">
+              <input formControlName="profit_percent" type="number">
+              <input formControlName="selected" type="checkbox">
+            </div>
+          </div>
+
+          <!-- Кнопка для добавления новой услуги -->
+          <button type="button" (click)="addServiceDelivery(i)">Add Service</button>
+        </div>
+      </div>
+      <button type="button" (click)="addDeliveryRow()">Add Row</button>
+    </div>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>
+
+
+
+
+
