@@ -32,6 +32,74 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   kpForm!: FormGroup;
   offer:any;
   offerId!: number;
+  expansionRow:any={};
+
+  customTableRowConfig=[
+    {
+      title:'',
+      width:'100px',
+      index:'',
+      expansion: this.onExpansionRowClick,
+    },
+    {
+      title:'Air',
+      width:'100px',
+      index:'carrier_iata',
+    },
+    {
+      title:'Авиалиния',
+      width:'100px',
+      index:'carrier_name',
+    },
+    {
+      title:'Маршрут',
+      width:'100px',
+      index:'route_name',
+    },
+    {
+      title:'Расписание',
+      width:'100px',
+      index:'schedule',
+    },
+    {
+      title:'Есть место',
+      width:'100px',
+      index:'nearest_flight',
+    },
+    {
+      title:'Срок, дн.',
+      width:'100px',
+      index:'transit_time',
+    },
+    {
+      title:'Вход',
+      width:'100px',
+      index:'total_cost',
+    },
+    {
+      title:'Профит',
+      width:'100px',
+      index:'',
+      control:'profit_amount'
+    },
+    {
+      title:'%',
+      width:'100px',
+      value: this.returnRowProfitPercent
+
+    },
+    {
+      title:'Ставка',
+      width:'100px',
+      value: this.returnRowTotalCost
+    },
+    {
+      title:'',
+      width:'100px',
+      index:'',
+      del: this.delRow,
+    },
+  ]
 
 
 
@@ -82,6 +150,34 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  onExpansionRowClick(i:any){
+    console.log(i);
+  }
+  delRow(i:any){
+    console.log(i);
+  }
+
+  returnRowTotalCost(a:any,b:any){
+    return a+b
+  }
+  returnRowProfitPercent(a:any,b:any){
+    let cost=a+b
+    return (b / cost) * 100;
+  }
+  returnServicesTotalCost(){
+
+  }
+  returnServicesProfitPercent(){
+
+  }
+
+  onProfitAmountRowChange(){
+    console.log('change onProfitAmountRowChange');
+  }
+  onProfitAmountServicesChange(){
+    console.log('change onProfitAmountServicesChange');
+  }
+
   createParamGroup(): FormGroup {
     return this.fb.group({
       one_profit: [true],
@@ -97,7 +193,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return this.fb.group({
       id: [0],
       profit_amount: [0],
-      profit_percent: [0],
       services: this.fb.array([this.createService()])
     });
   }
@@ -106,8 +201,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return this.fb.group({
       field: [''],
       profit_amount: [0],
-      profit_percent: [0],
-      selected: [true]
+      select: [true]
     });
   }
 
@@ -225,12 +319,10 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       const rowGroup = this.fb.group({
         id: [row.id],
         profit_amount: [row.profit_amount],
-        profit_percent: [row.profit_percent],
         services: this.fb.array(row.services.map((service:any) => this.fb.group({
           field: [service.field],
           profit_amount: [service.profit_amount],
-          profit_percent: [service.profit_percent],
-          selected: [service.selected]
+          select: [service.select]
         })))
       });
       rowsArray.push(rowGroup);
