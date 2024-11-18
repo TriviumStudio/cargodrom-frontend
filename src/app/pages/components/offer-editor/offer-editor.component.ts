@@ -78,20 +78,20 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Профит',
-      width:'100px',
-      index:'',
-      control:'profit_amount'
+      width:'150px',
+      control:'profit_amount',
+      change: this.onProfitAmountRowChange
     },
     {
       title:'%',
-      width:'100px',
-      value: this.returnRowProfitPercent
-
+      width:'150px',
+      control:'profit_percent',
+      change: this.onProfitPercentRowChange
     },
     {
       title:'Ставка',
-      width:'100px',
-      value: this.returnRowTotalCost
+      width:'150px',
+      value: this.returnSum
     },
     {
       title:'',
@@ -157,6 +157,14 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     console.log(i);
   }
 
+  returnSum(a:any,b:any){
+    return a+b
+  }
+  returnPercent(a:any,b:any){
+    let cost=a+b
+    return (b / cost) * 100;
+  }
+
   returnRowTotalCost(a:any,b:any){
     return a+b
   }
@@ -171,11 +179,26 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
   }
 
-  onProfitAmountRowChange(){
-    console.log('change onProfitAmountRowChange');
+  onProfitAmountRowChange(control:any, count:number, event:any){
+    console.log(event);
+    let per = (control.value.profit_amount / count) * 100;
+    control.patchValue({
+      profit_percent: per,
+    })
   }
+  onProfitPercentRowChange(control:any, count:number, event:any){
+    console.log('change onProfitPercentRowChange');
+    let amount= (count/100) * control.value.profit_percent;
+    control.patchValue({
+      profit_amount: amount,
+    })
+  }
+
   onProfitAmountServicesChange(){
     console.log('change onProfitAmountServicesChange');
+  }
+  onProfitPercentServicesChange(){
+    console.log('change onProfitPercentServicesChange');
   }
 
   createParamGroup(): FormGroup {
@@ -193,6 +216,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return this.fb.group({
       id: [0],
       profit_amount: [0],
+      profit_percent: [0],
       services: this.fb.array([this.createService()])
     });
   }
@@ -201,6 +225,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return this.fb.group({
       field: [''],
       profit_amount: [0],
+      profit_percent: [0],
       select: [true]
     });
   }
@@ -318,10 +343,12 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     rowsData.forEach((row) => {
       const rowGroup = this.fb.group({
         id: [row.id],
+        profit_percent: [row.profit_percent],
         profit_amount: [row.profit_amount],
         services: this.fb.array(row.services.map((service:any) => this.fb.group({
           field: [service.field],
           profit_amount: [service.profit_amount],
+          profit_percent: [service.profit_percent],
           select: [service.select]
         })))
       });

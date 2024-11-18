@@ -16,13 +16,13 @@
                 {{offer?.param.custom.rows[i][col.index]}}
               </ng-container>
               <ng-container *ngIf="col.control">
-                <input type="number" [formControlName]="col.control">
+                <input type="number" (ngModelChange)="col.change(row,offer?.param.custom.rows[i].total_cost, $event)">
               </ng-container>
               <ng-container *ngIf="col.expansion">
-                <div (click)="col.expansion('расширение'); expansionRow = expansionRow === row ? null : row;">123</div>
+                <div (click)="col.expansion('расширение'); expansionRow = expansionRow === row ? null : row;">expan</div>
               </ng-container>
               <ng-container *ngIf="col.del">
-                <div (click)="col.del('удаление'); ">123</div>
+                <div (click)="col.del('удаление'); ">del</div>
               </ng-container>
               <ng-container *ngIf="col.value">
                 <input type="number" [value]="col.value(offer?.param.custom.rows[i].total_cost, row.value.profit_amount)" readonly>
@@ -36,10 +36,12 @@
 
               <div>{{offer?.param.custom.rows[i].services[j].name}}</div>
               <div>{{offer?.param.custom.rows[i].services[j].cost}}</div>
-              <input formControlName="profit_amount" type="number">
-              <input value="123" type="number">
+
+              <input formControlName="profit_amount" type="number" (ngModelChange)="onProfitAmountServicesChange()">
+              <input formControlName="profit_percent" type="number" (ngModelChange)="onProfitPercentServicesChange()">
+              <input readonly [value]="returnSum(offer?.param.custom.rows[i].services[j].cost, service.value.profit_amount)" type="number">
+
               <mat-checkbox formControlName="select"></mat-checkbox>
-              <div>{{offer?.param.custom.rows[i].services[j].total_cost}}</div>
 
             </div>
           </div>
