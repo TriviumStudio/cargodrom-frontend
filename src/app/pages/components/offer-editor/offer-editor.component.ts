@@ -1,5 +1,5 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -30,7 +30,7 @@ import { environment } from './../../../../environments/environment';
 export class OfferEditorComponent implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
   kpForm!: FormGroup;
-  offer:any;
+  offer!:any;
   offerId!: number;
   expansionRow:any={};
 
@@ -87,11 +87,14 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       width:'150px',
       control:'profit_percent',
       change: this.onProfitPercentRowChange
+      // value: this.returnPercent,
+      // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
-      value: this.returnSum
+      value: this.returnSum,
+      // readonly: true
     },
     {
       title:'',
@@ -124,6 +127,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -158,11 +162,13 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   }
 
   returnSum(a:any,b:any){
-    return a+b
+    // return Math.round(a+b)
+    let count=a+b
+    return count.toFixed(2)
   }
   returnPercent(a:any,b:any){
-    let cost=a+b
-    return (b / cost) * 100;
+    console.log(a,b);
+    return (b / a) * 100;
   }
 
   returnRowTotalCost(a:any,b:any){
@@ -172,33 +178,77 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     let cost=a+b
     return (b / cost) * 100;
   }
-  returnServicesTotalCost(){
 
-  }
-  returnServicesProfitPercent(){
-
-  }
-
-  onProfitAmountRowChange(control:any, count:number, event:any){
-    console.log(event);
+  onProfitAmountRowChange(control:any, count:number){
     let per = (control.value.profit_amount / count) * 100;
     control.patchValue({
       profit_percent: per,
+      profit_amount: control.value.profit_amount,
     })
+
+    control.get('services').controls.forEach((serv:any) => {
+      let serAmo = (serv.value.cost/100) * per
+      serv.patchValue({
+        profit_percent: per,
+        // profit_amount: serAmo,
+      })
+
+    })
+    // this.cdr.detectChanges();
   }
-  onProfitPercentRowChange(control:any, count:number, event:any){
-    console.log('change onProfitPercentRowChange');
+  onProfitPercentRowChange(control:any, count:number){
     let amount= (count/100) * control.value.profit_percent;
     control.patchValue({
       profit_amount: amount,
+      // profit_percent: control.value.profit_percent,
+    })
+    let per=control.value.profit_percent
+
+    control.get('services').controls.forEach((serv:any) => {
+      let serAmo = (serv.value.cost/100) * per
+      serv.patchValue({
+        // profit_percent: per,
+        profit_amount: serAmo,
+      })
+
+    })
+    // this.cdr.detectChanges();
+  }
+  onProfitAmountServicesChange(control:any, row:any,count:number){
+    let per = (control.value.profit_amount / control.value.cost) * 100;
+    control.patchValue({
+      profit_percent: per,
+      // profit_amount: control.value.profit_amount,
+    })
+    let sum=0;
+    row.get('services').controls.forEach((serv:any) => {
+      if(serv.value.select){
+        sum=sum+serv.value.profit_amount;
+        let perRow = (sum / count) * 100;
+        row.patchValue({
+          profit_percent: perRow,
+          profit_amount: sum,
+        })
+      }
     })
   }
-
-  onProfitAmountServicesChange(){
-    console.log('change onProfitAmountServicesChange');
-  }
-  onProfitPercentServicesChange(){
-    console.log('change onProfitPercentServicesChange');
+  onProfitPercentServicesChange(control:any, row:any, count:number){
+    let amount= (control.value.cost/100) * control.value.profit_percent;
+    control.patchValue({
+      profit_amount: amount,
+      // profit_percent: control.value.profit_percent,
+    })
+    let sum=0;
+    row.get('services').controls.forEach((serv:any) => {
+      if(serv.value.select){
+        sum=sum+serv.value.profit_amount;
+        let perRow = (sum/ count) * 100;
+        row.patchValue({
+          profit_percent: perRow,
+          profit_amount: sum,
+        })
+      }
+    })
   }
 
   createParamGroup(): FormGroup {
@@ -223,6 +273,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
   createService(): FormGroup {
     return this.fb.group({
+      cost:[0],
       field: [''],
       profit_amount: [0],
       profit_percent: [0],
@@ -349,7 +400,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
           field: [service.field],
           profit_amount: [service.profit_amount],
           profit_percent: [service.profit_percent],
-          select: [service.select]
+          select: [service.select],
+          cost: [service.cost],
         })))
       });
       rowsArray.push(rowGroup);
