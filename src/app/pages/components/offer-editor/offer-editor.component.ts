@@ -33,6 +33,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   offer!:any;
   offerId!: number;
   expansionRow:any={};
+  currencyList:any=[];
 
   customTableRowConfig=[
     {
@@ -147,6 +148,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
 
     this.getOffer();
+    this.getCurrency();
   }
 
   ngOnDestroy(): void {
@@ -179,20 +181,47 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return (b / cost) * 100;
   }
 
+
+  onOneProfitChange(){
+    console.log('onOneProfitChange');
+
+  }
+  onOneProfitAmountTableChange(table:any){
+    console.log('onOneProfitAmountTableChange');
+    table.controls['one_profit_percent'].reset();
+    if(table.value.one_profit){
+      console.log(table.value.one_profit);
+
+    }
+
+  }
+  onOneProfitAmountCurrencyChange(){
+    console.log('onOneProfitAmountCurrencyChange');
+
+  }
+  onOneProfitPercentTableChange(table:any){
+    console.log('onOneProfitPercentTableChange');
+    table.controls['one_profit_amount'].reset();
+    if(table.value.one_profit){
+      console.log(table.value.one_profit);
+
+    }
+
+  }
+
   onProfitAmountRowChange(control:any, count:number){
     let per = (control.value.profit_amount / count) * 100;
     control.patchValue({
       profit_percent: per,
-      profit_amount: control.value.profit_amount,
+      // profit_amount: control.value.profit_amount,
     })
 
     control.get('services').controls.forEach((serv:any) => {
       let serAmo = (serv.value.cost/100) * per
       serv.patchValue({
         profit_percent: per,
-        // profit_amount: serAmo,
+        profit_amount: serAmo,
       })
-
     })
     // this.cdr.detectChanges();
   }
@@ -207,10 +236,9 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     control.get('services').controls.forEach((serv:any) => {
       let serAmo = (serv.value.cost/100) * per
       serv.patchValue({
-        // profit_percent: per,
+        profit_percent: per,
         profit_amount: serAmo,
       })
-
     })
     // this.cdr.detectChanges();
   }
@@ -249,6 +277,10 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
         })
       }
     })
+  }
+  onSelectServicesChange(){
+    console.log(123);
+
   }
 
   createParamGroup(): FormGroup {
@@ -340,11 +372,29 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    this.saveOffer();
+
     if (this.kpForm.valid) {
       console.log(this.kpForm.value);
     } else {
       console.log('Form is invalid',this.kpForm.value);
     }
+  }
+
+  saveOffer(){
+    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.snackBar.open(`Кп уцспешно отредактированно`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
   }
 
   getOffer() {
@@ -361,6 +411,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }
