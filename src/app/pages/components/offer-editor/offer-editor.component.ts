@@ -75,7 +75,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     {
       title:'Вход',
       width:'100px',
-      index:'total_cost',
+      index:'income_total_cost',
     },
     {
       title:'Профит',
@@ -182,33 +182,42 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   }
 
 
+  // TABLE form fields
   onOneProfitChange(){
     console.log('onOneProfitChange');
 
   }
   onOneProfitAmountTableChange(table:any){
-    console.log('onOneProfitAmountTableChange');
+    console.log(table);
+
     table.controls['one_profit_percent'].reset();
     if(table.value.one_profit){
-      console.log(table.value.one_profit);
-
+      table.get('rows').controls.forEach((value:any, index:any) => {
+        value.patchValue({
+          profit_amount: table.value.one_profit_amount,
+        })
+        this.onProfitAmountRowChange(value,this.offer?.param.custom.rows[index].income_total_cost)
+      })
     }
-
   }
   onOneProfitAmountCurrencyChange(){
     console.log('onOneProfitAmountCurrencyChange');
 
   }
   onOneProfitPercentTableChange(table:any){
-    console.log('onOneProfitPercentTableChange');
+    console.log(table);
     table.controls['one_profit_amount'].reset();
     if(table.value.one_profit){
-      console.log(table.value.one_profit);
-
+      table.get('rows').controls.forEach((value:any, index:any) => {
+        value.patchValue({
+          profit_percent: table.value.one_profit_percent,
+        })
+        this.onProfitPercentRowChange(value,this.offer?.param.custom.rows[index].income_total_cost)
+      })
     }
 
   }
-
+  // ROW form fields
   onProfitAmountRowChange(control:any, count:number){
     let per = (control.value.profit_amount / count) * 100;
     control.patchValue({
@@ -242,6 +251,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     })
     // this.cdr.detectChanges();
   }
+  // SERVICE form fields
   onProfitAmountServicesChange(control:any, row:any,count:number){
     let per = (control.value.profit_amount / control.value.cost) * 100;
     control.patchValue({
@@ -278,8 +288,9 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }
     })
   }
-  onSelectServicesChange(){
-    console.log(123);
+  onSelectServicesChange(i:any){
+    console.log(this.offer?.param.custom.rows[i].income_total_cost);
+    this.offer.param.custom.rows[i].income_total_cost=0;
 
   }
 
