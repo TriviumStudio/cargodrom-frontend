@@ -79,31 +79,32 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     {
       title:'Вход',
       width:'100px',
-      // control:'income_total_cost',
+      control:'income_total_cost',
       // index:'income_total_cost',
       // value: this.returnEntryField,
-      value: this.returnEnterRow,
+      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
       change: this.onProfitRowInputChange,
-      value: this.returnProfitRow,
+      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
       change: this.onPercentRowInputChange,
-      value: this.returnPercentRow,
+      // value: this.returnPercentRow,
       // value: this.returnPercent,
       // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
-      value: this.returnRateRow,
+      control:'total_cost',
+      // value: this.returnRateRow,
       // readonly: true
     },
     {
@@ -144,31 +145,32 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     {
       title:'Вход',
       width:'100px',
-      // control:'income_total_cost',
+      control:'income_total_cost',
       // index:'income_total_cost',
       // value: this.returnEntryField,
-      value: this.returnEnterRow,
+      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
       change: this.onProfitRowInputChange,
-      value: this.returnProfitRow,
+      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
       change: this.onPercentRowInputChange,
-      value: this.returnPercentRow,
+      // value: this.returnPercentRow,
       // value: this.returnPercent,
       // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
-      value: this.returnRateRow,
+      control:'total_cost',
+      // value: this.returnRateRow,
       // readonly: true
     },
     {
@@ -204,31 +206,32 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     {
       title:'Вход',
       width:'100px',
-      // control:'income_total_cost',
+      control:'income_total_cost',
       // index:'income_total_cost',
       // value: this.returnEntryField,
-      value: this.returnEnterRow,
+      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
       change: this.onProfitRowInputChange,
-      value: this.returnProfitRow,
+      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
       change: this.onPercentRowInputChange,
-      value: this.returnPercentRow,
+      // value: this.returnPercentRow,
       // value: this.returnPercent,
       // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
-      value: this.returnRateRow,
+      control:'total_cost',
+      // value: this.returnRateRow,
       // readonly: true
     },
     {
@@ -359,26 +362,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   }
 
   onProfitRowInputChange(row:any,e?:any){
-    // let enter=0;
-    // row.value.services.forEach((value:any, index:any, array:any) => {
-    //   if(value.select) {
-    //     enter = enter+value.cost;
-    //     // enter = Math.round(enter);
-    //   }
-    // })
-
-
-    // let perc=(e.target.value / enter) * 100;
-
-    // row.get('services').controls.forEach((value:any, index:any, array:any) => {
-    //   let amount=(value.value.cost/ 100) * perc;
-    //   value.patchValue({
-    //     profit_percent: perc,
-    //     profit_amount: amount,
-    //   })
-    // })
-
-
     let perc=(row.value.profit_amount / row.value.income_total_cost) * 100;
     row.patchValue({
       profit_percent: perc,
@@ -405,87 +388,115 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
         profit_amount: amount,
       })
     })
-
   }
-  //services
+  //services(изменение сервиса должно пересчитать строку)
   onProfitServicesInputChange(row:any, service:any){
-    let perc=(service.value.profit_amount / service.value.cost) * 100;
+    this.calculateServiceUsingProfit(service);
+    this.updateRow();
+  }
+  onPercentServicesInputChange(row:any, service:any){
+    this.calculateServiceUsingProcent(service);
+    this.updateRow();
+  }
+  onSelectServicesCheckboxChecked(row:any,table:any){
+    this.updateRow();
+  }
+  // CALCULATIOS
+  //calck services
+  calculateServiceUsingProfit(service:any){
+    let perc:number=this.returnPercent(service.value.profit_amount, service.value.cost);
     service.patchValue({
       profit_percent: perc,
     })
   }
-  onPercentServicesInputChange(row:any, service:any){
-    let amount=(service.value.cost/ 100) * service.value.profit_percent
+  calculateServiceUsingProcent(service:any,rowProcent?:number){
+    //надо добавить возможность передовать процент строки, что ыб потом весь массив сервисов расчитывать при изменении амоунт или процента в строке
+    let amount:number=this.returnAmount(service.value.cost, service.value.profit_percent);
     service.patchValue({
       profit_amount: amount,
     })
   }
-  onSelectServicesCheckboxChecked(row:any,table:any){
-    // if(table.value.one_profit){
-    //   this.calcRowFieldsYesOneProfit(row,table)
-    // } else{
-    //   this.calcRowFieldsNotOneProfit(row);
-    // }
-  }
-  // CALCULATIOS
-  //return row calck
-  returnEnterRow(row:any){
-    let enter=0;
-    row.value.services.forEach((value:any, index:any, array:any) => {
-      if(value.select){
-        enter=enter+value.cost;
-        row.patchValue({
-          income_total_cost: enter,
-        })
-      }
-    })
-    // return Math.round(enter);
-    // return enter.toFixed(2);
-    return enter;
-  }
-  returnProfitRow(row:any){
-    let profit=0;
-    row.value.services.forEach((value:any, index:any, array:any) => {
-      if(value.select){
-        profit=profit+value.profit_amount;
-        // row.patchValue({
-        //   profit_amount: profit,
-        // })
-      }
-    })
-    // return profit.toFixed(2);
-    // console.log(1);
+  //calck row
+  updateRow(){
 
-    // return Math.round(profit);
-    return profit
   }
-  returnPercentRow(row:any){
-    let perc=0;
-    let enter=0;
-    let profit=0;
-    row.value.services.forEach((value:any, index:any, array:any) => {
-      if(value.select){
-        profit=profit+value.profit_amount;
-        enter=enter+value.cost;
-        perc=(profit / enter) * 100;
-        // row.patchValue({
-        //   profit_percent: perc,
-        // })
-      }
-    })
-    // return perc.toFixed(2);
-    return perc;
+  calculateRowUsingProfit(){
+
   }
-  returnRateRow(row:any){
-    let rate=0;
-    row.value.services.forEach((value:any, index:any, array:any) => {
-      if(value.select){
-        rate=rate+value.profit_amount+value.cost;
-      }
-    })
-    // return rate.toFixed(2);
-    return rate;
+  calculateRowUsingProcent(){
+
   }
+
+
+  //calck sum, amount and procent
+  returnSum(a:number,b:number):number {
+    return (Math.round(a*10) + Math.round(b*10)) / 10;
+  }
+  returnPercent(a:number,b:number):number {
+    return  Number((( a / b) * 100).toFixed(3));
+  }
+  returnAmount(enter:number,procent:number):number {
+    return  Number((( enter / 100) * procent).toFixed(3));
+  }
+
+  //return row calck
+  // returnEnterRow(row:any){
+  //   let enter=0;
+  //   row.value.services.forEach((value:any, index:any, array:any) => {
+  //     if(value.select){
+  //       enter=enter+value.cost;
+  //       row.patchValue({
+  //         income_total_cost: enter,
+  //       })
+  //     }
+  //   })
+  //   // return Math.round(enter);
+  //   // return enter.toFixed(2);
+  //   return enter;
+  // }
+  // returnProfitRow(row:any){
+  //   let profit=0;
+  //   row.value.services.forEach((value:any, index:any, array:any) => {
+  //     if(value.select){
+  //       profit=profit+value.profit_amount;
+  //       row.patchValue({
+  //         profit_amount: profit,
+  //       })
+  //     }
+  //   })
+  //   // return profit.toFixed(2);
+  //   // console.log(1);
+
+  //   // return Math.round(profit);
+  //   return profit
+  // }
+  // returnPercentRow(row:any){
+  //   let perc=0;
+  //   let enter=0;
+  //   let profit=0;
+  //   row.value.services.forEach((value:any, index:any, array:any) => {
+  //     if(value.select){
+  //       profit=profit+value.profit_amount;
+  //       enter=enter+value.cost;
+  //       perc=(profit / enter) * 100;
+  //       // row.patchValue({
+  //       //   profit_percent: perc,
+  //       // })
+  //     }
+  //   })
+  //   // return perc.toFixed(2);
+  //   return perc;
+  // }
+  // returnRateRow(row:any){
+  //   let rate=0;
+  //   row.value.services.forEach((value:any, index:any, array:any) => {
+  //     if(value.select){
+  //       rate=rate+value.profit_amount+value.cost;
+  //     }
+  //   })
+  //   // return rate.toFixed(2);
+  //   return rate;
+  // }
 
   //calck
   // calcRowFieldsNotOneProfit(row:any){
@@ -523,19 +534,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   // }
 
   //return calck
-  returnSum(a:number,b:number){
-    // return Math.round(a+b)
-    let count=a+b
-    return count.toFixed(2)
-  }
-  returnSumArr(){
-    console.log(this.returnPercent(1,2));
 
-
-  }
-  returnPercent(a:any,b:any){
-    return (b / a) * 100;
-  }
 
   // returnRowTotalCost(a:any,b:any){
   //   return a+b
@@ -680,6 +679,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       income_total_cost: [0],
       profit_amount: [0],
       profit_percent: [0],
+      total_cost:[0],
       services: this.fb.array([this.createService()])
     });
   }
@@ -704,6 +704,11 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     return (this.kpForm.get('param.delivery.rows') as FormArray);
   }
 
+  returnServiceControls(row:any): any {
+    return (row.get('services').controls as FormArray);
+  }
+
+
   //Add row
   // Добавление новой строки в 'rows' для custom
   addCustomRow(): void {
@@ -721,9 +726,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     this.deliveryRows.push(newRow);
   }
 
-  returnServiceControls(row:any): any {
-    return (row.get('services').controls as FormArray);
-  }
+
 
   // Добавление нового сервиса в 'services' внутри строки custom
   addServiceCustom(rowIndex: number): void {
@@ -840,6 +843,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
         income_total_cost:[row.income_total_cost],
         profit_percent: [row.profit_percent],
         profit_amount: [row.profit_amount],
+        total_cost:[0],
         services: this.fb.array(row.services.map((service:any) => this.fb.group({
           field: [service.field],
           profit_amount: [service.profit_amount],
