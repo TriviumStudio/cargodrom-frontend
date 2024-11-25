@@ -6,7 +6,7 @@
 
       <div style="display: flex;">
         <mat-checkbox class="testclass" formControlName="one_profit" (change)="onOneProfitCheckboxChecked(kpForm.get('param.custom'))"></mat-checkbox>
-        <div>Единый профит на все ставки</div>
+        <div (click)="returnSumArr()">Единый профит на все ставки</div>
         <input type="number" formControlName="one_profit_amount" (keyup)="onOneProfitAmountInputChange(kpForm.get('param.custom'))">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="one_profit_amount_currency" (valueChange)="onOneProfitCurrencySelectChange()">
@@ -27,111 +27,135 @@
               <!-- index -->
               <ng-container *ngIf="col.index">{{offer?.param.custom.rows[i][col.index]}}</ng-container>
               <!-- expansion and del row -->
-              <div *ngIf="col.expansion" (click)="col.expansion('расширение'); expansionRow = expansionRow === row ? null : row;">expan</div>
+              <div *ngIf="col.expansion" (click)="col.expansion('расширение'); customExpansionRow = customExpansionRow === row ? null : row;">expan</div>
               <div *ngIf="col.del" (click)="col.del('удаление');">del</div>
               <!-- value -->
               <input type="number" *ngIf="col.value && !col.control && !col.change" [value]="col.value(row)" readonly>
               <!-- change -->
-              <input *ngIf="col.value && col.change && col.control  && expansionRow === row" type="number" [value]="col.value(row)" readonly>
-              <input *ngIf="col.value && col.change && col.control  && expansionRow !== row" type="number" (keyup)="col.change(row)" [formControlName]="col.control">
+              <input *ngIf="col.value && col.change && col.control" type="number" (keyup)="col.change(row)" [formControlName]="col.control" [readonly]="kpForm.value.param.custom.one_profit||customExpansionRow === row">
+
+              <!-- <input *ngIf="col.value && col.change && col.control && customExpansionRow === row" type="number" [value]="col.value(row)" readonly >
+              <input *ngIf="col.value && col.change && col.control && customExpansionRow !== row" type="number" (keyup)="col.change(row)" [formControlName]="col.control" [readonly]="kpForm.value.param.custom.one_profit"> -->
+              <!-- <input  *ngIf="col.value && col.change && col.control" type="number" [value]="col.value(row)" (keyup)="col.change(row,$event)" [readonly]="kpForm.value.param.custom.one_profit || customExpansionRow === row" > -->
+
             </div>
           </div>
 
-          <div class="row_expansion" formArrayName="services" *ngIf="expansionRow==row">
+          <div class="row_expansion" formArrayName="services" *ngIf="customExpansionRow==row">
             <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
               <div>{{offer?.param.custom.rows[i].services[j].name}}</div>
               <div>{{offer?.param.custom.rows[i].services[j].cost}}</div>
               <input type="number" formControlName="profit_amount" (keyup)="onProfitServicesInputChange(row, service)" [readonly]="kpForm.value.param.custom.one_profit">
               <input type="number" formControlName="profit_percent" (keyup)="onPercentServicesInputChange(row, service)" [readonly]="kpForm.value.param.custom.one_profit">
               <input readonly [value]="returnSum(service.value.profit_amount,service.value.cost)" type="number">
-              <mat-checkbox formControlName="selected" (change)="onSelectServicesCheckboxChecked(row,kpForm.get('param.custom'))"></mat-checkbox>
+              <mat-checkbox formControlName="select" (change)="onSelectServicesCheckboxChecked(row,kpForm.get('param.custom'))"></mat-checkbox>
             </div>
           </div>
-
-
-          <!-- Услуги -->
-          <!-- <div formArrayName="services">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
-              <label for="field">Service {{ j + 1 }}:</label>
-              <div>{{offer?.param.custom.rows[i].services[j].name}}</div>
-              <input formControlName="profit_amount" type="number">
-              <input formControlName="profit_percent" type="number">
-              <input formControlName="selected" type="checkbox">
-            </div>
-          </div>-->
-
-          <!-- Кнопка для добавления новой услуги -->
-          <!-- <button type="button" (click)="addServiceCustom(i)">Add Service</button> -->
         </div>
-
-
-
-
       </div>
       <button type="button" (click)="addCustomRow()">Add Row</button>
     </div>
 
     <!-- Секция Storage -->
-    <div formGroupName="storage">
-      <h3>Storage</h3>
-      <div formArrayName="rows">
-        <div *ngFor="let row of storageRows.controls; let i = index" [formGroupName]="i">
-          <h4>Row {{ i + 1 }}</h4>
+    <div formGroupName="storage" class="block">
 
-          <!-- Строка -->
-          <label for="profit_amount">Profit Amount</label>
-          <input formControlName="profit_amount" type="number">
+      <div style="display: flex;">
+        <mat-checkbox class="testclass" formControlName="one_profit" (change)="onOneProfitCheckboxChecked(kpForm.get('param.storage'))"></mat-checkbox>
+        <div>Единый профит на все ставки</div>
+        <input type="number" formControlName="one_profit_amount" (keyup)="onOneProfitAmountInputChange(kpForm.get('param.storage'))">
+        <mat-form-field appearance="outline" class="ui-select">
+          <mat-select formControlName="one_profit_amount_currency" (valueChange)="onOneProfitCurrencySelectChange()">
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <input type="number" formControlName="one_profit_percent" (keyup)="onOneProfitPercentInputChange(kpForm.get('param.storage'))">
+      </div>
 
-          <!-- Услуги -->
-          <div formArrayName="services">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j">
-              <label for="field">Service {{ j + 1 }}:</label>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
-              <input formControlName="profit_amount" type="number">
+      <div formArrayName="rows" class="rate_table">
+        <div class="row">
+          <div *ngFor="let col of storageTableRowConfig" [style.width]="col.width">{{col.title}}</div>
+        </div>
+        <div *ngFor="let row of storageRows.controls; let i = index" [formGroupName]="i" class="row">
 
-              <input formControlName="selected" type="checkbox">
+          <div class="row_main">
+            <div *ngFor="let col of storageTableRowConfig" [style.width]="col.width">
+              <!-- index -->
+              <ng-container *ngIf="col.index">{{offer?.param.storage.rows[i][col.index]}}</ng-container>
+              <!-- expansion and del row -->
+              <div *ngIf="col.expansion" (click)="col.expansion('расширение'); storageExpansionRow = storageExpansionRow === row ? null : row;">expan</div>
+              <div *ngIf="col.del" (click)="col.del('удаление');">del</div>
+              <!-- value -->
+              <input type="number" *ngIf="col.value && !col.control && !col.change" [value]="col.value(row)" readonly>
+              <!-- change -->
+              <input *ngIf="col.value && col.change && col.control  && storageExpansionRow === row" type="number" [value]="col.value(row)" readonly>
+              <input *ngIf="col.value && col.change && col.control  && storageExpansionRow !== row" type="number" (keyup)="col.change(row)" [formControlName]="col.control" [readonly]="kpForm.value.param.storage.one_profit">
             </div>
           </div>
 
-          <!-- Кнопка для добавления новой услуги -->
-          <button type="button" (click)="addServiceStorage(i)">Add Service</button>
+          <div class="row_expansion" formArrayName="services" *ngIf="storageExpansionRow==row">
+            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
+              <div>{{offer?.param.storage.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.storage.rows[i].services[j].cost}}</div>
+              <input type="number" formControlName="profit_amount" (keyup)="onProfitServicesInputChange(row, service)" [readonly]="kpForm.value.param.storage.one_profit">
+              <input type="number" formControlName="profit_percent" (keyup)="onPercentServicesInputChange(row, service)" [readonly]="kpForm.value.param.storage.one_profit">
+              <input readonly [value]="returnSum(service.value.profit_amount,service.value.cost)" type="number">
+              <mat-checkbox formControlName="select" (change)="onSelectServicesCheckboxChecked(row,kpForm.get('param.storage'))"></mat-checkbox>
+            </div>
+          </div>
         </div>
       </div>
-      <button type="button" (click)="addStorageRow()">Add Row</button>
+      <button type="button" (click)="addCustomRow()">Add Row</button>
     </div>
 
     <!-- Секция Delivery -->
-    <div formGroupName="delivery">
-      <h3>Delivery</h3>
-      <div formArrayName="rows">
-        <div *ngFor="let row of deliveryRows.controls; let i = index" [formGroupName]="i">
-          <h4>Row {{ i + 1 }}</h4>
+    <div formGroupName="delivery" class="block">
 
-          <!-- Строка -->
-          <label for="profit_amount">Profit Amount</label>
-          <input formControlName="profit_amount" type="number">
+      <div style="display: flex;">
+        <mat-checkbox class="testclass" formControlName="one_profit" (change)="onOneProfitCheckboxChecked(kpForm.get('param.delivery'))"></mat-checkbox>
+        <div>Единый профит на все ставки</div>
+        <input type="number" formControlName="one_profit_amount" (keyup)="onOneProfitAmountInputChange(kpForm.get('param.delivery'))">
+        <mat-form-field appearance="outline" class="ui-select">
+          <mat-select formControlName="one_profit_amount_currency" (valueChange)="onOneProfitCurrencySelectChange()">
+            <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <input type="number" formControlName="one_profit_percent" (keyup)="onOneProfitPercentInputChange(kpForm.get('param.delivery'))">
+      </div>
 
-          <!-- Услуги -->
-          <div formArrayName="services">
-            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j">
-              <label for="field">Service {{ j + 1 }}:</label>
-              <div>{{offer?.param.delivery.rows[i].services[j].name}}</div>
-              <input formControlName="profit_amount" type="number">
+      <div formArrayName="rows" class="rate_table">
+        <div class="row">
+          <div *ngFor="let col of deliveryTableRowConfig" [style.width]="col.width">{{col.title}}</div>
+        </div>
+        <div *ngFor="let row of deliveryRows.controls; let i = index" [formGroupName]="i" class="row">
 
-              <input formControlName="selected" type="checkbox">
+          <div class="row_main">
+            <div *ngFor="let col of deliveryTableRowConfig" [style.width]="col.width">
+              <!-- index -->
+              <ng-container *ngIf="col.index">{{offer?.param.delivery.rows[i][col.index]?offer?.param.delivery.rows[i][col.index]:offer?.param.delivery.rows[i][col.index]['name']}}</ng-container>
+              <!-- expansion and del row -->
+              <div *ngIf="col.expansion" (click)="col.expansion('расширение'); deliveryExpansionRow = deliveryExpansionRow === row ? null : row;">expan</div>
+              <div *ngIf="col.del" (click)="col.del('удаление');">del</div>
+              <!-- value -->
+              <input type="number" *ngIf="col.value && !col.control && !col.change" [value]="col.value(row)" readonly>
+              <!-- change -->
+              <input *ngIf="col.value && col.change && col.control  && deliveryExpansionRow === row" type="number" [value]="col.value(row)" readonly>
+              <input *ngIf="col.value && col.change && col.control  && deliveryExpansionRow !== row" type="number" (keyup)="col.change(row)" [formControlName]="col.control" [readonly]="kpForm.value.param.delivery.one_profit">
             </div>
           </div>
 
-          <!-- Кнопка для добавления новой услуги -->
-          <button type="button" (click)="addServiceDelivery(i)">Add Service</button>
+          <div class="row_expansion" formArrayName="services" *ngIf="deliveryExpansionRow==row">
+            <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" style="display: flex;">
+              <div>{{offer?.param.delivery.rows[i].services[j].name}}</div>
+              <div>{{offer?.param.delivery.rows[i].services[j].cost}}</div>
+              <input type="number" formControlName="profit_amount" (keyup)="onProfitServicesInputChange(row, service)" [readonly]="kpForm.value.param.delivery.one_profit">
+              <input type="number" formControlName="profit_percent" (keyup)="onPercentServicesInputChange(row, service)" [readonly]="kpForm.value.param.delivery.one_profit">
+              <input readonly [value]="returnSum(service.value.profit_amount,service.value.cost)" type="number">
+              <mat-checkbox formControlName="select" (change)="onSelectServicesCheckboxChecked(row,kpForm.get('param.delivery'))"></mat-checkbox>
+            </div>
+          </div>
         </div>
       </div>
-      <button type="button" (click)="addDeliveryRow()">Add Row</button>
+      <button type="button" (click)="addCustomRow()">Add Row</button>
     </div>
   </div>
 

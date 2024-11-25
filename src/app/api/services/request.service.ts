@@ -26018,15 +26018,20 @@ export class RequestService extends BaseService {
  * ID
  */
 'id': number;
+
+/**
+ * Скачать как файл
+ */
+'download'?: boolean;
 }
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Статус выполнения
+ * Текст
  */
-'result': 'OK';
+'text': any;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferTxtPath, 'post');
     if (params) {
@@ -26041,9 +26046,9 @@ export class RequestService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Статус выполнения
+         * Текст
          */
-        'result': 'OK';
+        'text': any;
         }>;
       })
     );
@@ -26067,30 +26072,102 @@ export class RequestService extends BaseService {
  * ID
  */
 'id': number;
+
+/**
+ * Скачать как файл
+ */
+'download'?: boolean;
 }
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Статус выполнения
+ * Текст
  */
-'result': 'OK';
+'text': any;
 }> {
     return this.requestOfferTxt$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Статус выполнения
+ * Текст
  */
-'result': 'OK';
+'text': any;
 }>): {
 
 /**
- * Статус выполнения
+ * Текст
  */
-'result': 'OK';
+'text': any;
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferPdf()` */
+  static readonly RequestOfferPdfPath = '/request_offer_pdf';
+
+  /**
+   * Скачивание КП в формате PDF.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferPdf()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferPdf$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferPdfPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'text', accept: '*/*', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      })
+    );
+  }
+
+  /**
+   * Скачивание КП в формате PDF.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferPdf$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferPdf(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<void> {
+    return this.requestOfferPdf$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
