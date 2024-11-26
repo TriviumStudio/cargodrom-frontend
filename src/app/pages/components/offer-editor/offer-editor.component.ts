@@ -80,32 +80,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       title:'Вход',
       width:'100px',
       control:'income_total_cost',
-      // index:'income_total_cost',
-      // value: this.returnEntryField,
-      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
-      change: this.onProfitRowInputChange,
-      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
-      change: this.onPercentRowInputChange,
-      // value: this.returnPercentRow,
-      // value: this.returnPercent,
-      // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
       control:'total_cost',
-      // value: this.returnRateRow,
-      // readonly: true
     },
     {
       title:'',
@@ -146,32 +135,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       title:'Вход',
       width:'100px',
       control:'income_total_cost',
-      // index:'income_total_cost',
-      // value: this.returnEntryField,
-      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
-      change: this.onProfitRowInputChange,
-      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
-      change: this.onPercentRowInputChange,
-      // value: this.returnPercentRow,
-      // value: this.returnPercent,
-      // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
       control:'total_cost',
-      // value: this.returnRateRow,
-      // readonly: true
     },
     {
       title:'',
@@ -207,32 +185,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       title:'Вход',
       width:'100px',
       control:'income_total_cost',
-      // index:'income_total_cost',
-      // value: this.returnEntryField,
-      // value: this.returnEnterRow,
     },
     {
       title:'Профит',
       width:'150px',
       control:'profit_amount',
-      change: this.onProfitRowInputChange,
-      // value: this.returnProfitRow,
     },
     {
       title:'%',
       width:'150px',
       control:'profit_percent',
-      change: this.onPercentRowInputChange,
-      // value: this.returnPercentRow,
-      // value: this.returnPercent,
-      // readonly: false
     },
     {
       title:'Ставка',
       width:'150px',
       control:'total_cost',
-      // value: this.returnRateRow,
-      // readonly: true
     },
     {
       title:'',
@@ -242,13 +209,12 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
   ];
 
-
-
-
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
 
   private _destroy$ = new Subject();
+
+  calckStatus:boolean=false;
 
   //КОНСТРУКТОР
   constructor(
@@ -266,7 +232,9 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private location: Location,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -285,160 +253,429 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
     this.getOffer();
     this.getCurrency();
+
+    this.kpForm.valueChanges
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((e:any) => {
+        if(this.calckStatus) {
+          console.log('lalala',e);
+          this.getCalckOffer(e)
+        } else {
+          console.log('no lalala');
+
+        }
+
+      })
+    ;
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
-  test(row:any,e:any){
-    console.log(row,Number(e.target.value));
+
+  setChange(row?:any, bol?: boolean){
+    this.calckStatus=true;
+    //1 патчу текущую строку
+    if(row && bol){
+      row.patchValue({
+        profit_changed: bol,
+      })
+    }
+
+    if(row){
+      //2 длеаю фолс во всех дугих строках во всех таблицах
+      this.customRows.controls.forEach((value, index, array) => {
+        if(value!==row) value.patchValue({ profit_changed: false })
+      })
+      this.storageRows.controls.forEach((value, index, array) => {
+        if(value!==row) value.patchValue({ profit_changed: false })
+      })
+      this.deliveryRows.controls.forEach((value, index, array) => {
+        if(value!==row) value.patchValue({ profit_changed: false })
+      })
+    }
+
+  }
+  resetAmount(table:any){
+    table.controls['one_profit_amount'].reset();
+  }
+  resetPercent(table:any){
+    table.controls['one_profit_percent'].reset();
+  }
+
+  onExpansionRowClick(){
+
+  }
+  onDelRowChange(){
 
   }
 
+
+  // Form
+  createParamGroup(): FormGroup {
+    return this.fb.group({
+      one_profit: [true],
+      one_profit_amount: [0],
+      one_profit_amount_currency: [0],
+      one_profit_percent: [0],
+      detail_items: [true],
+      rows: this.fb.array([this.createRow()])
+    });
+  }
+  createRow(): FormGroup {
+    return this.fb.group({
+      id: [0],
+      income_total_cost: [0],
+      profit_amount: [0],
+      profit_percent: [0],
+      total_cost: [0],
+      profit_changed: [false],
+      services: this.fb.array([this.createService()])
+    });
+  }
+  createService(): FormGroup {
+    return this.fb.group({
+      cost:[0],
+      field: [''],
+      profit_amount: [0],
+      profit_percent: [0],
+      total_cost: [0],
+      select: [true]
+    });
+  }
+
+  //Rows
+  get customRows(): FormArray {
+    return (this.kpForm.get('param.custom.rows') as FormArray);
+  }
+  get storageRows(): FormArray {
+    return (this.kpForm.get('param.storage.rows') as FormArray);
+  }
+  get deliveryRows(): FormArray {
+    return (this.kpForm.get('param.delivery.rows') as FormArray);
+  }
+  //Serv
+  returnServiceControls(row:any): any {
+    return (row.get('services').controls as FormArray);
+  }
+
+  //Add row
+  // Добавление новой строки в 'rows' для custom
+  addCustomRow(): void {
+    const newRow = this.createRow();
+    this.customRows.push(newRow);
+  }
+  // Добавление новой строки в 'rows' для storage
+  addStorageRow(): void {
+    const newRow = this.createRow();
+    this.storageRows.push(newRow);
+  }
+  // Добавление новой строки в 'rows' для delivery
+  addDeliveryRow(): void {
+    const newRow = this.createRow();
+    this.deliveryRows.push(newRow);
+  }
+
+  //Add serv
+  // Добавление нового сервиса в 'services' внутри строки custom
+  addServiceCustom(rowIndex: number): void {
+    const row = this.customRows.at(rowIndex); // Получаем нужную строку
+    const services = row.get('services') as FormArray;
+    const newService = this.createService(); // Создаем новый элемент
+    services.push(newService); // Добавляем новый элемент в 'services'
+  }
+  // Добавление нового сервиса в 'services' внутри строки storage
+  addServiceStorage(rowIndex: number): void {
+    const row = this.storageRows.at(rowIndex); // Получаем нужную строку
+    const services = row.get('services') as FormArray;
+    const newService = this.createService(); // Создаем новый элемент
+    services.push(newService); // Добавляем новый элемент в 'services'
+  }
+  // Добавление нового сервиса в 'services' внутри строки delivery
+  addServiceDelivery(rowIndex: number): void {
+    const row = this.deliveryRows.at(rowIndex); // Получаем нужную строку
+    const services = row.get('services') as FormArray;
+    const newService = this.createService(); // Создаем новый элемент
+    services.push(newService); // Добавляем новый элемент в 'services'
+  }
+
+  //REQEUSTS
+  onSubmit(): void {
+    this.saveOffer();
+    if (this.kpForm.valid) {
+      console.log(this.kpForm.value);
+    } else {
+      console.log('Form is invalid',this.kpForm.value);
+    }
+  }
+
+  saveOffer(){
+    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.snackBar.open(`Кп уцспешно отредактированно`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOffer() {
+    this.requestService.requestOfferInfo({id: this.offerId}).pipe(
+      tap((offer) => {
+        console.log(offer);
+        this.calckStatus=false;
+        this.fillFormWithData(offer);  // Метод для заполнения формы данными
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        console.log('Data loaded successfully');
+        this.offer=offer;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getCalckOffer(offer:any) {
+    this.requestService.requestOfferCalc({body:offer}).pipe(
+      tap((offer) => {
+        console.log(offer);
+        this.calckStatus=false;
+        this.fillFormWithData(offer);  // Метод для заполнения формы данными
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        console.log('Data loaded successfully');
+
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования запроса: ` + err.error?.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  fillFormWithData(offer: any): void {
+    // Используем patchValue для заполнения формы
+    this.kpForm.patchValue({
+      uid: offer.uid,
+      valid: offer.valid,
+      status: offer.status,
+      comment: offer.comment
+    });
+    // Заполняем вложенные объекты в param
+    this.kpForm.get('param')?.patchValue({
+      custom: offer.param.custom,
+      storage: offer.param.storage,
+      delivery: offer.param.delivery
+    });
+    // Заполняем строки в каждом разделе
+    this.loadRowsData(this.customRows, offer.param.custom.rows);
+    this.loadRowsData(this.storageRows, offer.param.storage.rows);
+    this.loadRowsData(this.deliveryRows, offer.param.delivery.rows);
+  }
+
+  loadRowsData(rowsArray: FormArray, rowsData: any[]): void {
+    // Очищаем текущие строки
+    while (rowsArray.length) {
+      rowsArray.removeAt(0);
+    }
+    // Добавляем новые строки на основе данных
+    rowsData.forEach((row) => {
+      const rowGroup = this.fb.group({
+        id: [row.id],
+        income_total_cost:[row.income_total_cost],
+        profit_percent: [row.profit_percent],
+        profit_amount: [row.profit_amount],
+        total_cost: [row.total_cost],
+        profit_changed: [false],
+        services: this.fb.array(row.services.map((service:any) => this.fb.group({
+          field: [service.field],
+          profit_amount: [service.profit_amount],
+          profit_percent: [service.profit_percent],
+          select: [service.select],
+          cost: [service.cost],
+          total_cost: [service.total_cost],
+        })))
+      });
+      rowsArray.push(rowGroup);
+    });
+  }
+}
+//АКТУАЛЬНОЕ
   // CHANGERS
   //table
-  onOneProfitCheckboxChecked(table:any){
-    if(table.value.one_profit){
-      if(table.value.one_profit_amount){
-        this.onOneProfitAmountInputChange(table);
-      } else {
-        this.onOneProfitPercentInputChange(table);
-      }
-    }
-  }
-  onOneProfitAmountInputChange(table:any){
-    table.controls['one_profit_percent'].reset();
-    let onePAmount=table.value.one_profit_amount;
-    console.log(onePAmount);
+  // onOneProfitCheckboxChecked(table:any){
+  //   if(table.value.one_profit){
+  //     if(table.value.one_profit_amount){
+  //       this.onOneProfitAmountInputChange(table);
+  //     } else {
+  //       this.onOneProfitPercentInputChange(table);
+  //     }
+  //   }
+  // }
+  // onOneProfitAmountInputChange(table:any){
+  //   table.controls['one_profit_percent'].reset();
+  //   let onePAmount=table.value.one_profit_amount;
+  //   console.log(onePAmount);
 
-    if(table.value.one_profit){
-      table.get('rows').controls.forEach((row:any, index:any, array:any) => {
-        let perc=(onePAmount/row.value.income_total_cost ) * 100;
-        console.log(perc);
-        row.patchValue({
-          profit_percent: perc,
-          profit_amount: onePAmount,
-        })
-        console.log(onePAmount);
-        row.get('services').controls.forEach((value:any, index:any, array:any) => {
-          let amount=(value.value.cost/ 100) * perc;
-          value.patchValue({
-            profit_percent: perc,
-            profit_amount: amount,
-          })
-        })
-      })
-    }
-  }
-  onOneProfitCurrencySelectChange(){
+  //   if(table.value.one_profit){
+  //     table.get('rows').controls.forEach((row:any, index:any, array:any) => {
+  //       let perc=(onePAmount/row.value.income_total_cost ) * 100;
+  //       console.log(perc);
+  //       row.patchValue({
+  //         profit_percent: perc,
+  //         profit_amount: onePAmount,
+  //       })
+  //       console.log(onePAmount);
+  //       row.get('services').controls.forEach((value:any, index:any, array:any) => {
+  //         let amount=(value.value.cost/ 100) * perc;
+  //         value.patchValue({
+  //           profit_percent: perc,
+  //           profit_amount: amount,
+  //         })
+  //       })
+  //     })
+  //   }
+  // }
+  // onOneProfitCurrencySelectChange(){
 
-  }
-  onOneProfitPercentInputChange(table:any){
-    table.controls['one_profit_amount'].reset();
-    let onePerc=table.value.one_profit_percent;
-    if(table.value.one_profit){
-      table.get('rows').controls.forEach((row:any, index:any, array:any) => {
-        let onePAmount=(row.value.income_total_cost/ 100) * onePerc;
-        row.patchValue({
-          profit_percent: onePerc,
-          profit_amount: onePAmount,
-        })
-        row.get('services').controls.forEach((value:any, index:any, array:any) => {
-          let amount=(value.value.cost/ 100) * onePerc;
-          value.patchValue({
-            profit_percent: onePerc,
-            profit_amount: amount,
-          })
-        })
-      })
-    }
-  }
-  //row
-  onExpansionRowClick(i:any){
-    console.log(i);
-  }
-  onDelRowChange(i:any){
-    console.log(i);
-  }
+  // }
+  // onOneProfitPercentInputChange(table:any){
+  //   table.controls['one_profit_amount'].reset();
+  //   let onePerc=table.value.one_profit_percent;
+  //   if(table.value.one_profit){
+  //     table.get('rows').controls.forEach((row:any, index:any, array:any) => {
+  //       let onePAmount=(row.value.income_total_cost/ 100) * onePerc;
+  //       row.patchValue({
+  //         profit_percent: onePerc,
+  //         profit_amount: onePAmount,
+  //       })
+  //       row.get('services').controls.forEach((value:any, index:any, array:any) => {
+  //         let amount=(value.value.cost/ 100) * onePerc;
+  //         value.patchValue({
+  //           profit_percent: onePerc,
+  //           profit_amount: amount,
+  //         })
+  //       })
+  //     })
+  //   }
+  // }
+  // //row
+  // onExpansionRowClick(i:any){
+  //   console.log(i);
+  // }
+  // onDelRowChange(i:any){
+  //   console.log(i);
+  // }
 
-  onProfitRowInputChange(row:any,e?:any){
-    let perc=(row.value.profit_amount / row.value.income_total_cost) * 100;
-    row.patchValue({
-      profit_percent: perc,
-    })
-    row.get('services').controls.forEach((value:any, index:any, array:any) => {
-      let amount=(value.value.cost/ 100) * perc;
-      value.patchValue({
-        profit_percent: perc,
-        profit_amount: amount,
-      })
-    })
+  // onProfitRowInputChange(row:any,e?:any){
+  //   let perc=(row.value.profit_amount / row.value.income_total_cost) * 100;
+  //   row.patchValue({
+  //     profit_percent: perc,
+  //   })
+  //   row.get('services').controls.forEach((value:any, index:any, array:any) => {
+  //     let amount=(value.value.cost/ 100) * perc;
+  //     value.patchValue({
+  //       profit_percent: perc,
+  //       profit_amount: amount,
+  //     })
+  //   })
 
-  }
-  onPercentRowInputChange(row:any,e?:any){
-    let perc=row.value.profit_percent;
-    let amount=(row.value.income_total_cost/ 100) * perc;
-    row.patchValue({
-      profit_amount: amount,
-    })
-    row.get('services').controls.forEach((value:any, index:any, array:any) => {
-      let amount=(value.value.cost/ 100) * perc;
-      value.patchValue({
-        profit_percent: perc,
-        profit_amount: amount,
-      })
-    })
-  }
-  //services(изменение сервиса должно пересчитать строку)
-  onProfitServicesInputChange(row:any, service:any){
-    this.calculateServiceUsingProfit(service);
-    this.updateRow();
-  }
-  onPercentServicesInputChange(row:any, service:any){
-    this.calculateServiceUsingProcent(service);
-    this.updateRow();
-  }
-  onSelectServicesCheckboxChecked(row:any,table:any){
-    this.updateRow();
-  }
-  // CALCULATIOS
-  //calck services
-  calculateServiceUsingProfit(service:any){
-    let perc:number=this.returnPercent(service.value.profit_amount, service.value.cost);
-    service.patchValue({
-      profit_percent: perc,
-    })
-  }
-  calculateServiceUsingProcent(service:any,rowProcent?:number){
-    //надо добавить возможность передовать процент строки, что ыб потом весь массив сервисов расчитывать при изменении амоунт или процента в строке
-    let amount:number=this.returnAmount(service.value.cost, service.value.profit_percent);
-    service.patchValue({
-      profit_amount: amount,
-    })
-  }
-  //calck row
-  updateRow(){
+  // }
+  // onPercentRowInputChange(row:any,e?:any){
+  //   let perc=row.value.profit_percent;
+  //   let amount=(row.value.income_total_cost/ 100) * perc;
+  //   row.patchValue({
+  //     profit_amount: amount,
+  //   })
+  //   row.get('services').controls.forEach((value:any, index:any, array:any) => {
+  //     let amount=(value.value.cost/ 100) * perc;
+  //     value.patchValue({
+  //       profit_percent: perc,
+  //       profit_amount: amount,
+  //     })
+  //   })
+  // }
+  // //services(изменение сервиса должно пересчитать строку)
+  // onProfitServicesInputChange(row:any, service:any){
+  //   this.calculateServiceUsingProfit(service);
+  //   this.updateRow(row);
+  // }
+  // onPercentServicesInputChange(row:any, service:any){
+  //   this.calculateServiceUsingProcent(service);
+  //   this.updateRow(row);
+  // }
+  // onSelectServicesCheckboxChecked(row:any,table:any){
+  //   this.updateRow(row);
+  // }
+  // // CALCULATIOS
+  // //calck services
+  // calculateServiceUsingProfit(service:any){
+  //   let perc:number=this.returnPercent(service.value.profit_amount, service.value.cost);
+  //   service.patchValue({
+  //     profit_percent: perc,
+  //   })
+  // }
+  // calculateServiceUsingProcent(service:any,rowProcent?:number){
+  //   //надо добавить возможность передовать процент строки, что ыб потом весь массив сервисов расчитывать при изменении амоунт или процента в строке
+  //   let amount:number=this.returnAmount(service.value.cost, service.value.profit_percent);
+  //   service.patchValue({
+  //     profit_amount: amount,
+  //   })
+  // }
+  // //update
+  // updateRow(row:any){
 
-  }
-  calculateRowUsingProfit(){
+  // }
 
-  }
-  calculateRowUsingProcent(){
+  // //calck row
+  // calculateRowUsingProfit(){
 
-  }
+  // }
+  // calculateRowUsingProcent(){
 
+  // }
 
-  //calck sum, amount and procent
-  returnSum(a:number,b:number):number {
-    return (Math.round(a*10) + Math.round(b*10)) / 10;
-  }
-  returnPercent(a:number,b:number):number {
-    return  Number((( a / b) * 100).toFixed(3));
-  }
-  returnAmount(enter:number,procent:number):number {
-    return  Number((( enter / 100) * procent).toFixed(3));
-  }
+  // //calck sum, amount and procent
+  // returnSum(a:number,b:number):number {
+  //   return (Math.round(a*10) + Math.round(b*10)) / 10;
+  // }
+  // returnPercent(a:number,b:number):number {
+  //   return  Number((( a / b) * 100).toFixed(3));
+  // }
+  // returnAmount(enter:number,procent:number):number {
+  //   return  Number((( enter / 100) * procent).toFixed(3));
+  // }
 
+//СТАРОЕ
   //return row calck
   // returnEnterRow(row:any){
   //   let enter=0;
@@ -661,203 +898,6 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   //     }
   //   })
   // }
-
-  // Form
-  createParamGroup(): FormGroup {
-    return this.fb.group({
-      one_profit: [true],
-      one_profit_amount: [0],
-      one_profit_amount_currency: [0],
-      one_profit_percent: [0],
-      detail_items: [true],
-      rows: this.fb.array([this.createRow()])
-    });
-  }
-  createRow(): FormGroup {
-    return this.fb.group({
-      id: [0],
-      income_total_cost: [0],
-      profit_amount: [0],
-      profit_percent: [0],
-      total_cost:[0],
-      services: this.fb.array([this.createService()])
-    });
-  }
-  createService(): FormGroup {
-    return this.fb.group({
-      cost:[0],
-      field: [''],
-      profit_amount: [0],
-      profit_percent: [0],
-      select: [true]
-    });
-  }
-
-  //Rows
-  get customRows(): FormArray {
-    return (this.kpForm.get('param.custom.rows') as FormArray);
-  }
-  get storageRows(): FormArray {
-    return (this.kpForm.get('param.storage.rows') as FormArray);
-  }
-  get deliveryRows(): FormArray {
-    return (this.kpForm.get('param.delivery.rows') as FormArray);
-  }
-
-  returnServiceControls(row:any): any {
-    return (row.get('services').controls as FormArray);
-  }
-
-
-  //Add row
-  // Добавление новой строки в 'rows' для custom
-  addCustomRow(): void {
-    const newRow = this.createRow();
-    this.customRows.push(newRow);
-  }
-  // Добавление новой строки в 'rows' для storage
-  addStorageRow(): void {
-    const newRow = this.createRow();
-    this.storageRows.push(newRow);
-  }
-  // Добавление новой строки в 'rows' для delivery
-  addDeliveryRow(): void {
-    const newRow = this.createRow();
-    this.deliveryRows.push(newRow);
-  }
-
-
-
-  // Добавление нового сервиса в 'services' внутри строки custom
-  addServiceCustom(rowIndex: number): void {
-    const row = this.customRows.at(rowIndex); // Получаем нужную строку
-    const services = row.get('services') as FormArray;
-    const newService = this.createService(); // Создаем новый элемент
-    services.push(newService); // Добавляем новый элемент в 'services'
-  }
-
-  // Добавление нового сервиса в 'services' внутри строки storage
-  addServiceStorage(rowIndex: number): void {
-    const row = this.storageRows.at(rowIndex); // Получаем нужную строку
-    const services = row.get('services') as FormArray;
-    const newService = this.createService(); // Создаем новый элемент
-    services.push(newService); // Добавляем новый элемент в 'services'
-  }
-
-  // Добавление нового сервиса в 'services' внутри строки delivery
-  addServiceDelivery(rowIndex: number): void {
-    const row = this.deliveryRows.at(rowIndex); // Получаем нужную строку
-    const services = row.get('services') as FormArray;
-    const newService = this.createService(); // Создаем новый элемент
-    services.push(newService); // Добавляем новый элемент в 'services'
-  }
-
-  onSubmit(): void {
-    this.saveOffer();
-
-    if (this.kpForm.valid) {
-      console.log(this.kpForm.value);
-    } else {
-      console.log('Form is invalid',this.kpForm.value);
-    }
-  }
-
-  saveOffer(){
-    this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
-      tap((offer) => {
-        console.log(offer);
-      }),
-      takeUntil(this._destroy$)
-    ).subscribe({
-      next: (offer) => {
-        this.snackBar.open(`Кп уцспешно отредактированно`, undefined, this.snackBarWithShortDuration);
-      },
-      error: (err) => {
-        this.snackBar.open(`Ошибка редактирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-      }
-    });
-  }
-
-  getOffer() {
-    this.requestService.requestOfferInfo({id: this.offerId}).pipe(
-      tap((offer) => {
-        console.log(offer);
-        this.fillFormWithData(offer);  // Метод для заполнения формы данными
-      }),
-      takeUntil(this._destroy$)
-    ).subscribe({
-      next: (offer) => {
-        console.log('Data loaded successfully');
-        this.offer=offer;
-      },
-      error: (err) => {
-        this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-      }
-    });
-  }
-
-  getCurrency(){
-    this.systemService.systemCurrency().pipe(
-      tap((currencyList) => {
-      }),
-      takeUntil(this._destroy$)
-    ).subscribe({
-      next: (currencyList) => {
-        this.currencyList=currencyList;
-      },
-      error: (err) => {
-        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-      }
-    });
-  }
-
-  fillFormWithData(offer: any): void {
-    // Используем patchValue для заполнения формы
-    this.kpForm.patchValue({
-      uid: offer.uid,
-      valid: offer.valid,
-      status: offer.status,
-      comment: offer.comment
-    });
-    // Заполняем вложенные объекты в param
-    this.kpForm.get('param')?.patchValue({
-      custom: offer.param.custom,
-      storage: offer.param.storage,
-      delivery: offer.param.delivery
-    });
-    // Заполняем строки в каждом разделе
-    this.loadRowsData(this.customRows, offer.param.custom.rows);
-    this.loadRowsData(this.storageRows, offer.param.storage.rows);
-    this.loadRowsData(this.deliveryRows, offer.param.delivery.rows);
-  }
-
-  loadRowsData(rowsArray: FormArray, rowsData: any[]): void {
-    // Очищаем текущие строки
-    while (rowsArray.length) {
-      rowsArray.removeAt(0);
-    }
-    // Добавляем новые строки на основе данных
-    rowsData.forEach((row) => {
-      const rowGroup = this.fb.group({
-        id: [row.id],
-        income_total_cost:[row.income_total_cost],
-        profit_percent: [row.profit_percent],
-        profit_amount: [row.profit_amount],
-        total_cost:[0],
-        services: this.fb.array(row.services.map((service:any) => this.fb.group({
-          field: [service.field],
-          profit_amount: [service.profit_amount],
-          profit_percent: [service.profit_percent],
-          select: [service.select],
-          cost: [service.cost],
-        })))
-      });
-      rowsArray.push(rowGroup);
-    });
-  }
-}
-
-
 
 
 // customTableConfig:any={
