@@ -1,6 +1,43 @@
 .block{
   background-color: white;
   padding: 40px;
+  border: 1px solid #C3CCD6;
+  box-shadow: 0px 2px 8px 0px #242D4314;
+}
+
+
+.table_title{
+  display: flex;
+  margin: 20px 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  div{
+    color: #2C3640;
+  }
+  span{
+    color: #606A74;
+    margin-right: 5px;
+  }
+}
+
+.one_profit{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  width: 100%;
+  input,mat-form-field{
+    width: 90px;
+    height: 40px;
+  }
+  p{
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 14px;
+    color:#2C3640;
+
+  }
 }
 
 
@@ -9,12 +46,16 @@
   flex-direction: column;
   .row{
     display: flex;
+
     flex-direction: column;
     color: #2C3640;
     font-size: 13px;
     font-weight: 400;
     line-height: 12px;
     text-align: left;
+    border-left: 1px solid #E0E5EB;
+    border-right: 1px solid #E0E5EB;
+    border-bottom: 1px solid #E0E5EB;
     .row_main{
       display: flex;
       height: 64px;
@@ -22,6 +63,9 @@
       div{
         display: flex;
         flex-grow: 1;
+        justify-content: center;
+        align-items: center;
+        padding: 0 5px;
       }
 
 
@@ -41,9 +85,14 @@
     font-weight: 400;
     line-height: 12px;
     text-align: left;
+    border-top: 1px solid #83909E;
+    border-left: 1px solid #83909E;
+    border-right: 1px solid #83909E;
     div{
       display: flex;
       flex-grow: 1;
+      justify-content: center;
+      padding: 0 5px;
     }
   }
 

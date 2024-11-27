@@ -1,6 +1,6 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
@@ -33,37 +33,37 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   offer!:any;
   offerId!: number;
 
-  customExpansionRow:any={};
-  deliveryExpansionRow:any={};
-  storageExpansionRow:any={};
+  customExpansionRow:any=-1;
+  deliveryExpansionRow:any=-1;
+  storageExpansionRow:any=-1;
 
   currencyList:any=[];
 
   customTableRowConfig=[
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
-      expansion: this.onExpansionRowClick,
+      expansion: this.onClickExpansionCustomRowChange,
     },
     {
       title:'Air',
-      width:'100px',
+      width:'64px',
       index:'carrier_iata',
     },
     {
       title:'Авиалиния',
-      width:'100px',
+      width:'130px',
       index:'carrier_name',
     },
     {
       title:'Маршрут',
-      width:'100px',
+      width:'250px',
       index:'route_name',
     },
     {
       title:'Расписание',
-      width:'100px',
+      width:'140px',
       index:'schedule',
     },
     {
@@ -73,8 +73,14 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Срок, дн.',
-      width:'100px',
+      width:'65px',
       index:'transit_time',
+    },
+    {
+      title:'',
+      width:'0px',
+      height: '100%',
+
     },
     {
       title:'Вход',
@@ -88,7 +94,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'%',
-      width:'150px',
+      width:'100px',
       control:'profit_percent',
     },
     {
@@ -98,18 +104,17 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
       del: this.onDelRowChange,
     },
   ];
-
   deliveryTableRowConfig=[
     {
       title:'',
       width:'100px',
       index:'',
-      expansion: this.onExpansionRowClick,
+      expansion: this.onClickExpansionDeliveryRowChange,
     },
     {
       title:'Air',
@@ -158,13 +163,12 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       del: this.onDelRowChange,
     },
   ];
-
   storageTableRowConfig=[
     {
       title:'',
       width:'100px',
       index:'',
-      expansion: this.onExpansionRowClick,
+      expansion: this.onClickExpansionStorageRowChange,
     },
     {
       title:'Тип ТС',
@@ -208,6 +212,31 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       del: this.onDelRowChange,
     },
   ];
+
+  // tableConfig:any=[
+  //   {
+  //     title:'До границы',
+  //     col_config: this.customTableRowConfig,
+  //     form_name: 'custom',
+  //     expansion_row: this.customExpansionRow,
+  //     // rows: this.returnCustomRows,
+  //     // form_table: this.customTable,
+  //   },
+  //   {
+  //     title:'Склад (СВХ)',
+  //     col_config: this.storageTableRowConfig,
+  //     form_name: 'storage',
+  //     expansion_row: this.storageExpansionRow,
+  //     // form_table: this.storageTable,
+  //   },
+  //   {
+  //     title:'Вывоз',
+  //     col_config: this.deliveryTableRowConfig,
+  //     form_name: 'delivery',
+  //     expansion_row: this.deliveryExpansionRow,
+  //     // form_table: this.deliveryTable,
+  //   },
+  // ];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -277,6 +306,20 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  onClickExpansionCustomRowChange(i:any){
+    console.log(i,this.customExpansionRow);
+
+    // this.customExpansionRow=this.customExpansionRow==i?null:i;
+    // console.log(this.tableConfig);
+
+  }
+  onClickExpansionStorageRowChange(i:any){
+    this.storageExpansionRow=this.storageExpansionRow===i?null:i;
+  }
+  onClickExpansionDeliveryRowChange(i:any){
+    this.deliveryExpansionRow=this.deliveryExpansionRow===i?null:i;
   }
 
   setChange(row?:any, bol?: boolean){
@@ -350,6 +393,19 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  //Table
+  // get customTable(): FormArray {
+  //   return (this.kpForm.get('param.custom') as FormArray);
+  // }
+  // get storageTable(): FormArray {
+  //   return (this.kpForm.get('param.storage') as FormArray);
+  // }
+  // get deliveryTable(): FormArray {
+  //   return (this.kpForm.get('param.delivery') as FormArray);
+  // }
+  test():any{
+    return this.kpForm.get('param.custom.rows')
+  }
   //Rows
   get customRows(): FormArray {
     return (this.kpForm.get('param.custom.rows') as FormArray);
@@ -360,6 +416,16 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   get deliveryRows(): FormArray {
     return (this.kpForm.get('param.delivery.rows') as FormArray);
   }
+
+  returnRows(table_name:string): any {
+    return this.kpForm.get(`param.${table_name}.rows`);
+  }
+  // returnStorageRows(): any {
+  //   return this.kpForm.get('param.storage.rows');
+  // }
+  // returnDeliveryRows(): any {
+  //   return this.kpForm.get('param.delivery.rows');
+  // }
   //Serv
   returnServiceControls(row:any): any {
     return (row.get('services').controls as FormArray);
