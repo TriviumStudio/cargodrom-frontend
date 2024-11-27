@@ -235,6 +235,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   ) {
 
   }
+  // проблема в рассчетах
+  // удаление строк
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
@@ -256,7 +258,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
     this.kpForm.valueChanges
       .pipe(
-        debounceTime(1000),
+        debounceTime(1500),
         distinctUntilChanged(),
         takeUntil(this._destroy$),
       )
