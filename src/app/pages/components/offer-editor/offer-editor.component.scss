@@ -47,6 +47,7 @@
   .row{
     display: flex;
 
+
     flex-direction: column;
     color: #2C3640;
     font-size: 13px;
@@ -60,22 +61,99 @@
       display: flex;
       height: 64px;
       align-items: center;
+      gap:10px;
       div{
         display: flex;
         flex-grow: 1;
         justify-content: center;
         align-items: center;
-        padding: 0 5px;
+
       }
 
 
     }
     .row_expansion{
-      border: 1px solid #E0E5EB;
+      border-top: 1px solid #E0E5EB;
+      display: flex;
+      flex-direction: column;
+
+
+      .service{
+        gap: 10px;
+        // display: flex;
+        align-items: center;
+        justify-content: end;
+        .col{
+          width: 1px;
+          background-color: rgb(224, 229, 235);
+          height: 56px;
+        }
+        .mat-checkbox {
+          display: flex;
+          align-items: center;
+          width: 64px;
+          height: 56px;
+          border-left: 1px solid rgb(224, 229, 235);
+          label{
+            margin: 0 auto;
+          }
+        }
+
+        .title{
+
+        }
+      }
+      .service:first-child{
+        margin-top: 10px;
+      }
+      .service:last-child{
+        margin-bottom: 10px;
+      }
+      input{
+        max-width: 100.47px;
+      }
+    }
+    button{
+      cursor: pointer;
+    }
+    .arrow-open {
+      width: 20px;
+      height: 20px;
+      background-image: url(../../../../assets/pic-select-arrow.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+      border: none;
+      background-color: inherit;
+    }
+    .arrow-close {
+      width: 20px;
+      height: 20px;
+      background-image: url(../../../../assets/pic-filter-arrow.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+      border: none;
+      background-color: inherit;
+    }
+    .btn-del {
+      width: 20px;
+      height: 20px;
+      background-image: url(../../../../assets/pic-btn-del-gray.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      margin: 0 auto;
+      border: none;
+      background-color: inherit;
+
     }
 
   }
+
+
   .row:first-child{
+    gap:10px;
+
     flex-direction: row;
     align-items: center;
     height: 48px;
@@ -92,7 +170,7 @@
       display: flex;
       flex-grow: 1;
       justify-content: center;
-      padding: 0 5px;
+
     }
   }
 
@@ -111,4 +189,56 @@ input[type="number"] {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	display: none;
+}
+
+tr{
+  th:last-child, th:nth-child(2){
+    border: none;
+  }
+  .td{
+
+  }
+  // .border-n{
+  //   border: none;
+  // }
+}
+.expan-row{
+  height: 500px;
+}
+.column{
+  button{
+    cursor: pointer;
+  }
+
+  .arrow-open {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../assets/pic-select-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    border: none;
+    background-color: inherit;
+  }
+  .arrow-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../assets/pic-filter-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    border: none;
+    background-color: inherit;
+  }
+  .btn-del {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../../assets/pic-btn-del-gray.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    border: none;
+    background-color: inherit;
+
+  }
 }

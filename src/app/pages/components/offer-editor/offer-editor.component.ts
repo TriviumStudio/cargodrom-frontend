@@ -89,7 +89,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Профит',
-      width:'150px',
+      width:'100px',
       control:'profit_amount',
     },
     {
@@ -99,7 +99,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Ставка',
-      width:'150px',
+      width:'100px',
       control:'total_cost',
     },
     {
@@ -112,29 +112,30 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   deliveryTableRowConfig=[
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
-      expansion: this.onClickExpansionDeliveryRowChange,
+      expansion: this.onClickExpansionCustomRowChange,
     },
     {
-      title:'Air',
-      width:'100px',
-      index:'period',
+      title:'Тип ТС',
+      width:'64px',
+      index:'carrier_iata',
     },
     {
-      title:'Наименование Аэропорта',
-      width:'100px',
-      index:'point',
+      title:'Маршрут',
+      width:'130px',
+      index:'carrier_name',
     },
     {
-      title:'Вид прайса',
-      width:'100px',
-      index:'point_action',
+      title:'Срок, дн.',
+      width:'250px',
+      index:'route_name',
     },
     {
-      title:'Наименование статей затрат',
-      width:'100px',
-      index:'service_items',
+      title:'',
+      width:'0px',
+      height: '100%',
+
     },
     {
       title:'Вход',
@@ -143,22 +144,22 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Профит',
-      width:'150px',
+      width:'100px',
       control:'profit_amount',
     },
     {
       title:'%',
-      width:'150px',
+      width:'100px',
       control:'profit_percent',
     },
     {
       title:'Ставка',
-      width:'150px',
+      width:'100px',
       control:'total_cost',
     },
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
       del: this.onDelRowChange,
     },
@@ -166,24 +167,36 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   storageTableRowConfig=[
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
-      expansion: this.onClickExpansionStorageRowChange,
+      expansion: this.onClickExpansionCustomRowChange,
     },
     {
-      title:'Тип ТС',
-      width:'100px',
+      title:'Air',
+      width:'64px',
       index:'carrier_iata',
     },
     {
-      title:'Маршрут',
-      width:'100px',
+      title:'Наименование Аэропорта',
+      width:'226px',
+      index:'carrier_name',
+    },
+    {
+      title:'Вид прайса',
+      width:'250px',
       index:'point',
     },
     {
-      title:'Срок, дн.',
-      width:'100px',
-      index:'point_action',
+      title:'Наименование статей затрат',
+      width:'230px',
+      index:'schedule',
+    },
+
+    {
+      title:'',
+      width:'0px',
+      height: '100%',
+
     },
     {
       title:'Вход',
@@ -192,22 +205,22 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     },
     {
       title:'Профит',
-      width:'150px',
+      width:'100px',
       control:'profit_amount',
     },
     {
       title:'%',
-      width:'150px',
+      width:'100px',
       control:'profit_percent',
     },
     {
       title:'Ставка',
-      width:'150px',
+      width:'100px',
       control:'total_cost',
     },
     {
       title:'',
-      width:'100px',
+      width:'64px',
       index:'',
       del: this.onDelRowChange,
     },
