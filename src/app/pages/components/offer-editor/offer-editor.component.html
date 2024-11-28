@@ -2,6 +2,11 @@
   <div class="table-list" formGroupName="param">
 
     <div class="table_title">
+
+      <div>Предыдущие котировки: 6</div>
+    </div>
+
+    <div class="table_title">
       <span>Ставки:</span>
       <div>До границы</div>
     </div>
@@ -34,7 +39,13 @@
 
             <th class="border-n">
               <div class="td-block" >
-                <div class="column" *ngFor="let title of ['Air','Авиалиния','Маршрут','Расписание','Есть место','Срок, дн.']">{{title}}</div>
+                <div class="column"
+                  style="width: 100px;"
+                  *ngFor="let title of ['Air','Авиалиния','Маршрут','Расписание','Есть место','Срок, дн.'];
+                  let i=index"
+                >
+                  {{title}}
+                </div>
               </div>
             </th>
 
@@ -58,17 +69,15 @@
           <ng-container *ngFor="let row of customRows.controls; let i = index" [formGroupName]="i">
             <tr>
 
-              <td  [ngStyle]="customExpansionRow==i ? {'border': 'none'} : {}">
+              <td  [ngStyle]="customExpansionRow==i ? {'border': 'none', 'background':'inherit'} : {}">
                 <div class="td-block" >
-                  <div class="column">
-                    <button [ngClass]="customExpansionRow===i?'arrow-close':'arrow-open'" type="button" (click)="customExpansionRow = customExpansionRow === i ? null : i;"></button>
-                  </div>
+                  <button [ngClass]="customExpansionRow===i?'arrow-close':'arrow-open'" type="button" (click)="customExpansionRow = customExpansionRow === i ? null : i;"></button>
                 </div>
               </td>
 
               <td>
                 <div class="td-block" >
-                  <div class="column" *ngFor="let index of ['carrier_iata','carrier_name','route_name','schedule','nearest_flight','transit_time']">
+                  <div class="column " style="width: 100px;" *ngFor="let index of ['carrier_iata','carrier_name','route_name','schedule','nearest_flight','transit_time']">
                     {{offer?.param.custom.rows[i][index]}}
                   </div>
                 </div>
@@ -85,46 +94,38 @@
 
               <td>
                 <div class="td-block" >
-                  <div class="column"><button type="button" class="btn-del"></button></div>
+                  <button type="button" class="btn-del"></button>
                 </div>
               </td>
             </tr>
             <!-- EXPAN ROW -->
-            <tr *ngIf="customExpansionRow==i" formArrayName="services">
-              <td>
-                <div class="td-block" >
+            <tr *ngIf="customExpansionRow==i" formArrayName="services" class="expan-row">
+
+              <td style="background: inherit;">
+                <div class="td-block"></div>
+              </td>
+
+              <td style="background: inherit;">
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service titles" >
+                  <div class="title">{{offer?.param.custom.rows[i].services[j].name}}</div>
                 </div>
               </td>
+
               <td>
-                <div class="td-block" >
-                  <div class="column">
-                    <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service" >
-                      <div class="title">{{offer?.param.custom.rows[i].services[j].name}}</div>
-                    </div>
-                  </div>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service inputs">
+                  <input type="number" formControlName="cost" readonly style="border: none;">
+                  <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.custom.one_profit">
+                  <input type="number"  formControlName="profit_percent"  readonly>
+                  <input type="number" formControlName="total_cost"  readonly>
                 </div>
               </td>
+
               <td>
-                <div class="td-block" >
-                  <div class="column">
-                    <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service">
-                      <input type="number" formControlName="cost" readonly>
-                      <input type="number" formControlName="profit_amount" (keyup)="setChange(row,false)"  [readonly]="kpForm.value.param.custom.one_profit">
-                      <input type="number"  formControlName="profit_percent"  readonly>
-                      <input type="number" formControlName="total_cost"  readonly>
-                    </div>
-                  </div>
+                <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service checkboxs" >
+                  <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
                 </div>
               </td>
-              <td>
-                <div class="td-block" >
-                  <div class="column">
-                    <div *ngFor="let service of returnServiceControls(row); let j = index" [formGroupName]="j" class="service" >
-                      <mat-checkbox class="testclass"  formControlName="select" (change)="setChange(row,false)"></mat-checkbox>
-                    </div>
-                  </div>
-                </div>
-              </td>
+
             </tr>
           </ng-container>
 
