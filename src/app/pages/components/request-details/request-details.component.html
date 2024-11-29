@@ -105,26 +105,22 @@
 
         <ng-template [ngSwitchCase]="'checked'">
           <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-            <label class="checkbox-label">
-              <mat-checkbox class="testclass"
-                [indeterminate]="isCheckboxHeaderTableIndeterminate()"
-                [checked]="isCheckboxHeaderTableChecked()"
-                (change)="onCheckboxHeaderTableChange($event)"
-              >
-              </mat-checkbox>
-            </label>
-            <button (click)="onSendKpBtnClick()">ОТПРАВИТЬ</button>
+            <div class="td-block">
+              <button (click)="onSendKpBtnClick()">ОТПРАВИТЬ</button>
+            </div>
           </th>
+
           <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
             <div class="td-block">
-              <label class="checkbox-label">
+
+
+
+              <div class="kp-btns">
                 <mat-checkbox class="testclass"
                   [checked]="isCheckboxBodyTableChecked(item.id)"
                   (change)="onCheckboxBodyTableChange(item.id,$event)"
                 >
                 </mat-checkbox>
-              </label>
-              <div class="kp-btns">
                 <button class="edi" (click)="onEditKpBtnClick()"></button>
                 <button class="dub" (click)="onDubKpBtnClick()"></button>
                 <button class="cop" (click)="onCopyKpBtnClick()"></button>

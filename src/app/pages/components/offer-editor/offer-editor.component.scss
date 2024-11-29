@@ -5,15 +5,11 @@
   box-shadow: 0px 2px 8px 0px #242D4314;
 
   .dop{
-
     font-size: 10px;
     font-weight: 400;
     line-height: 10px;
     text-align: left;
     text-transform:uppercase;
-
-
-
   }
 }
 
@@ -21,19 +17,12 @@ input[type="date"]{
   background: inherit;
   border: none;
   color: #DB563B;
-
-
   width: 115px;
-
   padding: 11px 0 9px;
-
-
   font-size: 15px;
   font-weight: 400;
   line-height: 14px;
   text-align: left;
-
-
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
@@ -93,145 +82,6 @@ textarea{
 }
 
 
-// .rate_table{
-//   display: flex;
-//   flex-direction: column;
-//   .row{
-//     display: flex;
-
-
-//     flex-direction: column;
-//     color: #2C3640;
-//     font-size: 13px;
-//     font-weight: 400;
-//     line-height: 12px;
-//     text-align: left;
-//     border-left: 1px solid #E0E5EB;
-//     border-right: 1px solid #E0E5EB;
-//     border-bottom: 1px solid #E0E5EB;
-//     .row_main{
-//       display: flex;
-//       height: 64px;
-//       align-items: center;
-//       gap:10px;
-//       div{
-//         display: flex;
-//         flex-grow: 1;
-//         justify-content: center;
-//         align-items: center;
-
-//       }
-
-
-//     }
-//     .row_expansion{
-//       border-top: 1px solid #E0E5EB;
-//       display: flex;
-//       flex-direction: column;
-
-
-//       .service{
-//         gap: 10px;
-//         // display: flex;
-//         align-items: center;
-//         justify-content: end;
-//         .col{
-//           width: 1px;
-//           background-color: rgb(224, 229, 235);
-//           height: 56px;
-//         }
-//         .mat-checkbox {
-//           display: flex;
-//           align-items: center;
-//           width: 64px;
-//           height: 56px;
-//           border-left: 1px solid rgb(224, 229, 235);
-//           label{
-//             margin: 0 auto;
-//           }
-//         }
-
-//         .title{
-
-//         }
-//       }
-//       .service:first-child{
-//         margin-top: 10px;
-//       }
-//       .service:last-child{
-//         margin-bottom: 10px;
-//       }
-//       input{
-//         max-width: 100.47px;
-//       }
-//     }
-//     button{
-//       cursor: pointer;
-//     }
-//     .arrow-open {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-select-arrow.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-//     }
-//     .arrow-close {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-filter-arrow.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-//     }
-//     .btn-del {
-//       width: 20px;
-//       height: 20px;
-//       background-image: url(../../../../assets/pic-btn-del-gray.svg);
-//       background-repeat: no-repeat;
-//       background-position: center;
-//       margin: 0 auto;
-//       border: none;
-//       background-color: inherit;
-
-//     }
-
-//   }
-
-
-//   .row:first-child{
-//     gap:10px;
-
-//     flex-direction: row;
-//     align-items: center;
-//     height: 48px;
-//     background: #83909E;
-//     color: white;
-//     font-size: 13px;
-//     font-weight: 400;
-//     line-height: 12px;
-//     text-align: left;
-//     border-top: 1px solid #83909E;
-//     border-left: 1px solid #83909E;
-//     border-right: 1px solid #83909E;
-//     div{
-//       display: flex;
-//       flex-grow: 1;
-//       justify-content: center;
-
-//     }
-//   }
-
-//   input{
-//     height: 40px;
-
-//   }
-// }
-
 input[type="number"] {
 	-moz-appearance: textfield;
 	-webkit-appearance: textfield;
@@ -272,12 +122,6 @@ tr{
 
 
 table{
-
-
-
-
-
-
   thead{
     border: 1px solid #83909E;
     border-bottom: none;
