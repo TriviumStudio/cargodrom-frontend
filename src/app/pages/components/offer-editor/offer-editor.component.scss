@@ -3,6 +3,58 @@
   padding: 40px;
   border: 1px solid #C3CCD6;
   box-shadow: 0px 2px 8px 0px #242D4314;
+
+  .dop{
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: left;
+    text-transform:uppercase;
+
+
+
+  }
+}
+
+input[type="date"]{
+  background: inherit;
+  border: none;
+  color: #DB563B;
+
+
+  width: 115px;
+
+  padding: 11px 0 9px;
+
+
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: left;
+
+
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  background-image: url(../../../../assets/pic-btn-calendar.svg);
+  width: 14px;
+  height: 14px;
+  }
+
+textarea{
+  font-family: 'regular', 'arial', 'sans-serif';
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 60%;
+  box-sizing: border-box;
+  padding: 11px 13px 9px;
+  height: 105px;
+  margin-top: 11px;
 }
 
 
@@ -220,18 +272,29 @@ tr{
 
 
 table{
+
+
+
+
+
+
   thead{
     border: 1px solid #83909E;
     border-bottom: none;
 
   }
   tbody{
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: left;
+    color:#2C3640;
 
     border: 1px solid #E0E5EB;
     border-top: none;
   }
   tr.expan-row{
-    height: 500px;
+    // height: 500px;
     .service{
       display: flex;
       height: 40px;
@@ -297,4 +360,83 @@ table{
     background-color: inherit;
 
   }
+}
+
+.btns{
+  display: flex;
+  margin-top: 40px;
+  gap: 12px;
+  button{
+
+    width: 80px;
+    height: 56px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0px 2px 8px 0px rgba(44, 54, 64, 0.13);
+    padding: 0;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 10px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .sav{
+    background-color: #DB563B;
+    color: white;
+    margin-left: auto;
+  }
+  .sav::before {
+    display: block;
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-image: url(../../../../assets/pic-btn-save.svg);
+    background-repeat: no-repeat;
+    margin: 0 auto 8px ;
+  }
+  .pdf{
+    background-color: white;
+    color: #2C3640;
+
+  }
+  .pdf::before {
+    display: block;
+    content: '';
+    width: 28px;
+    height: 16px;
+    background-image: url(../../../../assets/pic-btn-pdf-border.svg);
+    background-repeat: no-repeat;
+    margin: 0 auto 8px ;
+
+  }
+  .txt{
+    background-color: white;
+    color: #2C3640;
+
+  }
+  .txt::before {
+    display: block;
+    content: '';
+    width: 28px;
+    height: 16px;
+    background-image: url(../../../../assets/pic-btn-txt.svg);
+    background-repeat: no-repeat;
+    margin: 0 auto 8px ;
+  }
+  .can{
+    background-color: #606A74;
+    color: white;
+    width: 64px;
+  }
+  .can::before {
+    display: block;
+    content: '';
+    width: 14px;
+    height: 14px;
+    background-image: url(../../../../assets/pic-btn-cancel.svg);
+    background-repeat: no-repeat;
+    margin: 0 auto 8px ;
+  }
+
 }

@@ -1,5 +1,5 @@
 import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -19,6 +19,7 @@ import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/dir
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer-editor',
@@ -32,6 +33,10 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   kpForm!: FormGroup;
   offer!:any;
   offerId!: number;
+
+  request!:any;
+
+  readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   customExpansionRow:any=-1;
   deliveryExpansionRow:any=-1;
@@ -258,6 +263,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
   calckStatus:boolean=false;
 
+  @ViewChild('delRateDialogRef') delRateDialogRef!: TemplateRef<void>;
+
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -273,7 +280,8 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private matDialog: MatDialog,
   ) {
 
   }
@@ -293,7 +301,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }),
       valid: ['', Validators.required],
       status: [0, Validators.required],
-      comment: ['']
+      comment: ['аыаыва']
     });
     this.getOffer();
     this.getCurrency();
@@ -315,10 +323,26 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
       })
     ;
+
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  getVal(obj: any, path: string ): any {
+    if (!path.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
   }
 
   onClickExpansionCustomRowChange(i:any){
@@ -368,8 +392,13 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   onExpansionRowClick(){
 
   }
-  onDelRowChange(){
-
+  onDelRowChange(rows: any, i:number){
+    this.matDialog.open(this.delRateDialogRef).afterClosed().subscribe(res => {
+      if (res) {
+        this.delRate(rows.value[i].id);
+        rows.removeAt(i);
+      }
+    });
   }
 
 
@@ -404,6 +433,11 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       total_cost: [0],
       select: [true]
     });
+  }
+
+  resetPage(){
+    // this.router.navigate([]);
+    location.reload()
   }
 
   //Table
@@ -494,6 +528,22 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  delRate(rate_id:number){
+    this.requestService.requestOfferDelRate({id: this.offer.id, rate_id:rate_id}).pipe(
+      tap((offer) => {
+        console.log(offer);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (offer) => {
+        this.snackBar.open(`Кп уцспешно отредактированно`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка редактирования кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
   saveOffer(){
     this.requestService.requestOfferSave({body:this.kpForm.value}).pipe(
       tap((offer) => {
@@ -522,6 +572,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       next: (offer) => {
         console.log('Data loaded successfully');
         this.offer=offer;
+        this.getRequest();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -548,6 +599,21 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  getRequest(){
+    this.requestService.requestInfo({id:this.offer.request_id}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (req) => {
+        this.request=req;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
   getCurrency(){
     this.systemService.systemCurrency().pipe(
       tap((currencyList) => {
@@ -556,6 +622,44 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (currencyList) => {
         this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOfferTxt(){
+    this.requestService.requestOfferTxt({body:{id:this.offer.id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getOfferPdf(){
+    this.requestService.requestOfferPdf({body:{id:this.offer.id}}).pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
