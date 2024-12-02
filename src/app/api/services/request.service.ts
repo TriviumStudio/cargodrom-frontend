@@ -14748,17 +14748,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -14983,12 +14983,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -15110,17 +15110,17 @@ export class RequestService extends BaseService {
         /**
          * Дата запроса
          */
-        'time_request': string;
+        'time_request'?: string;
         
         /**
          * Дата ответа
          */
-        'time_answer': string;
+        'time_answer'?: string;
         
         /**
          * Ставка действует до
          */
-        'valid_time': string;
+        'valid_time'?: string;
         
         /**
          * ID Запроса
@@ -15345,12 +15345,12 @@ export class RequestService extends BaseService {
         /**
          * Валюта (ID берем из запроса - system_currency)
          */
-        'currecy': number;
+        'currecy'?: number;
         
         /**
          * Включение прибыли (Profit is included)
          */
-        'profit_include': boolean;
+        'profit_include'?: boolean;
         
         /**
          * Значения ставок
@@ -15528,17 +15528,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -15763,12 +15763,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -15873,17 +15873,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16108,12 +16108,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16216,17 +16216,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16451,12 +16451,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16563,17 +16563,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16634,12 +16634,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -16749,17 +16749,17 @@ export class RequestService extends BaseService {
 /**
  * Дата запроса
  */
-'time_request': string;
+'time_request'?: string;
 
 /**
  * Дата ответа
  */
-'time_answer': string;
+'time_answer'?: string;
 
 /**
  * Ставка действует до
  */
-'valid_time': string;
+'valid_time'?: string;
 
 /**
  * ID Запроса
@@ -16820,12 +16820,12 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * Включение прибыли (Profit is included)
  */
-'profit_include': boolean;
+'profit_include'?: boolean;
 
 /**
  * Значения ставок
@@ -20260,7 +20260,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * В итоговом
@@ -20390,7 +20390,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currecy': number;
+'currecy'?: number;
 
 /**
  * В итоговом
@@ -26267,6 +26267,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferTxtPath, 'post');
     if (params) {
@@ -26289,6 +26294,11 @@ export class RequestService extends BaseService {
          * Base64 строка файла
          */
         'data'?: string;
+        
+        /**
+         * Текст
+         */
+        'text'?: string;
         }>;
       })
     );
@@ -26326,6 +26336,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }> {
     return this.requestOfferTxt$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -26339,6 +26354,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 }>): {
 
 /**
@@ -26350,6 +26370,11 @@ export class RequestService extends BaseService {
  * Base64 строка файла
  */
 'data'?: string;
+
+/**
+ * Текст
+ */
+'text'?: string;
 } => r.body)
     );
   }
@@ -29236,6 +29261,99 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestOfferDelRate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferCopy()` */
+  static readonly RequestOfferCopyPath = '/request_offer_copy';
+
+  /**
+   * Копирование КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferCopy()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferCopy$Response(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferCopyPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Копирование КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferCopy$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferCopy(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferCopy$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

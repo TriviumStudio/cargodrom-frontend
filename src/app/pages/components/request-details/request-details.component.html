@@ -1,7 +1,7 @@
 <div class="subheader">
   <app-request-info-block [request]="currentRequest"></app-request-info-block>
   <div class="request-actions">
-    <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':''">Детали</button>
+    <button class="det" (click)="onDetailsRequestBtnClick()" [style.border]="isExpandedRequestInfo?'1px solid #DB563B':'1px solid white'">Детали</button>
     <button class="edi" (click)="onEditRequestBtnClick()">Правка</button>
     <button class="dub" (click)="onDubRequestBtnClick()">Дубль</button>
     <button class="del" (click)="onDeleteRequestBtnClick()">Удалить</button>
@@ -14,42 +14,58 @@
       <div class="title">Route of Transportation</div>
       <div class="item w1">
         <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123<span class="comm">Tokyo - Narita (NRT)</span></div>
+        <div class="info">
+          {{currentRequest?.departure_country_name}}, {{currentRequest?.departure_city_name}}, {{currentRequest?.departure_address}}
+          <span class="comm">{{currentRequest?.departure_point_name}}</span>
+        </div>
       </div>
       <div class="item w1">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123<span class="comm">Tokyo - Narita (NRT)</span></div>
+        <div class="field">Destination</div>
+        <div class="info">
+          {{currentRequest?.arrival_country_name}}, {{currentRequest?.arrival_city_name}}, {{currentRequest?.arrival_address}}
+          <span class="comm">{{currentRequest?.arrival_point_name}}</span>
+        </div>
       </div>
     </div>
     <div class="col">
       <div class="title w1">Cargo Details</div>
       <div class="item w4">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123</div>
+        <div class="field">Type of cargo:</div>
+        <div class="info">{{currentRequest?.cargo_type_name}}</div>
       </div>
       <div class="item w4">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123</div>
+        <div class="field">Cargo name:</div>
+        <div class="info">{{currentRequest?.cargo_description}}</div>
+      </div>
+
+      <div class="item w2">
+        <div class="field">Cargo readiness:</div>
+        <div class="info">{{currentRequest?.cargo_readiness}}</div>
+      </div>
+      <div class="item w4">
+        <div class="field">Incoterms</div>
+        <div class="info">{{currentRequest?.incoterms_name}} {{currentRequest?.incoterms_city_name}}</div>
+      </div>
+      <div class="item w4">
+        <div class="field">Details total:</div>
+        <div class="info">
+          {{currentRequest?.cargo_places_count}}<span> pcs </span>
+          <span class="space">/</span>
+          {{currentRequest?.cargo_places_volume}}<span> m<sup class="sup">3</sup></span>
+          <span class="space">/</span>
+          {{currentRequest?.cargo_places_weight}}<span> kg</span>
+          <span class="space">/</span>
+          {{currentRequest?.cargo_places_density  | number:'1.0-1'}}<span> kg/m<sup class="sup">3</sup></span>
+        </div>
       </div>
       <div class="item w2">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123 Tokyo - Narita (NRT)</div>
-      </div>
-      <div class="item w4">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123</div>
-      </div>
-      <div class="item w4">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123</div>
-      </div>
-      <div class="item w2">
-        <div class="field">Dispatch</div>
-        <div class="info">Japan, Tokyo, 123 Tokyo - Narita (NRT)</div>
+        <div class="field">Conditions of carriage:</div>
+        <div class="info">{{currentRequest?.cargo_condition_carriage}}</div>
       </div>
     </div>
     <div class="col">
       <div class="w1 title">Dimensions</div>
+      <div class="w1 dime">{{currentRequest?.cargo_dimensions}}</div>
       <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">(1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
@@ -66,10 +82,10 @@
   </div>
 </div>
 
-<ng-container *ngIf="!isOfferListShow">
+<!-- <ng-container *ngIf="!isOfferListShow">
   <div class="subtitle">Коммерческие предложения: 0</div>
   <div class="kp-none">Коммерческих предложений нет</div>
-</ng-container>
+</ng-container> -->
 
 <ng-container *ngIf="isOfferListShow">
   <div class="subtitle">Коммерческие предложения: {{offerList.total}}</div>
@@ -81,9 +97,9 @@
         [ngSwitch]="col.column"
       >
         <ng-template [ngSwitchDefault]>
-          <th mat-header-cell *matHeaderCellDef >
+          <th mat-header-cell *matHeaderCellDef  [style.width]="col.width" [class]="col.class">
             <div class="td-block">
-              <div class="column"
+              <div class="column" [style.width]="miniCol.width" [class]="miniCol.class"
                 *ngFor="let miniCol of col.items"
               >
                 {{miniCol.title}}
@@ -91,12 +107,13 @@
             </div>
           </th>
 
-          <td mat-cell *matCellDef="let item">
+          <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
             <div class="td-block" >
               <div class="column"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
                 *ngFor="let miniCol of col.items"
               >
-                <!-- {{item[miniCol.field]}} -->
                 {{ getVal(item,miniCol.field) }}
               </div>
             </div>
@@ -104,33 +121,53 @@
         </ng-template>
 
         <ng-template [ngSwitchCase]="'checked'">
-          <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+          <th mat-header-cell *matHeaderCellDef [style.width]="'64px'">
             <div class="td-block">
-              <button (click)="onSendKpBtnClick()">ОТПРАВИТЬ</button>
+              <mat-checkbox class="testclass"
+                [checked]="isKpCheckboxHeaderTableChecked()"
+                (change)="onKpCheckboxHeaderTableChange($event)"
+                [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
+                >
+                </mat-checkbox>
             </div>
           </th>
 
-          <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+          <td mat-cell *matCellDef="let item" [style.width]="'64px'">
             <div class="td-block">
-
-
-
-              <div class="kp-btns">
-                <mat-checkbox class="testclass"
-                  [checked]="isCheckboxBodyTableChecked(item.id)"
-                  (change)="onCheckboxBodyTableChange(item.id,$event)"
-                >
-                </mat-checkbox>
-                <button class="edi" (click)="onEditKpBtnClick()"></button>
-                <button class="dub" (click)="onDubKpBtnClick()"></button>
-                <button class="cop" (click)="onCopyKpBtnClick()"></button>
-                <button class="pdf" (click)="onPdfKpBtnClick()"></button>
-                <button class="txt" (click)="onTxtKpBtnClick()"></button>
-                <button class="del" (click)="onDelKpBtnClick(item.id)"></button>
-              </div>
+              <mat-checkbox class="testclass"
+                [checked]="isKpCheckboxBodyTableChecked(item.id)"
+                (change)="onKpCheckboxBodyTableChange(item.id,$event)"
+              >
+              </mat-checkbox>
             </div>
           </td>
         </ng-template>
+
+        <ng-template [ngSwitchCase]="'functions'">
+
+          <th mat-header-cell *matHeaderCellDef [style.width]="'240px'">
+            <div class="td-block">
+              <button (click)="onSendKpBtnClick()" class="btn-send">ОТПРАВИТЬ</button>
+            </div>
+          </th>
+
+          <td mat-cell *matCellDef="let item" [style.width]="'240px'">
+            <div class="td-block">
+              <div class="column">
+                <div class="kp-btns">
+                  <button class="edi" (click)="onEditKpBtnClick(item.id)"></button>
+                  <button class="dub" (click)="onDubKpBtnClick(item.id)"></button>
+                  <button class="cop" (click)="onCopyKpBtnClick(item.id)"></button>
+                  <button class="pdf" (click)="onPdfKpBtnClick(item.id)"></button>
+                  <button class="txt" (click)="onTxtKpBtnClick(item.id)"></button>
+                  <button class="del" (click)="onDelKpBtnClick(item.id)"></button>
+                </div>
+              </div>
+            </div>
+          </td>
+
+        </ng-template>
+
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>
