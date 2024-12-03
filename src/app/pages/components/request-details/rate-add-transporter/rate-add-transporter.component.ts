@@ -5,7 +5,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
-import { ContractorService, DirectionService, RequestService, TransportService } from 'src/app/api/services';
+import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-rate-add-transporter',
@@ -20,6 +20,8 @@ export class RateAddTransporter implements OnInit, OnDestroy {
   @Input() cityId?:number;
   @Input() rate?:any;
   @Output() closeDialog = new EventEmitter<void>();
+
+  currencyList:any=[];
 
   chargesShema:any;
   currencyShema:any;
@@ -46,6 +48,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     private contractorService: ContractorService,
     private requestService: RequestService,
     private directionService: DirectionService,
+    private systemService: SystemService,
   ) {
     this.rateForm = this.fb.group({
       id:[,[]],
@@ -55,6 +58,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
+      currency: [0,[]],
       values: fb.array([], []),
     });
   }
@@ -73,6 +77,7 @@ export class RateAddTransporter implements OnInit, OnDestroy {
     this.getArrivalPoinst();
     this.getPointAction();
     this.getDirectionCity();
+    this.getCurrency();
     console.log('this.requestId',this.requestId);
     if(this.rate){
       console.log('this edit mode', this.rate);
@@ -286,5 +291,19 @@ export class RateAddTransporter implements OnInit, OnDestroy {
           this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
         }
       });
+  }
+  getCurrency(){
+    this.systemService.systemCurrency().pipe(
+      tap((currencyList) => {
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (currencyList) => {
+        this.currencyList=currencyList;
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения валют: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
   }
 }

@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { RequestService } from 'src/app/api/services';
+import { FileService, RequestService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
@@ -69,6 +69,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     router: Router,
     filter: FilterService,
     private matDialog: MatDialog,
+    private fileSrvice: FileService,
   ) { super(route, router, dialog, snackBar, filter) }
 
   override loadRows(): void {
@@ -535,6 +536,25 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения pdf файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+      }
+    });
+  }
+
+  getRequestFile(file_id: number){
+    this.fileSrvice.fileDownload({id: file_id}).pipe(
+      tap((file) => {
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: ({name, data}) => {
+        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        const a = document.createElement('a');
+        a.href = dataUri;
+        a.download = name!;
+        a.click();
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка получения файла запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
       }
     });
   }

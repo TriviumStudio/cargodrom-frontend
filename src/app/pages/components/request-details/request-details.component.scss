@@ -1,3 +1,7 @@
+.table-list.kp table td {
+  background: white;
+}
+
 .expanded-request-info{
   padding: 0px 12px 0px 24px;
   background: #fff;
@@ -55,7 +59,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       border-radius: 6px;
       height: 15px; width: fit-content;
-      padding: 10px 0 10px 35px; margin: 0 5px 15px 0;
+      padding: 10px 10px 10px 35px; margin: 0 5px 15px 0;
       color: #DB563B;
       text-wrap: nowrap;
       background: url(../../../../assets/pic-btn-download.svg) no-repeat;
@@ -131,7 +135,7 @@ tr{
   border-left: 1px solid rgba(0, 0, 0, 0.12);
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
-.table-list table tr:nth-child(even) td {
+.table-list.rate table tr:nth-child(even) td {
   background: #F7F9FC;
 
 }

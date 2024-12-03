@@ -62,6 +62,17 @@
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Наименнование Аэропорта:', control: 'point_id', data: pointList }"></ng-container>
         <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид прайса:', control: 'point_action_id', data: pointActionList }"></ng-container>
 
+        <div class="form-item" style="width: 100px;">
+          <div class="form-label">Currecy:</div>
+          <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <mat-select formControlName="currency">
+                <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
       </div>
 
     </div>
