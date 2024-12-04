@@ -5,6 +5,7 @@ import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxj
 import { RequestService, SystemService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-offer-editor',
@@ -78,9 +79,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
           this.getCalckOffer(e)
         } else {
           console.log('no lalala');
-
         }
-
       })
     ;
 
@@ -88,6 +87,12 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  onValidChange(){
+    this.kpForm.patchValue({
+      valid: formatDate(this.kpForm.value.valid,'yyyy-MM-dd','en-US')
+    })
   }
 
   getVal(obj: any, path: string ): any {

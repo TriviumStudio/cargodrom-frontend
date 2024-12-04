@@ -46,7 +46,7 @@
         Детализировать ставку в КП
       </div>
 
-      <table>
+      <table class="kp">
         <thead>
           <tr>
             <th>
@@ -178,7 +178,7 @@
         Детализировать ставку в КП
       </div>
 
-      <table>
+      <table class="kp">
         <thead>
           <tr>
             <th>
@@ -310,7 +310,7 @@
         Детализировать ставку в КП
       </div>
 
-      <table>
+      <table class="kp">
         <thead>
           <tr>
             <th>
@@ -432,9 +432,27 @@
       комментарий к коммерческому предложению:
       <textarea formControlName="comment"></textarea>
     </div>
+  </div>
+
+  <div class="block" style="display: flex; align-items: flex-start; ">
+    <div class="dop" style="display: flex;flex-direction: column; margin-right: 20px; width: 180px;">
+      ставки действительны до:
+
+        <input class="test" formControlName="valid" (dateChange)="onValidChange()" [matDatepicker]="picker" readonly>
+        <div (click)="picker.open()">cloxk</div>
+        <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
+        <mat-datepicker (change)="onValidChange()" #picker></mat-datepicker>
+
+    </div>
+
+    <div class="dop" style="display: flex;flex-direction: column; width: 100%;">
+      комментарий к коммерческому предложению:
+      <textarea formControlName="comment"></textarea>
+    </div>
 
 
   </div>
+
 
   <div class="btns">
     <button class="sav" type="submit">сохранить</button>
