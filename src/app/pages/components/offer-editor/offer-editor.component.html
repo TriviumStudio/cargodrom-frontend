@@ -422,7 +422,7 @@
     <div>Дополнительно</div>
   </div>
 
-  <div class="block" style="display: flex; align-items: flex-start; ">
+  <!-- <div class="block" style="display: flex; align-items: flex-start; ">
     <div class="dop" style="display: flex;flex-direction: column; margin-right: 20px; width: 180px;">
       ставки действительны до:
       <input type="date" formControlName="valid">
@@ -432,27 +432,24 @@
       комментарий к коммерческому предложению:
       <textarea formControlName="comment"></textarea>
     </div>
-  </div>
+  </div> -->
 
   <div class="block" style="display: flex; align-items: flex-start; ">
-    <div class="dop" style="display: flex;flex-direction: column; margin-right: 20px; width: 180px;">
-      ставки действительны до:
-
-        <input class="test" formControlName="valid" (dateChange)="onValidChange()" [matDatepicker]="picker" readonly>
-        <div (click)="picker.open()">cloxk</div>
-        <!-- <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle> -->
-        <mat-datepicker (change)="onValidChange()" #picker></mat-datepicker>
-
+    <div class="dop">
+      <span>ставки действительны до:</span>
+      <div class="datepiker">
+        <div (click)="validReset()">{{returnValid()}}</div>
+        <div class="btn-date" (click)="picker.open()"></div>
+      </div>
+      <input class="test" style="z-index: -1; width: 1px;" formControlName="valid" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
+      <mat-datepicker #picker></mat-datepicker>
     </div>
 
-    <div class="dop" style="display: flex;flex-direction: column; width: 100%;">
-      комментарий к коммерческому предложению:
-      <textarea formControlName="comment"></textarea>
+    <div class="dop">
+      <span>комментарий к коммерческому предложению:</span>
+      <textarea style="max-width: 1200px;" formControlName="comment"></textarea>
     </div>
-
-
   </div>
-
 
   <div class="btns">
     <button class="sav" type="submit">сохранить</button>
@@ -460,9 +457,6 @@
     <button class="txt" type="button" (click)="getOfferTxt()">просмотр</button>
     <button class="can" type="button" (click)="resetPage()">отмена</button>
   </div>
-
-
-
 
 </form>
 

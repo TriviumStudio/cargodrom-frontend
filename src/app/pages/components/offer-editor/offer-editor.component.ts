@@ -89,10 +89,22 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  onValidChange(){
+  log(any:any){
+    console.log('log',any)
+  }
+
+  onValidChange(event:any){
     this.kpForm.patchValue({
       valid: formatDate(this.kpForm.value.valid,'yyyy-MM-dd','en-US')
     })
+  }
+
+  validReset(){
+    this.kpForm.controls['valid'].reset();
+  }
+
+  returnValid():string{
+    return this.kpForm.value.valid? formatDate(this.kpForm.value.valid,'dd MMMM yyyy','ru-US'): '';
   }
 
   getVal(obj: any, path: string ): any {

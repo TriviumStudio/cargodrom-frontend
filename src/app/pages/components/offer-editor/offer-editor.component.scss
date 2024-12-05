@@ -5,26 +5,47 @@
   box-shadow: 0px 2px 8px 0px #242D4314;
 
   .dop{
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
     font-size: 10px;
     font-weight: 400;
     line-height: 10px;
     text-align: left;
-    text-transform:uppercase;
+    min-width: 155px;
+    span{
+      margin-bottom: 11px;
+      text-transform:uppercase;
+    }
+  }
+  .dop:last-child{
+    width: 100%;
+    margin-right: 0;
   }
 }
 
-.test{
- 
-    background: inherit;
-    border: none;
-    color: #DB563B;
-    width: 115px;
-    padding: 11px 0 9px;
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 14px;
+// .datepiker{
+//   display: flex;
+//   justify-content: space-between;
+//   background: inherit;
+//   border: none;
+//   color: #DB563B;
+//   font-size: 15px;
+//   font-weight: 400;
+//   line-height: 15px;
+//   width: 100%;
+//   .btn-date{
+//     margin-left: 5px;
+//     display: block;
+//     cursor: pointer;
+//     background-image: url(../../../../assets/pic-btn-calendar.svg);
+//     background-repeat: no-repeat;
+//     width: 14px;
+//     height: 14px;
+//   }
+// }
 
-}
+
 
 input[type="date"]{
   background: inherit;
@@ -56,7 +77,6 @@ textarea{
   box-sizing: border-box;
   padding: 11px 13px 9px;
   height: 105px;
-  margin-top: 11px;
 }
 
 
