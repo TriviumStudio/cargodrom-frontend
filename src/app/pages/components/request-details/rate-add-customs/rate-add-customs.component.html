@@ -43,13 +43,44 @@
           context: { label: 'Airline (iata):', control: 'carrier_id', data: transportCarrier, key:'iata', class:'w80px'}">
         </ng-container>
 
-        <ng-container *ngTemplateOutlet="formItemSelector;
+        <!-- <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Подрядчик:', control: 'contractor_id', data: contractorList, key:'name'}">
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container *ngTemplateOutlet="formItemSelector;
+        <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="contractor_name"
+              [matAutocomplete]="contractor"
+            >
+            <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete">
+              <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
+              <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <!-- <ng-container *ngTemplateOutlet="formItemSelector;
           context: { label: 'Route:', control: 'route_id', data: transportRoute, key:'name'}">
-        </ng-container>
+        </ng-container> -->
+
+        <div class="form-item">
+          <div class="form-label">Route:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              style="text-transform: uppercase"
+              formControlName="route_name"
+              [matAutocomplete]="route"
+            >
+            <mat-autocomplete autoActiveFirstOption #route="matAutocomplete">
+              <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
+              <mat-option (onSelectionChange)="onRouteChange(route)" *ngFor="let route of filterRote()" [value]="route.name">{{route.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
 
         <div class="form-item w240px">
           <div class="form-label">The nearest flight etd:</div>

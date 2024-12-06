@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, S
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Subject, takeUntil, tap } from 'rxjs';
+
+import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { formatDate } from '@angular/common';
 import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -70,6 +71,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.rateForm = this.fb.group({
       request_id:[this.requestId,[]],
       contractor_id: [,[]],
+      contractor_name: ['',[]],
       carrier_id: [,[]],
       comment: [,[]],
       departure_schedule: [,[]],
@@ -78,6 +80,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       profit_include: [false,[]],
       rate_type: ['detail',[]],
       route_id: [,[]],
+      route_name:['',[]],
       total_cost: [0,[]],
       transit_time: this.fb.group({
         from: [, []],
@@ -85,6 +88,20 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       }),
       currency: [0,[]],
       values: fb.array([], []),
+    });
+  }
+
+  onContratorChange(contractor:any){
+    this.rateForm.patchValue({
+      contractor_id: contractor.id,
+      contractor_name: contractor.name,
+    });
+  }
+
+  onRouteChange(contractor:any){
+    this.rateForm.patchValue({
+      route_id: contractor.id,
+      route_name: contractor.name,
     });
   }
 
@@ -121,11 +138,36 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     //   this.rateForm.patchValue(this.rate);
     // }
     this.rateForm.patchValue({request_id: this.requestId});
+
+    // this.rateForm.controls['route_name'].valueChanges
+    //   .pipe(
+    //     debounceTime(1500),
+    //     distinctUntilChanged(),
+    //     takeUntil(this._destroy$),
+    //   )
+    //   .subscribe((e:any) => {
+    //     console.log('sub route name');
+
+    //   })
+    // ;
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+
+  filterRote(){
+    const filterRoute=this.transportRoute.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    return filterRoute.length==0
+    ? []
+    : filterRoute
+  }
+
+  filterContractor(){
+    const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
+    return filterContractor;
+  }
+
   // Charges
   get charges() {
     return <FormArray>this.rateForm.get('values');
@@ -353,3 +395,5 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     });
   }
 }
+
+
