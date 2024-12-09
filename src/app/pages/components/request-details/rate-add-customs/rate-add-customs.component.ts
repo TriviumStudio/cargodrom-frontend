@@ -19,8 +19,9 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   // @Input() chargesShema?:any;
   @Input() weight?:number;
   @Input() requestId!:number;
-  @Input() transportKindId?:number;
+  @Input() transportKindId:number=0;
   @Input() cityId?:number;
+  @Input() cityIdDep?:number;
   @Input() rate?:any;
   @Output() closeDialog = new EventEmitter<void>();
 
@@ -79,7 +80,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       nearest_flight: [[],[]],
       profit_include: [false,[]],
       rate_type: ['detail',[]],
-      route_id: [,[]],
+      // route_id: [,[]],
       route_name:['',[]],
       total_cost: [0,[]],
       transit_time: this.fb.group({
@@ -91,17 +92,28 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     });
   }
 
-  onContratorChange(contractor:any){
+  setContractorName(contractor_id:number) {
+    const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
     this.rateForm.patchValue({
-      contractor_id: contractor.id,
-      contractor_name: contractor.name,
+      contractor_name: contractor ? contractor.name : '',
     });
   }
 
-  onRouteChange(contractor:any){
+  onContratorChange(contractor:any){
     this.rateForm.patchValue({
-      route_id: contractor.id,
-      route_name: contractor.name,
+      contractor_id: contractor.id,
+      // contractor_name: contractor.name,
+    });
+  }
+
+  onRouteChange(route:any){
+    this.rateForm.patchValue({
+      // route_id: route.id,
+      // route_name: route.name,
+      transit_time: {
+        from: route.days_min,
+        to: route.days_max,
+      },
     });
   }
 
@@ -281,7 +293,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
   }
   // получаем маршруты(route)
   private getTransportRoute():void{
-    this.transportService.transportRoute({kind_id:this.transportKindId})
+    this.directionService.directionRoute({kind_id:this.transportKindId, arrival_city_id:this.cityId, departure_city_id:this.cityIdDep})
       .pipe(
         tap(transportRoute => {
           if (!transportRoute) {
@@ -315,6 +327,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.contractorList=contractor.items;
+          if(this.rate){
+            this.setContractorName(this.rate.contractor_id);
+          }
+
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
@@ -371,8 +387,8 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           if(this.rate){
             console.log('this edit mode', this.rate);
             this.rateForm.patchValue(this.rate);
-          }
 
+          }
         },
         error: (err) => {
           this.snackBar.open('Ошибка получения схемы:' + err.error.error_message, undefined, this.snackBarWithShortDuration);

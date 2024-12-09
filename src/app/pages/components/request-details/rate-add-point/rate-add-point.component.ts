@@ -50,6 +50,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
       cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
+      contractor_name:['',[]],
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
@@ -87,6 +88,25 @@ export class RateAddPoint implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  setContractorName(contractor_id:number) {
+    const contractor = this.contractorList.find((r:any) => r.id === contractor_id);
+    this.rateForm.patchValue({
+      contractor_name: contractor ? contractor.name : '',
+    });
+  }
+
+  onContratorChange(contractor:any){
+    this.rateForm.patchValue({
+      contractor_id: contractor.id,
+      // contractor_name: contractor.name,
+    });
+  }
+
+  filterContractor(){
+    const filterContractor=this.contractorList.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.contractor_name.toLowerCase().replaceAll(' ', '')));
+    return filterContractor;
   }
 
   onCancelBtnClick(){
@@ -131,6 +151,9 @@ export class RateAddPoint implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.contractorList=contractor.items;
+          if(this.rate){
+            this.setContractorName(this.rate.contractor_id);
+          }
         },
         error: (err) => {
           this.snackBar.open(`Ошибка запроса маршрутов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

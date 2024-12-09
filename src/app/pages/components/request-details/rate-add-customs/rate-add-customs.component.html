@@ -55,7 +55,7 @@
               formControlName="contractor_name"
               [matAutocomplete]="contractor"
             >
-            <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete">
+            <mat-autocomplete autoActiveFirstOption #contractor="matAutocomplete" >
               <!-- <mat-option *ngIf="filterRote().length==0" style="text-transform: uppercase" [value]="rateForm.value.route_id">{{rateForm.value?.route_id}}</mat-option> -->
               <mat-option (onSelectionChange)="onContratorChange(contractor)" *ngFor="let contractor of filterContractor()" [value]="contractor.name">{{contractor.name}}</mat-option>
             </mat-autocomplete>
@@ -156,12 +156,11 @@
               >
                 <ng-container *ngIf="rateForm.value.rate_type==='detail'">
                   <label >
-                    <input *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" [disabled]="true">
-                    <input *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
-
+                    <input class="testclass"  *ngIf="chargeModel.checked"  type="checkbox" [checked]="true" disabled >
+                    <input class="testclass" *ngIf="!chargeModel.checked" type="checkbox" formControlName="select" (change)="calckRateCost()">
+                    <i [ngStyle]="chargeModel.checked ? {'z-index':'-1'}:{}"></i>
                     {{chargeModel.title}}
                   </label>
-
 
                   <span class="unit" [style]="!chargeModel.field_min? 'z-index: -1;':''">
                     Min $: <input type="number" formControlName="min" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="!chargeModel.field_min">
