@@ -42,6 +42,8 @@ import { RateAddPoint } from './components/request-details/rate-add-point/rate-a
 import { RateAddTransporter } from './components/request-details/rate-add-transporter/rate-add-transporter.component';
 import { RateAddCustoms } from './components/request-details/rate-add-customs/rate-add-customs.component';
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
+import { RequestPage } from './places/request/request.component';
+import { RequestTableComponent } from './components/request-table/request-table.component';
 
 
 
@@ -87,6 +89,9 @@ import { OfferEditorComponent } from './components/offer-editor/offer-editor.com
     RateAddCustoms,
 
     OfferEditorComponent,
+
+    RequestPage,
+      RequestTableComponent,
 
   ],
   imports: [
