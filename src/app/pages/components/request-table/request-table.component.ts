@@ -8,6 +8,7 @@ import { Observable, map } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
+import { TablePage } from 'src/app/classes/table-page';
 
 @Component({
   selector: 'app-request-table',
@@ -17,12 +18,12 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
   providers: [FilterService]
 })
 
-export class RequestTableComponent extends Table<Request, 'id', RequestFilter> {
+export class RequestTableComponent extends TablePage<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
   params:any;
 
-  trackById = (_index: number, request: Request) => request.id!;
+  // trackById = (_index: number, request: Request) => request.id!;
 
   constructor(
     private requestService: RequestService,
@@ -37,7 +38,7 @@ export class RequestTableComponent extends Table<Request, 'id', RequestFilter> {
 
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
-    // this.params=params;
+    this.params=params;
     return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
   }
 

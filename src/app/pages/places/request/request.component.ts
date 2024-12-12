@@ -1,87 +1,109 @@
-import { emailValidator, innValidator } from './../../../validators/pattern-validator';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { SearchFilterSchema } from '../../../api/custom_models';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { LoadParams, Table } from '../../../classes';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, forkJoin, firstValueFrom } from 'rxjs';
-import { ContractorService } from './../../../api/services/contractor.service';
-import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
-import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
-import { Location, formatDate, getLocaleMonthNames } from '@angular/common';
-import { CityService } from '../../services/city.service';
-import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
-import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
-import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';
-import { CargoPackage, CargoType } from 'src/app/api/custom_models/cargo';
-import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/direction';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { environment } from './../../../../environments/environment';
+import { Observable, map } from 'rxjs';
+import { FilterService } from 'src/app/filter/services/filter.service';
+import { RequestService } from 'src/app/api/services';
+import { Request, RequestFilter } from 'src/app/api/custom_models/request';
+import { TablePage } from 'src/app/classes/table-page';
 
 @Component({
   selector: 'page-request',
   templateUrl: './request.component.html',
   styleUrls: ['./request.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  providers: [FilterService]
 })
 
-export class RequestPage implements OnInit, OnDestroy {
-  isLoading:boolean=true;
+export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
+  sortField = 'id' as const;
 
-  private _destroy$ = new Subject();
-  //КОНСТРУКТОР
+
+  params:any;
+
+  // trackById = (_index: number, request: Request) => request.id!;
+
   constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private customerService: CustomerService,
-    private transportService: TransportService,
     private requestService: RequestService,
-    private cargoService: CargoService,
-    private directionService: DirectionService,
-    private countryService: CountryService,
-    private cityService: CityService,
-    private systemService: SystemService,
-    private snackBar: MatSnackBar,
-    private location: Location,
-    private router: Router,
-  ) {}
-
-
-  //МЕТОДЫ ЖЦ
-  ngOnDestroy(): void {
-    this._destroy$.next(null);
-    this._destroy$.complete();
+    filterService: FilterService,
+    dialog: MatDialog,
+    snackBar: MatSnackBar,
+    route: ActivatedRoute,
+    router: Router,
+  ) {
+    super(route, router, dialog, snackBar, filterService);
   }
 
-  ngOnInit() {
-    // Используем forkJoin для параллельного выполнения запросов
-    forkJoin([
-      this.directionService.directionFlight(),  // Запрос для направлений
-      this.countryService.getCountries(),        // Запрос для стран
-
-    ])
-    .pipe(
-      tap((data) =>{
-        console.log(data)
-      }),
-      takeUntil(this._destroy$))
-    .subscribe({
-      next: ([directionFlights, countries]) => {
-        // Если оба запроса завершились, скрываем лоудер
-        console.log('Направления:', directionFlights);
-        console.log('Страны:', countries);
-        this.isLoading = false;  // Отключаем лоудер после завершения запросов
-      },
-      error: (error) => {
-        console.error('Ошибка при загрузке данных:', error);
-        this.isLoading = false;  // Отключаем лоудер в случае ошибки
-      }
-    });
+  test(){
+    this.requestService.requestListParam()
   }
 
 
-  // Преобразуем Observable в Promise
+
+  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
+    this.params=params;
+    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
+  }
+
+  protected override loadFilterSchemaTest(): Observable<any>  {
+    return this.requestService.requestListParam().pipe(map(val => val as any));
+  }
+
+  // protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
+  //   return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
+  // }
+
+  protected override exportData(): Observable<{data: string; name: string}> {
+    return this.requestService.requestExport(this.params as any) as Observable<{data: string; name: string}>;
+  }
+
+  protected override importData(body: {data: string; name: string}) {
+    return this.requestService.requestImport({body}) as any;
+  }
+
+  protected override importDataConfirm(body: {import_key: string}) {
+    return this.requestService.requestImportConfirm({import_key: body.import_key});
+  }
+
+  protected override importResult(body: {import_key: string}) {
+    return this.requestService.requestImportResult({import_key: body.import_key})
+  }
+
+  protected override importTemplate(): Observable<{data: string; name: string}> {
+    return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
+  }
+
+  navigateOnDetails(requestId:any){
+    this.router.navigate(['pages/request/details/customs', requestId])
+  }
+
+
+  // ngOnInit() {
+  //   forkJoin([
+  //     this.directionService.directionFlight(),
+  //     this.countryService.getCountries(),
+  //   ])
+  //   .pipe(
+  //     tap((data) =>{
+  //       console.log(data)
+  //     }),
+  //     takeUntil(this._destroy$))
+  //   .subscribe({
+  //     next: ([directionFlights, countries]) => {
+  //       console.log('Направления:', directionFlights);
+  //       console.log('Страны:', countries);
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Ошибка при загрузке данных:', error);
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
+
 
 
   // private getDirectionFlight() {

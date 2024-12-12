@@ -44,6 +44,7 @@ import { RateAddCustoms } from './components/request-details/rate-add-customs/ra
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
 import { RequestPage } from './places/request/request.component';
 import { RequestTableComponent } from './components/request-table/request-table.component';
+import { TableSubheaderFileComponent } from './components/table-subheader/file-subheader/file-subheader.component';
 
 
 
@@ -92,6 +93,8 @@ import { RequestTableComponent } from './components/request-table/request-table.
 
     RequestPage,
       RequestTableComponent,
+
+    TableSubheaderFileComponent,
 
   ],
   imports: [
