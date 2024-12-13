@@ -1,54 +1,39 @@
 <div class="subheader">
-  <div class="placer">
+  <div class="title">Запросы</div>
 
-    <div class="title" (click)="log()">Запросы</div>
+  <div class="btns-file">
 
-    <div class="links">
-      <a class="link add" [routerLink]="['add']">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 9H3V8H5V6H6V8H8V9H6V11H5V9ZM14 0V14H0V0H14ZM13 1H1V13H13V1Z" fill="#DB563B"></path>
-        </svg>
-        <span>Новый запрос</span>
-      </a>
+    <button [routerLink]="['add']" class=" file-btn add-link">
+      <div></div>
+      <span>Новый запрос</span>
+    </button>
 
-      <span class="hoverr">
-        <a class="link import" (click)="importChange()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 8H14V14H0V0H6V1H1V13H13V8ZM13.2929 0L6 7.29291V4H5V8V9H6H10V8H6.70709L14 0.707092V0H13.2929Z" fill="#DB563B"></path>
-          </svg>
-          <span>Импорт данных</span>
-        </a>
+    <button (click)="importFile()" type="button" class="file-btn import">
+      <div></div>
+      <span>Импорт данных</span>
+    </button>
 
-        <a class="link export template" (click)="importChange()">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-          </svg>
-          <span>Шаблон для импорта</span>
-        </a>
-      </span>
+    <button (click)="exportTemplateChange()" type="button" class="file-btn export hover">
+      <div></div>
+      <span>Шаблон для импорта</span>
+    </button>
 
-      <a class="link export" (click)="importChange()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 10H14V14H0V0H4V1H1V13H13V10ZM13 0H9V1H12.2929L5 8.29291V9H5.70709L13 1.70709V5H14V1V0H13Z" fill="#DB563B"></path>
-        </svg>
-        <span>Экспорт данных</span>
-      </a>
+    <button (click)="exportChange()" type="button" class="file-btn export">
+      <div></div>
+      <span>Экспорт данных</span>
+    </button>
 
-      <input class="ui-file-input"
-        type="file"
-        [accept]="xlsxMimeType"
-        #file
-        (change)="importChange()"
-      />
-    </div>
-
-    <div class="div"></div>
-
-    <app-universal-filter
-      *ngFor="let control of filterService.searchFilterSchema?.header"
-      [filterControl]="control"
-    >
-    </app-universal-filter>
-
+    <input class="ui-file-input"
+      type="file"
+      [accept]="xlsxMimeType"
+      #file
+      (change)="selectFileForImport()"
+    />
   </div>
+
+  <app-universal-filter style="margin-left: auto;"
+    *ngFor="let control of filterService.searchFilterSchema?.header"
+    [filterControl]="control"
+  >
+  </app-universal-filter>
 </div>

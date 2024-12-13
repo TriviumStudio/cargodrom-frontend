@@ -1,4 +1,8 @@
-<app-table-sunheader-file>
+<app-table-sunheader-file
+  (import)="doImport($event)"
+  (export)="confirmExport()"
+  (exportTemplate)="exportFileTemplate()"
+>
 
 </app-table-sunheader-file>
 <!-- <div class="subheader">

@@ -61,7 +61,7 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
   @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
-  @ViewChild('file', { static: true }) file?: ElementRef;
+  // @ViewChild('file', { static: true }) file?: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -344,7 +344,9 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
     });
   }
 
-  private doImport(file: File): void {
+  doImport(file: File): void {
+    console.log('doImport', file);
+
     if (!this.importDialogRef) {
       return;
     }
@@ -357,6 +359,8 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
         const index = base64URL.indexOf(suffix);
         const data = base64URL.substring(index + suffix.length);
         const payload = { data, name: fileName };
+        console.log('payload',payload);
+
         this.importData(payload).subscribe({
           // next: ({ import_key, text }) => {
           next: (e) => {
@@ -386,12 +390,12 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
                     // this.onStartChange(0);
                     this.resetPage();
                   },
-                  error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+                  error: (err) => this.snackBar.open(`Не удалось импортировать данные2: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
                 });
               }
             });
           },
-          error: (err) => this.snackBar.open(`Не удалось импортировать данные: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+          error: (err) => this.snackBar.open(`Не удалось импортировать данные1: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
         });
       }
     }, false);
@@ -425,27 +429,27 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
     })
   }
 
-  importFile(): void {
-    const input = this.file?.nativeElement as HTMLInputElement | undefined;
-    if (input) {
-      input.value = '';
-      input.click();
-    }
-  }
+  // importFile(): void {
+  //   const input = this.file?.nativeElement as HTMLInputElement | undefined;
+  //   if (input) {
+  //     input.value = '';
+  //     input.click();
+  //   }
+  // }
 
-  selectFileForImport(): void {
-    const files = this.file?.nativeElement.files as File[] | undefined;
-    const file = files?.[0];
-    if (!file?.name.endsWith('.xlsx')) {
-      this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
-      return;
-    }
-    if (file.size > 2 * 1024 * 1024) {
-      this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
-      return;
-    }
-    this.doImport(file);
-  }
+  // selectFileForImport(): void {
+  //   const files = this.file?.nativeElement.files as File[] | undefined;
+  //   const file = files?.[0];
+  //   if (!file?.name.endsWith('.xlsx')) {
+  //     this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
+  //     return;
+  //   }
+  //   if (file.size > 2 * 1024 * 1024) {
+  //     this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
+  //     return;
+  //   }
+  //   this.doImport(file);
+  // }
 
   resetPage(){
     this.router.navigate([])
