@@ -45,6 +45,7 @@ import { OfferEditorComponent } from './components/offer-editor/offer-editor.com
 import { RequestPage } from './places/request/request.component';
 import { RequestTableComponent } from './components/request-table/request-table.component';
 import { TableSubheaderFileComponent } from './components/table-subheader/file-subheader/file-subheader.component';
+import { TableComponent } from './tables/table/table.component';
 
 
 
@@ -95,6 +96,7 @@ import { TableSubheaderFileComponent } from './components/table-subheader/file-s
       RequestTableComponent,
 
     TableSubheaderFileComponent,
+    TableComponent,
 
   ],
   imports: [

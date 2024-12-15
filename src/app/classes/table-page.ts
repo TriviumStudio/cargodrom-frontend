@@ -594,6 +594,7 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
             this.columnsData=schema.table;
             this.schemaCharges=schema.forms.charges;
           }
+          this.columnsData=schema.table;
           // this.router.navigate(['.'], {
           //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
           //   queryParamsHandling: 'merge',

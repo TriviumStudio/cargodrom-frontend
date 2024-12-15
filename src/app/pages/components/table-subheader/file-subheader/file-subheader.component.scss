@@ -40,6 +40,7 @@
     background-image: url(../../../../../assets/pic-btn-export.svg);
   }
 
+
   .file-btn.hover {
     // display: none;
     visibility: hidden;   /* Скрывает элемент изначально */
@@ -49,7 +50,7 @@
     overflow: hidden;     /* Обрезает все, что выходит за пределы */
     transition: opacity 3s ease, max-width 3s ease, margin-left 3s ease, visibility 3s ease;
     text-wrap: nowrap;
-    padding: 0;
+    padding: 6px 0;
   }
   .file-btn.import:hover + .file-btn.hover , .file-btn.hover:hover{
     // display: flex;
@@ -57,7 +58,7 @@
     opacity: 0.8;           /* Элемент становится прозрачным */
     max-width: 200px;     /* Ширина становится 200px */
     margin-left: 12px;    /* Отступ слева */
-    padding: 6px;
+
     transition: opacity 2s ease, max-width 1s ease, margin-left 1s ease, visibility 0s 0s;
   }
 }
