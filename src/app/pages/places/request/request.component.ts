@@ -4,7 +4,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { RequestService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
@@ -20,6 +20,9 @@ import { TablePage } from 'src/app/classes/table-page';
 
 export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
+
+  requestList:any;
+  requestListParam:any;
 
 
   params:any;
@@ -37,8 +40,25 @@ export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
     super(route, router, dialog, snackBar, filterService);
   }
 
-  test(){
+  getRows(param:any) {
+    this.requestService.requestList(param)
+      .pipe(
+        tap((requestList) => {
+          this.requestList=requestList.items;
+        }
+        ),
+      ).subscribe();
+  }
+
+  getTable() {
     this.requestService.requestListParam()
+      .pipe(
+        tap((requestListParam) => {
+          this.requestListParam=requestListParam;
+        }
+        ),
+
+      ).subscribe();
   }
 
 
@@ -49,6 +69,7 @@ export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
   }
 
   protected override loadFilterSchemaTest(): Observable<any>  {
+    this.getTable()
     return this.requestService.requestListParam().pipe(map(val => val as any));
   }
 

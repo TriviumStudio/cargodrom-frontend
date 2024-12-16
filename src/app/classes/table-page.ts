@@ -40,6 +40,8 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
   schemaCharges:any
   columnsData:any=[];
 
+
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
@@ -565,6 +567,7 @@ export abstract class TablePage<T extends { id: number }, A = never, F = never> 
     this.loadFilterSchemaTest(param)
       .pipe(
         tap((schema)=>{
+          
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
         }),

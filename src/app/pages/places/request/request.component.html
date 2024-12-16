@@ -7,15 +7,15 @@
 
 <app-table-filter></app-table-filter>
 
-<app-table
+<!-- <app-table
   [column]="column"
   [rows]="rows"
   [columnsData]="columnsData"
 
 >
-</app-table>
+</app-table> -->
 
-<app-paginator
+<!-- <app-paginator
   [total]="total"
   [count]="count"
   [start]="start"
@@ -23,7 +23,14 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"
 >
-</app-paginator>
+</app-paginator> -->
+
+<app-dynamic-table *ngIf="requestListParam"
+  [rows]="requestList"
+  (getRows)="getRows($event)"
+  [tableConfig]="requestListParam"
+>
+</app-dynamic-table>
 
 <ng-template #exportDialogRef let-data>
   <h1 mat-dialog-title>Экспорт</h1>
