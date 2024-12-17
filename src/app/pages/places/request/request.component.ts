@@ -18,14 +18,14 @@ import { TablePage } from 'src/app/classes/table-page';
   providers: [FilterService]
 })
 
-export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
-  sortField = 'id' as const;
+export class RequestPage{
+  // sortField = 'id' as const;
 
   requestList:any;
   requestListParam:any;
 
 
-  params:any;
+  // params:any;
 
   // trackById = (_index: number, request: Request) => request.id!;
 
@@ -36,15 +36,18 @@ export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
-  ) {
-    super(route, router, dialog, snackBar, filterService);
+  ) {}
+
+  ngOnInit() {
+    this.getTable();
   }
 
   getRows(param:any) {
     this.requestService.requestList(param)
       .pipe(
         tap((requestList) => {
-          this.requestList=requestList.items;
+          this.requestList=requestList;
+          console.log('rows',requestList);
         }
         ),
       ).subscribe();
@@ -55,51 +58,15 @@ export class RequestPage extends TablePage<Request, 'id', RequestFilter> {
       .pipe(
         tap((requestListParam) => {
           this.requestListParam=requestListParam;
+          console.log('tableConfig',requestListParam);
         }
         ),
-
       ).subscribe();
   }
 
 
 
-  load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
-    this.params=params;
-    return this.requestService.requestList(params as any) as unknown as Observable<{ total: number; items: Request[]; column: string[], sort?: string[],sort_new:any }>;
-  }
 
-  protected override loadFilterSchemaTest(): Observable<any>  {
-    this.getTable()
-    return this.requestService.requestListParam().pipe(map(val => val as any));
-  }
-
-  // protected override loadFilterSchema<T>(): Observable<SearchFilterSchema> {
-  //   return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
-  // }
-
-  protected override exportData(): Observable<{data: string; name: string}> {
-    return this.requestService.requestExport(this.params as any) as Observable<{data: string; name: string}>;
-  }
-
-  protected override importData(body: {data: string; name: string}) {
-    return this.requestService.requestImport({body}) as any;
-  }
-
-  protected override importDataConfirm(body: {import_key: string}) {
-    return this.requestService.requestImportConfirm({import_key: body.import_key});
-  }
-
-  protected override importResult(body: {import_key: string}) {
-    return this.requestService.requestImportResult({import_key: body.import_key})
-  }
-
-  protected override importTemplate(): Observable<{data: string; name: string}> {
-    return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
-  }
-
-  navigateOnDetails(requestId:any){
-    this.router.navigate(['pages/request/details/customs', requestId])
-  }
 
 
   // ngOnInit() {

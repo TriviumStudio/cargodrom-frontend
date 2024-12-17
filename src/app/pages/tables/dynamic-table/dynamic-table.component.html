@@ -1,5 +1,5 @@
 <div class="table-list">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+  <table mat-table [dataSource]="rows?.items" multiTemplateDataRows>
     <ng-container *ngFor="let col of columnsData"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -57,7 +57,7 @@
 </div>
 
 <app-paginator
-  [total]="total"
+  [total]="rows?.total"
   [count]="count"
   [start]="start"
   [limits]="limits"

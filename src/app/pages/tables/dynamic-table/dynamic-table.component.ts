@@ -110,7 +110,7 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
   loadRows(){
     const sortCol = this.getSort();
     this.getRows.emit({start: this.start, count: this.count, sort: JSON.stringify(sortCol), ...this.filter  })
-    
+
   }
 
   private onFilterChange(filter: any): void {
@@ -134,7 +134,7 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
   private setTableConfig(){
     this.sortField = this.tableConfig?.sort[0].field;
     this.sortDir = this.tableConfig?.sort[0].dir;
-    console.log('tableConfig',this.tableConfig);
+
 
 
     this.filterService.setSearchFilterSchema(this.tableConfig?.search);
