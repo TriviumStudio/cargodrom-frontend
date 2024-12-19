@@ -1,3 +1,10 @@
+<app-table-sunheader-file
+  [importMetods]="importMetods"
+  (export)="getExportFile()"
+  (exportTemplate)="getTempalteFile()"
+>
+</app-table-sunheader-file>
+
 <!-- <app-table-sunheader-file
   (import)="doImport($event)"
   (export)="confirmExport()"
@@ -32,7 +39,7 @@
 >
 </app-dynamic-table>
 
-<ng-template #exportDialogRef let-data>
+<!-- <ng-template #exportDialogRef let-data>
   <h1 mat-dialog-title>Экспорт</h1>
   <div mat-dialog-content>
     Экспортировать данные о запросах в Excel файл ?
@@ -41,7 +48,7 @@
     <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Да</button>
     <button mat-button mat-dialog-close>Нет</button>
   </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template #importDialogRef let-data>
   <h1 mat-dialog-title>Импорт</h1>

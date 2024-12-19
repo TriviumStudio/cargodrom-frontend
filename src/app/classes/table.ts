@@ -86,7 +86,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       this.onFilterChange(filter as F);
     });
     this.getListParam();
-    
+
 
     // this.subscribeRouteQueryParamMap();
   }
@@ -344,7 +344,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
-  private doImport(file: File): void {
+  private doImport(file: any): void {
     if (!this.importDialogRef) {
       return;
     }
@@ -436,11 +436,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   selectFileForImport(): void {
     const files = this.file?.nativeElement.files as File[] | undefined;
     const file = files?.[0];
-    if (!file?.name.endsWith('.xlsx')) {
+    if (file?.name.endsWith('.xlsx')) {
       this.snackBar.open('Требуется Excel file', undefined, this.snackBarWithShortDuration);
       return;
     }
-    if (file.size > 2 * 1024 * 1024) {
+    if (file?.size && file.size > 2 * 1024 * 1024) {
       this.snackBar.open('Слишком большой файл', undefined, this.snackBarWithShortDuration);
       return;
     }

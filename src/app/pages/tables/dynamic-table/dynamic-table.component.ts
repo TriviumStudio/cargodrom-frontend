@@ -113,6 +113,10 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
 
   }
 
+  returnTableParams(){
+    return {start: this.start, count: this.count, sort: JSON.stringify(this.getSort()), ...this.filter  }
+  }
+
   private onFilterChange(filter: any): void {
     const filterWithNonEmptyValue: any = {};
     for (const key in filter) {
@@ -234,6 +238,47 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
       }
     }
     return sortCol;
+  }
+
+  getColTitle(field: any): string {
+    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+      return '';
+    }
+    if (field === this.sortField) {
+      return this.sortDir === 'asc' ? 'сортировать по убыванию' : 'сортировать по возрастанию'
+    }
+    return 'сортировать по возрастанию';
+  }
+
+  sort(field: any): void {
+    if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
+      return;
+    }
+    this.start = 0;
+    if (this.sortField === field) {
+      this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortDir = 'asc';
+      this.sortField = field;
+    }
+    this.router.navigate(['.'], {
+      queryParams: { sortCol: this.sortField, sortDir: this.sortDir, start: this.start },
+      queryParamsHandling: 'merge',
+      relativeTo: this.route,
+    });
+  }
+
+  getSortClass(field: any): string {
+    if (this.sortField === field) {
+      return this.sortDir === 'asc' ? 'column-sortable sort-dir-asc' : 'column-sortable sort-dir-desc';
+    } else if (this.isSortable(field)) {
+      return 'column-sortable';
+    }
+    return '';
+  }
+
+  isSortable(name: any): boolean {
+    return Array.isArray(this.sortableColumns) && this.sortableColumns.includes(name as any);
   }
 }
 

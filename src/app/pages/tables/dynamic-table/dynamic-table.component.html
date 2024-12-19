@@ -8,7 +8,7 @@
       <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
           <div class="td-block" *ngIf="!col.title">
-            <div class="column"
+            <div class="column" [attr.title]="getColTitle(miniCol.field)" (click)="sort(miniCol.field)" [ngClass]="getSortClass(miniCol.field)"
               *ngFor="let miniCol of col.items"
               [style.width]="miniCol.width"
               [class]="miniCol.class"
@@ -20,7 +20,11 @@
           <div class="td-block-column" *ngIf="col.title">
             <div class="td-block-title">{{col.title}}</div>
             <div class="td-block-line">
-              <div class="column" *ngFor="let miniCol of col.items" [style.width]="miniCol.width" [class]="miniCol.class">
+              <div class="column" [attr.title]="getColTitle(miniCol.field)" (click)="sort(miniCol.field)" [ngClass]="getSortClass(miniCol.field)"
+                *ngFor="let miniCol of col.items"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
+              >
                 {{miniCol.title}}
               </div>
             </div>
