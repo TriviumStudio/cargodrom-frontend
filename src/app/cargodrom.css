@@ -1037,3 +1037,16 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
     height: 14px;
   }
 }
+
+.filter .input input{
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 6px 9px;
+}
+

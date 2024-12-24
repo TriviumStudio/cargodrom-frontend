@@ -7,8 +7,8 @@
     <button class="del" (click)="onDeleteRequestBtnClick()">Удалить</button>
   </div>
 </div>
-
-<div class="expanded-request-info" *ngIf="isExpandedRequestInfo">
+<!-- *ngIf="isExpandedRequestInfo" -->
+<div class="expanded-request-info test" [ngClass]="isExpandedRequestInfo?'visible':''">
   <div class="columns">
     <div class="col" style="width: 50%;">
       <div class="title">Route of Transportation</div>
@@ -333,10 +333,11 @@
 
     <!-- РАСШИРЕННАЯ СТРОКА -->
     <ng-container matColumnDef="expandedDetail" >
-      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length'>
-        <div class="example-element-detail" *ngIf="element==expandedElement">
+      <td mat-cell *matCellDef="let element" [attr.colspan]='column?.length'  >
+        <!-- *ngIf="element==expandedElement" -->
+        <div class="example-element-detail" [ngClass]="element==expandedElement?'visible':''">
 
-          <ng-container *ngIf="detailsMethod!=='final'">
+          <ng-container *ngIf="detailsMethod!=='final' && element==expandedElement">
             <app-rate-info-row
               [rate]="expandedElement"
               [detailsMethod]="detailsMethod"
@@ -345,7 +346,7 @@
             </app-rate-info-row>
           </ng-container>
 
-          <ng-container *ngIf="detailsMethod==='final'">
+          <ng-container *ngIf="detailsMethod==='final' && element==expandedElement" >
 
             <div class="costs">
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:expandedElement.total_cost_text }">
@@ -402,7 +403,7 @@
 
     <tr mat-header-row *matHeaderRowDef="column"></tr>
     <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" [class.visible]="expandedElement === row" ></tr>
 
   </table>
 </div>

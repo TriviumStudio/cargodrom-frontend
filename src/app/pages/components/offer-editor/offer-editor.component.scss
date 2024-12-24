@@ -152,6 +152,9 @@ table.kp tr{
 .table-list table tr td:nth-child(1), .table-list table tr td:nth-child(2) {
   background: #F7F9FC;
 }
+.table-list table tr th:nth-child(3) .column{
+  text-align: center;
+}
 
 
 
