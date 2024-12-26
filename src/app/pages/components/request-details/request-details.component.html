@@ -164,7 +164,7 @@
 
           <th mat-header-cell *matHeaderCellDef [style.width]="'240px'">
             <div class="td-block">
-              <button (click)="onSendKpBtnClick()" class="btn-send">ОТПРАВИТЬ</button>
+              <button (click)="onSendKpBtnClick()" class="btn-send" [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'">ОТПРАВИТЬ</button>
             </div>
           </th>
 
@@ -187,7 +187,7 @@
 
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="offerList.colList"></tr>
+      <tr mat-header-row *matHeaderRowDef="offerList.colList;sticky: true"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: offerList.colList"></tr>
     </table>
   </div>

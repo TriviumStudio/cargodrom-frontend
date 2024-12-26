@@ -129,7 +129,14 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // KP TABLE HANDLERS
   //-btns
   onSendKpBtnClick(){
-
+    console.log('send kp');
+  }
+  returnVisibilitySendKpBtn():boolean{
+    if(this.arrCheckedKp.length>0){
+      return true;
+    } else {
+      return false;
+    }
   }
   onEditKpBtnClick(offer_id:number){
     this.navToOfferEditor(offer_id);
@@ -485,13 +492,24 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       }),
       takeUntil(this.destroy$)
     ).subscribe({
-      next: ({name, data}) => {
-        const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
-        const a = document.createElement('a');
-        console.log(dataUri);
-        a.href = dataUri;
-        a.download = name!;
-        a.click();
+      next: ({name, data, text}) => {
+        if (text) {
+          // Открываем новую вкладку
+          const newWindow = window.open();
+          if (newWindow) {
+            // Записываем текст в новый документ
+            newWindow.document.open();
+            newWindow.document.write(`<pre>${text}</pre>`);  // Добавляем текст с тегом <pre> для сохранения форматирования
+            newWindow.document.close();  // Закрываем документ для рендеринга
+          }
+        }
+
+        // const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
+        // const a = document.createElement('a');
+        // console.log(dataUri);
+        // a.href = dataUri;
+        // a.download = name!;
+        // a.click();
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения txt файла: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
