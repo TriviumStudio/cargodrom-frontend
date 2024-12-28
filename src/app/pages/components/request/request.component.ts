@@ -70,6 +70,9 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   }
 
   navigateOnDetails(requestId:any){
-    this.router.navigate(['pages/request/details/customs', requestId])
+    this.router.navigate(['pages/request/details/final', requestId])
+  }
+  navigateOnClient(clientId:any){
+    this.router.navigate(['pages/customer/edit', clientId])
   }
 }

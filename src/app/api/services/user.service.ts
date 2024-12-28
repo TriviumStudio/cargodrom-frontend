@@ -56,7 +56,7 @@ export class UserService extends BaseService {
 /**
  * ИНН
  */
-'inn': string;
+'inn'?: string;
 
 /**
  * E-mail
@@ -135,7 +135,7 @@ export class UserService extends BaseService {
 /**
  * ИНН
  */
-'inn': string;
+'inn'?: string;
 
 /**
  * E-mail

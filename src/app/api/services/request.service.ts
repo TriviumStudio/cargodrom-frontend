@@ -11422,6 +11422,41 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Страна отправления, ID
+ */
+'departure_country_id'?: string;
+
+/**
+ * Город отправления, ID
+ */
+'departure_city_id'?: string;
+
+/**
+ * Аэропорт вылета, ID
+ */
+'departure_point_id'?: string;
+
+/**
+ * Страна назначения, ID
+ */
+'arrival_country_id'?: string;
+
+/**
+ * Город назначения, ID
+ */
+'arrival_city_id'?: string;
+
+/**
+ * Аэропорт прибытия, ID
+ */
+'arrival_point_id'?: string;
+
+/**
+ * Вид перевозки, ID
+ */
+'transport_kind_id'?: string;
+
+/**
  * Country of dispatch
  */
 'departure_country_name'?: string;
@@ -11564,12 +11599,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -11755,6 +11790,41 @@ export class RequestService extends BaseService {
         'cargo_readiness'?: string;
         
         /**
+         * Страна отправления, ID
+         */
+        'departure_country_id'?: string;
+        
+        /**
+         * Город отправления, ID
+         */
+        'departure_city_id'?: string;
+        
+        /**
+         * Аэропорт вылета, ID
+         */
+        'departure_point_id'?: string;
+        
+        /**
+         * Страна назначения, ID
+         */
+        'arrival_country_id'?: string;
+        
+        /**
+         * Город назначения, ID
+         */
+        'arrival_city_id'?: string;
+        
+        /**
+         * Аэропорт прибытия, ID
+         */
+        'arrival_point_id'?: string;
+        
+        /**
+         * Вид перевозки, ID
+         */
+        'transport_kind_id'?: string;
+        
+        /**
          * Country of dispatch
          */
         'departure_country_name'?: string;
@@ -11897,12 +11967,12 @@ export class RequestService extends BaseService {
         'carrier_id': number;
         
         /**
-         * Маршрут (Route) (ID берем из запроса - direction_route)
+         * ID Маршрут (ID берем из запроса - direction_route)
          */
         'route_id'?: number;
         
         /**
-         * Наименование нового маршрута
+         * Наименование маршрута
          */
         'route_name': string;
         
@@ -12101,6 +12171,41 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Страна отправления, ID
+ */
+'departure_country_id'?: string;
+
+/**
+ * Город отправления, ID
+ */
+'departure_city_id'?: string;
+
+/**
+ * Аэропорт вылета, ID
+ */
+'departure_point_id'?: string;
+
+/**
+ * Страна назначения, ID
+ */
+'arrival_country_id'?: string;
+
+/**
+ * Город назначения, ID
+ */
+'arrival_city_id'?: string;
+
+/**
+ * Аэропорт прибытия, ID
+ */
+'arrival_point_id'?: string;
+
+/**
+ * Вид перевозки, ID
+ */
+'transport_kind_id'?: string;
+
+/**
  * Country of dispatch
  */
 'departure_country_name'?: string;
@@ -12243,12 +12348,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -12425,6 +12530,41 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Страна отправления, ID
+ */
+'departure_country_id'?: string;
+
+/**
+ * Город отправления, ID
+ */
+'departure_city_id'?: string;
+
+/**
+ * Аэропорт вылета, ID
+ */
+'departure_point_id'?: string;
+
+/**
+ * Страна назначения, ID
+ */
+'arrival_country_id'?: string;
+
+/**
+ * Город назначения, ID
+ */
+'arrival_city_id'?: string;
+
+/**
+ * Аэропорт прибытия, ID
+ */
+'arrival_point_id'?: string;
+
+/**
+ * Вид перевозки, ID
+ */
+'transport_kind_id'?: string;
+
+/**
  * Country of dispatch
  */
 'departure_country_name'?: string;
@@ -12567,12 +12707,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -12747,6 +12887,41 @@ export class RequestService extends BaseService {
 'cargo_readiness'?: string;
 
 /**
+ * Страна отправления, ID
+ */
+'departure_country_id'?: string;
+
+/**
+ * Город отправления, ID
+ */
+'departure_city_id'?: string;
+
+/**
+ * Аэропорт вылета, ID
+ */
+'departure_point_id'?: string;
+
+/**
+ * Страна назначения, ID
+ */
+'arrival_country_id'?: string;
+
+/**
+ * Город назначения, ID
+ */
+'arrival_city_id'?: string;
+
+/**
+ * Аэропорт прибытия, ID
+ */
+'arrival_point_id'?: string;
+
+/**
+ * Вид перевозки, ID
+ */
+'transport_kind_id'?: string;
+
+/**
  * Country of dispatch
  */
 'departure_country_name'?: string;
@@ -12889,12 +13064,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -13108,12 +13283,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -13295,12 +13470,12 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * Маршрут (Route) (ID берем из запроса - direction_route)
+ * ID Маршрут (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
 /**
- * Наименование нового маршрута
+ * Наименование маршрута
  */
 'route_name': string;
 
@@ -14979,7 +15154,7 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -15346,7 +15521,7 @@ export class RequestService extends BaseService {
         };
         
         /**
-         * ID маршрута (ID берем из запроса - transport_route)
+         * ID маршрута (ID берем из запроса - direction_route)
          */
         'route_id'?: number;
         
@@ -15769,7 +15944,7 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -16119,7 +16294,7 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -16467,7 +16642,7 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -16701,7 +16876,7 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -16892,7 +17067,7 @@ export class RequestService extends BaseService {
 'carrier_id': number;
 
 /**
- * ID маршрута (ID берем из запроса - transport_route)
+ * ID маршрута (ID берем из запроса - direction_route)
  */
 'route_id'?: number;
 
@@ -21549,6 +21724,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -21645,6 +21825,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -21745,6 +21930,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -21812,6 +22002,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -21976,6 +22181,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -22072,6 +22282,11 @@ export class RequestService extends BaseService {
          * Итого
          */
         'total_cost': number;
+        
+        /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
         
         /**
          * Услуги
@@ -22172,6 +22387,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -22239,6 +22459,21 @@ export class RequestService extends BaseService {
          * Статус
          */
         'status'?: number;
+        
+        /**
+         * ID главного рейта: До границы
+         */
+        'custom_id'?: number;
+        
+        /**
+         * ID главного рейта: СВХ
+         */
+        'storage_id'?: number;
+        
+        /**
+         * ID главного рейта: Вывоз
+         */
+        'delivery_id'?: number;
         
         /**
          * Статус
@@ -22424,6 +22659,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -22520,6 +22760,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -22620,6 +22865,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -22687,6 +22937,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -22840,6 +23105,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -22936,6 +23206,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -23036,6 +23311,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -23103,6 +23383,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -23254,6 +23549,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -23350,6 +23650,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -23450,6 +23755,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -23517,6 +23827,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -23781,6 +24106,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -23877,6 +24207,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -23977,6 +24312,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -24044,6 +24384,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -24190,6 +24545,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -24286,6 +24646,11 @@ export class RequestService extends BaseService {
          * Итого
          */
         'total_cost': number;
+        
+        /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
         
         /**
          * Услуги
@@ -24386,6 +24751,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -24453,6 +24823,21 @@ export class RequestService extends BaseService {
          * Статус
          */
         'status'?: number;
+        
+        /**
+         * ID главного рейта: До границы
+         */
+        'custom_id'?: number;
+        
+        /**
+         * ID главного рейта: СВХ
+         */
+        'storage_id'?: number;
+        
+        /**
+         * ID главного рейта: Вывоз
+         */
+        'delivery_id'?: number;
         
         /**
          * Статус
@@ -24612,6 +24997,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -24708,6 +25098,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -24808,6 +25203,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -24875,6 +25275,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -25012,6 +25427,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -25108,6 +25528,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -25208,6 +25633,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -25275,6 +25705,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -25410,6 +25855,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -25506,6 +25956,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -25606,6 +26061,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -25673,6 +26133,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Статус
@@ -25969,6 +26444,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Примечание
@@ -26273,6 +26763,21 @@ export class RequestService extends BaseService {
  * Статус
  */
 'status'?: number;
+
+/**
+ * ID главного рейта: До границы
+ */
+'custom_id'?: number;
+
+/**
+ * ID главного рейта: СВХ
+ */
+'storage_id'?: number;
+
+/**
+ * ID главного рейта: Вывоз
+ */
+'delivery_id'?: number;
 
 /**
  * Примечание
@@ -27084,6 +27589,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -27192,6 +27702,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -27298,6 +27813,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -27508,6 +28028,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -27616,6 +28141,11 @@ export class RequestService extends BaseService {
         'total_cost': number;
         
         /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
+        
+        /**
          * Услуги
          */
         'services': Array<{
@@ -27722,6 +28252,11 @@ export class RequestService extends BaseService {
          * Итого
          */
         'total_cost': number;
+        
+        /**
+         * Главный рейт, использовать для итогового КП
+         */
+        'main'?: boolean;
         
         /**
          * Услуги
@@ -28217,6 +28752,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -28325,6 +28865,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -28431,6 +28976,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -28632,6 +29182,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -28740,6 +29295,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -28846,6 +29406,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -29045,6 +29610,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -29153,6 +29723,11 @@ export class RequestService extends BaseService {
 'total_cost': number;
 
 /**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
+
+/**
  * Услуги
  */
 'services': Array<{
@@ -29259,6 +29834,11 @@ export class RequestService extends BaseService {
  * Итого
  */
 'total_cost': number;
+
+/**
+ * Главный рейт, использовать для итогового КП
+ */
+'main'?: boolean;
 
 /**
  * Услуги
@@ -29524,6 +30104,314 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestOfferCopy$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferSend()` */
+  static readonly RequestOfferSendPath = '/request_offer_send';
+
+  /**
+   * Отправка КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferSend()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferSend$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'ids': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferSendPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Отправка КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferSend$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestOfferSend(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'ids': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferSend$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferStatuses()` */
+  static readonly RequestOfferStatusesPath = '/request_offer_statuses';
+
+  /**
+   * Статусы КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferStatuses()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferStatuses$Response(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferStatusesPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id'?: number;
+        
+        /**
+         * Наименование
+         */
+        'name'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Статусы КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferStatuses$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferStatuses(
+    params?: {
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}> {
+    return this.requestOfferStatuses$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+}>): {
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Наименование
+ */
+'name'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestOfferSetStatus()` */
+  static readonly RequestOfferSetStatusPath = '/request_offer_set_status';
+
+  /**
+   * Установка статуса КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestOfferSetStatus()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferSetStatus$Response(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+
+    /**
+     * ID статуса
+     */
+      status_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferSetStatusPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+      rb.query('status_id', params.status_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Установка статуса КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestOfferSetStatus$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestOfferSetStatus(
+    params: {
+
+    /**
+     * ID
+     */
+      id: number;
+
+    /**
+     * ID статуса
+     */
+      status_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestOfferSetStatus$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

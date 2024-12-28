@@ -93,7 +93,7 @@
         <div class="td-block">
           <!-- <div class="column">{{ client.customer_name }}, {{client.customer_phone}}, {{client.customer_email}}</div> -->
           <div class="column">
-            <span *ngIf="client.customer_name">{{ client.customer_name }}</span>
+            <span *ngIf="client.customer_name" style="cursor: pointer; text-decoration-line: underline;" (click)="navigateOnClient(client.customer_id)">{{ client.customer_name }}</span>
             <span *ngIf="client.customer_phone">, Тел: {{ client.customer_phone }}</span>
             <span *ngIf="client.customer_email">, {{ client.customer_email }}</span>
           </div>
