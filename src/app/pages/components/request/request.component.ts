@@ -20,9 +20,12 @@ import { Request, RequestFilter } from 'src/app/api/custom_models/request';
 export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   sortField = 'id' as const;
 
-  params:any;
+  // params:any;
 
   trackById = (_index: number, request: Request) => request.id!;
+
+  importMetods:any;
+
 
   constructor(
     private requestService: RequestService,
@@ -33,8 +36,12 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     router: Router,
   ) {
     super(route, router, dialog, snackBar, filterService);
+    this.importMetods = {
+      import: this.requestService.requestImport.bind(this.requestService),
+      import_res: this.requestService.requestImportResult.bind(this.requestService),
+      import_con: this.requestService.requestImportConfirm.bind(this.requestService),
+    }
   }
-
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
     // this.params=params;
@@ -49,8 +56,8 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   //   return this.requestService.requestListSearch().pipe(map(val => val as SearchFilterSchema));
   // }
 
-  protected override exportData(): Observable<{data: string; name: string}> {
-    return this.requestService.requestExport(this.params as any) as Observable<{data: string; name: string}>;
+  protected override exportData(param:any): Observable<{data: string; name: string}> {
+    return this.requestService.requestExport(param) as Observable<{data: string; name: string}>;
   }
 
   protected override importData(body: {data: string; name: string}) {
@@ -76,3 +83,23 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     this.router.navigate(['pages/customer/edit', clientId])
   }
 }
+
+// constructor(
+//   private requestService: RequestService,
+//   private filterService: FilterService,
+//   private dialog: MatDialog,
+//   private snackBar: MatSnackBar,
+//   private route: ActivatedRoute,
+//   private router: Router,
+
+// ) {
+//   this.getRowsData = this.requestService.requestList.bind(this.requestService);
+//   this.getTableConfig = this.requestService.requestListParam.bind(this.requestService);
+//   this.getXLSXTable = this.requestService.requestExport.bind(this.requestService);
+//   this.getXLSXTemplate = this.requestService.requestImportTemplate.bind(this.requestService);
+//   this.importMetods = {
+//     import: this.requestService.requestImport.bind(this.requestService),
+//     import_res: this.requestService.requestImportResult.bind(this.requestService),
+//     import_con: this.requestService.requestImportConfirm.bind(this.requestService)
+//   }
+// }

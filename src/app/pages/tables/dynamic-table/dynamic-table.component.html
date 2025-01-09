@@ -4,7 +4,7 @@
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
     >
-      <!-- обычные элементы табл -->
+       обычные элементы табл
       <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
           <div class="td-block" *ngIf="!col.title">
@@ -60,7 +60,7 @@
   </table>
 </div>
 
-<app-paginator
+<!-- <app-paginator
   [total]="rows?.total"
   [count]="count"
   [start]="start"
@@ -68,4 +68,4 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)"
 >
-</app-paginator>
+</app-paginator> -->

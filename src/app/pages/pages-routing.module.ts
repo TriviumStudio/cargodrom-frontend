@@ -18,7 +18,7 @@ import { RequestEditorTranslateComponent } from './components/request-editor-tra
 import { RequestRateComponent } from './components/request-rate/request-rate.component';
 import { RequestDetails } from './components/request-details/request-details.component';
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
-import { RequestPage } from './places/request/request.component';
+// import { RequestPage } from './places/request/request.component';
 
 
 
@@ -56,14 +56,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
 
       },
-      {
-        path: 'new-request',
-        component: RequestPage,
-        pathMatch: 'full',
-        title: 'Запросы',
-        canActivate: [AuthGuard],
+      // {
+      //   path: 'new-request',
+      //   component: RequestPage,
+      //   pathMatch: 'full',
+      //   title: 'Запросы',
+      //   canActivate: [AuthGuard],
 
-      },
+      // },
       {
         path: 'request/edit/:id',
         component: RequestEditorComponent,

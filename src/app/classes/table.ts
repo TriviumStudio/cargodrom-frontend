@@ -114,7 +114,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
-
       });
   }
 
@@ -296,7 +295,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.aliases.set(alias, fields);
   }
 
-  protected exportData(): Observable<{data: string; name: string}> {
+  protected exportData(param:any): Observable<{data: string; name: string}> {
     return NEVER;
   }
 
@@ -399,8 +398,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     reader.readAsDataURL(file);
   }
 
-  private exportFile(): void {
-    this.exportData().subscribe({
+  exportFile(): void {
+    this.exportData({ start: this.start, count: this.count, sort: JSON.stringify(this.getSort()) as unknown as SortColumn<T>[], ...this.filter  }).subscribe({
       next: ({name, data}) => {
         const dataUri = `data:${this.xlsxMimeType};base64,${data}`;
         const a = document.createElement('a');
