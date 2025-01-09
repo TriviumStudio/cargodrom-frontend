@@ -7,18 +7,17 @@
 
 <app-table-filter></app-table-filter>
 
-<app-dynamic-table *ngIf="rows"
+<app-dynamic-table
   [rows]="rows"
   [columnsData]="columnsData"
   [column]="column"
   [sortableColumns]="sortableColumns"
   [sortField]="sortField"
   [sortDir]="sortDir"
-
   (sortTable)="sort($event)"
-
 >
 </app-dynamic-table>
+
 
 <!-- <div class="table-list">
   <table mat-table [dataSource]="rows">

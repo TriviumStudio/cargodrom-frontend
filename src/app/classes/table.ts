@@ -40,6 +40,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   schemaCharges:any
   columnsData:any=[];
 
+  isRowsLoad=false;
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
@@ -114,6 +116,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
+        this.isRowsLoad=true
       });
   }
 
@@ -585,10 +588,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             this.column?.unshift('checkbox');
             this.column?.pop();
           }
-          if(this.isRateDetailsMode){
-            this.columnsData=schema.table;
-            this.schemaCharges=schema.forms.charges;
-          }
+          this.columnsData=schema.table;
+          // if(this.isRateDetailsMode){
+          //   this.columnsData=schema.table;
+          //   this.schemaCharges=schema.forms.charges;
+          // }
           // this.router.navigate(['.'], {
           //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
           //   queryParamsHandling: 'merge',

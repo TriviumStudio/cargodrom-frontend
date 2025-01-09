@@ -18,7 +18,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export class DynamicTableComponent implements OnInit, OnDestroy  {
 
-  @Input() rows: any;
+  @Input() rows?: any;
   @Input() columnsData: any;
   @Input() sortableColumns: any;
   @Input() sortField: any;
@@ -37,6 +37,15 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
     private filterService: FilterService,
     private route: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
 
   getColTitle(field: any): string {
     if (Array.isArray(this.sortableColumns) && !this.sortableColumns.includes(field as string)) {
@@ -65,8 +74,6 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
     this.sortTable.emit(param);
   }
 
-
-
   getVal(obj: any, path: string): any {
     if (!path?.includes('/')) {
         return obj[path] !== undefined ? obj[path] : null;
@@ -82,16 +89,11 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
     return obj !== undefined ? obj : null; // Проверка на undefined
   }
 
-
-  ngOnInit(): void {
-
+  navigateOnDetails(requestId:any){
+    this.router.navigate(['pages/request/details/final', requestId])
   }
-
-  ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
+  navigateOnClient(clientId:any){
+    this.router.navigate(['pages/customer/edit', clientId])
   }
-
-
 }
 
