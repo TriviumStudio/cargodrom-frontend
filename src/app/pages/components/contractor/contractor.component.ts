@@ -18,6 +18,7 @@ import { RequestService } from 'src/app/api/services';
 
 export class ContractorComponent extends Table<Contractor, 'trade_rating', ContractorFilter> {
   sortField = 'name' as const;
+  importMetods:any;
 
   params:any;
 
@@ -33,12 +34,21 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     filter: FilterService,
   ) {
     super(route, router, dialog, snackBar, filter);
+    this.importMetods = {
+      import: this.contractorService.contractorImport.bind(this.contractorService),
+      import_res: this.contractorService.contractorImportResult.bind(this.contractorService),
+      import_con: this.contractorService.contractorImportConfirm.bind(this.contractorService),
+      test: this.contractorService.contractorList.bind(this.contractorService)
+    }
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
   //методы для таблицы
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
-    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    console.log(123);
+
+    // return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    return this.importMetods.test(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
   }
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.contractorService.contractorListParam().pipe(map(val => val as any));

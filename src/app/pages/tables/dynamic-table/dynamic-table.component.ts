@@ -18,7 +18,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 export class DynamicTableComponent implements OnInit, OnDestroy  {
 
-  @Input() rows?: any;
+  @Input() rows?: any[];
   @Input() columnsData: any;
   @Input() sortableColumns: any;
   @Input() sortField: any;
@@ -39,6 +39,8 @@ export class DynamicTableComponent implements OnInit, OnDestroy  {
   ) {}
 
   ngOnInit(): void {
+    if(this.rows){console.log('rows tru', this.rows)};
+
 
   }
 
