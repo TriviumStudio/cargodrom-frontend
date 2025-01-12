@@ -76,6 +76,21 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     return this.requestService.requestImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
 
+  getVal(obj: any, path: string): any {
+    if (!path?.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path?.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
+  }
+
   navigateOnDetails(requestId:any){
     this.router.navigate(['pages/request/details/final', requestId])
   }

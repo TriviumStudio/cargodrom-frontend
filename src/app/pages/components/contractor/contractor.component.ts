@@ -57,8 +57,8 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   //   return this.contractorService.contractorListSearch().pipe(map(val => val as SearchFilterSchema));
   // }
   //методы для импорта экспорта
-  protected override exportData(): Observable<{data: string; name: string}> {
-    return this.contractorService.contractorExport(this.params as any) as Observable<{data: string; name: string}>;
+  protected override exportData(param:any): Observable<{data: string; name: string}> {
+    return this.requestService.requestExport(param) as Observable<{data: string; name: string}>;
   }
   protected override importData(body: {data: string; name: string}) {
     return this.contractorService.contractorImport({body}) as any;
@@ -84,6 +84,21 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
   protected override requestSaveBidding(body:{id:number,confirm: boolean}){
     return this.requestService.requestSaveBidding({body})
+  }
+
+  getVal(obj: any, path: string): any {
+    if (!path?.includes('/')) {
+        return obj[path] !== undefined ? obj[path] : null;
+    }
+    const keys = path?.split('/');
+    for (const key of keys) {
+      if (obj && obj.hasOwnProperty(key)) {
+          obj = obj[key];
+      } else {
+          return null; // Если ключ не найден, возвращаем null
+      }
+    }
+    return obj !== undefined ? obj : null; // Проверка на undefined
   }
 
   getSpecializationClass(n:number){
