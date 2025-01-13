@@ -30234,7 +30234,7 @@ export class RequestService extends BaseService {
     params?: {
     },
     context?: HttpContext
-  ): Observable<StrictHttpResponse<{
+  ): Observable<StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -30245,7 +30245,7 @@ export class RequestService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>> {
+}>>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestOfferStatusesPath, 'get');
     if (params) {
     }
@@ -30255,7 +30255,7 @@ export class RequestService extends BaseService {
     ).pipe(
       filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
+        return r as StrictHttpResponse<Array<{
         
         /**
          * ID
@@ -30266,7 +30266,7 @@ export class RequestService extends BaseService {
          * Наименование
          */
         'name'?: string;
-        }>;
+        }>>;
       })
     );
   }
@@ -30285,7 +30285,7 @@ export class RequestService extends BaseService {
     params?: {
     },
     context?: HttpContext
-  ): Observable<{
+  ): Observable<Array<{
 
 /**
  * ID
@@ -30296,9 +30296,9 @@ export class RequestService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}> {
+}>> {
     return this.requestOfferStatuses$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
+      map((r: StrictHttpResponse<Array<{
 
 /**
  * ID
@@ -30309,7 +30309,7 @@ export class RequestService extends BaseService {
  * Наименование
  */
 'name'?: string;
-}>): {
+}>>): Array<{
 
 /**
  * ID
@@ -30320,7 +30320,7 @@ export class RequestService extends BaseService {
  * Наименование
  */
 'name'?: string;
-} => r.body)
+}> => r.body)
     );
   }
 

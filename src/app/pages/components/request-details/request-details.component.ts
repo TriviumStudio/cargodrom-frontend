@@ -156,7 +156,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   onDubKpBtnClick(offer_id:number){
     this.dubOffer(offer_id);
-
+    this.getOfferList();
   }
   onCopyKpBtnClick(offer_id:number){
     this.getOfferTxtCopy(offer_id);
@@ -169,6 +169,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   onDelKpBtnClick(offer_id:number){
     this.openDeleteKpDialog('Вы уверенны, что хотите удалить кп №'+ offer_id, [offer_id], 'Удаление кп')
+
     // this.deleteKp([id]);
   }
   //-checkboxs
@@ -509,7 +510,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       .subscribe({
         next: (contractor) => {
           this.snackBar.open(`Кп удален`, undefined, this.snackBarWithShortDuration);
-          this.loadRows();
+          this.getOfferList();
         },
         error: (err) => {
           this.snackBar.open(`Ошибка удаления кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

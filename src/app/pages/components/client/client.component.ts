@@ -87,7 +87,4 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
   }
-
-
-
 }

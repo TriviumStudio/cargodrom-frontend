@@ -893,7 +893,8 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 /* table list begin */
 .nowrap { white-space: nowrap; }
 
-.table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; height: 100%; }
+.table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; }
+/* .table-list table { width: 100%; font-size: 13px; border-collapse: collapse; line-height: 16px; height: 100%; } */
 
 .table-list th {  background: #83909E;  color: #fff;  font-weight: normal; border-left: 1px solid #9ca6b1; padding: 0; text-align: left; height: 100%;  }
 .table-list th:first-child { border-left: none; }
@@ -1071,7 +1072,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 }
 
 .table-list.kp {
-  height: 204px;
+  max-height: 204px;
   overflow: auto;
 }
 
