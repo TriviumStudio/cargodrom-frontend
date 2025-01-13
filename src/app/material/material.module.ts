@@ -23,7 +23,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
-// import { MatNativeDateModule } from '@angular/material/core';  // Опционально, если используется стандартный адаптер
+import { MatNativeDateModule } from '@angular/material/core';  // Опционально, если используется стандартный адаптер
 
 @NgModule({
   declarations: [
@@ -52,7 +52,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatTabsModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    // MatNativeDateModule,  // Только если используете стандартный адаптер
+    MatNativeDateModule,  // Только если используете стандартный адаптер
   ],
   exports: [
     MatDialogModule,
@@ -74,6 +74,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatTabsModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    MatNativeDateModule,
   ]
 })
 export class MaterialModule {}
