@@ -6,7 +6,7 @@ import { CargoService, CustomerService, DirectionService, FileService, RequestSe
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
 import { environment } from '../../../../environments/environment';
 
 @Component({

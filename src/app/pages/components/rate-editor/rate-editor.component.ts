@@ -7,10 +7,10 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/constants';
 import { CargoPackage } from 'src/app/api/custom_models/cargo';
 import { CargoService, ContractorService, DirectionService, TransportService } from 'src/app/api/services';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 import { formatDate } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-rate-editor',

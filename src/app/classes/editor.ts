@@ -3,7 +3,7 @@ import { Directive, OnInit } from '@angular/core';
 import { Observable, of, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup } from "@angular/forms";
-import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from "@angular/material/legacy-snack-bar";
 import { BusinessKind, ClientKind, ClientStatus, ContactSource, Currency, HeadPosition, InteractionKind, ServiceKind, TaxSystem } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { SystemService } from 'src/app/api/services';

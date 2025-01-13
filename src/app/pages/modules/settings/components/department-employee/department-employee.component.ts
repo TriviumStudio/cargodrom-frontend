@@ -1,5 +1,5 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { Component, Input } from '@angular/core';

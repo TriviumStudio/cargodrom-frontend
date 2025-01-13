@@ -1,6 +1,6 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { of } from 'rxjs';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { ComponentFixture, TestBed } from '@angular/core/testing';

@@ -2,7 +2,7 @@ import { byField } from './../../../../constants/sort-predicate';
 import { Directive } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../../../../api/services/company.service';
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatLegacySnackBar as MatSnackBar } from "@angular/material/legacy-snack-bar";
 import { Company, Department, Employee, Position } from "src/app/api/custom_models";
 import { Location } from '@angular/common';
 import { SystemService } from 'src/app/api/services';

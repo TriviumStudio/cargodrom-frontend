@@ -1,4 +1,4 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClientGroupEditorComponent } from './client-group-editor.component';

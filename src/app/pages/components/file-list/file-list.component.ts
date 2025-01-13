@@ -1,7 +1,7 @@
 import { FileService } from './../../../api/services/file.service';
 import { FileDocument } from './../../../api/custom_models';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { Observable, map, of, zip } from 'rxjs';
 
 export type FileDocumentExtended = Partial<FileDocument> & { added?: true, removed?: true };
