@@ -1,5 +1,5 @@
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Position } from './../../../../../api/custom_models/position';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { Component } from '@angular/core';

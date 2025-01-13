@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import {  MatCheckboxChange } from '@angular/material/checkbox';
 import { Country, AreaOfResponsibility } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 import { transportSubKindTable, unknownCountry } from '../../../constants';
 import { TransportService } from 'src/app/api/services/transport.service';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 
 @Component({

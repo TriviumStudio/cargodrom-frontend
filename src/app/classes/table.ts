@@ -1,4 +1,4 @@
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef } from '@angular/core';

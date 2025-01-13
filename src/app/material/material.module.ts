@@ -8,10 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';  // Добавлено
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker'; // Исправленный импорт
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -23,6 +23,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { EditorHeaderComponent } from './components/editor-header/editor-header.component';
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
+// import { MatNativeDateModule } from '@angular/material/core';  // Опционально, если используется стандартный адаптер
 
 @NgModule({
   declarations: [
@@ -42,14 +43,16 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatSelectModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatInputModule,  // Добавлено
     MatCheckboxModule,
     MatButtonModule,
-    MatDatepickerModule,  // Исправленный импорт
+    MatDatepickerModule,
     MatTableModule,
     MatButtonToggleModule,
     MatTabsModule,
     MatMenuModule,
     MatProgressSpinnerModule,
+    // MatNativeDateModule,  // Только если используете стандартный адаптер
   ],
   exports: [
     MatDialogModule,
@@ -63,7 +66,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     PaginatorComponent,
     EditorHeaderComponent,
     MatButtonModule,
-    MatDatepickerModule,  // Исправленный импорт
+    MatDatepickerModule,
     FocusInitialDirective,
     MatTableModule,
     PhoneMaskDirective,

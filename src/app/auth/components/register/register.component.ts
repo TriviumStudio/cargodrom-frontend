@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {RegisterService} from "../../services/register.service";
 import {PopupDialogData} from "../../../material/components/popup-dialog/popup-dialog-data";
 import {PopupDialogComponent} from "../../../material/components/popup-dialog/popup-dialog.component";
-import {MatLegacyDialog as MatDialog} from "@angular/material/legacy-dialog";
+import { MatDialog } from "@angular/material/dialog";
 import {PopupService} from "../../../material/services/popup.service";
 import {finalize} from "rxjs";
 

@@ -1,5 +1,5 @@
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from 'src/app/api/services/company.service';
 import { Component, Input } from '@angular/core';
@@ -38,7 +38,7 @@ export class DepartmentEmployeeComponent extends Table<Employee, 'fio'> {
 
   load<Employee>(params: { start?: number; count?: number; sort?: SortColumn<Employee>[]; }): Observable<{ total: number; items: Employee[]; }> {
     const queryParams = { ...params, department_id: this.departmentId }
-    
+
     return this.companyService.companyEmployeeList(queryParams as any) as unknown as Observable<{ total: number; items: Employee[]; }>;
   }
 

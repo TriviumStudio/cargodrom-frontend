@@ -3,10 +3,10 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil, tap, debounceTime, distinctUntilChanged } from 'rxjs';
 import { RequestService, SystemService } from 'src/app/api/services';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { formatDate } from '@angular/common';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-offer-editor',

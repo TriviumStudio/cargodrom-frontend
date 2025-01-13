@@ -1,6 +1,6 @@
 import { Component, Input, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Country, Responsibilities } from 'src/app/api/custom_models';
 import { TransportSubKind, TransportSubKinds } from 'src/app/api/custom_models/transport';
 import { transportSubKindTable, unknownCountry } from '../../../constants';

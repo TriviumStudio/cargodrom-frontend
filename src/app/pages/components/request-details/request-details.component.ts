@@ -2,13 +2,13 @@ import { ContractorFilter } from '../../../api/custom_models/contractor-filter';
 import { ContractorService } from '../../../api/services/contractor.service';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { LoadParams, Table } from '../../../classes';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { FileService, RequestService } from 'src/app/api/services';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
 
