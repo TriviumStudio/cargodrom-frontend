@@ -1,13 +1,13 @@
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../../../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NEVER, Observable, of, Subject, Subscription, takeUntil, tap } from 'rxjs';
-import { MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../../../filter/services/filter.service';
 import { SearchFilterSchema } from '../../../api/custom_models';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 
 @Component({

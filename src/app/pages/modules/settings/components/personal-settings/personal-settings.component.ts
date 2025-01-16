@@ -1,4 +1,4 @@
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -24,11 +24,11 @@ export class PersonalSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.loadPersonalSettings();
   }
-  
+
   loadPersonalSettings() {
     this.sorry();
   }
-  
+
   save(): void {
     this.sorry();
   }

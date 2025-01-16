@@ -1,5 +1,5 @@
 import { SettingsEditor } from './../../classes/settings-editor';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Position } from './../../../../../api/custom_models/position';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../../../../api/services/company.service';
@@ -40,21 +40,21 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
   }
 
   protected create(params: {body: Omit<Position, 'id'>}) {
-    return this.companyService.companyPositionCreate(params as any); 
+    return this.companyService.companyPositionCreate(params as any);
    }
-   
+
    protected read(params: { id: number; }): Observable<Position> {
      return this.companyService.companyPositionInfo(params) as Observable<Position>;
    }
-   
+
    protected update(params: { body: Partial<Position>; }): Observable<void> {
      return this.companyService.companyPositionUpdate(params as any) as unknown as Observable<void>;
    }
-   
+
    protected delete(params: {body: { id: number; }}): Observable<void> {
      return this.companyService.companyPositionDelete(params) as unknown as Observable<void>;
    }
-   
+
    protected getNameForHeader(body: Position): string {
     return body.name;
   }

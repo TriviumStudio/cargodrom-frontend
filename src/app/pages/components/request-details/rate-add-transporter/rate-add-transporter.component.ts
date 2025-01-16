@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
-import { MatLegacyTable as MatTable } from '@angular/material/legacy-table';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatTable } from '@angular/material/table';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';

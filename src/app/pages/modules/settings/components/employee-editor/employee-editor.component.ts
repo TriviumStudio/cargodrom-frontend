@@ -3,7 +3,7 @@ import { emailValidator } from './../../../../../validators';
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Employee } from './../../../../../api/custom_models/employee';
@@ -24,7 +24,7 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
   removedMessage = `${this.entity} удален`;
   createdMessage = `${this.entity} создан`;
   notFoundMessage = `${this.entity} не найден`;
-  
+
   constructor(
     private fb: FormBuilder,
     snackBar: MatSnackBar,
@@ -80,7 +80,7 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
   protected delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyEmployeeDelete(params) as unknown as Observable<void>;
   }
-  
+
   protected getNameForHeader(body: Employee): string {
     return `${body.name_f} ${body.name_i} ${body.name_o}`;
   }

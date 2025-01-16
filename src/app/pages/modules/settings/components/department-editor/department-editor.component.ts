@@ -4,7 +4,7 @@ import { CompanyService } from './../../../../../api/services/company.service';
 import { Department } from './../../../../../api/custom_models/department';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
@@ -64,7 +64,7 @@ export class DepartmentEditorComponent extends SettingsEditor<Department> implem
   protected delete(params: { body: { id: number; } }): Observable<void> {
     return this.companyService.companyDepartmentDelete(params) as unknown as Observable<void>;
   }
-  
+
   protected getNameForHeader(body: Department): string {
     return body.name;
   }

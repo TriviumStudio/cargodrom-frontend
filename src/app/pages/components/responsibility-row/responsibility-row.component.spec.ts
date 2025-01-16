@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResponsibilityRowComponent } from './responsibility-row.component';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 describe('ResponsibilityRowComponent', () => {
   let component: ResponsibilityRowComponent;

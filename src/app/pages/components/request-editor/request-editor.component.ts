@@ -17,7 +17,7 @@ import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/
 import { CargoPackage, CargoType } from 'src/app/api/custom_models/cargo';
 import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/direction';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
 
 @Component({
