@@ -999,8 +999,9 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
   padding-left: 0  !important;;
 }
 
-.mat-table {
+.mat-mdc-table {
   font-family: unset !important;
+  background-color: #83909E;
 }
 
 .mat-header-cell {
