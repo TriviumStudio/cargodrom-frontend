@@ -860,7 +860,7 @@ th.clp { width: 20px; background: #606A74; }
 .break-crumbs .del-crumbs { color: #83909E; }
 .break-crumbs a { color: #83909E; text-decoration: none; }
 
-.mat-select-panel { background: #f00; }
+/* .mat-select-panel { background: #f00; } */
 
 
 mat-form-field .mat-form-field-infix { border: none; }

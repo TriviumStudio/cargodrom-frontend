@@ -1,3 +1,4 @@
+
 <div class="subheader">
   <app-request-info-block [request]="currentRequest"></app-request-info-block>
   <div class="request-actions">
@@ -157,23 +158,31 @@
         <ng-template [ngSwitchCase]="'checked'">
           <th mat-header-cell *matHeaderCellDef [style.width]="'64px'">
             <div class="td-block">
-              <mat-checkbox class="testclass"
-                [checked]="isKpCheckboxHeaderTableChecked()"
-                (change)="onKpCheckboxHeaderTableChange($event)"
-                [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isKpCheckboxHeaderTableChecked()"
+                  (change)="onKpCheckboxHeaderTableChange($event)"
+                  [indeterminate]="isKpCheckboxHeaderTableIndeterminate()"
+                  [ngClass]="isKpCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
                 >
                 </mat-checkbox>
+              </label>
+
             </div>
           </th>
 
           <td mat-cell *matCellDef="let item" [style.width]="'64px'">
             <div class="td-block">
-              <mat-checkbox class="testclass"
-                [checked]="isKpCheckboxBodyTableChecked(item.id)"
-                (change)="onKpCheckboxBodyTableChange(item.id,$event)"
-                [disabled]="item.status!==0"
-              >
-              </mat-checkbox>
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [checked]="isKpCheckboxBodyTableChecked(item.id)"
+                  (change)="onKpCheckboxBodyTableChange(item.id,$event)"
+                  [disabled]="item.status!==0"
+
+                >
+                </mat-checkbox>
+              </label>
+
             </div>
           </td>
         </ng-template>
@@ -299,6 +308,7 @@
               [indeterminate]="isCheckboxHeaderTableIndeterminate()"
               [checked]="isCheckboxHeaderTableChecked()"
               (change)="onCheckboxHeaderTableChange($event)"
+              [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
             >
             </mat-checkbox>
           </label>

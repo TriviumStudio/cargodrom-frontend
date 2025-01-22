@@ -1,54 +1,62 @@
+//mat-form-field
 // .mat-mdc-form-field-infix { border: none; }
 // .mat-form-field-appearance-outline .mat-mdc-form-field-wrapper { margin: 0; color: red; }
 
+//mat-option
+.mat-mdc-option {
+  --mat-option-selected-state-label-text-color: #DB563B;
+}
+.mat-mdc-option .mat-mdc-option-pseudo-checkbox{
+   display: none;
+}
+//mat-select
+.mat-mdc-select-arrow {
+  display: none;
+}
+.mat-mdc-select-arrow-wrapper {
+  width: 10px; height: 6px;
+  border: none;
+  margin: 0;
+  background: url('../assets/pic-select-arrow.svg') no-repeat;
+}
 //mat-checkbox
 .mat-mdc-checkbox .mdc-form-field .mdc-checkbox, .mat-mdc-checkbox .mdc-form-field .mdc-label {
   display: none !important;
 }
-
+.checkbox-label .mat-mdc-checkbox{
+  display: flex;
+}
 .mat-mdc-checkbox .mdc-form-field {
   cursor: pointer;
-
-  vertical-align: top;
-  position: relative;
+  vertical-align: top; position: relative;
   border: 1px solid #E0E5EB;
   background: #F7F9FC;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 18px; height: 18px;
+  display: flex; justify-content: center; align-items: center;
 }
-
 .mat-mdc-checkbox .mdc-form-field::after {
   content: "";
   display: block;
   background: #F7F9FC;
-  width: 8px;
-  height: 8px;
-  margin: 0 ;
-  padding: 0;
+  width: 8px; height: 8px;
+  margin: 0 ; padding: 0;
 }
-
 .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-form-field::after{
   content: "";
   display: block;
   background: #DB563B;
-  width: 8px;
-  height: 8px;
-  margin: 0 ;
-  padding: 0;
-
+  width: 8px; height: 8px;
+  margin: 0; padding: 0;
 }
-
-mat-checkbox input[indeterminate] .mdc-form-field::after {
+.mat-mdc-checkbox.mat-mdc-checkbox-indeterminate .mdc-form-field::after {
   content: "";
   display: block;
-  background: #DB563B;  /* Цвет фона для индетерминированного состояния */
-  width: 10px;           /* Ширина для индетерминированного состояния */
-  height: 3px;           /* Высота для индетерминированного состояния */
-  margin: 0;
-  padding: 0;
+  background: #DB563B;
+  width: 10px; height: 3px;
+  margin: 0; padding: 0;
+}
+.mat-mdc-checkbox.mat-mdc-checkbox-disabled {
+  opacity: 0.4;
 }
 
 

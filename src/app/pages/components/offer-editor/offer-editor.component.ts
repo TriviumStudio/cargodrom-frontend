@@ -283,7 +283,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     services.push(newService); // Добавляем новый элемент в 'services'
   }
 
-  //REQEUSTS
+
   onSubmit(): void {
     this.saveOffer();
     if (this.kpForm.valid) {
@@ -291,6 +291,10 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
     } else {
       console.log('Form is invalid',this.kpForm.value);
     }
+  }
+
+  onCreateOrder(){
+    this.saveOffer();
   }
 
   delRate(rate_id:number){
