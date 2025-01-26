@@ -1106,22 +1106,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -1131,12 +1131,17 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Статус заказа
@@ -1233,22 +1238,22 @@ export class OrderService extends BaseService {
         /**
          * Номер документа ТС
          */
-        'doc_tc_number': number;
+        'doc_tc_number': string;
         
         /**
          * Track ТС
          */
-        'track_tc': number;
+        'track_tc': string;
         
         /**
          * Track СВХ
          */
-        'track_svh': number;
+        'track_svh': string;
         
         /**
          * TT
          */
-        'tt': number;
+        'tt': string;
         
         /**
          * ID статуса движения груза
@@ -1258,12 +1263,17 @@ export class OrderService extends BaseService {
         /**
          * Дата следующего планируемого события
          */
-        'schedule_event_date': number;
+        'schedule_event_date': string;
         
         /**
          * Следующее планируемое событие
          */
-        'schedule_event_text': number;
+        'schedule_event_text': string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
         
         /**
          * Статус заказа
@@ -1400,22 +1410,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -1425,12 +1435,17 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Статус заказа
@@ -1514,22 +1529,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -1539,12 +1554,17 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Статус заказа
@@ -1626,22 +1646,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -1651,12 +1671,17 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Статус заказа
@@ -1671,336 +1696,30 @@ export class OrderService extends BaseService {
   static readonly OrderInfoPath = '/order_info';
 
   /**
+   * Данны по заказу.
+   *
+   *
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `orderInfo()` instead.
    *
    * This method doesn't expect any request body.
    */
   orderInfo$Response(
-    params?: {
+    params: {
+
+    /**
+     * ID Заказа
+     */
+      id: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderInfoPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Код ошибки
-         */
-        'error_code'?: number;
-        
-        /**
-         * Тект ошибки
-         */
-        'error_message'?: string;
-        
-        /**
-         * Подробное описание ошибки
-         */
-        'error_message_description'?: string;
-        
-        /**
-         * Подробное описание ошибки по полям
-         */
-        'error_fields_description'?: {
-        };
-        }>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderInfo$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  orderInfo(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}> {
-    return this.orderInfo$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}>): {
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `orderMakeFromRequest()` */
-  static readonly OrderMakeFromRequestPath = '/order_make_from_request';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderMakeFromRequest()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  orderMakeFromRequest$Response(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}>> {
-    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderMakeFromRequestPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(
-      rb.build({ responseType: 'json', accept: 'application/json', context })
-    ).pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<{
-        
-        /**
-         * Код ошибки
-         */
-        'error_code'?: number;
-        
-        /**
-         * Тект ошибки
-         */
-        'error_message'?: string;
-        
-        /**
-         * Подробное описание ошибки
-         */
-        'error_message_description'?: string;
-        
-        /**
-         * Подробное описание ошибки по полям
-         */
-        'error_fields_description'?: {
-        };
-        }>;
-      })
-    );
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderMakeFromRequest$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  orderMakeFromRequest(
-    params?: {
-    },
-    context?: HttpContext
-  ): Observable<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}> {
-    return this.orderMakeFromRequest$Response(params, context).pipe(
-      map((r: StrictHttpResponse<{
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-}>): {
-
-/**
- * Код ошибки
- */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
-} => r.body)
-    );
-  }
-
-  /** Path part for operation `orderMake()` */
-  static readonly OrderMakePath = '/order_make';
-
-  /**
-   * Создание заказа.
-   *
-   *
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderMake()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  orderMake$Response(
-    params?: {
-      body?: {
 
 /**
  * ID
  */
-'id'?: number;
-
-/**
- * Дата создания
- */
-'time_add': string;
+'id': number;
 
 /**
  * ID статуса заказа
@@ -2060,22 +1779,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -2085,12 +1804,690 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Статус заказа
+ */
+'status': number;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderInfoPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * ID статуса заказа
+         */
+        'status_id': number;
+        
+        /**
+         * ID Запроса
+         */
+        'request_id': number;
+        
+        /**
+         * ID заказчика
+         */
+        'customer_id': number;
+        
+        /**
+         * ID границы
+         */
+        'border_id': number;
+        
+        /**
+         * ID страны отправления
+         */
+        'departure_country_id': number;
+        
+        /**
+         * ID города отправления
+         */
+        'departure_city_id': number;
+        
+        /**
+         * ID пункта отправления
+         */
+        'departure_point_id': number;
+        
+        /**
+         * ID страны прибытия
+         */
+        'arrival_country_id': number;
+        
+        /**
+         * ID города прибытия
+         */
+        'arrival_city_id': number;
+        
+        /**
+         * ID пункта прибытия
+         */
+        'arrival_point_id': number;
+        
+        /**
+         * ID вида транспорта
+         */
+        'transport_kind_id': number;
+        
+        /**
+         * Номер документа ТС
+         */
+        'doc_tc_number': string;
+        
+        /**
+         * Track ТС
+         */
+        'track_tc': string;
+        
+        /**
+         * Track СВХ
+         */
+        'track_svh': string;
+        
+        /**
+         * TT
+         */
+        'tt': string;
+        
+        /**
+         * ID статуса движения груза
+         */
+        'cargo_status_id': number;
+        
+        /**
+         * Дата следующего планируемого события
+         */
+        'schedule_event_date': string;
+        
+        /**
+         * Следующее планируемое событие
+         */
+        'schedule_event_text': string;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
+        
+        /**
+         * Статус заказа
+         */
+        'status': number;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Данны по заказу.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderInfo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderInfo(
+    params: {
+
+    /**
+     * ID Заказа
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID статуса заказа
+ */
+'status_id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * ID заказчика
+ */
+'customer_id': number;
+
+/**
+ * ID границы
+ */
+'border_id': number;
+
+/**
+ * ID страны отправления
+ */
+'departure_country_id': number;
+
+/**
+ * ID города отправления
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID страны прибытия
+ */
+'arrival_country_id': number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id': number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_id': number;
+
+/**
+ * Номер документа ТС
+ */
+'doc_tc_number': string;
+
+/**
+ * Track ТС
+ */
+'track_tc': string;
+
+/**
+ * Track СВХ
+ */
+'track_svh': string;
+
+/**
+ * TT
+ */
+'tt': string;
+
+/**
+ * ID статуса движения груза
+ */
+'cargo_status_id': number;
+
+/**
+ * Дата следующего планируемого события
+ */
+'schedule_event_date': string;
+
+/**
+ * Следующее планируемое событие
+ */
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Статус заказа
+ */
+'status': number;
+}> {
+    return this.orderInfo$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID статуса заказа
+ */
+'status_id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * ID заказчика
+ */
+'customer_id': number;
+
+/**
+ * ID границы
+ */
+'border_id': number;
+
+/**
+ * ID страны отправления
+ */
+'departure_country_id': number;
+
+/**
+ * ID города отправления
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID страны прибытия
+ */
+'arrival_country_id': number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id': number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_id': number;
+
+/**
+ * Номер документа ТС
+ */
+'doc_tc_number': string;
+
+/**
+ * Track ТС
+ */
+'track_tc': string;
+
+/**
+ * Track СВХ
+ */
+'track_svh': string;
+
+/**
+ * TT
+ */
+'tt': string;
+
+/**
+ * ID статуса движения груза
+ */
+'cargo_status_id': number;
+
+/**
+ * Дата следующего планируемого события
+ */
+'schedule_event_date': string;
+
+/**
+ * Следующее планируемое событие
+ */
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Статус заказа
+ */
+'status': number;
+}>): {
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * ID статуса заказа
+ */
+'status_id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * ID заказчика
+ */
+'customer_id': number;
+
+/**
+ * ID границы
+ */
+'border_id': number;
+
+/**
+ * ID страны отправления
+ */
+'departure_country_id': number;
+
+/**
+ * ID города отправления
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID страны прибытия
+ */
+'arrival_country_id': number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id': number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_id': number;
+
+/**
+ * Номер документа ТС
+ */
+'doc_tc_number': string;
+
+/**
+ * Track ТС
+ */
+'track_tc': string;
+
+/**
+ * Track СВХ
+ */
+'track_svh': string;
+
+/**
+ * TT
+ */
+'tt': string;
+
+/**
+ * ID статуса движения груза
+ */
+'cargo_status_id': number;
+
+/**
+ * Дата следующего планируемого события
+ */
+'schedule_event_date': string;
+
+/**
+ * Следующее планируемое событие
+ */
+'schedule_event_text': string;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Статус заказа
+ */
+'status': number;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `orderMakeFromOffer()` */
+  static readonly OrderMakeFromOfferPath = '/order_make_from_offer';
+
+  /**
+   * Создание заказа на основе КП.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderMakeFromOffer()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  orderMakeFromOffer$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID КП
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderMakeFromOfferPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Создание заказа на основе КП.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderMakeFromOffer$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  orderMakeFromOffer(
+    params?: {
+      body?: {
+
+/**
+ * ID КП
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.orderMakeFromOffer$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `orderMake()` */
+  static readonly OrderMakePath = '/order_make';
+
+  /**
+   * Создание заказа.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderMake()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  orderMake$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID статуса заказа
+ */
+'status_id': number;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+
+/**
+ * ID заказчика
+ */
+'customer_id': number;
+
+/**
+ * ID границы
+ */
+'border_id': number;
+
+/**
+ * ID страны отправления
+ */
+'departure_country_id': number;
+
+/**
+ * ID города отправления
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID страны прибытия
+ */
+'arrival_country_id': number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id': number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_id': number;
+
+/**
+ * Номер документа ТС
+ */
+'doc_tc_number': string;
+
+/**
+ * Track ТС
+ */
+'track_tc': string;
+
+/**
+ * Track СВХ
+ */
+'track_svh': string;
+
+/**
+ * TT
+ */
+'tt': string;
+
+/**
+ * ID статуса движения груза
+ */
+'cargo_status_id': number;
+
+/**
+ * Дата следующего планируемого события
+ */
+'schedule_event_date': string;
+
+/**
+ * Следующее планируемое событие
+ */
+'schedule_event_text': string;
 }
     },
     context?: HttpContext
@@ -2137,16 +2534,6 @@ export class OrderService extends BaseService {
       body?: {
 
 /**
- * ID
- */
-'id'?: number;
-
-/**
- * Дата создания
- */
-'time_add': string;
-
-/**
  * ID статуса заказа
  */
 'status_id': number;
@@ -2204,22 +2591,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number': number;
+'doc_tc_number': string;
 
 /**
  * Track ТС
  */
-'track_tc': number;
+'track_tc': string;
 
 /**
  * Track СВХ
  */
-'track_svh': number;
+'track_svh': string;
 
 /**
  * TT
  */
-'tt': number;
+'tt': string;
 
 /**
  * ID статуса движения груза
@@ -2229,12 +2616,12 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date': number;
+'schedule_event_date': string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text': number;
+'schedule_event_text': string;
 }
     },
     context?: HttpContext
@@ -2262,8 +2649,8 @@ export class OrderService extends BaseService {
     );
   }
 
-  /** Path part for operation `orderSave()` */
-  static readonly OrderSavePath = '/order_save';
+  /** Path part for operation `orderUpdate()` */
+  static readonly OrderUpdatePath = '/order_update';
 
   /**
    * Редактирование заказа.
@@ -2271,11 +2658,11 @@ export class OrderService extends BaseService {
    *
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `orderSave()` instead.
+   * To access only the response body, use `orderUpdate()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  orderSave$Response(
+  orderUpdate$Response(
     params?: {
       body?: {
 
@@ -2342,22 +2729,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number'?: number;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc'?: number;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh'?: number;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt'?: number;
+'tt'?: string;
 
 /**
  * ID статуса движения груза
@@ -2367,12 +2754,12 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date'?: number;
+'schedule_event_date'?: string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text'?: number;
+'schedule_event_text'?: string;
 }
     },
     context?: HttpContext
@@ -2383,7 +2770,7 @@ export class OrderService extends BaseService {
  */
 'result': 'OK';
 }>> {
-    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderSavePath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderUpdatePath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -2410,11 +2797,11 @@ export class OrderService extends BaseService {
    *
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `orderSave$Response()` instead.
+   * To access the full response (for headers, for example), `orderUpdate$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  orderSave(
+  orderUpdate(
     params?: {
       body?: {
 
@@ -2481,22 +2868,22 @@ export class OrderService extends BaseService {
 /**
  * Номер документа ТС
  */
-'doc_tc_number'?: number;
+'doc_tc_number'?: string;
 
 /**
  * Track ТС
  */
-'track_tc'?: number;
+'track_tc'?: string;
 
 /**
  * Track СВХ
  */
-'track_svh'?: number;
+'track_svh'?: string;
 
 /**
  * TT
  */
-'tt'?: number;
+'tt'?: string;
 
 /**
  * ID статуса движения груза
@@ -2506,12 +2893,12 @@ export class OrderService extends BaseService {
 /**
  * Дата следующего планируемого события
  */
-'schedule_event_date'?: number;
+'schedule_event_date'?: string;
 
 /**
  * Следующее планируемое событие
  */
-'schedule_event_text'?: number;
+'schedule_event_text'?: string;
 }
     },
     context?: HttpContext
@@ -2522,7 +2909,7 @@ export class OrderService extends BaseService {
  */
 'result': 'OK';
 }> {
-    return this.orderSave$Response(params, context).pipe(
+    return this.orderUpdate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -2543,40 +2930,36 @@ export class OrderService extends BaseService {
   static readonly OrderDeletePath = '/order_delete';
 
   /**
+   * Удаление заказа.
+   *
+   *
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `orderDelete()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   orderDelete$Response(
     params?: {
+      body?: {
+
+/**
+ * ID удаляемого заказа
+ */
+'id': number;
+}
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }>> {
-    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderDeletePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderDeletePath, 'post');
     if (params) {
+      rb.body(params.body, 'application/json');
     }
 
     return this.http.request(
@@ -2587,108 +2970,153 @@ export class OrderService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Код ошибки
+         * Статус выполнения
          */
-        'error_code'?: number;
-        
-        /**
-         * Тект ошибки
-         */
-        'error_message'?: string;
-        
-        /**
-         * Подробное описание ошибки
-         */
-        'error_message_description'?: string;
-        
-        /**
-         * Подробное описание ошибки по полям
-         */
-        'error_fields_description'?: {
-        };
+        'result': 'OK';
         }>;
       })
     );
   }
 
   /**
+   * Удаление заказа.
+   *
+   *
+   *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `orderDelete$Response()` instead.
    *
-   * This method doesn't expect any request body.
+   * This method sends `application/json` and handles request body of type `application/json`.
    */
   orderDelete(
     params?: {
+      body?: {
+
+/**
+ * ID удаляемого заказа
+ */
+'id': number;
+}
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }> {
     return this.orderDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
-
-/**
- * Тект ошибки
- */
-'error_message'?: string;
-
-/**
- * Подробное описание ошибки
- */
-'error_message_description'?: string;
-
-/**
- * Подробное описание ошибки по полям
- */
-'error_fields_description'?: {
-};
+'result': 'OK';
 }>): {
 
 /**
- * Код ошибки
+ * Статус выполнения
  */
-'error_code'?: number;
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `orderFormParam()` */
+  static readonly OrderFormParamPath = '/order_form_param';
+
+  /**
+   * Параметры для форм заказа.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `orderFormParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderFormParam$Response(
+    params?: {
+
+    /**
+     * ID Заказа
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
 
 /**
- * Тект ошибки
+ * Валюты
  */
-'error_message'?: string;
+'currency': Array<{
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, OrderService.OrderFormParamPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Валюты
+         */
+        'currency': Array<{
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры для форм заказа.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `orderFormParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  orderFormParam(
+    params?: {
+
+    /**
+     * ID Заказа
+     */
+      id?: number;
+    },
+    context?: HttpContext
+  ): Observable<{
 
 /**
- * Подробное описание ошибки
+ * Валюты
  */
-'error_message_description'?: string;
+'currency': Array<{
+}>;
+}> {
+    return this.orderFormParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
 
 /**
- * Подробное описание ошибки по полям
+ * Валюты
  */
-'error_fields_description'?: {
-};
+'currency': Array<{
+}>;
+}>): {
+
+/**
+ * Валюты
+ */
+'currency': Array<{
+}>;
 } => r.body)
     );
   }

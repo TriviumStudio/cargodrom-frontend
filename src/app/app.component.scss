@@ -1,7 +1,18 @@
 //mat-form-field
 // .mat-mdc-form-field-infix { border: none; }
 // .mat-form-field-appearance-outline .mat-mdc-form-field-wrapper { margin: 0; color: red; }
-
+.mat-mdc-form-field{
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  position: relative;
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 15px;
+  line-height: 14px;
+  border: none;
+  box-sizing: border-box;
+}
 //mat-option
 .mat-mdc-option {
   --mat-option-selected-state-label-text-color: #DB563B;

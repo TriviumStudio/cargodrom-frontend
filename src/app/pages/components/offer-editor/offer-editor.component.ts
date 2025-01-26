@@ -295,6 +295,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
 
   onCreateOrder(){
     this.saveOffer();
+    console.log(123)
   }
 
   delRate(rate_id:number){

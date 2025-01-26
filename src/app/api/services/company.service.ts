@@ -6960,7 +6960,7 @@ export class CompanyService extends BaseService {
 /**
  * Email
  */
-'email': string;
+'email'?: string;
 
 /**
  * Пароль
@@ -6995,7 +6995,7 @@ export class CompanyService extends BaseService {
 /**
  * Отчество
  */
-'name_o': string;
+'name_o'?: string;
 
 /**
  * Дата рождения
@@ -7094,7 +7094,7 @@ export class CompanyService extends BaseService {
 /**
  * Email
  */
-'email': string;
+'email'?: string;
 
 /**
  * Пароль
@@ -7129,7 +7129,7 @@ export class CompanyService extends BaseService {
 /**
  * Отчество
  */
-'name_o': string;
+'name_o'?: string;
 
 /**
  * Дата рождения
