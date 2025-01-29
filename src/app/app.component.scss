@@ -1,54 +1,93 @@
 //mat-form-field
-// mat-form-field .mat-mdc-form-field-infix { border: none; }
-// .mat-mdc-form-field-infix { border: none; }
-// .mat-form-field-appearance-outline .mat-mdc-form-field-wrapper { margin: 0; color: red; }
-
-
-// mat-form-field.mat-form-field-appearance-outline .mat-mdc-form-field-subscript-wrapper {display: none;}
-// mat-form-field.mat-form-field-appearance-outline .mat-mdc-text-field-wrapper { margin: 0; padding: 0; }
-// mat-form-field.mat-form-field-appearance-outline .mat-mdc-form-field-flex { margin-top: 0; padding: 0 13px 0 13px; }
-// mat-form-field.mat-form-field-appearance-outline .mdc-notched-outline { top: 0; z-index: 0; }
-// mat-form-field.mat-form-field-appearance-outline .mdc-notched-outline > * { background: #F7F9FC; }
-
-
-// mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick { color: rgba(0, 0, 0, 0.3); }
-// mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline-thick > * { border-width: 1px !important; }
-// mat-form-field.mat-form-field-appearance-outline .mat-form-field-infix { padding: 11px 0 12px; }
-// mat-form-field.mat-form-field-appearance-outline .mat-select-arrow-wrapper { transform: none; }
-// mat-form-field.mat-form-field-appearance-outline .mat-select-arrow { width: 10px; height: 6px; border: none; margin: 0; background: url('../assets/pic-select-arrow.svg') no-repeat; }
-
-// .mat-mdc-form-field{
-//   display: inline-block;
-//   vertical-align: middle;
-//   width: 100%;
-//   position: relative;
-//   margin-bottom: 0;
-//   text-align: left;
-//   font-size: 15px;
-//   line-height: 14px;
-//   border: none;
-//   box-sizing: border-box;
+// mat-form-field.mat-mdc-form-field.mat-form-field-appearance-outline .mdc-text-field--outlined {
+//   background-color: #F7F9FC; /* фон */
+//   border-radius: 4px; /* скругление углов */
 // }
+
+// mat-form-field.mat-mdc-form-field .mat-mdc-form-field-subscript-wrapper{ display: none;}
+// mat-form-field.mat-mdc-form-field .mdc-notched-outline__leading,
+// mat-form-field.mat-mdc-form-field .mdc-notched-outline__notch,
+// mat-form-field.mat-mdc-form-field .mdc-notched-outline__trailing {
+//   border: none !important; /* Убираем рамки */
+// }
+
+// mat-form-field.mat-mdc-form-field .mat-mdc-form-field-infix{ height: 40px;}
+// mat-form-field.mat-mdc-form-field{
+//   background: #F7F9FC;
+//   box-shadow: 0 2px 8px rgba(36, 45, 67, 0.08);
+// }
+
+// mat-form-field.mat-mdc-form-field {
+//   font-family: 'regular', 'arial', 'sans-serif';
+//   background: #F7F9FC;
+//   border: 1px solid #E0E5EB;
+//   color: #2C3640;
+//   font-size: 15px;
+//   line-height: 15px;
+//   border-radius: 6px;
+//   width: 100%;
+//   box-sizing: border-box;
+//   padding: 11px 13px 9px;
+// }
+
+
+mat-form-field.mat-mdc-form-field {
+  //background: #F7F9FC; border: 1px solid #E0E5EB; border-radius: 6px; width: 100%; height: 40px; box-sizing: border-box; padding: 11px 13px 9px;
+  width: 100%; height: 40px;
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex,
+  .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
+    margin: 0; padding: 0; height: 100%;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper{ display: none;}
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border: none !important; /* Убираем рамки */
+  }
+}
+
+//mat-select standart
+form mat-select.mat-mdc-select {
+  height: 39.88px;
+  font-family: 'regular', 'arial', 'sans-serif';
+  background: #F7F9FC;
+  border: 1px solid #E0E5EB;
+  color: #2C3640;
+  font-size: 15px;
+  line-height: 15px;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+    .mat-mdc-select-trigger {
+      padding: 11px 13px 9px;
+    }
+}
+//mat-select filter
+
 
 //mat-option
 .mat-mdc-option {
   --mat-option-selected-state-label-text-color: #DB563B;
 }
 .mat-mdc-option .mat-mdc-option-pseudo-checkbox{
-   display: none;
+  display: none;
 }
 //mat-select
 .mat-mdc-select-arrow {
   display: none;
 }
-.mat-mdc-select-arrow-wrapper {
+mat-select .mat-mdc-select-arrow-wrapper {
   width: 10px; height: 6px;
   border: none;
   margin: 0;
   background: url('../assets/pic-select-arrow.svg') no-repeat;
 }
 //mat-checkbox
-.mat-mdc-checkbox .mdc-form-field .mdc-checkbox, .mat-mdc-checkbox .mdc-form-field .mdc-label {
+.mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
+.mat-mdc-checkbox .mdc-form-field .mdc-label {
   display: none !important;
 }
 .checkbox-label .mat-mdc-checkbox{

@@ -429,14 +429,13 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .form-block .sep2 label { margin-left: 20px; }
 .form-block .sep2 label:first-child { margin-left: 0; }
 
-.form-block select { width: 100%; }
+/* .form-block select { width: 100%; }
 .form-block .ui-select { display: inline-block; vertical-align: middle; width: 100%; position: relative; margin-bottom: 0; text-align: left; font-size: 15px; line-height: 14px; border: none; box-sizing: border-box; }
 .form-block .ui-select-input { display: block; color: #2C3640; border: 1px solid #E0E5EB; background: #F7F9FC; padding: 13px 50px 11px 15px; box-sizing: border-box; overflow: hidden; white-space: nowrap; cursor: pointer; border-radius: 6px; }
 .form-block .ui-select-input-open { border-radius: 6px 6px 0 0; }
 .form-block .ui-select-button { display: flex; position: absolute; top: 0; right: 0; width: 40px; bottom: 0; cursor: pointer; font-size: 0; }
 .form-block .ui-select-button:hover { opacity: 0.7; }
 .form-block .ui-select-button:after { content: ""; transform: rotate(90deg); margin: auto; display: inline-block; width: 6px; height: 10px; transition: 0.1s; background: url('../assets/pic-paginator-arrow.svg') no-repeat 50% 50%; }
-/* .form-block .ui-select-button-open { } */
 .form-block .ui-select-button-open:after { transform: rotate(270deg); }
 .form-block .ui-select-fader { position: absolute; top: 0; bottom: 0; }
 .form-block .ui-select-layer { display: block; position: absolute; border-collapse: separate; top: 39px; right: 0; left: 0; visibility: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.13); z-index: 10000; }
@@ -445,12 +444,9 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .form-block .ui-select-item { display: block; font-size: 13px; line-height: 13px; color: #db563b; text-decoration: none; padding: 10px 5px 7px 10px; cursor: pointer; border-top: 1px solid #e0e6ed; }
 .form-block .ui-select-item:hover { color: #fff; background: #db563b;  }
 .form-block .ui-select-item.disabled { cursor: default; opacity: 0.3; }
-/* .form-block .ui-select-item.odd {} */
-/* .form-block .ui-select-item.odd:hover {} */
 .form-block .ui-select-item.selected { color: #fff; background: #db563b; }
 .form-block .ui-select-item.selected:hover { background: #e99786; }
-
-.form-block .form-row.bg .ui-select-input { background: #fff; }
+.form-block .form-row.bg .ui-select-input { background: #fff; } */
 
 .table [type="checkbox"] { display: none; }
 .table [type="checkbox"] + i { cursor: pointer; display: inline-block; vertical-align: top; position: relative; border: 1px solid #E0E5EB; background: #fff; width: 18px; height: 18px; margin: -2px 0 -3px 0; }

@@ -34,11 +34,9 @@
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
             <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
-                <mat-select panelClass="f" textClass="ff" formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
-                  <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+              <mat-select  formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
+                <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
+              </mat-select>
             </div>
           </div>
 
@@ -112,7 +110,7 @@
           <div class="form-item">
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
             <div class="form-data">
-              <mat-form-field appearance="outline" class="ui-select">
+              <mat-form-field appearance="outline">
                 <mat-select formControlName="transport_type_id">
                   <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
