@@ -34,12 +34,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   title = '';
   nameForHeader?: string;
   request: Partial<Request> = {};
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   //состояния
   isEditMode: boolean = false;
+  isNavigateAfterSave: boolean = true;
 
   //форма
   requestForm: FormGroup;
-  //массивы для приходящих данных полей формы
+  //даннеы для формы
   customers: Customer[] = [];
   requestFormats: RequestFormat[] = [];
   transportationFormats: TransportKind[] = [];
@@ -49,7 +52,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   currencys: Currency[]=[];
   countrys: Country[]=[];
   departureCitys: DirectionCity[]=[];
-  // departureCountrys: Country[]=[];
   departurePoint: DirectionPoint[] = [];
   arrivalCitys: DirectionCity[]=[];
   arrivalPoint:DirectionPoint[] = [];
@@ -58,37 +60,21 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   ports: DirectionCity[]=[];
   services: RequestServices[]=[];
   servicesAdditionals: RequestServices[]=[];
+
   documentsDanger: FileDocument[] = [];
   documents: FileDocument[] = [];
-  //текущие данные
-  // currentRequestFormat:number=1; //переменная для зранения текущего типа запроса
-  // currentTransportationFormat:string=''; //переменная для хранения текущего вида перевозки
+
   currentPlacesDensity: number = 0 ;
   currentDepartureCountryName:string='';
   currentArrivalCountryName:string='';
   transport_kind_id?:number;
   //снек бар
-  snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
-  snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
+
   //отписки
   private _destroy$ = new Subject();
   //переменные окружения
   production = environment.production;
-  //статичные данные
-  // selectedStacking="staking__true"
-  // selected = "option2";
 
-  // stakingArr =[
-  //   {
-  //     value: true,
-  //     text: 'стакинг'
-  //     // url: типо путь до картинки будет тут, для селектора, должно сработать
-  //   },
-  //   {
-  //     value: false,
-  //     text: ' не стакинг'
-  //   }
-  // ];
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
   //КОНСТРУКТОР
@@ -911,6 +897,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       next: () => {
         this.fileListDanger?.update().subscribe();
         this.fileList?.update().subscribe();
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        } 
         this.snackBar.open(`Запрос изменён`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -970,7 +959,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         console.log(test);
         this.fileListDanger?.create(test.id).subscribe();
         this.fileList?.create(test.id).subscribe();
-        this.router.navigate(['pages/request/edit', test.id]);
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        } else {
+          this.router.navigate(['pages/request/edit', test.id]);
+        }
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },
       error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

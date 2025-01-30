@@ -21,6 +21,10 @@ import { FileListComponent } from '../file-list/file-list.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class ClientEditorComponent extends Editor<Client> implements OnInit {
+
+
+
+
   private entity = 'Клиент';
   editTitle = 'Информация о клиенте';
   newTitle = 'Добавление клиента';

@@ -17,19 +17,6 @@ import { SystemService, TransportService } from 'src/app/api/services';
 import { Counterparty } from 'src/app/api/custom_models/counterparty';
 
 
-// 1. "Исключить Подрядчика из торгов" переделываем в "Участник торгов" Инверсия
-// Переменная allow_trade
-
-// 2. рядом добавляем Селект "Вид подрядчика"
-// метод /contractor_type будет новый список: "Индикатив", "Актуальный", "Архив"
-// Если "Актуальный", то "Контактное лицо" является обязательным, "Индикатив" и "Архив" не обязательно
-// Переменная type_id
-
-
-// 3. Существующий "Вид подрядчика" меняем на "Тип контрагента"
-// Метод /system_counterparty
-// counterparty_id
-
 @Component({
   selector: 'app-contractor-editor',
   templateUrl: './contractor-editor.component.html',
@@ -37,6 +24,7 @@ import { Counterparty } from 'src/app/api/custom_models/counterparty';
   encapsulation: ViewEncapsulation.None
 })
 export class ContractorEditorComponent implements OnInit {
+  isNavigateAfterSave:boolean=true;
 
   contractor: Partial<Contractor> = {};
   isEditMode: boolean = false;
@@ -210,7 +198,12 @@ export class ContractorEditorComponent implements OnInit {
     console.log(body);
 
     this.contractorService.contractorUpdate({ body }).pipe().subscribe({
-      next: () => this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration),
+      next: () => {
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        }
+        this.snackBar.open(`Подрядчик сохранен`, undefined, this.snackBarWithShortDuration);
+      },
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
@@ -219,7 +212,11 @@ export class ContractorEditorComponent implements OnInit {
     console.log(body);
     this.contractorService.contractorCreate({ body }).pipe().subscribe({
       next: ({ id }) => {
-        this.goToContractor(id);
+        if(this.isNavigateAfterSave){
+          this.goBack();
+        } else {
+          this.goToContractor(id);
+        }
         this.snackBar.open(`Подрядчик создан`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка создания подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)

@@ -10,6 +10,8 @@ import { SystemService } from 'src/app/api/services';
 
 @Directive()
 export abstract class Editor<T> implements OnInit {
+  isNavigateAfterSave:boolean=true;
+
   id?: number;
   form!: FormGroup;
   isEditMode = false;
@@ -244,7 +246,14 @@ export abstract class Editor<T> implements OnInit {
     this.create({ body })
       .pipe(switchMap(body => this.afterCreate(body)))
       .subscribe({
-        next: ({ id }) => this.showMessageAndSwitchToEditMode(this.createdMessage, id),
+        next: ({ id }) => {
+          // this.showMessageAndSwitchToEditMode(this.createdMessage, id)
+          if(this.isNavigateAfterSave){
+            this.showMessageAndGoBack(this.removedMessage)
+          } else {
+            this.showMessageAndSwitchToEditMode(this.createdMessage, id)
+          }
+        },
         error: (err) => this.showError(`Ошибка`, err)
       });
   }
@@ -253,7 +262,13 @@ export abstract class Editor<T> implements OnInit {
     this.update({ body })
     .pipe(switchMap(() => this.afterUpdate()))
     .subscribe({
-      next: () => this.showMessageAndReload(this.savedMessage),
+      next: () => {
+        if(this.isNavigateAfterSave){
+          this.showMessageAndGoBack(this.removedMessage)
+        } else {
+          this.showMessageAndReload(this.savedMessage)
+        }
+      },
       error: (err) => this.showError(`Ошибка`, err)
     });
   }

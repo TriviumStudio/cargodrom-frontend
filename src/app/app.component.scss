@@ -39,9 +39,9 @@ mat-form-field.mat-mdc-form-field {
   .mat-mdc-form-field-flex .mat-mdc-form-field-infix {
     margin: 0; padding: 0; height: 100%;
   }
-
-  .mat-mdc-form-field-subscript-wrapper{ display: none;}
-
+  .mat-mdc-form-field-subscript-wrapper{
+    display: none;
+  }
   .mdc-notched-outline__leading,
   .mdc-notched-outline__notch,
   .mdc-notched-outline__trailing {
@@ -50,7 +50,7 @@ mat-form-field.mat-mdc-form-field {
 }
 
 //mat-select standart
-form mat-select.mat-mdc-select {
+mat-select.mat-mdc-select {
   height: 39.88px;
   font-family: 'regular', 'arial', 'sans-serif';
   background: #F7F9FC;
