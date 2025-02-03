@@ -16,27 +16,58 @@
         <div class="form-item-layout">
 
           <div class="form-item">
-            <div class="form-label">КЛИЕНТ: <span (click)="goBack()" class="req">•</span></div>
+            <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
             <div class="form-data">
               <input appearance="outline" class="ui-select"
                 type="text"
                 name="customer_name"
                 formControlName="customer_name"
-                [matAutocomplete]="auto"
+                [matAutocomplete]="customer_name"
                 (keyup)="searchCustomer($event)"
                 placeholder="—" >
-              <mat-autocomplete  #auto="matAutocomplete">
-                <mat-option class="" *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
+              <mat-autocomplete  #customer_name="matAutocomplete">
+                <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
             </div>
           </div>
 
-          <div class="form-item">
+          <!-- <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
             <div class="form-data">
               <mat-select  formControlName="request_type_id" (valueChange)="onRequestFormatsChange($event)">
                 <mat-option class="edit-form__mat-option" *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id">{{ requestFormat.name }}</mat-option>
               </mat-select>
+            </div>
+          </div> -->
+
+          <!-- <div class="form-item">
+            <div class="form-label">Вид запроса:<span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select"
+                type="text"
+                name="request_type_name"
+                formControlName="request_type_name"
+                [matAutocomplete]="request_type_name"
+                placeholder="—"
+              >
+              <mat-autocomplete  #request_type_name="matAutocomplete">
+                <mat-option *ngFor="let requestFormat of returnFilteredRequestType();" [value]="requestFormat.name" (click)="onRequestTypeChange(requestFormat)">{{ requestFormat.name }}</mat-option>
+              </mat-autocomplete>
+            </div>
+          </div> -->
+
+          <div class="form-item">
+            <div class="form-label">Вид запроса:<span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline"
+                type="text"
+                formControlName="request_type_id"
+                [matAutocomplete]="request_type_id"
+                placeholder="—"
+              >
+              <mat-autocomplete [displayWith]="displayFnRequestTypeId.bind(this)" #request_type_id="matAutocomplete">
+                <mat-option *ngFor="let requestFormat of returnFilteredRequestType();" [value]="requestFormat.id" >{{ requestFormat.name }}</mat-option>
+              </mat-autocomplete>
             </div>
           </div>
 

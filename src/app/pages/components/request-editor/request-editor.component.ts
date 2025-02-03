@@ -98,6 +98,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       //ОСНОВА
       customer_id: [ , [Validators.required]],// + (customer это клиент,должен быть контрактор)
       customer_name: ['',[Validators.required]],
+      request_type_name: ['',[]],
       request_type_id: [1, [Validators.required]],// +
       transport_kind_id: [, [Validators.required]],// +
       transport_type_id: ['', [Validators.required]],// +
@@ -587,8 +588,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.patchValue({
       customer_id: contractor.id,
     });
-
-
   }
   //изменение инкотермс
   onIncotermsChange(incotem:any){
@@ -598,14 +597,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //изменение поля режима отдельных мест
   onPlaceModeChange(){
-    // this.requestForm.value.cargo_places.length=2
-    // this.requestForm.value.cargo_places=[{},{}]
-
-
-    // this.requestForm.patchValue({
-    //   cargo_places: [{},{}],
-    // });
-
     while (this.requestForm.value.cargo_places.length>2) {
       this.removePlace(0);
     }
@@ -613,7 +604,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.addPlace();
     }
     this.requestForm.controls['cargo_places'].reset([{},{}]);
-
 
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
@@ -714,7 +704,19 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   searchCustomer(e:any){
     this.getCustomersByName(e.target.value);
     this.requestForm.controls['customer_id'].reset();
-
+  }
+  //
+  onRequestTypeChange(request_type:any){
+    this.requestForm.patchValue({
+      request_type_id: request_type.id,
+    });
+  }
+  searchRequestType(e:any){
+    // this.getCustomersByName(e.target.value);
+    this.requestForm.controls['customer_id'].reset();
+  }
+  returnFilteredRequestType():any{
+    return this.requestFormats.filter(option => option.name.toLowerCase().includes( this.requestForm.value.request_type_name.toLowerCase()));
   }
   //поиск города оиправления
   searchDepartureCity(e:any){
@@ -899,7 +901,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         this.fileList?.update().subscribe();
         if(this.isNavigateAfterSave){
           this.goBack();
-        } 
+        }
         this.snackBar.open(`Запрос изменён`, undefined, this.snackBarWithShortDuration)
       },
       error: (err) => this.snackBar.open(`Ошибка редактирования запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
@@ -969,6 +971,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       error: (err) => this.snackBar.open(`Ошибка создания запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+
+  displayFnRequestTypeId(id:any) {
+    if (!id) return '';
+    let index = this.requestFormats.findIndex(state => state.id === id);
+    return this.requestFormats[index]?.name;
+  }
+
+
   //ВАЛИДАЦИЯ
   // setValid(){
   //   if(this.requestForm.value.request_type_id===1){
