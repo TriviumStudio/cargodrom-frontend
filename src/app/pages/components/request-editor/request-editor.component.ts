@@ -630,10 +630,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['cargo_places_density'].reset();
     this.requestForm.controls['cargo_cost'].reset();
     this.requestForm.controls['cargo_currency_id'].reset();
-    this.requestForm.controls['request_one'].reset();
-    this.requestForm.controls['request_two'].reset();
+    // this.requestForm.controls['request_one'].reset();
+    // this.requestForm.controls['request_two'].reset();
     this.requestForm.controls['comment'].reset();
-
   }
   //изменение поля вида перевозки
   onTransportationFormatsChange(e:any) {
@@ -715,8 +714,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     // this.getCustomersByName(e.target.value);
     this.requestForm.controls['customer_id'].reset();
   }
-  returnFilteredRequestType():any{
-    return this.requestFormats.filter(option => option.name.toLowerCase().includes( this.requestForm.value.request_type_name.toLowerCase()));
+  returnFilteredRequestType(e:any):any{
+    this.requestFormats.filter(option => option.name.toLowerCase().includes( e.target.value.toLowerCase()));
   }
   //поиск города оиправления
   searchDepartureCity(e:any){
@@ -976,6 +975,15 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if (!id) return '';
     let index = this.requestFormats.findIndex(state => state.id === id);
     return this.requestFormats[index]?.name;
+  }
+
+  filterRequestType(e: any)  {
+    // const filterValue = e.target.value.toLowerCase();
+
+    // this.requestFormats= this.requestFormats.filter(option => option.name.toLowerCase().includes(filterValue));
+    this.requestFormats=this.requestFormats.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(e.target.value.toLowerCase().replaceAll(' ', '')));
+    console.log(this.requestFormats);
+
   }
 
 

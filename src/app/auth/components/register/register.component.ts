@@ -52,6 +52,19 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  formatPhone(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
+
+    // Ограничиваем длину номера (например, 11 цифр для России)
+    if (value.length > 11) {
+      value = value.substring(0, 11);
+    }
+
+    value = '+7' + value.substring(1);
+    this.registerForm.get('phone')?.setValue(value, { emitEvent: false }); // Обновляем форму
+  }
+
   get _email() {
     return this.registerForm.get('email')
   }

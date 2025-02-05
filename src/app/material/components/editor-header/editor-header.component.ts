@@ -14,6 +14,7 @@ export class EditorHeaderComponent implements OnInit {
   @Output() save = new EventEmitter<void>();
   @Output() remove = new EventEmitter<void>();
   @Output() calc = new EventEmitter<void>();
+  @Input() isCalck = false;
   @Input() content: boolean = false;
   @Input() request: any={};
 
