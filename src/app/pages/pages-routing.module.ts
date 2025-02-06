@@ -39,7 +39,7 @@ const routes: Routes = [
         component: DashboardComponent,
         pathMatch: 'full',
         title: 'Дашбоард',
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
       },
       {
         path: 'offer/:id',

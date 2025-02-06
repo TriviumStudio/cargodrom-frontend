@@ -47,6 +47,7 @@ import { RequestTableComponent } from './components/request-table/request-table.
 import { TableSubheaderFileComponent } from './components/table-subheader/file-subheader/file-subheader.component';
 // import { TableComponent } from './tables/table/table.component';
 import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.component';
+import { EmployeeRegisterComponent } from './components/employee-register/employee-register.component';
 
 
 
@@ -100,6 +101,7 @@ import { DynamicTableComponent } from './tables/dynamic-table/dynamic-table.comp
     // TableComponent,
 
     DynamicTableComponent,
+    EmployeeRegisterComponent,
 
   ],
   imports: [

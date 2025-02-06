@@ -21,6 +21,7 @@ export class AuthGuard  {
     if (!isAuthenticated) {
       const currentState = { returnUrl: state.url };
       this.router.navigate(['/login'], { queryParams: currentState });
+      // this.router.navigate(['/pages/dashboard']);
       return false;
     }
     return isAuthenticated;
