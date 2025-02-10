@@ -20,10 +20,6 @@ import { RequestDetails } from './components/request-details/request-details.com
 import { OfferEditorComponent } from './components/offer-editor/offer-editor.component';
 // import { RequestPage } from './places/request/request.component';
 
-
-
-
-
 const routes: Routes = [
   {
     path: '',

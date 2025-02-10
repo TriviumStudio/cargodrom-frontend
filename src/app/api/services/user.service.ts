@@ -285,6 +285,489 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userCreateInvite()` */
+  static readonly UserCreateInvitePath = '/user_create_invite';
+
+  /**
+   * Создание приглашения для сотрудника.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userCreateInvite()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userCreateInvite$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID сотрудника
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserCreateInvitePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Создание приглашения для сотрудника.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userCreateInvite$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userCreateInvite(
+    params?: {
+      body?: {
+
+/**
+ * ID сотрудника
+ */
+'id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userCreateInvite$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userRegisterInvite()` */
+  static readonly UserRegisterInvitePath = '/user_register_invite';
+
+  /**
+   * Установка логина и пароля.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userRegisterInvite()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userRegisterInvite$Response(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid'?: string;
+
+/**
+ * Новый пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password': string;
+
+/**
+ * Логин (вместе со старым паролем, при смене)
+ */
+'login'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserRegisterInvitePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Установка логина и пароля.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userRegisterInvite$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userRegisterInvite(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid'?: string;
+
+/**
+ * Новый пароль
+ */
+'password': string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password': string;
+
+/**
+ * Логин (вместе со старым паролем, при смене)
+ */
+'login'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userRegisterInvite$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userUpdatePassword()` */
+  static readonly UserUpdatePasswordPath = '/user_update_password';
+
+  /**
+   * Смена логина и пароля.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userUpdatePassword()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userUpdatePassword$Response(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid'?: string;
+
+/**
+ * Старый пароль (при смене)
+ */
+'old_password'?: string;
+
+/**
+ * Новый пароль
+ */
+'password'?: string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password'?: string;
+
+/**
+ * Логин (вместе со старым паролем, при смене)
+ */
+'login'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserUpdatePasswordPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Смена логина и пароля.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userUpdatePassword$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userUpdatePassword(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid'?: string;
+
+/**
+ * Старый пароль (при смене)
+ */
+'old_password'?: string;
+
+/**
+ * Новый пароль
+ */
+'password'?: string;
+
+/**
+ * Подтверждение нового пароля
+ */
+'confirm_password'?: string;
+
+/**
+ * Логин (вместе со старым паролем, при смене)
+ */
+'login'?: string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userUpdatePassword$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `userInviteData()` */
+  static readonly UserInviteDataPath = '/user_invite_data';
+
+  /**
+   * Данные по приглашению.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userInviteData()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userInviteData$Response(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Имеется ли старый пароль
+ */
+'has_old_password'?: boolean;
+
+/**
+ * Текущий логин
+ */
+'login'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserInviteDataPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Имеется ли старый пароль
+         */
+        'has_old_password'?: boolean;
+        
+        /**
+         * Текущий логин
+         */
+        'login'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Данные по приглашению.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userInviteData$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userInviteData(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор приглашения
+ */
+'uid': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Имеется ли старый пароль
+ */
+'has_old_password'?: boolean;
+
+/**
+ * Текущий логин
+ */
+'login'?: string;
+}> {
+    return this.userInviteData$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Имеется ли старый пароль
+ */
+'has_old_password'?: boolean;
+
+/**
+ * Текущий логин
+ */
+'login'?: string;
+}>): {
+
+/**
+ * Имеется ли старый пароль
+ */
+'has_old_password'?: boolean;
+
+/**
+ * Текущий логин
+ */
+'login'?: string;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `userLogin()` */
   static readonly UserLoginPath = '/user_login';
 
@@ -485,7 +968,7 @@ export class UserService extends BaseService {
       body?: {
 
 /**
- * Токен досткпа
+ * Токен доступа
  */
 'token': string;
 
@@ -539,7 +1022,7 @@ export class UserService extends BaseService {
       body?: {
 
 /**
- * Токен досткпа
+ * Токен доступа
  */
 'token': string;
 

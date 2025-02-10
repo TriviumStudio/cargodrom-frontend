@@ -198,6 +198,8 @@ export abstract class Editor<T> implements OnInit {
       }))
       .subscribe({
         next: data => {
+          console.log(data);
+
           this.data = data as T;
           this.form.patchValue(this.data);
           this.nameForHeader = this.getNameForHeader(data as T);

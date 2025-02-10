@@ -20,7 +20,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard]
   },
   { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
-  { path: 'employee_register', component: EmployeeRegisterComponent, title: 'Employee Register' },
+  { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
   { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
   { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},
   { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},

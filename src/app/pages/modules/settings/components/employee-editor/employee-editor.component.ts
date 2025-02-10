@@ -5,10 +5,11 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, takeUntil, tap } from 'rxjs';
 import { Employee } from './../../../../../api/custom_models/employee';
 import { CompanyService } from './../../../../../api/services/company.service';
 import { SettingsEditor } from '../../classes/settings-editor';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-employee-editor',
@@ -33,6 +34,7 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
     systemService: SystemService,
     location: Location,
     router: Router,
+    private userSevrice: UserService,
   ) {
     super(location, companyService, systemService, route, snackBar, router);
     this.form = this.fb.group({
@@ -83,5 +85,20 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
 
   protected getNameForHeader(body: Employee): string {
     return `${body.name_f} ${body.name_i} ${body.name_o}`;
+  }
+
+  registerUser(){
+    if(!this.data.id){
+      return
+    }
+    this.userSevrice.userCreateInvite({body:{id:this.data.id}})
+      .pipe(
+        tap((data) => {}),
+      )
+      .subscribe({
+        next: (data:any) => {
+        },
+        error: (err) => {}
+      });
   }
 }

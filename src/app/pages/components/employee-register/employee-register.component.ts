@@ -1,13 +1,14 @@
 import { emailValidator, innValidator } from './../../../validators';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 import {PopupDialogData} from "../../../material/components/popup-dialog/popup-dialog-data";
 import {PopupDialogComponent} from "../../../material/components/popup-dialog/popup-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import {PopupService} from "../../../material/services/popup.service";
-import {finalize} from "rxjs";
+import {finalize, Subject, takeUntil, tap} from "rxjs";
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-employee-register',
@@ -20,92 +21,57 @@ export class EmployeeRegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   errorMessage?: string;
-  uid?: string;
+  uid!: string;
+  private _destroy$ = new Subject();
+  hasOldPassword?:boolean=false;
+  isEditMode=true;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-
     public popup: PopupService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userSevrice: UserService,
+    private route: ActivatedRoute,
   ) {
     this.registerForm = this.fb.group({
-      company: ['', [Validators.required] ],
-      fio: ['', [Validators.required] ],
-      phone: ['', [Validators.required] ],
-      inn: ['', [Validators.required, innValidator ] ],
-      email: ['', [Validators.required, emailValidator] ],
+      uid: [,[]],
+      login: ['', []],
+      old_password: ['', []],
       password: ['', [Validators.required] ],
       password_confirm: ['', [Validators.required] ],
     });
-
   }
 
   ngOnInit(): void {
-  }
-
-  checkAllFieldsFilled(): boolean {
-    // Проверяем, что все поля формы заполнены
-    return Object.keys(this.registerForm.controls).every(field => {
-      const control = this.registerForm.get(field);
-      return control?.value !== '';
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.uid=segments[1];
+    this.registerForm.patchValue({
+      uid: this.uid,
     });
-  }
-
-  formatPhone(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
-
-    // Ограничиваем длину номера (например, 11 цифр для России)
-    if (value.length > 11) {
-      value = value.substring(0, 11);
+    this.isEditMode = segments[0]==='employee_register' ? false : true;
+    if(this.isEditMode){
+      this.getUserData();
     }
-
-    value = '+7' + value.substring(1);
-    this.registerForm.get('phone')?.setValue(value, { emitEvent: false }); // Обновляем форму
   }
-
-  get _email() {
-    return this.registerForm.get('email')
-  }
-  get _inn() {
-    return this.registerForm.get('inn')
+  ngOnDestroy(): void {
+    this._destroy$.next(null);
+    this._destroy$.complete();
   }
 
   doRegister() {
     console.log(this.registerForm);
     console.log(this.registerForm.valid);
 
-    if ( !this.checkAllFieldsFilled() ) {
-      let err = {
-        'error': {
-          'error_message': 'Все поля обязательны к заполнению'
-        }
-      }
-      this.popup.error(err);
-      return;
-    }
-
-
-    // if ( !this.registerForm.valid ) {
-    //   let err = {
-    //     'error': {
-    //       'error_message': 'Все поля обязательны к заполнению'
-    //     }
-    //   }
-    //   this.popup.error(err);
-    //   return;
-    // }
-
     let error_message: string[] = [];
 
-    if ( this._email?.errors?.['email'] ) {
-      error_message.push('E-mail введен не верно');
-    }
+    // if ( this._email?.errors?.['email'] ) {
+    //   error_message.push('E-mail введен не верно');
+    // }
 
-    if ( this._inn?.errors?.['inn']  ) {
-      error_message.push('ИНН введен не верно');
-    }
+    // if ( this._inn?.errors?.['inn']  ) {
+    //   error_message.push('ИНН введен не верно');
+    // }
 
     if( error_message.length > 0 ){
       let err = {
@@ -118,15 +84,10 @@ export class EmployeeRegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    const company = this.registerForm.controls['company'].value;
-    const fio = this.registerForm.controls['fio'].value;
-    const phone = this.registerForm.controls['phone'].value;
-    const inn = this.registerForm.controls['inn'].value;
-    const email = this.registerForm.controls['email'].value;
-    const password = this.registerForm.controls['password'].value;
-    const password_confirm = this.registerForm.controls['password_confirm'].value;
 
-    // this.register.save( { company, fio, phone, inn, email, password, password_confirm } )
+    this.registerUser();
+
+    // this.register.save( { this.registerForm.value } )
     //   .pipe(
     //     finalize(() => this.loading = false)
     //   ).subscribe({
@@ -137,6 +98,35 @@ export class EmployeeRegisterComponent implements OnInit {
 
   processConfirm( uid:string ): void {
     this.router.navigate(['/confirm/'+uid]);
+  }
+
+  getUserData(){
+    this.userSevrice.userInviteData({body:{uid:this.uid}})
+      .pipe(
+        tap((data)=> this.hasOldPassword=data.has_old_password),
+        takeUntil(this._destroy$))
+      .subscribe({
+        next: (data:any) => {
+          console.log(data);
+          this.registerForm.patchValue({
+            login: data.login,
+          });
+        },
+        error: (err) => {}
+      });
+  }
+
+  registerUser(){
+    const body=this.registerForm.value;
+    this.userSevrice.userRegisterInvite({body})
+      .pipe(
+        tap((data) => {}),
+        takeUntil(this._destroy$))
+      .subscribe({
+        next: (data:any) => {
+        },
+        error: (err) => {}
+      });
   }
 
 }

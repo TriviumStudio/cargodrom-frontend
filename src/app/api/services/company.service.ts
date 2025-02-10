@@ -5674,6 +5674,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -5809,6 +5814,11 @@ export class CompanyService extends BaseService {
          * Skype
          */
         'skype'?: string;
+        
+        /**
+         * ФИО
+         */
+        'name'?: string;
         
         /**
          * Фамилия
@@ -5988,6 +5998,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6112,6 +6127,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6232,6 +6252,11 @@ export class CompanyService extends BaseService {
  * Skype
  */
 'skype'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -6377,6 +6402,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6497,6 +6527,11 @@ export class CompanyService extends BaseService {
          * Skype
          */
         'skype'?: string;
+        
+        /**
+         * ФИО
+         */
+        'name'?: string;
         
         /**
          * Фамилия
@@ -6634,6 +6669,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6747,6 +6787,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6856,6 +6901,11 @@ export class CompanyService extends BaseService {
  * Skype
  */
 'skype'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия
@@ -6983,14 +7033,19 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name': string;
+
+/**
  * Фамилия
  */
-'name_f': string;
+'name_f'?: string;
 
 /**
  * Имя
  */
-'name_i': string;
+'name_i'?: string;
 
 /**
  * Отчество
@@ -7117,14 +7172,19 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name': string;
+
+/**
  * Фамилия
  */
-'name_f': string;
+'name_f'?: string;
 
 /**
  * Имя
  */
-'name_i': string;
+'name_i'?: string;
 
 /**
  * Отчество
@@ -7260,6 +7320,11 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
+ * ФИО
+ */
+'name'?: string;
+
+/**
  * Фамилия
  */
 'name_f'?: string;
@@ -7387,6 +7452,11 @@ export class CompanyService extends BaseService {
  * Skype
  */
 'skype'?: string;
+
+/**
+ * ФИО
+ */
+'name'?: string;
 
 /**
  * Фамилия

@@ -525,6 +525,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -1010,6 +1015,11 @@ export class RequestService extends BaseService {
          * Примечание по Запросу
          */
         'comment'?: string;
+        
+        /**
+         * Настройка рассылки запроса
+         */
+        'send_to': 'contractor' | 'employee';
         
         /**
          * Статус Запроса (ID берем из запроса - request_status)
@@ -1583,6 +1593,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -2046,6 +2061,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -2505,6 +2525,11 @@ export class RequestService extends BaseService {
  * Примечание по Запросу
  */
 'comment'?: string;
+
+/**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -3941,6 +3966,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -4406,6 +4436,11 @@ export class RequestService extends BaseService {
          * Примечание по Запросу
          */
         'comment'?: string;
+        
+        /**
+         * Настройка рассылки запроса
+         */
+        'send_to': 'contractor' | 'employee';
         
         /**
          * Статус Запроса (ID берем из запроса - request_status)
@@ -4888,6 +4923,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -5346,6 +5386,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -5802,6 +5847,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -6124,6 +6174,11 @@ export class RequestService extends BaseService {
  * Примечание по Запросу
  */
 'comment'?: string;
+
+/**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
 }
     },
     context?: HttpContext
@@ -6410,6 +6465,11 @@ export class RequestService extends BaseService {
  * Примечание по Запросу
  */
 'comment'?: string;
+
+/**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
 }
     },
     context?: HttpContext
@@ -6707,6 +6767,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
+
+/**
  * Статус Запроса (ID берем из запроса - request_status)
  */
 'status_id'?: number;
@@ -7001,6 +7066,11 @@ export class RequestService extends BaseService {
  * Примечание по Запросу
  */
 'comment'?: string;
+
+/**
+ * Настройка рассылки запроса
+ */
+'send_to': 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -7942,7 +8012,7 @@ export class RequestService extends BaseService {
   static readonly RequestSaveBiddingPath = '/request_save_bidding';
 
   /**
-   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   * Проверка и сохранение выбора контрагентов для отправки запроса.
    *
    *
    *
@@ -7996,7 +8066,7 @@ export class RequestService extends BaseService {
   }
 
   /**
-   * Проверка и сохранения выбора контрагентов для отправки запроса.
+   * Проверка и сохранение выбора контрагентов для отправки запроса.
    *
    *
    *
@@ -8029,6 +8099,348 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestSaveBidding$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestEmployeeSelectGet()` */
+  static readonly RequestEmployeeSelectGetPath = '/request_employee_select_get';
+
+  /**
+   * Получение ID сотрудников выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestEmployeeSelectGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestEmployeeSelectGet$Response(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * ID Сотрудника
+ */
+'employee_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestEmployeeSelectGetPath, 'get');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * ID Сотрудника
+         */
+        'employee_id'?: number;
+        
+        /**
+         * Время создания
+         */
+        'time_add'?: string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Получение ID сотрудников выбранных для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestEmployeeSelectGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestEmployeeSelectGet(
+    params: {
+
+    /**
+     * ID запроса
+     */
+      id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * ID Сотрудника
+ */
+'employee_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}> {
+    return this.requestEmployeeSelectGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * ID Сотрудника
+ */
+'employee_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+}>): {
+
+/**
+ * ID Сотрудника
+ */
+'employee_id'?: number;
+
+/**
+ * Время создания
+ */
+'time_add'?: string;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestEmployeeSelectUpdate()` */
+  static readonly RequestEmployeeSelectUpdatePath = '/request_employee_select_update';
+
+  /**
+   * Обновление выбора сотрудников для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestEmployeeSelectUpdate()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestEmployeeSelectUpdate$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Сотрудников
+ */
+'employee_id'?: Array<number>;
+
+/**
+ * Признак выделения
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestEmployeeSelectUpdatePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Обновление выбора сотрудников для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestEmployeeSelectUpdate$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestEmployeeSelectUpdate(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * ID Сотрудников
+ */
+'employee_id'?: Array<number>;
+
+/**
+ * Признак выделения
+ */
+'checked'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestEmployeeSelectUpdate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestSaveEmployeeBidding()` */
+  static readonly RequestSaveEmployeeBiddingPath = '/request_save_employee_bidding';
+
+  /**
+   * Проверка и сохранение выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestSaveEmployeeBidding()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveEmployeeBidding$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestSaveEmployeeBiddingPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Проверка и сохранение выбора контрагентов для отправки запроса.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestSaveEmployeeBidding$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestSaveEmployeeBidding(
+    params?: {
+      body?: {
+
+/**
+ * ID запроса
+ */
+'id': number;
+
+/**
+ * Подтверждение (игнорировать ошибки)
+ */
+'confirm'?: boolean;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestSaveEmployeeBidding$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
