@@ -97,8 +97,11 @@ export class EmployeeEditorComponent extends SettingsEditor<Employee> implements
       )
       .subscribe({
         next: (data:any) => {
+          this.snackBar.open(`Приглашение отправленнно `, undefined, this.snackBarWithShortDuration);
         },
-        error: (err) => {}
+        error: (err) => {
+          this.snackBar.open(`Ошибка при отправке приглашения : ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        }
       });
   }
 }

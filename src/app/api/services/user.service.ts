@@ -178,6 +178,103 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userSendCode()` */
+  static readonly UserSendCodePath = '/user_send_code';
+
+  /**
+   * Отправка кода для регистрации пользователя.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userSendCode()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSendCode$Response(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserSendCodePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Идентификатор регистрации
+         */
+        'uid': string;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Отправка кода для регистрации пользователя.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userSendCode$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userSendCode(
+    params?: {
+      body?: {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}> {
+    return this.userSendCode$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+}>): {
+
+/**
+ * Идентификатор регистрации
+ */
+'uid': string;
+} => r.body)
+    );
+  }
+
   /** Path part for operation `userConfirm()` */
   static readonly UserConfirmPath = '/user_confirm';
 
@@ -534,17 +631,17 @@ export class UserService extends BaseService {
 /**
  * Старый пароль (при смене)
  */
-'old_password'?: string;
+'old_password': string;
 
 /**
  * Новый пароль
  */
-'password'?: string;
+'password': string;
 
 /**
  * Подтверждение нового пароля
  */
-'confirm_password'?: string;
+'confirm_password': string;
 
 /**
  * Логин (вместе со старым паролем, при смене)
@@ -603,17 +700,17 @@ export class UserService extends BaseService {
 /**
  * Старый пароль (при смене)
  */
-'old_password'?: string;
+'old_password': string;
 
 /**
  * Новый пароль
  */
-'password'?: string;
+'password': string;
 
 /**
  * Подтверждение нового пароля
  */
-'confirm_password'?: string;
+'confirm_password': string;
 
 /**
  * Логин (вместе со старым паролем, при смене)

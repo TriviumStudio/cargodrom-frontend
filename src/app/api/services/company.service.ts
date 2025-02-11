@@ -5674,11 +5674,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -5749,6 +5744,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Пароль создан
+ */
+'has_password'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -5814,11 +5814,6 @@ export class CompanyService extends BaseService {
          * Skype
          */
         'skype'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Фамилия
@@ -5889,6 +5884,11 @@ export class CompanyService extends BaseService {
          * Порядок для сортировки (меньше - выше)
          */
         'num'?: number;
+        
+        /**
+         * Пароль создан
+         */
+        'has_password'?: boolean;
         
         /**
          * Время создания
@@ -5998,11 +5998,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6071,6 +6066,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -6127,11 +6127,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6200,6 +6195,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -6254,11 +6254,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6327,6 +6322,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -6402,11 +6402,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6477,6 +6472,11 @@ export class CompanyService extends BaseService {
 'num'?: number;
 
 /**
+ * Пароль создан
+ */
+'has_password'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -6527,11 +6527,6 @@ export class CompanyService extends BaseService {
          * Skype
          */
         'skype'?: string;
-        
-        /**
-         * ФИО
-         */
-        'name'?: string;
         
         /**
          * Фамилия
@@ -6604,6 +6599,11 @@ export class CompanyService extends BaseService {
         'num'?: number;
         
         /**
+         * Пароль создан
+         */
+        'has_password'?: boolean;
+        
+        /**
          * Время создания
          */
         'time_add'?: string;
@@ -6669,11 +6669,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6742,6 +6737,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -6787,11 +6787,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6860,6 +6855,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -6903,11 +6903,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -6976,6 +6971,11 @@ export class CompanyService extends BaseService {
  * Порядок для сортировки (меньше - выше)
  */
 'num'?: number;
+
+/**
+ * Пароль создан
+ */
+'has_password'?: boolean;
 
 /**
  * Время создания
@@ -7033,19 +7033,14 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name': string;
-
-/**
  * Фамилия
  */
-'name_f'?: string;
+'name_f': string;
 
 /**
  * Имя
  */
-'name_i'?: string;
+'name_i': string;
 
 /**
  * Отчество
@@ -7172,19 +7167,14 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name': string;
-
-/**
  * Фамилия
  */
-'name_f'?: string;
+'name_f': string;
 
 /**
  * Имя
  */
-'name_i'?: string;
+'name_i': string;
 
 /**
  * Отчество
@@ -7320,11 +7310,6 @@ export class CompanyService extends BaseService {
 'skype'?: string;
 
 /**
- * ФИО
- */
-'name'?: string;
-
-/**
  * Фамилия
  */
 'name_f'?: string;
@@ -7452,11 +7437,6 @@ export class CompanyService extends BaseService {
  * Skype
  */
 'skype'?: string;
-
-/**
- * ФИО
- */
-'name'?: string;
 
 /**
  * Фамилия
