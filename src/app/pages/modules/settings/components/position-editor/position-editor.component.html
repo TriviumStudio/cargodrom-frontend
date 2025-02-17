@@ -41,7 +41,76 @@
       </div>
     </div>
   </form>
+
+  <form class="form" [formGroup]="form" >
+  <table class="table-list" formArrayName="permission">
+
+    <thead>
+      <tr>
+        <th>
+          <div class="td-block" >
+            <div class="column">
+              <!-- <mat-checkbox></mat-checkbox> -->
+              Полный доступ в систему
+            </div>
+          </div>
+        </th>
+
+        <th *ngFor="let col of permissionSchema.columns">
+          <div class="td-block">
+            <div class="column">{{col.name}}</div>
+            <!-- <mat-checkbox></mat-checkbox> -->
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let row of permission.controls; let i = index" [formGroupName]="i">
+        <tr formGroupName="values">
+
+          <td>
+            <div class="td-block" (click)="loge()">
+              <div class="column " >
+                {{row.value.name}}
+                <div *ngFor="let rule of row.value.rules">
+                  <label class="checkbox-label">
+                    {{permissionSchema.rule[rule]}}
+                    <mat-checkbox
+                      [checked]="isCheckedRow(row.value.values,rule)"
+                      (change)="onChangeCheckboxRow($event,rule,row)"
+                      [indeterminate]="isIndeterminateRow(row.value.values,rule)"
+                      [ngClass]="isIndeterminateRow(row.value.values,rule)?'mat-mdc-checkbox-indeterminate':''">
+                    </mat-checkbox>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td *ngFor="let col of permissionSchema.columns;let j= index" >
+            <div class="td-block" >
+              <div class="column">
+                <div *ngFor="let rule of row.value.rules">
+                  <label class="checkbox-label">
+                    <input type="radio" [formControlName]="col.field" [value]="rule" (click)="onChangeRadioBtnRow($event)">
+                  </label>
+                </div>
+                <!-- <mat-radio-group [formControlName]="col.field">
+                  <mat-radio-button *ngFor="let rule of row.value.rules"  [value]="rule"></mat-radio-button>
+                </mat-radio-group> -->
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </ng-container>
+    </tbody>
+
+  </table>
+</form>
 </div>
+
 
 <ng-template #error let-name="name">
   <div class="error" *ngIf="isFormSubmitted && hasError(name)">{{ getError(name) }}</div>

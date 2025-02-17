@@ -24,6 +24,7 @@ import { EditorHeaderComponent } from './components/editor-header/editor-header.
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import { MatNativeDateModule } from '@angular/material/core';  // Опционально, если используется стандартный адаптер
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatNativeDateModule } from '@angular/material/core';  // Опциона
     MatMenuModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,  // Только если используете стандартный адаптер
+    MatRadioModule,
   ],
   exports: [
     MatDialogModule,
@@ -75,6 +77,7 @@ import { MatNativeDateModule } from '@angular/material/core';  // Опциона
     MatMenuModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatRadioModule,
   ]
 })
 export class MaterialModule {}

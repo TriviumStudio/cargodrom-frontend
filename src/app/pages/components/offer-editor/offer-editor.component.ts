@@ -64,7 +64,7 @@ export class OfferEditorComponent implements OnInit, OnDestroy {
       }),
       valid: ['', Validators.required],
       status: [0, Validators.required],
-      comment: ['аыаыва']
+      comment: ['']
     });
     this.getOffer();
     this.getCurrency();
