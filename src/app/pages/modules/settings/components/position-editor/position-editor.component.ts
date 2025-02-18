@@ -24,96 +24,96 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
   createdMessage = `${this.entity} создана`;
   notFoundMessage = `${this.entity} не найдена`;
 
-  permissionSchema:any={
-    columns: [
-      {name: "Запросы", field:'request'},
-      {name: "Ставки", field:'rate'},
-      {name: "Заказы", field:'order'},
-      {name: "Тарифы", field:'tariff'},
-      {name: "Подрядчики", field:'contractor'},
-      {name: "Отчеты", field:'report'},
-      {name: "Клиенты", field:'customer'},
-      {name: "Справочник", field:'data'},
-    ],
-    row:[
-      {
-        name:'Просмотр',
-        rules: ["all","dep","self"],
-        value:{
-          request:'self',
-          rate:'self',
-          order:'dep',
-          tariff:'all',
-          contractor:'dep',
-          report:'dep',
-          customer:'all',
-          data:'dep',
-        }
-      },
-      {
-        name:'Редактирование',
-        rules: ["all","dep","self"],
-        value:{
-          request:'self',
-          rate:'all',
-          order:'dep',
-          tariff:'all',
-          contractor:'',
-          report:'',
-          customer:'',
-          data:'dep',
-        }
-      },
-      {
-        name:'Удаление',
-        rules: ["all","dep","self"],
-        value:{
-          request:'',
-          rate:'self',
-          order:'',
-          tariff:'dep',
-          contractor:'',
-          report:'all',
-          customer:'',
-          data:'all',
-        }
-      },
-      {
-        name:'Создание',
-        rules: ["all"],
-        value:{
-          request:'',
-          rate:'',
-          order:'',
-          tariff:'all',
-          contractor:'all',
-          report:'all',
-          customer:'all',
-          data:'all',
-        }
-      },
-      {
-        name:'Экспорт',
-        rules: ["all"],
-        value:{
-          request:'',
-          rate:'all',
-          order:'all',
-          tariff:'all',
-          contractor:'all',
-          report:'',
-          customer:'',
-          data:'',
-        }
-      },
-    ],
+  // permissionSchema:any={
+  //   columns: [
+  //     {name: "Запросы", field:'request'},
+  //     {name: "Ставки", field:'rate'},
+  //     {name: "Заказы", field:'order'},
+  //     {name: "Тарифы", field:'tariff'},
+  //     {name: "Подрядчики", field:'contractor'},
+  //     {name: "Отчеты", field:'report'},
+  //     {name: "Клиенты", field:'customer'},
+  //     {name: "Справочник", field:'data'},
+  //   ],
+  //   row:[
+  //     {
+  //       name:'Просмотр',
+  //       rules: ["all","dep","self"],
+  //       value:{
+  //         request:'self',
+  //         rate:'self',
+  //         order:'dep',
+  //         tariff:'all',
+  //         contractor:'dep',
+  //         report:'dep',
+  //         customer:'all',
+  //         data:'dep',
+  //       }
+  //     },
+  //     {
+  //       name: 'Редактирование',
+  //       rules: ["all","dep","self"],
+  //       value:{
+  //         request:'self',
+  //         rate:'all',
+  //         order:'dep',
+  //         tariff:'all',
+  //         contractor:'',
+  //         report:'',
+  //         customer:'',
+  //         data:'dep',
+  //       }
+  //     },
+  //     {
+  //       name:'Удаление',
+  //       rules: ["all","dep","self"],
+  //       value:{
+  //         request:'',
+  //         rate:'self',
+  //         order:'',
+  //         tariff:'dep',
+  //         contractor:'',
+  //         report:'all',
+  //         customer:'',
+  //         data:'all',
+  //       }
+  //     },
+  //     {
+  //       name:'Создание',
+  //       rules: ["all"],
+  //       value:{
+  //         request:'',
+  //         rate:'',
+  //         order:'',
+  //         tariff:'all',
+  //         contractor:'all',
+  //         report:'all',
+  //         customer:'all',
+  //         data:'all',
+  //       }
+  //     },
+  //     {
+  //       name:'Экспорт',
+  //       rules: ["all"],
+  //       value:{
+  //         request:'',
+  //         rate:'all',
+  //         order:'all',
+  //         tariff:'all',
+  //         contractor:'all',
+  //         report:'',
+  //         customer:'',
+  //         data:'',
+  //       }
+  //     },
+  //   ],
 
-    rule: {
-      all: "Все элементы",
-      dep: "Своего отдела",
-      self: "Только свои",
-    }
-  }
+  //   rule: {
+  //     all: "Все элементы",
+  //     dep: "Своего отдела",
+  //     self: "Только свои",
+  //   }
+  // }
 
   constructor(
     private fb: FormBuilder,
@@ -132,11 +132,19 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     });
   }
 
-  override ngOnInit(): void {
-    super.ngOnInit();  // Вызов ngOnInit родительского класса
-    console.log('ngOnInit from ChildComponent');
-    // Логика дочернего компонента
-    this.loadRowsData(this.permissionSchema.row);  // Вызов метода родительского класса
+  // override ngOnInit(): void {
+  //   super.ngOnInit();  // Вызов ngOnInit родительского класса
+  //   console.log('ngOnInit from ChildComponent');
+  //   // Логика дочернего компонента
+  //   this.loadRowsData(this.permissionSchema.row);  // Вызов метода родительского класса
+  // }
+
+  override patchForm(): void {
+    this.form.patchValue({
+      id: this.data.id,
+      name: this.data.name
+    });
+    this.loadRowsData(this.data.permission.row);
   }
 
   protected create(params: {body: Omit<Position, 'id'>}) {
@@ -171,6 +179,7 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     return this.fb.group({
       name: ['', []],
       rules: [[], []],
+      field: ['',],
       values: this.fb.group({
         request: ['', []],
         rate: ['', []],
@@ -185,16 +194,19 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
   }
 
   loadRowsData(rowsData: any[]): void {
+    console.log('loadRowsData',rowsData);
+
     // Очищаем текущие строки
     while (this.permission.length) {
       this.permission.removeAt(0);
     }
     // Добавляем новые строки на основе данных
-    rowsData.forEach((row) => {
+    rowsData.forEach((row:any) => {
       const rowGroup = this.fb.group({
         name: [row.name],
+        field: [row.field],
         rules: [row.rules],
-        values: this.fb.group(row.value),
+        values: this.fb.group(row.values),
       });
       this.permission.push(rowGroup);
     });
@@ -211,36 +223,79 @@ export class PositionEditorComponent extends SettingsEditor<Position> implements
     // Если хотя бы одно значение true, возвращаем true
     return values.some(value => value == rule);
   }
-  onChangeCheckboxRow({ checked }: MatCheckboxChange, rule:string, row:any){
-    console.log(row, rule);
-    if(checked){
+  onChangeCheckboxRow({ checked }: MatCheckboxChange, rule: string, row: any) {
+    const newValue = checked ? rule : '';
+    row.controls.values.patchValue({
+      request: newValue,
+      rate: newValue,
+      order: newValue,
+      tariff: newValue,
+      contractor: newValue,
+      report: newValue,
+      customer: newValue,
+      data: newValue,
+    });
+  }
+
+  onChangeRadioBtnRow(row:any,field:any, rule:string){
+    if(row.value.values[field]===rule) {
       row.controls.values.patchValue({
-        request: rule,
-        rate: rule,
-        order: rule,
-        tariff: rule,
-        contractor: rule,
-        report: rule,
-        customer: rule,
-        data: rule,
-      })
-    } else {
-      row.controls.values.patchValue({
-        request: '',
-        rate: '',
-        order: '',
-        tariff: '',
-        contractor: '',
-        report: '',
-        customer: '',
-        data: '',
+        [field]: '',
       })
     }
   }
 
-  onChangeRadioBtnRow(e:any){
-    console.log(e);
+  //FullPermission Checkbox
+  onChangeCheckboxFullPermission({ checked }: MatCheckboxChange) {
+    const newValue = checked ? 'all' : '';
+    this.permission.controls.forEach((row: any) => {
+      row.controls.values.patchValue({
+        request: newValue,
+        rate: newValue,
+        order: newValue,
+        tariff: newValue,
+        contractor: newValue,
+        report: newValue,
+        customer: newValue,
+        data: newValue,
+      });
+    });
+  }
+  isIndeterminateFullPermission(): boolean{
+    const arr:any[]=[]
+    this.permission.controls.forEach((row:any) => {
+      arr.push(this.isCheckedRow(row.value.values,'all'))
+    });
+    if (arr.every(value => value === true)) {
+      return false;
+    };
+    return arr.some(value => value === true);
+  }
+  isCheckedFullPermission(): boolean {
+    const arr:any[]=[];
+    this.permission.controls.forEach((row:any) => {
+      arr.push(this.isCheckedRow(row.value.values,'all'))
+    });
+    return arr.every(element => element === true);
+  }
 
+  //col checkbox
+  onChangeCheckboxCol({ checked }: MatCheckboxChange, field:any){
+    const newValue = checked ? 'all' : '';
+    this.permission.controls.forEach((row: any) => {
+      row.controls.values.patchValue({
+        [field]: newValue,
+      });
+    });
+  }
+  isIndeterminateCol(field:string){
+    if (this.permission.value.every((value:any) => value.values[field] === 'all')) {
+      return false;
+    };
+    return this.permission.value.some((value:any) => value.values[field] === 'all');
+  }
+  isCheckedCol(field:string){
+    return this.permission.value.every((value:any) => value.values[field] === 'all');
   }
 
 }

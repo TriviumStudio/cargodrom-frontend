@@ -201,11 +201,18 @@ export abstract class Editor<T> implements OnInit {
           console.log(data);
 
           this.data = data as T;
-          this.form.patchValue(this.data);
+          this.patchForm();
+
           this.nameForHeader = this.getNameForHeader(data as T);
         },
         error: (err: any) => this.showErrorAndGoBack(err, this.notFoundMessage)
       });
+  }
+
+  patchForm(){
+    console.log('patchForm');
+
+    this.form.patchValue(this.data);
   }
 
   save(): void {
