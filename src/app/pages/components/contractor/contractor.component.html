@@ -1,9 +1,22 @@
-<app-table-sunheader-file
+<app-table-sunheader-file *ngIf="!isBiddingMode"
   [importMetods]="importMetods"
   (export)="exportFile()"
   (exportTemplate)="exportFileTemplate()"
 >
 </app-table-sunheader-file>
+
+<div class="subheader" *ngIf="isBiddingMode">
+  <div class="main_page_info">
+    <div class="back" [routerLink]="['../../../request']"></div>
+    <div class=" rate_info">
+      <div class="title"> Торги запроса</div>
+      <div class="subtitle">Всего подрядчиков: 17</div>
+    </div>
+    <app-request-info-block  [request]="currentRequest"></app-request-info-block>
+  </div>
+</div>
+
+
 
 
 <app-table-filter></app-table-filter>
@@ -105,7 +118,7 @@
         </td>
       </ng-template>
 
-      <ng-template [ngSwitchCase]="'checkbox'" *ngIf="isBiddingMode">
+      <ng-template [ngSwitchCase]="'checkbox'">
         <th mat-header-cell *matHeaderCellDef>
           <div class="td-block">
             <div class="column w10">

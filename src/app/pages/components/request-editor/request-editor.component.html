@@ -4,7 +4,8 @@
   (save)="save()"
   (remove)="remove()"
   (calc)="calc()"
-  [isEditMode]="isEditMode">
+  [isEditMode]="isEditMode"
+>
 </app-editor-header>
 
 <!-- <div class="edit-form"> -->
@@ -704,13 +705,13 @@
         <div class="form-item-layout sep2">
 
           <label>
-            <input type="checkbox">
+            <input type="radio" formControlName="send_to" value="contractor">
             <i></i>
             <span>Размещать запрос по базам Подрядчиков</span>
           </label>
 
           <label>
-            <input type="checkbox">
+            <input type="radio" formControlName="send_to" value="employee">
             <i></i>
             <span>Разместить запрос на котировку сотруднику компании</span>
           </label>

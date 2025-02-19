@@ -155,6 +155,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: [[], []],//+
       services_optional: [[], []],//+
       comment: ['', []],//+
+      send_to: ['contractor',[]]
       //РАССЫЛКИ
       //эти данные не нужны для создания и редактирования, но понадобятся потом
     });
@@ -171,10 +172,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] !== 'add';
-    this.title = this.isEditMode ? 'Информация о запросе' : 'Добавление запроса';
-    if (this.isEditMode) {
+    if(this.isEditMode){
+      this.id = Number(this.route.snapshot.paramMap.get('id'));
       this.getRequest();
-    };
+    }
+    this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
+
     // this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
@@ -276,6 +279,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: body.arrival_country_id,
       arrival_address: body.arrival_address,
       departure_flight: body.departure_flight,
+
+      send_to: body.send_to,
+
       //дополнительные поля:
       cargo_places_paid_weight: body.cargo_places_paid_weight,
 
@@ -346,6 +352,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       incoterms_city_id: body.incoterms_city_id,
       services: body.services,
       services_optional: body.services_optional,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(body.transport_kind_id !== 1) {
@@ -418,6 +426,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: body.services,
       services_optional: body.services_optional,
       comment: body.comment,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(!body.cargo_temperature.cargo_temperature_control) {
@@ -487,6 +497,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       services: body.services,
       services_optional: body.services_optional,
       comment: body.comment,
+
+      send_to: body.send_to,
     }
     //удаляем доп поля
     if(!body.cargo_temperature.cargo_temperature_control) {
@@ -909,9 +921,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   //Получаем данные запроса для редактирования
   private getRequest():void{
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.id = id;
-    this.requestService.requestInfo({id})
+
+    this.requestService.requestInfo({id:this.id})
       .pipe(
         tap(request => {
           console.log('получили данные запроса',request);
@@ -938,8 +949,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           // this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
           // this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
           // this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
-          this.getFile(id);
-          this.getDangerFile(id);
+          this.getFile(request.id);
+          this.getDangerFile(request.id);
           this.getTransportFormatsById(request.transport_kind_id!);
           this.getIncoterms(this.requestForm.value.transport_kind_id);
           this.getRequestServices(this.requestForm.value.transport_kind_id);

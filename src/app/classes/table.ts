@@ -565,6 +565,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         tap((schema)=>{
           this.sortField = schema.sort[0].field;
           this.sortDir = schema.sort[0].dir;
+
+          if (this.isBiddingMode) {
+            schema.table.pop();
+            schema.table.unshift({column:'checkbox'});
+          }
+
         }),
         takeUntil(this.destroy$),
       )
@@ -573,26 +579,22 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // if(this.isRateDetailsMode){
           //   this.schemaCharges=schema.forms.charges
           // }
+
           console.log('schema',schema);
-
           this.filterService.setSearchFilterSchema(schema.search);
-
           schema.table.forEach((col:any)=>{
             this.column?.push(col.column);
-          })
+          });
           schema.sort.forEach((sor:any)=>{
             this.sortableColumns?.push(sor.field);
-          })
-
-          if(this.isBiddingMode){
-            this.column?.unshift('checkbox');
-            this.column?.pop();
-          }
+          });
           this.columnsData=schema.table;
+
           // if(this.isRateDetailsMode){
           //   this.columnsData=schema.table;
           //   this.schemaCharges=schema.forms.charges;
           // }
+
           // this.router.navigate(['.'], {
           //   queryParams: { sortCol: schema.sort[0].field, sortDir: schema.sort[0].dir },
           //   queryParamsHandling: 'merge',
@@ -600,7 +602,9 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // });
         },
         error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err.error.error_message, undefined, this.snackBarWithShortDuration),
-        complete:()=> {this.subscribeRouteQueryParamMap();}
+        complete:()=> {
+          this.subscribeRouteQueryParamMap();
+        }
       });
   }
 
