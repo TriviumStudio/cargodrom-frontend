@@ -527,7 +527,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -588,6 +588,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -1019,7 +1024,7 @@ export class RequestService extends BaseService {
         /**
          * Настройка рассылки запроса
          */
-        'send_to': 'contractor' | 'employee';
+        'send_to'?: 'contractor' | 'employee';
         
         /**
          * Статус Запроса (ID берем из запроса - request_status)
@@ -1080,6 +1085,11 @@ export class RequestService extends BaseService {
          * Кол-во отвеченных заявок на запрос
          */
         'count_rate_answer'?: number;
+        
+        /**
+         * Кол-во отправленных/отвеченных заявок на запрос
+         */
+        'count_rate_text'?: string;
         
         /**
          * Флаги
@@ -1595,7 +1605,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -1656,6 +1666,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -2063,7 +2078,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -2124,6 +2139,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -2529,7 +2549,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -2590,6 +2610,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -3968,7 +3993,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -4029,6 +4054,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -4440,7 +4470,7 @@ export class RequestService extends BaseService {
         /**
          * Настройка рассылки запроса
          */
-        'send_to': 'contractor' | 'employee';
+        'send_to'?: 'contractor' | 'employee';
         
         /**
          * Статус Запроса (ID берем из запроса - request_status)
@@ -4501,6 +4531,11 @@ export class RequestService extends BaseService {
          * Кол-во отвеченных заявок на запрос
          */
         'count_rate_answer'?: number;
+        
+        /**
+         * Кол-во отправленных/отвеченных заявок на запрос
+         */
+        'count_rate_text'?: string;
         
         /**
          * Флаги
@@ -4925,7 +4960,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -4986,6 +5021,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -5388,7 +5428,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -5449,6 +5489,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -5849,7 +5894,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -5910,6 +5955,11 @@ export class RequestService extends BaseService {
  * Кол-во отвеченных заявок на запрос
  */
 'count_rate_answer'?: number;
+
+/**
+ * Кол-во отправленных/отвеченных заявок на запрос
+ */
+'count_rate_text'?: string;
 
 /**
  * Флаги
@@ -6178,7 +6228,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 }
     },
     context?: HttpContext
@@ -6469,7 +6519,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 }
     },
     context?: HttpContext
@@ -6769,7 +6819,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)
@@ -7070,7 +7120,7 @@ export class RequestService extends BaseService {
 /**
  * Настройка рассылки запроса
  */
-'send_to': 'contractor' | 'employee';
+'send_to'?: 'contractor' | 'employee';
 
 /**
  * Статус Запроса (ID берем из запроса - request_status)

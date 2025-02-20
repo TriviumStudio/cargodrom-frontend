@@ -4,6 +4,7 @@
   (save)="save()"
   (remove)="remove()"
   (calc)="calc()"
+  [isCalck]="requestForm.value.request_type_id===1"
   [isEditMode]="isEditMode"
 >
 </app-editor-header>
@@ -357,7 +358,7 @@
                     *ngFor="let currency of currencys;"
                     [value]="currency.id"
                     >
-                    {{ currency.name }}
+                    {{ currency.code }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -384,7 +385,7 @@
             <div class="form-data ">
               <mat-form-field appearance="outline" class="ui-select ">
                 <mat-select formControlName="cargo_currency_id">
-                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.name }}</mat-option>
+                  <mat-option *ngFor="let currency of currencys;" [value]="currency.id">{{ currency.code }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -396,11 +397,11 @@
           <div class="form-label">готовность</div>
           <div class="form-data">
             <!-- <input type="date" formControlName="cargo_readiness"> -->
-            <div class="datepiker">
-              <div (click)="validReset()">{{returnValid()}}</div>
-              <input class="test" style="z-index: -1; width: 1px;" formControlName="cargo_readiness" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
-              <button class="btn-date" (click)="picker.open()"></button>
-              <mat-datepicker #picker></mat-datepicker>
+            <div class="datepiker" (click)="validReset(); picker.open()">
+              <div>{{returnValid()}}</div>
+              <input  class="test" style="z-index: -1; width: 1px;" formControlName="cargo_readiness" (dateChange)="onValidChange($event)" [matDatepicker]="picker" readonly>
+              <button class="btn-date" ></button>
+              <mat-datepicker #picker  ></mat-datepicker>
             </div>
           </div>
         </div>
@@ -726,7 +727,7 @@
       </div>
       <div class="fn">
         <button class="btn v save" (click)="save()"><span>сохранить</span></button>
-        <button class="btn v calc" *ngIf="isEditMode" (click)="calc()"><span>Расчитать</span></button>
+        <button class="btn v calc" *ngIf="isEditMode && requestForm.value.request_type_id===1" (click)="calc()"><span>Расчитать</span></button>
         <button class="btn v del" *ngIf="isEditMode" (click)="remove()"><span>Удалить</span></button>
         <button class="btn v cancel" (click)="goBack()"><span>отмена</span></button>
       </div>

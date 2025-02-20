@@ -4719,7 +4719,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -4775,7 +4775,7 @@ export class CompanyService extends BaseService {
         'name'?: string;
         
         /**
-         * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+         * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
          */
         'permission'?: {
         };
@@ -4863,7 +4863,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -4908,7 +4908,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -4951,7 +4951,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5015,7 +5015,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5058,7 +5058,7 @@ export class CompanyService extends BaseService {
         'name'?: string;
         
         /**
-         * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+         * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
          */
         'permission'?: {
         };
@@ -5114,7 +5114,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5148,7 +5148,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5180,7 +5180,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5226,7 +5226,7 @@ export class CompanyService extends BaseService {
 'name': string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5296,7 +5296,7 @@ export class CompanyService extends BaseService {
 'name': string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5375,7 +5375,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };
@@ -5440,7 +5440,7 @@ export class CompanyService extends BaseService {
 'name'?: string;
 
 /**
- * Права доступа к разделам {permission_object: {permission_rule: permission_value}} (ID берем из запроса - settings_get)
+ * Права доступа к разделам {permission_object: {permission_action: permission_rule}} (ID берем из запроса - settings_get)
  */
 'permission'?: {
 };

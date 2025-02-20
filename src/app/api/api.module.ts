@@ -8,6 +8,7 @@ import { CargoService } from './services/cargo.service';
 import { CompanyService } from './services/company.service';
 import { ContractorService } from './services/contractor.service';
 import { CustomerService } from './services/customer.service';
+import { DataService } from './services/data.service';
 import { DirectionService } from './services/direction.service';
 import { FileService } from './services/file.service';
 import { OrderService } from './services/order.service';
@@ -29,6 +30,7 @@ import { UserService } from './services/user.service';
     CompanyService,
     ContractorService,
     CustomerService,
+    DataService,
     DirectionService,
     FileService,
     OrderService,

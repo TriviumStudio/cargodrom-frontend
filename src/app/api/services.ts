@@ -2,6 +2,7 @@ export { CargoService } from './services/cargo.service';
 export { CompanyService } from './services/company.service';
 export { ContractorService } from './services/contractor.service';
 export { CustomerService } from './services/customer.service';
+export { DataService } from './services/data.service';
 export { DirectionService } from './services/direction.service';
 export { FileService } from './services/file.service';
 export { OrderService } from './services/order.service';

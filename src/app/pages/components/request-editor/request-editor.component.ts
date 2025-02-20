@@ -193,21 +193,40 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     // };
     // this.subForm();
     // this.requestForm.get('cargo_readiness')?.clearValidators();
+    this.subscribeForm();
+
+  }
+
+  subscribeForm(){
+    this.requestForm.get('cargo_cost')?.valueChanges
+    .pipe(
+      debounceTime(1500),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value:any) => {
+      const formattedValue = value?.toFixed(2); // Округляем до двух знаков
+      this.requestForm.get('cargo_cost')?.setValue(formattedValue, { emitEvent: false });
+    });
   }
 
   onValidChange(event:any){
+    // console.log(123,formatDate(event.value,'yyyy-MM-dd','en-US'));
+    console.log(123);
+
     this.requestForm.patchValue({
       cargo_readiness: formatDate(this.requestForm.value.cargo_readiness,'yyyy-MM-dd','en-US')
     })
   }
-
   validReset(){
     this.requestForm.controls['cargo_readiness'].reset();
   }
-
   returnValid():string{
-    return this.requestForm.value.cargo_readiness? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US'): '';
+    return this.requestForm.value.cargo_readiness
+    ? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US')
+    : '';
   }
+
 
   // Публичные методы:
   //СОХРАНЕНИЕ,УДАЛЕНИЕ,ОТМЕНА,НАЗАД
@@ -674,7 +693,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       departure_country_id: city.country_id,
       // departure_country_name: city.country_name,
     });
-    this.getDeparturePoint(city.id,this.requestForm.value.transport_kind_id);
+    // this.getDeparturePoint(city.country_id,this.requestForm.value.transport_kind_id);
   }
   //изменение поля страны отправления
   onDepartureCountryChange(e:any):void{
@@ -682,8 +701,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(e!==this.requestForm.value.departure_country_id){
       this.requestForm.controls['departure_city_id'].reset();
       this.requestForm.controls['departure_city_name'].reset();
+      this.requestForm.controls['departure_point_id'].reset();
     }
-    this.getDepartureCitiesByCountryId(e)
+    this.getDepartureCitiesByCountryId(e);
+    this.getDeparturePoint(e,this.requestForm.value.transport_kind_id);
   }
   //изменение поля города прибытия
   onArrivalCityChange(city: DirectionCity): void {
@@ -839,8 +860,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getDeparturePoint(city_id: number, transport_kind_id: number) {
-    this.directionService.directionPoint({city_id, transport_kind_id})
+  private getDeparturePoint(country_id: number, transport_kind_id: number) {
+    this.directionService.directionPoint({country_id, transport_kind_id})
       .pipe(
         tap((departurePoint) => this.departurePoint=departurePoint as DirectionPoint[]),
         takeUntil(this._destroy$)
@@ -956,7 +977,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.getRequestServices(this.requestForm.value.transport_kind_id);
           this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
           this.getArrivalPoint(this.requestForm.value.arrival_city_id, this.requestForm.value.transport_kind_id);
-          this.getDeparturePoint(this.requestForm.value.departure_city_id, this.requestForm.value.transport_kind_id);
+          this.getDeparturePoint(this.requestForm.value.departure_country_id, this.requestForm.value.transport_kind_id);
         },
         error: (err: any) => {
           this.snackBar.open(`Запрос не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);

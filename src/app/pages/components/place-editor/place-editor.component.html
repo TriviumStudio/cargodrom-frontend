@@ -70,7 +70,7 @@
     </div>
     <div class="form-item w72 r">
       <div *ngIf="num===1" class="form-label">КОЛ-ВО, ШТ</div>
-      <div class="form-data"><input type="number" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
+      <div class="form-data"><input type="number" step="1" oninput="this.value = ~~this.value;" name="count" formControlName="count" placeholder="—" required (ngModelChange)="onCalkTotalVolumeAndWeight()"></div>
     </div>
   </div>
 
