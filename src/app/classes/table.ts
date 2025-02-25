@@ -61,6 +61,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   @ViewChild('exportDialogRef') exportDialogRef?: TemplateRef<void>;
   @ViewChild('importDialogRef') importDialogRef?: TemplateRef<{file: File, text: string}>;
   @ViewChild('saveBiddingRef') saveBiddingRef?: TemplateRef<void>;
+  @ViewChild('translateRef') translateRef?: TemplateRef<void>;
   private aliases = new Map<A, (keyof T)[]>();
 
   @ViewChild('file', { static: true }) file?: ElementRef;
@@ -89,6 +90,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
     this.getListParam();
 
+    // if(this.isBiddingMode){
+    //   this.route.queryParams.subscribe(params => {
+    //     console.log('Received queryParams:', params);
+    //   });
+    // }
+
+
+
 
     // this.subscribeRouteQueryParamMap();
   }
@@ -100,9 +109,29 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   protected loadRows(): void {
     const sortCol = this.getSort();
-    const params = this.isRateDetailsMode
-      ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
-      : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+    let params: any = { start: this.start, count: this.count, ...this.filter };
+    if (this.isRateDetailsMode) {
+      params = { ...params, request_id: this.requestId, method: this.detailsMethod };
+    } else if (this.isBiddingMode) {
+      params = { ...params, bidding_request_id: this.requestId };
+    } else {
+      params = { ...params, sort: JSON.stringify(sortCol) };
+    }
+    console.log(params);
+
+    // let params:any;
+    // if(this.isRateDetailsMode){
+    //   params= { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter };
+    // } else if(this.isBiddingMode)  {
+    //   params= { request_id:this.requestId, start: this.start, count: this.count, ...this.filter };
+    // } else {
+    //   params= { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+    // }
+
+    // let params = this.isRateDetailsMode
+    //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
+    //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
+
     this.load(params)
       .subscribe(rows => {
         console.log('rows', rows);
@@ -508,7 +537,18 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
         tap(()=>{}),
         takeUntil(this.destroy$))
       .subscribe({
-        next:()=>{},
+        next:(answer)=>{
+          if(answer.need_translate){
+            this.dialog.open(this.translateRef!).afterClosed()
+            .subscribe(res => {
+              if(res){
+                this.router.navigate(['/pages/request/edit/translate', this.requestId]);
+              }
+            })
+
+
+          }
+        },
         error:(err)=>{
           this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()
             .subscribe(res => {
@@ -522,22 +562,18 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       })
   }
 
-  isCheck(id:number){
-    let isCheck
-    this.contractorsSelectedForRequest.forEach((i:any)=>{
-      if(i===id){
-        isCheck=true;
-      }
-    })
-    return isCheck;
+  isCheck(id: number): boolean {
+    return this.contractorsSelectedForRequest.includes(id);
   }
-
   isAllCheck(){
-    return this.rows.length > 0 && this.currentQuantityContractors === this.rows.length;
+    const filteredArray = this.rows.filter((item:any) => item.bidding_send === false);
+    const count = filteredArray.length;
+    return this.rows.length > 0 && this.currentQuantityContractors === count;
   }
-
   isIndeterminate(){
-    return this.rows.length > 0 && this.currentQuantityContractors < this.rows.length && this.currentQuantityContractors > 0;
+    const filteredArray = this.rows.filter((item:any) => item.bidding_send === false);
+    const count = filteredArray.length;
+    return this.rows.length > 0 && this.currentQuantityContractors < count && this.currentQuantityContractors > 0;
   }
 
   getRequestInfo(id:number){
@@ -611,8 +647,15 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   subscribeRouteQueryParamMap(){
     this.route.queryParamMap
       .pipe(
-        tap((queryParamMap)=>{
-          // console.log(queryParamMap);
+        tap((queryParamMap:any)=>{
+          // console.log(queryParamMap.params.translate);
+          if(queryParamMap.params.translate){
+            this.saveContractorSelectRequest();
+            console.log(112233);
+
+
+          }
+
           this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
           this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
           this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;

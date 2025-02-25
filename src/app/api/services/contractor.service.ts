@@ -68,6 +68,11 @@ export class ContractorService extends BaseService {
       country_arrival_id?: number;
 
     /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -467,6 +472,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorListPath, 'get');
@@ -477,6 +487,7 @@ export class ContractorService extends BaseService {
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure_id', params.country_departure_id, {});
       rb.query('country_arrival_id', params.country_arrival_id, {});
+      rb.query('bidding_request_id', params.bidding_request_id, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -860,6 +871,11 @@ export class ContractorService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Запрос на торги отправлен
+         */
+        'bidding_send'?: boolean;
         }>;
         }>;
       })
@@ -908,6 +924,11 @@ export class ContractorService extends BaseService {
      * Направление куда (ID берем из запроса - direction_country)
      */
       country_arrival_id?: number;
+
+    /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
 
     /**
      * Начальная позиция
@@ -1309,6 +1330,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }> {
     return this.contractorList$Response(params, context).pipe(
@@ -1685,6 +1711,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 }>): {
 
@@ -2059,6 +2090,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>;
 } => r.body)
     );
@@ -3406,6 +3442,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, ContractorService.ContractorInfoPath, 'get');
     if (params) {
@@ -3780,6 +3821,11 @@ export class ContractorService extends BaseService {
          * Время изменения
          */
         'time_edit'?: string;
+        
+        /**
+         * Запрос на торги отправлен
+         */
+        'bidding_send'?: boolean;
         }>;
       })
     );
@@ -4167,6 +4213,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }> {
     return this.contractorInfo$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -4532,6 +4583,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 }>): {
 
 /**
@@ -4895,6 +4951,11 @@ export class ContractorService extends BaseService {
  * Время изменения
  */
 'time_edit'?: string;
+
+/**
+ * Запрос на торги отправлен
+ */
+'bidding_send'?: boolean;
 } => r.body)
     );
   }
@@ -8050,6 +8111,11 @@ export class ContractorService extends BaseService {
       country_arrival_id?: number;
 
     /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
+
+    /**
      * Сортировка
      */
       sort?: Array<{
@@ -8086,6 +8152,7 @@ export class ContractorService extends BaseService {
       rb.query('allow_trade', params.allow_trade, {});
       rb.query('country_departure_id', params.country_departure_id, {});
       rb.query('country_arrival_id', params.country_arrival_id, {});
+      rb.query('bidding_request_id', params.bidding_request_id, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
     }
 
@@ -8152,6 +8219,11 @@ export class ContractorService extends BaseService {
      * Направление куда (ID берем из запроса - direction_country)
      */
       country_arrival_id?: number;
+
+    /**
+     * ID запроса для торгов
+     */
+      bidding_request_id?: number;
 
     /**
      * Сортировка

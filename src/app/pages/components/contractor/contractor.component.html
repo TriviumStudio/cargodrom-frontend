@@ -19,7 +19,7 @@
 
 
 
-<app-table-filter [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors"></app-table-filter>
+<app-table-filter (saveBidding)="saveContractorSelectRequest()" [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors"></app-table-filter>
 
 <div class="table-list" >
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
@@ -123,10 +123,11 @@
           <div class="td-block">
             <div class="column w10">
               <label>
-                <mat-checkbox class="testclass"
+                <mat-checkbox
                   [checked]="isAllCheck()"
                   [indeterminate]="isIndeterminate()"
                   (change)="updateAllContractorSelectRequest($event)"
+                  [ngClass]="isIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
                 ></mat-checkbox>
               </label>
             </div>
@@ -137,9 +138,12 @@
           <div class="td-block">
             <div class="column w10">
               <label>
-                <mat-checkbox class="testclass"
-                  [checked]="isCheck(contractor.id)"
+                <mat-checkbox
+                  [checked]="isCheck(contractor.id)||contractor.bidding_send?true:false"
                   (change)="updateContractorSelectRequest(contractor.id, $event)"
+                  [disabled]="contractor.bidding_send"
+
+
                 ></mat-checkbox>
               </label>
             </div>
@@ -247,6 +251,29 @@
       class="save"
       >
       Начать торги
+    </button>
+    <button
+      mat-button
+      mat-dialog-close
+      class="cancel"
+      >
+      ОТМЕНА
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #translateRef let-data>
+  <h1 mat-dialog-title>Проверьте перевод на английский</h1>
+  <div mat-dialog-content>
+    <p>Для одного или более подрядчика необходим перевод запроса на английский, измените выбранных подрядчиков или подтвердите перевод запроса.</p>
+  </div>
+  <div mat-dialog-actions align="end">
+    <button
+      mat-button
+      [mat-dialog-close]="1"
+      class="save"
+      >
+      Подтведить перевод
     </button>
     <button
       mat-button
