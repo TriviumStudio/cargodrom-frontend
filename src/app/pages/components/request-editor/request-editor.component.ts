@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -78,6 +78,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
+
+  filteredOptions!:Observable<any[]>;
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -161,7 +163,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-   linkRate(){
+  linkRate(){
     this.router.navigate(['rate_request', '638d85d28962c195e5ff113ad5e01e43']);
   }
   //МЕТОДЫ ЖЦ
@@ -178,7 +180,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     }
     this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
 
-    // this.getCustomers();
+    this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
     this.getСargoPackages();
@@ -194,6 +196,14 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     // this.subForm();
     // this.requestForm.get('cargo_readiness')?.clearValidators();
     this.subscribeForm();
+
+    this.filteredOptions = this.requestForm.get('customer_id')!.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.customers.slice();
+      }),
+    );
 
   }
 
@@ -225,6 +235,26 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     return this.requestForm.value.cargo_readiness
     ? formatDate(this.requestForm.value.cargo_readiness,'dd.MM.yyyy','ru-US')
     : '';
+  }
+
+  displayFn(id: number): string {
+    console.log(this.customers);
+
+
+    if (!this.customers) {
+      return ''; // или какое-то значение по умолчанию
+    }
+
+    const item = this.customers.find(item => item.id === id);
+    console.log(id,this.customers,item && item.name  ? item.name : '');
+    return item && item.name  ? item.name : '';
+
+
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.customers.filter((option:any) => option.name.toLowerCase().includes(filterValue));
   }
 
 
@@ -770,7 +800,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private getCustomers() {
     this.customerService.customerList()
       .pipe(
-        tap((customer) => this.customers = customer.items as unknown as Customer[]),
+        tap((customer) => this.customers = customer.items as unknown as Customer[]
+        ),
         takeUntil(this._destroy$)
       ).subscribe();
   }

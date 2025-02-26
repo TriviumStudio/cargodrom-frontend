@@ -10,16 +10,18 @@
     <div class="back" [routerLink]="['../../../request']"></div>
     <div class=" rate_info">
       <div class="title"> Торги запроса</div>
-      <div class="subtitle">Всего подрядчиков: 17</div>
+      <div class="subtitle">Всего подрядчиков: ??</div>
     </div>
     <app-request-info-block  [request]="currentRequest"></app-request-info-block>
   </div>
 </div>
 
-
-
-
-<app-table-filter (saveBidding)="saveContractorSelectRequest()" [isBiddingMode]="isBiddingMode" [quantityContractors]="quantityContractors"></app-table-filter>
+<app-table-filter
+  (saveBidding)="saveContractorSelectRequest()"
+  [isBiddingMode]="isBiddingMode"
+  [quantityContractors]="quantityContractors"
+>
+</app-table-filter>
 
 <div class="table-list" >
   <table mat-table [dataSource]="rows" multiTemplateDataRows>

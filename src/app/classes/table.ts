@@ -530,6 +530,23 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     });
   }
 
+  saveTrueContractorSelectRequest(){
+    const requestId = Number(this.route.snapshot.paramMap.get('id'));
+    this.requestSaveBidding({id:requestId, confirm: true})
+      .pipe(
+        tap((res)=>{}),
+        takeUntil(this.destroy$))
+      .subscribe({
+        next:(answer)=>{
+          this.snackBar.open(`Торги для выбранных подрядчиков успешно начаты `, undefined, this.snackBarWithLongDuration)
+        },
+        error:(err)=>{
+          this.snackBar.open(`Ошибка добавления подрядчиков в торги ` + err.error.error_message, undefined, this.snackBarWithLongDuration)
+        }
+      })
+
+  }
+
   saveContractorSelectRequest() {
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestSaveBidding({id:requestId,confirm: false})
@@ -539,23 +556,22 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       .subscribe({
         next:(answer)=>{
           if(answer.need_translate){
-            this.dialog.open(this.translateRef!).afterClosed()
-            .subscribe(res => {
-              if(res){
-                this.router.navigate(['/pages/request/edit/translate', this.requestId]);
-              }
+            this.dialog.open(this.translateRef!).afterClosed().subscribe(res => {
+              if(res) this.router.navigate(['/pages/request/edit/translate', this.requestId]);
             })
-
-
+          } else {
+            this.saveTrueContractorSelectRequest();
           }
         },
         error:(err)=>{
           this.dialog.open(this.saveBiddingRef!, { data: {err} }).afterClosed()
             .subscribe(res => {
               if(res){
-                this.requestSaveBidding({id:requestId, confirm: true})
-                .pipe(tap((res)=>{}), takeUntil(this.destroy$))
-                .subscribe()
+                this.saveTrueContractorSelectRequest();
+              } else {
+                this.router.navigate([], {
+                  queryParams: {}, 
+                });
               }
             })
         }

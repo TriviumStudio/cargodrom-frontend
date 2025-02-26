@@ -17,7 +17,17 @@
       <div class="form-row">
         <div class="form-item-layout">
 
-          <div class="form-item">
+          <mat-form-field class="example-full-width" *ngIf="customers">
+            <mat-label>Assignee</mat-label>
+            <input type="text" matInput formControlName="customer_id" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <!-- <div class="form-item">
             <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
             <div class="form-data">
               <input appearance="outline" class="ui-select"
@@ -31,7 +41,7 @@
                 <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>

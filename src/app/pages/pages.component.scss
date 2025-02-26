@@ -98,16 +98,19 @@ div.mat-calendar-body-selected,.mat-calendar-body-cell.selected .mat-calendar-bo
 .main .select-filter-additional {
   display: none;
 }
-.main .mat-select-value-text{
+.main .mat-mdc-select-value-text{
   font-size: 13px;
   line-height: 13px;
+
 }
-.main .value-selected .mat-select-value-text{
+.main .value-selected .mat-mdc-select-value-text{
   color: #DB563B;
+
 }
-.main .mat-select-arrow{
-  color: #DB563B;
-}
+// .main .mat-select-arrow{
+//   color: #DB563B;
+
+// }
 .main .mat-select {
   font-family: 'regular', 'arial', 'sans-serif';
 }
