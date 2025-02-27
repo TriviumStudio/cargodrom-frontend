@@ -17,31 +17,42 @@
       <div class="form-row">
         <div class="form-item-layout">
 
-          <mat-form-field class="example-full-width" *ngIf="customers">
-            <mat-label>Assignee</mat-label>
-            <input type="text" matInput formControlName="customer_id" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
-                {{option.name}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
+          <!-- <div class="form-item i4">
+            <div class="form-label">Город отправления: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="edit-form__input bg-color_grey1"
+                type="text"
+                name="departure_city_name"
+                formControlName="departure_city_name"
+                [matAutocomplete]="dSity"
+                (keyup)="searchDepartureCity($event)" placeholder="—"
+              >
+              <mat-autocomplete #dSity="matAutocomplete" >
+                <mat-option
+                  *ngFor="let departureCity of departureCitys;"
+                  [value]="departureCity.name"
+                  (click)="onDepartureCityChange(departureCity)"
+                  >
+                  {{ departureCity.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div> -->
 
-          <!-- <div class="form-item">
+          <div class="form-item">
             <div class="form-label">КЛИЕНТ: <span class="req">•</span></div>
             <div class="form-data">
-              <input appearance="outline" class="ui-select"
+              <input appearance="outline" class="ui-select" #inputElementCustomerName
                 type="text"
                 name="customer_name"
                 formControlName="customer_name"
                 [matAutocomplete]="customer_name"
-                (keyup)="searchCustomer($event)"
                 placeholder="—" >
               <mat-autocomplete  #customer_name="matAutocomplete">
-                <mat-option *ngFor="let customer of customers;" [value]="customer.name" (click)="onCustomerChange(customer)">{{ customer.name }}</mat-option>
+                <mat-option *ngFor="let customer of filteredCustomers;" [value]="customer.name" (click)="changeForm_Customer(customer)">{{ customer.name }}</mat-option>
               </mat-autocomplete>
             </div>
-          </div> -->
+          </div>
 
           <div class="form-item">
             <div class="form-label">Вид запроса: <span class="req">•</span></div>
@@ -52,49 +63,6 @@
             </div>
           </div>
 
-          <!-- <div class="form-item">
-            <div class="form-label">Вид запроса: <span class="req">•</span></div>
-            <div class="form-data">
-              <input type="text" matInput formControlName="request_type_id" [matAutocomplete]="auto" (keyup)="filterRequestType($event)" >
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnRequestTypeId.bind(this)">
-                <mat-option *ngFor="let option of requestFormats" [value]="option.id">
-                  {{option.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </div>
-          </div> -->
-
-          <!-- <div class="form-item">
-            <div class="form-label">Вид запроса:<span class="req">•</span></div>
-            <div class="form-data">
-              <input appearance="outline" class="ui-select"
-                type="text"
-                name="request_type_name"
-                formControlName="request_type_name"
-                [matAutocomplete]="request_type_name"
-                placeholder="—"
-              >
-              <mat-autocomplete  #request_type_name="matAutocomplete">
-                <mat-option *ngFor="let requestFormat of returnFilteredRequestType();" [value]="requestFormat.name" (click)="onRequestTypeChange(requestFormat)">{{ requestFormat.name }}</mat-option>
-              </mat-autocomplete>
-            </div>
-          </div> -->
-
-          <!-- <div class="form-item">
-            <div class="form-label">Вид запроса:<span class="req">•</span></div>
-            <div class="form-data">
-              <input appearance="outline"
-                type="text"
-                formControlName="request_type_id"
-                [matAutocomplete]="request_type_id"
-                placeholder="—"
-                (keyup)="returnFilteredRequestType($event)"
-              >
-              <mat-autocomplete [displayWith]="displayFnRequestTypeId.bind(this)" #request_type_id="matAutocomplete">
-                <mat-option *ngFor="let requestFormat of requestFormats;" [value]="requestFormat.id" >{{ requestFormat.name }}</mat-option>
-              </mat-autocomplete>
-            </div>
-          </div> -->
 
           <div class="form-item">
             <div class="form-label">Вид перевозки <span class="req">•</span></div>
@@ -166,13 +134,34 @@
           <div class="form-item">
             <div class="form-label">Вид транспорта: <span class="req">•</span></div>
             <div class="form-data">
+              <input appearance="outline" class="ui-select" #inputElementTransportTypeName
+                type="text"
+                name="transport_type_name"
+                formControlName="transport_type_name"
+                [matAutocomplete]="transport_type_name"
+                placeholder="—" >
+              <mat-autocomplete  #transport_type_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let customer of filteredTransportFormats;"
+                  [value]="customer.name"
+                  (click)="changeForm_Customer(customer)"
+                >
+                  {{ customer.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <!-- <div class="form-item">
+            <div class="form-label">Вид транспорта: <span class="req">•</span></div>
+            <div class="form-data">
               <mat-form-field appearance="outline">
                 <mat-select formControlName="transport_type_id">
                   <mat-option class="edit-form__mat-option" *ngFor="let transportFormat of transportFormats;" [value]="transportFormat.id">{{ transportFormat.name }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -196,7 +185,7 @@
           </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
+        <!-- <div class="form-item i4" *ngIf="requestForm.value.request_type_id===1">
           <div class="form-label">Вид упаковки: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -210,9 +199,51 @@
               </mat-select>
             </mat-form-field>
           </div>
+        </div> -->
+
+        <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===1?'block':'none'" >
+          <div class="form-label">Вид упаковки: <span class="req">•</span></div>
+          <div class="form-data">
+            <input appearance="outline" class="ui-select" #inputElementCargoPackageName
+              type="text"
+              name="cargo_package_name"
+              formControlName="cargo_package_name"
+              [matAutocomplete]="cargo_package_name"
+              placeholder="—" >
+            <mat-autocomplete  #cargo_package_name="matAutocomplete">
+              <mat-option
+                *ngFor="let customer of filteredCargoPackage"
+                [value]="customer.name"
+                (click)="changeForm_CargoPackage(customer)"
+              >
+                {{ customer.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
         </div>
 
-        <div class="form-item i4" *ngIf="requestForm.value.request_type_id===2">
+        <div class="form-item" class="form-item i4" [style.display]="requestForm.value.request_type_id===2?'block':'none'" >
+          <div class="form-label">Тип груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <input appearance="outline" class="ui-select" #inputElementCargoTypeName
+              type="text"
+              name="cargo_type_name"
+              formControlName="cargo_type_name"
+              [matAutocomplete]="cargo_type_name"
+              placeholder="—" >
+            <mat-autocomplete requireSelection   #cargo_type_name="matAutocomplete">
+              <mat-option
+                *ngFor="let customer of filteredCargoType"
+                [value]="customer.name"
+                (click)="changeForm_CargoType(customer)"
+              >
+                {{ customer.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        <!-- <div class="form-item i4"  *ngIf="requestForm.value.request_type_id===2">
           <div class="form-label">Тип груза: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -227,12 +258,12 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div>
 
-    <div class="form-row" *ngIf="requestForm.value.request_type_id===2 && requestForm.value.cargo_type_id===14" formGroupName="cargo_temperature">
+    <div class="form-row" formGroupName="cargo_temperature" *ngIf="requestForm.value.request_type_id===2 && requestForm.value.cargo_type_id===14" >
       <div class="form-item-layout ">
 
         <div class="form-item i2 max-w-fc">
