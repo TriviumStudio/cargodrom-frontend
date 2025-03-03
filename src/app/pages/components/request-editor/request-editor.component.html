@@ -540,7 +540,7 @@
             </div>
           </div>
 
-          <div class="form-item i8">
+          <!-- <div class="form-item i8">
             <div class="form-label">Страна отправл.:<span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -553,6 +553,27 @@
                   </mat-option>
                </mat-select>
              </mat-form-field>
+            </div>
+          </div> -->
+
+          <div class="form-item" class="form-item i8">
+            <div class="form-label">Страна отправл.: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select" #inputElementDepartureCountryName
+                type="text"
+                name="departure_country_name"
+                formControlName="departure_country_name"
+                [matAutocomplete]="departure_country_name"
+                placeholder="—" >
+              <mat-autocomplete #departure_country_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of filteredDepartureCountrys"
+                  [value]="option.name"
+                  (click)="onDepartureCountryChange(option)"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
             </div>
           </div>
 

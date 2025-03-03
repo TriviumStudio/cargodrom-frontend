@@ -2,7 +2,7 @@ import { emailValidator, innValidator } from './../../../validators/pattern-vali
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith, fromEvent } from 'rxjs';
+import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, debounceTime, distinctUntilChanged, startWith, fromEvent, merge } from 'rxjs';
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
@@ -51,7 +51,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   cargoPackages: CargoPackage[]=[]; filteredCargoPackage: CargoPackage[]=[];
   cargoTypes: CargoType[]=[]; filteredCargoType: CargoType[]=[];
   currencys: Currency[]=[];
-  countrys: Country[]=[];
+  countrys: Country[]=[]; filteredDepartureCountrys: Country[]=[]; filteredArrivalCountrys: Country[]=[];
   departureCitys: DirectionCity[]=[];
   departurePoint: DirectionPoint[] = [];
   arrivalCitys: DirectionCity[]=[];
@@ -83,6 +83,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   @ViewChild('inputElementTransportTypeName', { static: true }) inputElementTransportTypeName!: ElementRef;
   @ViewChild('inputElementCargoPackageName', { static: true }) inputElementCargoPackageName!: ElementRef;
   @ViewChild('inputElementCargoTypeName', { static: true }) inputElementCargoTypeName!: ElementRef;
+  @ViewChild('inputElementDepartureCountryName', { static: true }) inputElementDepartureCountryName!: ElementRef;
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -186,6 +187,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     }
     this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
 
+    this.initialization_getDatas();
+    this.initialization_subscribeForm();
+  }
+
+  //инициализация
+  initialization_getDatas(){
     this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
@@ -194,15 +201,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getCountries();
     this.getCurrencys();
     this.getСargoTypes();
-
+  }
+  initialization_subscribeForm(){
     this.subscribeControl_СargoСost();
 
     this.subscribeInput_CustomerName();
     this.subscribeInput_TransportTypeName();
     this.subscribeInput_CargoPackageName();
     this.subscribeInput_CargoTypeName();
-    // this.subscribeField_CustomerName();
+    this.subscribeInput_DepartureCountryName();
   }
+
   //подписки на форму
   subscribeControl_СargoСost(){
     this.requestForm.get('cargo_cost')?.valueChanges
@@ -263,7 +272,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   subscribeInput_CargoTypeName(){
-    fromEvent(this.inputElementCargoTypeName.nativeElement, 'keyup')
+    const keyup$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'keyup');
+    const paste$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'paste');
+    merge(keyup$, paste$)
     .pipe(
       debounceTime(1000),
       distinctUntilChanged(),
@@ -272,13 +283,28 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     .subscribe((event: any) => {
       this.requestForm.controls['cargo_type_id'].reset();
       const value = event.target.value;
-      this.filteredCargoType=this.cargoTypes.filter((item:CargoPackage) =>{
+      this.filteredCargoType=this.cargoTypes.filter((item:CargoType) =>{
         return item.name && item.name.toLowerCase().includes(value.toLowerCase());
       })
     });
   }
-
-
+  subscribeInput_DepartureCountryName(){
+    const keyup$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'keyup');
+    const paste$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'paste');
+    merge(keyup$, paste$)
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((event: any) => {
+      this.requestForm.controls['departure_country_id'].reset();
+      const value = event.target.value;
+      this.filteredDepartureCountrys=this.countrys.filter((item:Country) =>{
+        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+      })
+    });
+  }
 
   //датапикер
   onValidChange(event:any){
@@ -682,7 +708,6 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
   //ИЗМЕНЕНИЯ ПОЛЕЙ
-  //
   changeForm_Customer(contractor:any){
     this.requestForm.patchValue({
       customer_id: contractor.id,
@@ -700,6 +725,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     if(option.param !=='temperature'){
       this.requestForm.controls['cargo_temperature'].reset();
     }
+  }
+  changeForm_DepartureCountry(option:any){
+
   }
   //изменение инкотермс
   onIncotermsChange(incotem:any){
@@ -914,7 +942,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private getCountries() {
     this.countryService.getCountries()
       .pipe(
-        tap((countrys) => this.countrys = countrys),
+        tap((countrys) => {
+          this.filteredDepartureCountrys = countrys;
+          this.filteredArrivalCountrys = countrys;
+          this.countrys = countrys;
+        }),
         takeUntil(this._destroy$)
       ).subscribe();
   }
