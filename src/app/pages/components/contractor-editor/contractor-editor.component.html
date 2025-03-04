@@ -13,7 +13,7 @@
           </label>
         </div>
 
-        <div class="form-item">
+        <!-- <div class="form-item">
           <div class="form-label">Вид подрядчика: <span class="req">•</span></div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -25,7 +25,24 @@
               </mat-error>
             </mat-form-field>
           </div>
+        </div> -->
+
+        <div class="form-item">
+          <div class="form-label">Вид подрядчика: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="type_id" [matAutocomplete]="type_id" #inputElementTypyId>
+            <mat-autocomplete #type_id="matAutocomplete" [displayWith]="displayFn.bind(this)">
+              <mat-option *ngFor="let option of filteredContractorTypes" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['type_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
         </div>
+
+
 
 
         <div class="form-item">

@@ -1,13 +1,13 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { debounceTime, distinctUntilChanged, Subject, takeUntil, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, fromEvent, merge, Subject, takeUntil, tap } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contractor, ContractorRequestFormat, ContractorType } from './../../../api/custom_models/contractor';
 import { ContractorService } from './../../../api/services/contractor.service';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {  MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CityService } from '../../services/city.service';
@@ -30,7 +30,7 @@ export class ContractorEditorComponent implements OnInit {
   isEditMode: boolean = false;
   contractorForm: FormGroup;
   associations: Association[] = [];
-  contractorTypes: ContractorType[] = [];
+  contractorTypes: ContractorType[] = []; filteredContractorTypes: ContractorType[] = [];
   countries: Country[] = [];
   cities: Partial<City>[] = [];
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
@@ -46,6 +46,8 @@ export class ContractorEditorComponent implements OnInit {
   transportCarrier:any[]=[];
 
   change$ = new Subject<string|undefined>();
+
+  @ViewChild('inputElementTypyId', { static: true }) inputElementTypyId!: ElementRef;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,17 +86,14 @@ export class ContractorEditorComponent implements OnInit {
       carrier_id:[,[]]
     });
 
-    this.change$.pipe(
+    this.change$
+    .pipe(
       debounceTime(1000),
       distinctUntilChanged(),
-      // rxjsFilter(val => val === '' || val.length > 1),
     )
-      .subscribe((e) => {
-        this.getTransportCarrier(e)
-
-        console.log(e);
-
-      });
+    .subscribe((e) => {
+      this.getTransportCarrier(e)
+    });
   }
 
   ngOnInit(): void {
@@ -111,7 +110,43 @@ export class ContractorEditorComponent implements OnInit {
     this.getTaxSystems();
     this.getCounterparty();
 
+    this.subscribeInput_ContractorType();
 
+
+  }
+
+  subscribeInput_ContractorType(){
+      const keyup$ = fromEvent(this.inputElementTypyId.nativeElement, 'keyup');
+      const paste$ = fromEvent(this.inputElementTypyId.nativeElement, 'paste');
+      merge(keyup$, paste$)
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        // takeUntil(this._destroy$),
+      )
+      .subscribe((event: any) => {
+
+        const value = event.target.value;
+        this.filteredContractorTypes = this.contractorTypes.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredContractorTypes.length==1){
+          if(this.filteredContractorTypes[0].name?.toLowerCase()===value.toLowerCase()){
+            // this.changeForm_Customer(this.filteredCustomers[0]);
+            this.contractorForm.patchValue({
+              type_id:this.filteredContractorTypes[0].id,
+            });
+          };
+        };
+      });
+    }
+
+  displayFn(id: any): string {
+    if (!this.contractorTypes) {
+      return ''; // или верни какое-то значение по умолчанию
+    }
+    const obj = this.contractorTypes.find(obj => obj.id === id);
+    return obj?.name || ''; // Используем optional chaining для безопасного доступа к свойству
   }
 
   ngOnDestroy(): void {
@@ -258,7 +293,10 @@ export class ContractorEditorComponent implements OnInit {
 
   private getContractorTypes() {
     this.contractorService.contractorType()
-      .subscribe(contractorTypes => this.contractorTypes = contractorTypes as unknown as ContractorType[]);
+      .subscribe(contractorTypes => {
+        this.contractorTypes = contractorTypes as unknown as ContractorType[];
+        this.filteredContractorTypes = contractorTypes as unknown as ContractorType[];
+      });
   }
 
   private getCountries() {

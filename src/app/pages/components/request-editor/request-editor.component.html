@@ -636,11 +636,34 @@
                   >
                   {{ arrivalCity.name }}
                 </mat-option>
+                <mat-option *ngIf="!arrivalCitys" disabled >Городов нет</mat-option>
               </mat-autocomplete>
             </div>
           </div>
 
-          <div class="form-item i8">
+          <div class="form-item" class="form-item i8">
+            <div class="form-label">Страна прибытия: <span class="req">•</span></div>
+            <div class="form-data">
+              <input appearance="outline" class="ui-select" #inputElementArrivalCountryName
+                type="text"
+                name="arrival_country_name"
+                formControlName="arrival_country_name"
+                [matAutocomplete]="arrival_country_name"
+                placeholder="—" >
+              <mat-autocomplete #arrival_country_name="matAutocomplete">
+                <mat-option
+                  *ngFor="let option of filteredArrivalCountrys"
+                  [value]="option.name"
+                  (click)="changeForm_ArrivalCountry(option);"
+                >
+                  {{ option.name }}
+                </mat-option>
+                <mat-option *ngIf="filteredArrivalCountrys.length<0" disabled >Стран нет</mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <!-- <div class="form-item i8">
             <div class="form-label">Страна прибытия:<span class="req">•</span></div>
             <div class="form-data">
               <mat-form-field appearance="outline" class="ui-select">
@@ -654,7 +677,7 @@
                </mat-select>
              </mat-form-field>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-item i4" *ngIf="transport_kind_id ===1">
             <div class="form-label">Аэропорт прибытия:</div>

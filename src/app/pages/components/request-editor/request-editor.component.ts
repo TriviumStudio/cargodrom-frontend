@@ -84,6 +84,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   @ViewChild('inputElementCargoPackageName', { static: true }) inputElementCargoPackageName!: ElementRef;
   @ViewChild('inputElementCargoTypeName', { static: true }) inputElementCargoTypeName!: ElementRef;
   @ViewChild('inputElementDepartureCountryName', { static: true }) inputElementDepartureCountryName!: ElementRef;
+  @ViewChild('inputElementArrivalCountryName', { static: true }) inputElementArrivalCountryName!: ElementRef;
   //КОНСТРУКТОР
   constructor(
     private route: ActivatedRoute,
@@ -212,6 +213,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.subscribeInput_CargoPackageName();
     this.subscribeInput_CargoTypeName();
     this.subscribeInput_DepartureCountryName();
+    this.subscribeInput_ArrivalCountryName();
   }
 
   //подписки на форму
@@ -334,6 +336,28 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       if(this.filteredDepartureCountrys.length==1){
         if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
           this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0])
+        }
+      }
+    });
+  }
+  subscribeInput_ArrivalCountryName(){
+    const keyup$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'keyup');
+    const paste$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'paste');
+    merge(keyup$, paste$)
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((event: any) => {
+      this.requestForm.controls['arrival_country_id'].reset();
+      const value = event.target.value;
+      this.filteredArrivalCountrys=this.countrys.filter((item:Country) =>{
+        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+      })
+      if(this.filteredArrivalCountrys.length==1){
+        if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+          this.changeForm_ArrivalCountry(this.filteredArrivalCountrys[0])
         }
       }
     });
@@ -783,6 +807,23 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       };
     }
   }
+  changeForm_ArrivalCountry(option:any){
+    console.log(option)
+    if(option.id!==this.requestForm.value.arrival_country_id){
+      this.requestForm.controls['arrival_city_id'].reset();
+      this.requestForm.controls['arrival_city_name'].reset();
+      this.requestForm.controls['arrival_point_id'].reset();
+    }
+    this.requestForm.patchValue({
+      arrival_country_id: option.id,
+      arrival_country_name: option.name
+    });
+    this.getArrivalCitiesByCountryId(option.id);
+    if(this.requestForm.value.transport_kind_id==1){
+      this.getArrivalPoint(option.id,this.requestForm.value.transport_kind_id);
+    };
+
+  }
   changeForm_DepartureSity(option:any){
     // if(this.requestForm.value.departure_country_id!==option.country_id){
     //   this.requestForm.controls['departure_country_id'].reset();
@@ -880,17 +921,17 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       arrival_country_id: city.country_id,
       arrival_country_name: city.country_name
     });
-    this.getArrivalPoint(city.id,this.requestForm.value.transport_kind_id);
+    this.getArrivalPoint(city.country_id,this.requestForm.value.transport_kind_id);
   }
   //изменение поля страны прибытия
-  onArrivalCountryChange(e:any):void{
-    console.log(e)
-    if(e!==this.requestForm.value.arrival_country_id){
-      this.requestForm.controls['arrival_city_id'].reset();
-      this.requestForm.controls['arrival_city_name'].reset();
-    }
-    this.getArrivalCitiesByCountryId(e);
-  }
+  // onArrivalCountryChange(e:any):void{
+  //   console.log(e)
+  //   if(e!==this.requestForm.value.arrival_country_id){
+  //     this.requestForm.controls['arrival_city_id'].reset();
+  //     this.requestForm.controls['arrival_city_name'].reset();
+  //   }
+  //   this.getArrivalCitiesByCountryId(e);
+  // }
   //
   onPortChange(port:any){
     this.requestForm.patchValue({
@@ -1045,8 +1086,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
-  private getArrivalPoint(city_id: number, transport_kind_id: number) {
-    this.directionService.directionPoint({city_id, transport_kind_id})
+  private getArrivalPoint(country_id: number, transport_kind_id: number) {
+    this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
         tap(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[]),
         takeUntil(this._destroy$)
