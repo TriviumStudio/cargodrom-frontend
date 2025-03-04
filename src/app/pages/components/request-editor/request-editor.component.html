@@ -144,7 +144,7 @@
                 <mat-option
                   *ngFor="let customer of filteredTransportFormats;"
                   [value]="customer.name"
-                  (click)="changeForm_Customer(customer)"
+                  (click)="changeForm_TransportType(customer)"
                 >
                   {{ customer.name }}
                 </mat-option>
@@ -528,14 +528,15 @@
                 [matAutocomplete]="dSity"
                 (keyup)="searchDepartureCity($event)" placeholder="—"
               >
-              <mat-autocomplete #dSity="matAutocomplete" >
+              <mat-autocomplete #dSity="matAutocomplete">
                 <mat-option
                   *ngFor="let departureCity of departureCitys;"
                   [value]="departureCity.name"
-                  (click)="onDepartureCityChange(departureCity)"
+                  (click)="changeForm_DepartureSity(departureCity)"
                   >
                   {{ departureCity.name }}
                 </mat-option>
+                <mat-option *ngIf="!departureCitys" disabled >Городов нет</mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -556,6 +557,15 @@
             </div>
           </div> -->
 
+
+          <!-- <input type="text" formControlName="departure_country_id" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+            <mat-option *ngFor="let option of filteredDepartureCountrys" [value]="option.id">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete> -->
+
+
           <div class="form-item" class="form-item i8">
             <div class="form-label">Страна отправл.: <span class="req">•</span></div>
             <div class="form-data">
@@ -569,10 +579,11 @@
                 <mat-option
                   *ngFor="let option of filteredDepartureCountrys"
                   [value]="option.name"
-                  (click)="onDepartureCountryChange(option)"
+                  (click)="changeForm_DepartureCountry(option);"
                 >
                   {{ option.name }}
                 </mat-option>
+                <mat-option *ngIf="filteredDepartureCountrys.length==0" disabled >Стран нет</mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -588,6 +599,7 @@
                     >
                     {{ departurePoint.name }}
                   </mat-option>
+                  <mat-option *ngIf="!departurePoint" disabled >Аэропортов нет</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
