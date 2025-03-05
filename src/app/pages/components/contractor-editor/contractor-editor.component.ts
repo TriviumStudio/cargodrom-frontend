@@ -30,24 +30,28 @@ export class ContractorEditorComponent implements OnInit {
   isEditMode: boolean = false;
   contractorForm: FormGroup;
   associations: Association[] = [];
+
   contractorTypes: ContractorType[] = []; filteredContractorTypes: ContractorType[] = [];
-  countries: Country[] = [];
-  cities: Partial<City>[] = [];
+  transportCarrier:any[]=[]; filteredTransportCarrier:any[]=[];
+  countries: Country[] = []; filteredCountries: Country[] = [];
+  cities: City[] = []; filteredCitys: City[] = [];
+  counterpartys:Counterparty[]=[]; filteredCounterpartys:Counterparty[]=[];
+
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
   requestFormats: ContractorRequestFormat[] = [];
   production = environment.production;
   title = '';
-  taxSystems: TaxSystem[] = [];
+  taxSystems: TaxSystem[] = []; filteredTaxs: TaxSystem[] = [];
   nameForHeader?: string;
   // counterpartys:Counterparty[]=[];
-  counterpartys:any[]=[];
-  // private _destroy$ = new Subject();
-  transportCarrier:any[]=[];
 
-  change$ = new Subject<string|undefined>();
+  private _destroy$ = new Subject();
 
-  @ViewChild('inputElementTypyId', { static: true }) inputElementTypyId!: ElementRef;
+
+  // change$ = new Subject<string|undefined>();
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -82,81 +86,239 @@ export class ContractorEditorComponent implements OnInit {
       // exclude_from_trade: [false]
       allow_trade:[false],
       counterparty_id: ['', [Validators.required]],
-      carrier_name:[,[]],
+      // carrier_name:[,[]],
       carrier_id:[,[]]
     });
 
-    this.change$
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-    )
-    .subscribe((e) => {
-      this.getTransportCarrier(e)
-    });
+    // this.change$
+    // .pipe(
+    //   debounceTime(1000),
+    //   distinctUntilChanged(),
+    // )
+    // .subscribe((e) => {
+    //   this.getTransportCarrier(e)
+    // });
   }
 
   ngOnInit(): void {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.initialization_getDatas();
+    this.initialization_subscribeForm();
+    this.initialization_chooseModeForm();
     if (this.isEditMode) {
       this.getContractor();
     }
-    this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
-    this.getContractorTypes();
-    this.getAssociations();
-    this.getCountries();
-    this.getRequestFormats();
-    this.getTaxSystems();
-    this.getCounterparty();
-
-    this.subscribeInput_ContractorType();
-
-
   }
 
-  subscribeInput_ContractorType(){
-      const keyup$ = fromEvent(this.inputElementTypyId.nativeElement, 'keyup');
-      const paste$ = fromEvent(this.inputElementTypyId.nativeElement, 'paste');
-      merge(keyup$, paste$)
-      .pipe(
-        debounceTime(1000),
-        distinctUntilChanged(),
-        // takeUntil(this._destroy$),
-      )
-      .subscribe((event: any) => {
+  initialization_chooseModeForm(){
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isEditMode = segments[1] !== 'add';
+    this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
+  }
+  initialization_getDatas() {
+    this.getContractorTypes();
+    this.getTransportCarrier();
+    this.getCountries();
+    this.getCounterparty();
+    this.getTaxSystems();
+    this.getAssociations();
+    this.getRequestFormats();
+  }
+  initialization_subscribeForm(){
+    // this.subscribeControl_ContractorType();
+    this.subscribeControl_CarrierId();
+    this.subscribeControl_CountryId();
+    this.subscribeControl_CityId();
+    this.subscribeControl_CounterpartyId();
+    this.subscribeControl_TaxId();
+  }
 
-        const value = event.target.value;
+  subscribeControl_ContractorType(){
+    this.contractorForm.get('type_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
         this.filteredContractorTypes = this.contractorTypes.filter((item: any) => {
           return item.name && item.name.toLowerCase().includes(value.toLowerCase());
         });
         if(this.filteredContractorTypes.length==1){
           if(this.filteredContractorTypes[0].name?.toLowerCase()===value.toLowerCase()){
-            // this.changeForm_Customer(this.filteredCustomers[0]);
             this.contractorForm.patchValue({
               type_id:this.filteredContractorTypes[0].id,
             });
           };
         };
-      });
-    }
+      }
+    });
+  }
+  subscribeControl_CarrierId(){
+    this.contractorForm.get('carrier_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredTransportCarrier = this.transportCarrier.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredTransportCarrier.length==1){
+          if(this.filteredTransportCarrier[0].name?.toLowerCase()===value.toLowerCase()){
+            this.contractorForm.patchValue({
+              carrier_id: this.filteredTransportCarrier[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CountryId(){
+    this.contractorForm.get('country_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCountries = this.countries.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCountries.length==1){
+          if(this.filteredCountries[0].name?.toLowerCase()===value.toLowerCase()){
+            this.contractorForm.patchValue({
+              country_id: this.filteredCountries[0].id,
+            });
+            this.onCountryChange(this.filteredCountries[0].id);
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CityId(){
+    this.contractorForm.get('city_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCitys = this.cities.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCitys.length==1){
+          if(this.filteredCitys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.contractorForm.patchValue({
+              city_id: this.filteredCitys[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CounterpartyId(){
+    this.contractorForm.get('counterparty_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCounterpartys = this.counterpartys.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCounterpartys.length==1){
+          if(this.filteredCounterpartys[0].name?.toLowerCase()===value.toLowerCase()){
+            this.contractorForm.patchValue({
+              counterparty_id: this.filteredCounterpartys[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_TaxId(){
+    this.contractorForm.get('tax_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredTaxs = this.taxSystems.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredTaxs.length==1){
+          if(this.filteredTaxs[0].name?.toLowerCase()===value.toLowerCase()){
+            this.contractorForm.patchValue({
+              tax_id: this.filteredTaxs[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
 
-  displayFn(id: any): string {
+  displayFn_TaxId(id: any): string {
+    if (!this.taxSystems) {
+      return '';
+    }
+    const obj = this.taxSystems.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CounterpartyId(id: any): string {
+    if (!this.counterpartys) {
+      return '';
+    }
+    const obj = this.counterpartys.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CityId(id: any): string {
+    if (!this.cities) {
+      return '';
+    }
+    const obj = this.cities.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CountryId(id: any): string {
+    if (!this.countries) {
+      return '';
+    }
+    const obj = this.countries.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CarrierId(id: any): string {
+    if (!this.transportCarrier) {
+      return '';
+    }
+    const obj = this.transportCarrier.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_TypeId(id: any): string {
     if (!this.contractorTypes) {
-      return ''; // или верни какое-то значение по умолчанию
+      return '';
     }
     const obj = this.contractorTypes.find(obj => obj.id === id);
-    return obj?.name || ''; // Используем optional chaining для безопасного доступа к свойству
+    return obj?.name || '';
   }
+
+
 
   ngOnDestroy(): void {
-    // this._destroy$.next(null);
-    // this._destroy$.complete();
+    this._destroy$.next(null);
+    this._destroy$.complete();
   }
 
-  onChange(query: string|undefined) {
-    this.change$.next(query);
-  }
+  // onChange(query: string|undefined) {
+  //   this.change$.next(query);
+  // }
 
   goBack(): void {
     this.location.back();
@@ -270,20 +432,26 @@ export class ContractorEditorComponent implements OnInit {
   }
 
 
-  onTransportCarrierChange(i:any){
-    this.contractorForm.patchValue({
-      carrier_id:i.id
-    })
-  }
+  // onTransportCarrierChange(i:any){
+  //   this.contractorForm.patchValue({
+  //     carrier_id:i.id
+  //   })
+  // }
 
-  getTransportCarrier(e:any){
-    this.transportService.transportCarrier({name:e})
-      .subscribe(transportCarrier => this.transportCarrier = transportCarrier);
+  private getTransportCarrier(){
+    this.transportService.transportCarrier()
+      .subscribe(transportCarrier => {
+        this.transportCarrier = transportCarrier;
+        this.filteredTransportCarrier = transportCarrier;
+      });
   }
 
   private getCounterparty(){
     this.systemService.systemCounterparty()
-      .subscribe(counterpartys => this.counterpartys = counterpartys as Counterparty[]);
+      .subscribe(counterpartys => {
+        this.filteredCounterpartys = counterpartys as Counterparty[];
+        this.counterpartys = counterpartys as Counterparty[];
+      });
   }
 
   private getAssociations() {
@@ -301,7 +469,10 @@ export class ContractorEditorComponent implements OnInit {
 
   private getCountries() {
     this.countryService.getCountries()
-      .subscribe(countries => this.countries = countries);
+      .subscribe(countries => {
+        this.filteredCountries = countries;
+        this.countries = countries;
+      });
   }
 
   private getRequestFormats(): void {
@@ -311,7 +482,10 @@ export class ContractorEditorComponent implements OnInit {
 
   private getCities(countryId: number) {
     this.cityService.getCities(countryId)
-      .subscribe(cities => this.cities = cities);
+      .subscribe(cities => {
+        this.filteredCitys = cities;
+        this.cities = cities;
+      } );
   }
 
   private getContractor(): void {
@@ -346,7 +520,10 @@ export class ContractorEditorComponent implements OnInit {
 
   getTaxSystems(): void {
     this.systemService.systemTaxSystem().subscribe(
-      taxSystems => this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : []
+      taxSystems => {
+        this.filteredTaxs = taxSystems ? taxSystems as TaxSystem[] : [];
+        this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : [];
+      }
     );
   }
 

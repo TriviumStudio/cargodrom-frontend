@@ -79,10 +79,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
 
-  @ViewChild('inputElementCustomerName', { static: true }) inputElementCustomerName!: ElementRef;
-  @ViewChild('inputElementTransportTypeName', { static: true }) inputElementTransportTypeName!: ElementRef;
-  @ViewChild('inputElementCargoPackageName', { static: true }) inputElementCargoPackageName!: ElementRef;
-  @ViewChild('inputElementCargoTypeName', { static: true }) inputElementCargoTypeName!: ElementRef;
+  // @ViewChild('inputElementCustomerName', { static: true }) inputElementCustomerName!: ElementRef;
+  // @ViewChild('inputElementTransportTypeName', { static: true }) inputElementTransportTypeName!: ElementRef;
+  // @ViewChild('inputElementCargoPackageName', { static: true }) inputElementCargoPackageName!: ElementRef;
+  // @ViewChild('inputElementCargoTypeName', { static: true }) inputElementCargoTypeName!: ElementRef;
   @ViewChild('inputElementDepartureCountryName', { static: true }) inputElementDepartureCountryName!: ElementRef;
   @ViewChild('inputElementArrivalCountryName', { static: true }) inputElementArrivalCountryName!: ElementRef;
   //КОНСТРУКТОР
@@ -175,12 +175,19 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   linkRate(){
     this.router.navigate(['rate_request', '638d85d28962c195e5ff113ad5e01e43']);
   }
+
   //МЕТОДЫ ЖЦ
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
+    this.initialization_getDatas();
+    this.initialization_subscribeForm();
+    this.initialization_isFormMode();
+  }
+
+  initialization_isFormMode(){
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] !== 'add';
     if(this.isEditMode){
@@ -188,16 +195,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       this.getRequest();
     }
     this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
-
-    this.initialization_getDatas();
-    this.initialization_subscribeForm();
   }
-
-  //инициализация
   initialization_getDatas(){
     this.getCustomers();
     this.getRequestFormats();
     this.getTransportationFormats();
+    this.getTransportFormats();
     this.getСargoPackages();
     this.getDirectionFlight();
     this.getCountries();
@@ -206,119 +209,22 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.getDepartureCities('');
   }
   initialization_subscribeForm(){
-    this.subscribeControl_СargoСost();
+    // this.subscribeControl_СargoСost();
 
-    this.subscribeInput_CustomerName();
-    this.subscribeInput_TransportTypeName();
-    this.subscribeInput_CargoPackageName();
-    this.subscribeInput_CargoTypeName();
+    // this.subscribeInput_CustomerName();
+    // this.subscribeInput_TransportTypeName();
+    // this.subscribeInput_CargoPackageName();
+    // this.subscribeInput_CargoTypeName();
+    // this.subscribeInput_DepartureCountryName();
+    // this.subscribeInput_ArrivalCountryName();
+    this.subscribeControl_CustomerId();
+    this.subscribeControl_TransportTypeId();
+    this.subscribeControl_CargoPackageId();
+    this.subscribeControl_CargoTypeId();
     this.subscribeInput_DepartureCountryName();
     this.subscribeInput_ArrivalCountryName();
   }
-
-  //подписки на форму
-  subscribeControl_СargoСost(){
-    this.requestForm.get('cargo_cost')?.valueChanges
-    .pipe(
-      debounceTime(1500),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((value:any) => {
-      const formattedValue = value?.toFixed(2); // Округляем до двух знаков
-      this.requestForm.get('cargo_cost')?.setValue(formattedValue, { emitEvent: false });
-    });
-  }
-  //подписки на инпуты
-  subscribeInput_CustomerName(){
-    const keyup$ = fromEvent(this.inputElementCustomerName.nativeElement, 'keyup');
-    const paste$ = fromEvent(this.inputElementCustomerName.nativeElement, 'paste');
-    merge(keyup$, paste$)
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((event: any) => {
-      this.requestForm.controls['customer_id'].reset();
-      const value = event.target.value;
-      this.filteredCustomers = this.customers.filter((item: Customer) => {
-        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-      });
-      if(this.filteredCustomers.length==1){
-        if(this.filteredCustomers[0].name?.toLowerCase()===value.toLowerCase()){
-          this.changeForm_Customer(this.filteredCustomers[0]);
-        };
-      };
-    });
-  }
-  subscribeInput_TransportTypeName(){
-    const keyup$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'keyup');
-    const paste$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'paste');
-    merge(keyup$, paste$)
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((event: any) => {
-      this.requestForm.controls['transport_type_id'].reset();
-      const value = event.target.value;
-      this.filteredTransportFormats=this.transportFormats.filter((item:TransportType) =>{
-        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-      });
-      if(this.filteredTransportFormats.length==1){
-        if(this.filteredTransportFormats[0].name?.toLowerCase()===value.toLowerCase()){
-          this.changeForm_TransportType(this.filteredTransportFormats[0]);
-        };
-      };
-    });
-  }
-  subscribeInput_CargoPackageName(){
-    const keyup$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'keyup');
-    const paste$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'paste');
-    merge(keyup$, paste$)
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((event: any) => {
-      this.requestForm.controls['cargo_package_id'].reset();
-      const value = event.target.value;
-      this.filteredCargoPackage=this.cargoPackages.filter((item:CargoPackage) =>{
-        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-      })
-      if(this.filteredCargoPackage.length==1){
-        if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
-          this.changeForm_CargoPackage(this.filteredCargoPackage[0])
-        };
-      };
-    });
-  }
-  subscribeInput_CargoTypeName(){
-    const keyup$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'keyup');
-    const paste$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'paste');
-    merge(keyup$, paste$)
-    .pipe(
-      debounceTime(1000),
-      distinctUntilChanged(),
-      takeUntil(this._destroy$),
-    )
-    .subscribe((event: any) => {
-      this.requestForm.controls['cargo_type_id'].reset();
-      const value = event.target.value;
-      this.filteredCargoType=this.cargoTypes.filter((item:CargoType) =>{
-        return item.name && item.name.toLowerCase().includes(value.toLowerCase());
-      })
-      if(this.filteredCargoType.length==1){
-        if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
-          this.changeForm_CargoType(this.filteredCargoType[0])
-        }
-      }
-    });
-  }
-  subscribeInput_DepartureCountryName(){
+    subscribeInput_DepartureCountryName(){
     const keyup$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'keyup');
     const paste$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'paste');
     merge(keyup$, paste$)
@@ -362,6 +268,118 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  subscribeControl_CustomerId(){
+    this.requestForm.get('customer_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCustomers = this.customers.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCustomers.length==1){
+          if(this.filteredCustomers[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              customer_id: this.filteredCustomers[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_TransportTypeId(){
+    this.requestForm.get('transport_type_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredTransportFormats = this.transportFormats.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredTransportFormats.length==1){
+          if(this.filteredTransportFormats[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              transport_type_id: this.filteredTransportFormats[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CargoPackageId(){
+    this.requestForm.get('cargo_package_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCargoPackage = this.cargoPackages.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCargoPackage.length==1){
+          if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              cargo_package_id: this.filteredCargoPackage[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+  subscribeControl_CargoTypeId(){
+    this.requestForm.get('cargo_type_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCargoType = this.cargoTypes.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCargoType.length==1){
+          if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
+            this.requestForm.patchValue({
+              cargo_type_id: this.filteredCargoType[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+
+  displayFn_CargoTypeId(id: any): string {
+    if (!this.cargoTypes) return '';
+    const obj = this.cargoTypes.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CargoPackageId(id: any): string {
+    if (!this.cargoPackages) return '';
+    const obj = this.cargoPackages.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_TransportTypeId(id: any): string {
+    if (!this.transportFormats) return '';
+    const obj = this.transportFormats.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_CustomerId(id: any): string {
+    if (!this.customers) return '';
+    const obj = this.customers.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+
+
 
   //датапикер
   onValidChange(event:any){
@@ -1011,6 +1029,16 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         takeUntil(this._destroy$)
       ).subscribe();
   }
+  private getTransportFormats() {
+    this.transportService.transportType()
+      .pipe(
+        tap((transportFormats) => {
+          this.transportFormats = transportFormats as TransportType[];
+          this.filteredTransportFormats = transportFormats as TransportType[];
+        }),
+        takeUntil(this._destroy$)
+      ).subscribe();
+  }
   //ОПИСАНИЕ ГРУЗА
   private getСargoPackages() {
     this.cargoService.cargoPackage()
@@ -1214,3 +1242,150 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
 }
+
+  //подписки на форму
+  // subscribeControl_СargoСost(){
+  //   this.requestForm.get('cargo_cost')?.valueChanges
+  //   .pipe(
+  //     debounceTime(1500),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((value:any) => {
+  //     const formattedValue = value?.toFixed(2); // Округляем до двух знаков
+  //     this.requestForm.get('cargo_cost')?.setValue(formattedValue, { emitEvent: false });
+  //   });
+  // }
+  // //подписки на инпуты
+  // subscribeInput_CustomerName(){
+  //   const keyup$ = fromEvent(this.inputElementCustomerName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCustomerName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['customer_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCustomers = this.customers.filter((item: Customer) => {
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     });
+  //     if(this.filteredCustomers.length==1){
+  //       if(this.filteredCustomers[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_Customer(this.filteredCustomers[0]);
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_TransportTypeName(){
+  //   const keyup$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementTransportTypeName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['transport_type_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredTransportFormats=this.transportFormats.filter((item:TransportType) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     });
+  //     if(this.filteredTransportFormats.length==1){
+  //       if(this.filteredTransportFormats[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_TransportType(this.filteredTransportFormats[0]);
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_CargoPackageName(){
+  //   const keyup$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCargoPackageName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['cargo_package_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCargoPackage=this.cargoPackages.filter((item:CargoPackage) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredCargoPackage.length==1){
+  //       if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_CargoPackage(this.filteredCargoPackage[0])
+  //       };
+  //     };
+  //   });
+  // }
+  // subscribeInput_CargoTypeName(){
+  //   const keyup$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementCargoTypeName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['cargo_type_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredCargoType=this.cargoTypes.filter((item:CargoType) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredCargoType.length==1){
+  //       if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_CargoType(this.filteredCargoType[0])
+  //       }
+  //     }
+  //   });
+  // }
+  // subscribeInput_DepartureCountryName(){
+  //   const keyup$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementDepartureCountryName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['departure_country_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredDepartureCountrys=this.countrys.filter((item:Country) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredDepartureCountrys.length==1){
+  //       if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0])
+  //       }
+  //     }
+  //   });
+  // }
+  // subscribeInput_ArrivalCountryName(){
+  //   const keyup$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'keyup');
+  //   const paste$ = fromEvent(this.inputElementArrivalCountryName.nativeElement, 'paste');
+  //   merge(keyup$, paste$)
+  //   .pipe(
+  //     debounceTime(1000),
+  //     distinctUntilChanged(),
+  //     takeUntil(this._destroy$),
+  //   )
+  //   .subscribe((event: any) => {
+  //     this.requestForm.controls['arrival_country_id'].reset();
+  //     const value = event.target.value;
+  //     this.filteredArrivalCountrys=this.countrys.filter((item:Country) =>{
+  //       return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+  //     })
+  //     if(this.filteredArrivalCountrys.length==1){
+  //       if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
+  //         this.changeForm_ArrivalCountry(this.filteredArrivalCountrys[0])
+  //       }
+  //     }
+  //   });
+  // }

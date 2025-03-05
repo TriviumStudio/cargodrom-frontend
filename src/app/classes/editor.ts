@@ -20,11 +20,11 @@ export abstract class Editor<T> implements OnInit {
   taxSystems: TaxSystem[] = [];
   currencies: Currency[] = [];
   headPositions: HeadPosition[] = [];
-  businessKinds: BusinessKind[] = [];
+  businessKinds: BusinessKind[] = []; filteredBusinessKinds: BusinessKind[] = [];
   interactionKinds: InteractionKind[] = [];
-  contactSources: ContactSource[] = [];
-  clientStatuses: ClientStatus[] = [];
-  clientKinds: ClientKind[] = [];
+  contactSources: ContactSource[] = []; filteredContactSources: ContactSource[] = [];
+  clientStatuses: ClientStatus[] = []; filteredClientStatuses: ClientStatus[] = [];
+  clientKinds: ClientKind[] = []; filteredClientKinds: ClientKind[] = [];
   serviceKinds: ServiceKind[] = [];
   isFormSubmitted = false;
   data: Partial<T> = {};
@@ -92,7 +92,10 @@ export abstract class Editor<T> implements OnInit {
 
   loadBusinessKinds(): void {
     this.systemService.systemBusiness().subscribe(
-      kinds => this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : []
+      kinds => {
+        this.filteredBusinessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+        this.businessKinds = kinds ? (kinds as BusinessKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+      }
     );
   }
 
@@ -104,19 +107,28 @@ export abstract class Editor<T> implements OnInit {
 
   loadContactSources(): void {
     this.systemService.systemContactSource().subscribe(
-      kinds => this.contactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      kinds => {
+        this.filteredContactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+        this.contactSources = kinds ? (kinds as ContactSource[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+      }
     );
   }
 
   loadClientStatuses(): void {
     this.systemService.systemCustomerStatus().subscribe(
-      kinds => this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : []
+      kinds => {
+        this.filteredClientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+        this.clientStatuses = kinds ? (kinds as ClientStatus[]).sort(byField('name', 'asc', 'case-insensitive')) : [];
+      }
     );
   }
 
   loadClientKinds(): void {
     this.systemService.systemCounterparty().subscribe(
-      kinds => this.clientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : []
+      kinds => {
+        this.clientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+        this.filteredClientKinds = kinds ? (kinds as ClientKind[]).sort(byField('num', 'asc', 'numeric')) : [];
+      }
     );
   }
 

@@ -40,7 +40,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   private _destroy$ = new Subject();
 
   private touched = false;
-  cargoPackages:CargoPackage[]=[];
+  cargoPackages:CargoPackage[]=[]; filteredCargoPackage:CargoPackage[]=[];
 
   currentTotalVolume: number = 0;
   currentTotalWeight: number = 0;
@@ -74,6 +74,62 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
       total_weight: [, []],
     });
   }
+
+  ngOnInit(): void {
+    this.getСargoPackages();
+
+    this.placeForm.valueChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(value => {
+        this.onChange(value);
+    });
+
+    const arrField:string[]=['length','width','height','weight'];
+    arrField.forEach((value:string) => {
+      this.roundingTo2Digits(value);
+    })
+
+    this.placeForm.statusChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        if (!this.touched) {
+          this.onTouched();
+          this.touched = true;
+        }
+    });
+
+    this.subscribeControl_CargoPackageId();
+  }
+
+  subscribeControl_CargoPackageId(){
+    this.placeForm.get('cargo_package_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredCargoPackage = this.cargoPackages.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredCargoPackage.length==1){
+          if(this.filteredCargoPackage[0].name?.toLowerCase()===value.toLowerCase()){
+            this.placeForm.patchValue({
+              cargo_package_id: this.filteredCargoPackage[0].id,
+            });
+          };
+        };
+      }
+    });
+  }
+
+  displayFn_CargoPackageId(id: any): string {
+    if (!this.cargoPackages) return '';
+    const obj = this.cargoPackages.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
+
   onCalkTotalVolumeAndWeight(){
     const lengthSant=this.placeForm.value.length;
     const widthSant=this.placeForm.value.width
@@ -119,32 +175,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
 
   }
 
-  ngOnInit(): void {
-    this.getСargoPackages();
 
-    this.placeForm.valueChanges
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(value => {
-        this.onChange(value);
-    });
-
-    const arrField:string[]=['length','width','height','weight'];
-    arrField.forEach((value:string) => {
-      this.roundingTo2Digits(value);
-    })
-
-    this.placeForm.statusChanges
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(() => {
-        if (!this.touched) {
-          this.onTouched();
-          this.touched = true;
-        }
-    });
-
-
-
-  }
 
   roundingTo2Digits(field:string){
     this.placeForm.get(field)?.valueChanges
@@ -176,7 +207,12 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   private getСargoPackages() {
     this.cargoService.cargoPackage()
       .pipe(
-        tap((cargoPackages)=> this.cargoPackages = cargoPackages as CargoPackage[]),
+        tap((cargoPackages)=> {
+          this.cargoPackages = cargoPackages as CargoPackage[];
+          this.filteredCargoPackage = cargoPackages as CargoPackage[];
+
+
+        }),
         takeUntil(this._destroy$)
       ).subscribe();
   }
