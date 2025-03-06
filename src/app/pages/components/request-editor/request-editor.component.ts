@@ -56,8 +56,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   currencys: Currency[]=[];
   departureCitys: DirectionCity[]=[];
-  // filteredDeparturePoint: DirectionPoint[] = []; filteredArrivalPoint:DirectionPoint[] = []; point:DirectionPoint[] = [];
-  arrivalPoint: DirectionPoint[] = []; departurePoint: DirectionPoint[] = [];
+  filteredDeparturePoint: DirectionPoint[] = []; departurePoint: DirectionPoint[] = [];
+  arrivalPoint: DirectionPoint[] = []; filteredArrivalPoint:DirectionPoint[] = [];
   directionFlights: DirectionFlight[]=[];
   incoterms: Incoterms[]=[];
   ports: DirectionCity[]=[];
@@ -253,6 +253,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.subscribeControl_DepartureCountryId();
     this.subscribeControl_ArrivalCityId();
     this.subscribeControl_ArrivalCountryId();
+    this.subscribeControl_ArrivalPointId();
+    this.subscribeControl_DeparturePointId();
 
   }
 
@@ -432,7 +434,48 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         };
       };
     });
+  }
+  subscribeControl_ArrivalPointId(){
+    this.requestForm.get('arrival_point_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredArrivalPoint = this.arrivalPoint.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          // return item.name && item.name.toLowerCase().includes(value.toLowerCase())
+          // && this.requestForm.value.departure_country_id==item.country_id;
+        });
+        if(this.filteredArrivalPoint.length==1){
+          if(this.filteredArrivalPoint[0].name?.toLowerCase()===value.toLowerCase()){
 
+          };
+        };
+      };
+    });
+  }
+  subscribeControl_DeparturePointId(){
+    this.requestForm.get('departure_point_id')?.valueChanges
+    .pipe(
+      debounceTime(1000),
+      distinctUntilChanged(),
+      takeUntil(this._destroy$),
+    )
+    .subscribe((value: any) => {
+      if(typeof value==='string'){
+        this.filteredDeparturePoint = this.departurePoint.filter((item: any) => {
+          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+        });
+        if(this.filteredDeparturePoint.length==1){
+          if(this.filteredDeparturePoint[0].name?.toLowerCase()===value.toLowerCase()){
+
+          };
+        };
+      };
+    });
   }
 
   changeForm_ArrivalCity(option:any){
@@ -475,6 +518,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     });
   }
 
+  displayFn_DeparturePointId(id: any): string {
+    if (!this.departurePoint) return '';
+    const obj = this.departurePoint.find(obj => obj.id === id);
+    return obj?.name || '';
+  }
   displayFn_ArrivalPointId(id: any): string {
     if (!this.arrivalPoint) return '';
     const obj = this.arrivalPoint.find(obj => obj.id === id);
@@ -1246,9 +1294,10 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
       .pipe(
         tap((departurePoint) =>{
           this.departurePoint=departurePoint as DirectionPoint[];
+          this.filteredDeparturePoint=departurePoint as DirectionPoint[];
           this.requestForm.patchValue({
-            arrival_point_id:this.requestForm.value.arrival_point_id
-          })
+            departure_point_id:this.requestForm.value.departure_point_id
+          });
         } ),
         takeUntil(this._destroy$)
       ).subscribe();
@@ -1256,7 +1305,13 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   private getArrivalPoint(country_id: number, transport_kind_id: number) {
     this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
-        tap(arrivalPoint => this.arrivalPoint=arrivalPoint as DirectionPoint[]),
+        tap(arrivalPoint => {
+          this.arrivalPoint=arrivalPoint as DirectionPoint[];
+          this.filteredArrivalPoint=arrivalPoint as DirectionPoint[];
+          this.requestForm.patchValue({
+            arrival_point_id:this.requestForm.value.arrival_point_id
+          });
+        } ),
         takeUntil(this._destroy$)
       ).subscribe();
   }
