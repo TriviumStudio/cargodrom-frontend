@@ -19,6 +19,7 @@ import { DirectionFlight, DirectionPoint,  } from 'src/app/api/custom_models/dir
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
+import { LoginComponent } from 'src/app/auth/components/login/login.component';
 
 
 @Component({
@@ -364,6 +365,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.filteredDepartureCitys.length==1){
           if(this.filteredDepartureCitys[0].name?.toLowerCase()===value.toLowerCase()){
             this.changeForm_DepartureCity(this.filteredDepartureCitys[0]);
+            this.requestForm.patchValue({
+              departure_city_id: this.filteredDepartureCitys[0].id,
+            });
           };
         };
       };
@@ -386,6 +390,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.filteredDepartureCountrys.length==1){
           if(this.filteredDepartureCountrys[0].name?.toLowerCase()===value.toLowerCase()){
             this.changeForm_DepartureCountry(this.filteredDepartureCountrys[0]);
+            this.requestForm.patchValue({
+              departure_country_id: this.filteredDepartureCountrys[0].id,
+            });
           };
         };
       };
@@ -408,6 +415,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.filteredArrivalCitys.length==1){
           if(this.filteredArrivalCitys[0].name?.toLowerCase()===value.toLowerCase()){
             this.changeForm_ArrivalCity(this.filteredArrivalCitys[0]);
+            this.requestForm.patchValue({
+              arrival_city_id: this.filteredArrivalCitys[0].id,
+            })
           };
         };
       };
@@ -430,6 +440,9 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.filteredArrivalCountrys.length==1){
           if(this.filteredArrivalCountrys[0].name?.toLowerCase()===value.toLowerCase()){
             this.changeForm_ArrivalCity(this.filteredArrivalCountrys[0]);
+            this.requestForm.patchValue({
+              arrival_country_id: this.filteredArrivalCountrys[0].id,
+            })
           };
         };
       };
@@ -1293,8 +1306,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
         tap((departurePoint) =>{
-          this.departurePoint=departurePoint as DirectionPoint[];
-          this.filteredDeparturePoint=departurePoint as DirectionPoint[];
+          this.departurePoint=departurePoint?departurePoint as DirectionPoint[]:[];
+          this.filteredDeparturePoint=departurePoint?departurePoint as DirectionPoint[]:[];
           this.requestForm.patchValue({
             departure_point_id:this.requestForm.value.departure_point_id
           });
@@ -1306,8 +1319,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.directionService.directionPoint({country_id:country_id, transport_kind_id:transport_kind_id})
       .pipe(
         tap(arrivalPoint => {
-          this.arrivalPoint=arrivalPoint as DirectionPoint[];
-          this.filteredArrivalPoint=arrivalPoint as DirectionPoint[];
+          this.arrivalPoint=arrivalPoint?arrivalPoint as DirectionPoint[]:[];
+          this.filteredArrivalPoint=arrivalPoint?arrivalPoint as DirectionPoint[]:[];
           this.requestForm.patchValue({
             arrival_point_id:this.requestForm.value.arrival_point_id
           });

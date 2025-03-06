@@ -588,7 +588,7 @@
                 <mat-option *ngFor="let option of filteredDepartureCountrys" [value]="option.id" (click)="changeForm_DepartureCountry(option)">
                   {{option.name}}
                 </mat-option>
-                <mat-option *ngIf="filteredDepartureCountrys.length==0" disabled >Стран нет</mat-option>
+                <mat-option *ngIf="filteredDepartureCountrys.length<1" disabled >Стран нет</mat-option>
               </mat-autocomplete>
               <mat-error *ngIf="requestForm.controls['departure_country_id'].hasError('required')">
                 Это поле обязательно
