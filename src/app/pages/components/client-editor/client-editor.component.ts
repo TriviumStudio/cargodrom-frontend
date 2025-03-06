@@ -134,7 +134,8 @@ export class ClientEditorComponent extends Editor<Client> implements OnInit {
     this.subscribeControl_EmployeeForClientId();
     this.subscribeControl_EmployeeForSaleId();
 
-    super.ngOnInit();
+    setTimeout(() => super.ngOnInit(), 1500);
+
   }
 
   subscribeControl_CountryId(){
