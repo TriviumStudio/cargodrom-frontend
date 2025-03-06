@@ -1,6 +1,6 @@
 import { CountryService } from './../../services/country.service';
 import { environment } from './../../../../environments/environment';
-import { debounceTime, distinctUntilChanged, fromEvent, merge, Subject, takeUntil, tap } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, forkJoin, fromEvent, lastValueFrom, merge, Subject, takeUntil, tap, throwError } from 'rxjs';
 import { City } from './../../../api/custom_models/city';
 import { Association } from './../../../api/custom_models/association';
 import { Country } from './../../../api/custom_models/country';
@@ -101,12 +101,11 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initialization_chooseModeForm();
     this.initialization_getDatas();
     this.initialization_subscribeForm();
-    this.initialization_chooseModeForm();
-    if (this.isEditMode) {
-      this.getContractor();
-    }
+
+
   }
 
   initialization_chooseModeForm(){
@@ -114,14 +113,25 @@ export class ContractorEditorComponent implements OnInit {
     this.isEditMode = segments[1] !== 'add';
     this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
   }
-  initialization_getDatas() {
-    this.getContractorTypes();
-    this.getTransportCarrier();
-    this.getCountries();
-    this.getCounterparty();
-    this.getTaxSystems();
-    this.getAssociations();
-    this.getRequestFormats();
+  async initialization_getDatas() {
+    try {
+      await lastValueFrom(forkJoin([
+        this.getContractorTypes(),
+        this.getTransportCarrier(),
+        this.getCountries(),
+        this.getCounterparty(),
+        this.getTaxSystems(),
+        this.getAssociations(),
+        this.getRequestFormats(),
+      ]));
+      // После завершения всех запросов проверяем режим редактирования
+      if (this.isEditMode) {
+        await lastValueFrom(this.getContractor()); // Преобразуем Observable в Promise
+      }
+    } catch (error) {
+      console.error('Ошибка при загрузке данных:', error);
+    }
+
   }
   initialization_subscribeForm(){
     // this.subscribeControl_ContractorType();
@@ -438,46 +448,75 @@ export class ContractorEditorComponent implements OnInit {
   //   })
   // }
 
-  private getTransportCarrier(){
-    this.transportService.transportCarrier()
-      .subscribe(transportCarrier => {
-        this.transportCarrier = transportCarrier;
-        this.filteredTransportCarrier = transportCarrier;
-      });
+  private getTransportCarrier() {
+    return this.transportService.transportCarrier()
+      .pipe(
+        tap((transportCarrier) =>{
+          this.transportCarrier = transportCarrier;
+          this.filteredTransportCarrier = transportCarrier;
+        }),
+        takeUntil(this._destroy$)
+      );
   }
-
-  private getCounterparty(){
-    this.systemService.systemCounterparty()
-      .subscribe(counterpartys => {
-        this.filteredCounterpartys = counterpartys as Counterparty[];
-        this.counterpartys = counterpartys as Counterparty[];
-      });
+  private getCounterparty() {
+    return this.systemService.systemCounterparty()
+      .pipe(
+        tap((counterpartys) =>{
+          this.filteredCounterpartys = counterpartys as Counterparty[];
+          this.counterpartys = counterpartys as Counterparty[];
+        }),
+        takeUntil(this._destroy$)
+      );
   }
-
   private getAssociations() {
-    this.systemService.systemAssociation()
-      .subscribe(associations => this.associations = associations as Association[]);
+    return this.systemService.systemAssociation()
+      .pipe(
+        tap((associations) =>{
+          this.associations = associations as Association[]
+        }),
+        takeUntil(this._destroy$)
+      );
   }
 
   private getContractorTypes() {
-    this.contractorService.contractorType()
-      .subscribe(contractorTypes => {
-        this.contractorTypes = contractorTypes as unknown as ContractorType[];
-        this.filteredContractorTypes = contractorTypes as unknown as ContractorType[];
-      });
+    return  this.contractorService.contractorType()
+      .pipe(
+        tap((contractorTypes) =>{
+          this.contractorTypes = contractorTypes as unknown as ContractorType[];
+          this.filteredContractorTypes = contractorTypes as unknown as ContractorType[];
+        } ),
+        takeUntil(this._destroy$)
+      );
+  }
+  private getTaxSystems() {
+    return  this.systemService.systemTaxSystem()
+      .pipe(
+        tap((taxSystems) =>{
+          this.filteredTaxs = taxSystems ? taxSystems as TaxSystem[] : [];
+          this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : [];
+        } ),
+        takeUntil(this._destroy$)
+      );
   }
 
   private getCountries() {
-    this.countryService.getCountries()
-      .subscribe(countries => {
-        this.filteredCountries = countries;
-        this.countries = countries;
-      });
+    return this.countryService.getCountries()
+      .pipe(
+        tap((countries) =>{
+          this.filteredCountries = countries;
+          this.countries = countries;
+        }),
+        takeUntil(this._destroy$)
+      );
   }
-
-  private getRequestFormats(): void {
-    this.contractorService.contractorRequestFormat()
-      .subscribe(formats => this.requestFormats = formats as unknown as ContractorRequestFormat[]);
+  private getRequestFormats() {
+    return this.contractorService.contractorRequestFormat()
+      .pipe(
+        tap((formats) =>{
+          this.requestFormats = formats as unknown as ContractorRequestFormat[];
+        }),
+        takeUntil(this._destroy$)
+      );
   }
 
   private getCities(countryId: number) {
@@ -488,44 +527,74 @@ export class ContractorEditorComponent implements OnInit {
       } );
   }
 
-  private getContractor(): void {
+  private getContractor() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.contractorService.contractorInfo({ id })
-      .pipe(tap(contractor => {
-        console.log('инициализация едитора',contractor);
-        // currently, when contactor doesn't exist the service returns HTTP 200 with empty response body instead of HTTP 404
-        // therefore we have to handle that case manually
+    return this.contractorService.contractorInfo({ id }).pipe(
+      tap((contractor) => {
+        console.log('инициализация едитора', contractor);
         if (!contractor) {
-          throw ({ error: { error_message: `подрядчик не существует` } });
+          throw { error: { error_message: `Подрядчик не существует` } };
         }
-      }))
-      .subscribe({
-        next: contractor => {
-          this.contractor = contractor as unknown as Contractor;
-          const contactsControls = this.contacts;
-          this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
-          this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
-          this.contractorForm.patchValue(this.contractor);
-          if (typeof contractor.country_id === 'number') {
-            this.getCities(contractor.country_id);
-          }
-          this.nameForHeader = contractor.name;
-        },
-        error: (err: any) => {
-          this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
-          this.goBack();
-        }
-      });
-  }
+      }),
+      tap((contractor) => {
+        this.contractor = contractor as unknown as Contractor;
+        const contactsControls = this.contacts;
 
-  getTaxSystems(): void {
-    this.systemService.systemTaxSystem().subscribe(
-      taxSystems => {
-        this.filteredTaxs = taxSystems ? taxSystems as TaxSystem[] : [];
-        this.taxSystems = taxSystems ? taxSystems as TaxSystem[] : [];
-      }
+        // Обновляем contractor_id для каждого контакта
+        this.contractor.contacts?.forEach((contact) => {
+          contact.contractor_id = contractor.id;
+          contactsControls.push(this.fb.control(contact));
+        });
+
+        // Патчим форму значениями подрядчика
+        this.contractorForm.patchValue(this.contractor);
+
+        // Если указан country_id, загружаем города
+        if (typeof contractor.country_id === 'number') {
+          this.getCities(contractor.country_id);
+        }
+
+        // Устанавливаем имя для заголовка
+        this.nameForHeader = contractor.name;
+      }),
+      catchError((err) => {
+        this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        this.goBack();
+        return throwError(() => err); // Пробрасываем ошибку дальше
+      })
     );
   }
+
+  // private getContractor() {
+  //   const id = Number(this.route.snapshot.paramMap.get('id'));
+  //   return this.contractorService.contractorInfo({ id })
+  //     .pipe(
+  //       tap(contractor => {
+  //       console.log('инициализация едитора',contractor);
+  //       if (!contractor) {
+  //         throw ({ error: { error_message: `подрядчик не существует` } });
+  //       }
+  //     }))
+  //     .subscribe({
+  //       next: contractor => {
+  //         this.contractor = contractor as unknown as Contractor;
+  //         const contactsControls = this.contacts;
+  //         this.contractor.contacts?.forEach(contact => contact.contractor_id = contractor.id);
+  //         this.contractor.contacts?.forEach(contact => contactsControls.push(this.fb.control(contact)));
+  //         this.contractorForm.patchValue(this.contractor);
+  //         if (typeof contractor.country_id === 'number') {
+  //           this.getCities(contractor.country_id);
+  //         }
+  //         this.nameForHeader = contractor.name;
+  //       },
+  //       error: (err: any) => {
+  //         this.snackBar.open(`Подрядчик не найден: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+  //         this.goBack();
+  //       }
+  //     });
+  // }
+
+
 
 }
 
