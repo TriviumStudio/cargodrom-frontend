@@ -33,6 +33,7 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   @Input() currentRequestFormat!:number;
   @Input() isFormSubmitted!:boolean;
   @Input() num!:number;
+  @Input() data_CargoPackages: any[] = [];
 
 
   onChange = (value: Partial<Contact>) => { };
@@ -76,7 +77,9 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
   }
 
   ngOnInit(): void {
-    this.getСargoPackages();
+    // this.getСargoPackages();
+    this.cargoPackages = this.data_CargoPackages as CargoPackage[];
+    this.filteredCargoPackage = this.data_CargoPackages as CargoPackage[];
 
     this.placeForm.valueChanges
       .pipe(takeUntil(this._destroy$))
@@ -204,17 +207,17 @@ export class PlaceEditorComponent implements OnInit, OnDestroy, OnChanges, Contr
     return control.value && this.placeForm.valid ? null : { contact: true };
   }
 
-  private getСargoPackages() {
-    this.cargoService.cargoPackage()
-      .pipe(
-        tap((cargoPackages)=> {
-          this.cargoPackages = cargoPackages as CargoPackage[];
-          this.filteredCargoPackage = cargoPackages as CargoPackage[];
+  // private getСargoPackages() {
+  //   this.cargoService.cargoPackage()
+  //     .pipe(
+  //       tap((cargoPackages)=> {
+  //         this.cargoPackages = cargoPackages as CargoPackage[];
+  //         this.filteredCargoPackage = cargoPackages as CargoPackage[];
 
 
-        }),
-        takeUntil(this._destroy$)
-      ).subscribe();
-  }
+  //       }),
+  //       takeUntil(this._destroy$)
+  //     ).subscribe();
+  // }
 
 }
