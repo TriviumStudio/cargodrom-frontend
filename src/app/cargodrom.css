@@ -121,7 +121,8 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .table-footer .note { font-size: 13px; line-height: 13px; color: #606A74; margin-left: 15px; }
 
 .table-footer select[name="limit"] { width: 170px; }
-.table-footer .ui-select { display: inline-block; vertical-align: middle; width: auto; position: relative; margin-bottom: 0; text-align: left; font-size: 13px; line-height: 13px; border: none; box-shadow: 0 2px 8px rgba(36,45,67,0.08); box-sizing: border-box; }
+.table-footer .ui-select { display: inline-block; vertical-align: middle; width: auto; position: relative; margin-bottom: 0; text-align: left; font-size: 13px; line-height: 13px; border: none; box-sizing: border-box; }
+/* .table-footer .ui-select { display: inline-block; vertical-align: middle; width: auto; position: relative; margin-bottom: 0; text-align: left; font-size: 13px; line-height: 13px; border: none; box-shadow: 0 2px 8px rgba(36,45,67,0.08); box-sizing: border-box; } */
 .table-footer .ui-select-input { display: block; color: #606A74; background: #fff; padding: 15px 50px 12px 15px; box-sizing: border-box; overflow: hidden; white-space: nowrap; cursor: pointer; border-radius: 6px; }
 .table-footer .invert .ui-select-input { position: relative; z-index: 10001 }
 .table-footer .ui-select-input-open { border-radius: 6px 6px 0 0; }
@@ -1068,9 +1069,12 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
   transition: opacity 1s ease, max-height 1s ease, visibility 1s ease, transform 1s ease;
 }
 
+.table-list {
+  max-height: 650px;
+  overflow: auto;
+}
 .table-list.kp {
   max-height: 204px;
-  overflow: auto;
 }
 
 .table-list.kp table {

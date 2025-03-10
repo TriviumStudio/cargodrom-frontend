@@ -20,6 +20,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { environment } from './../../../../environments/environment';
 import { LoginComponent } from 'src/app/auth/components/login/login.component';
+import { RequestManagerService } from '../../services/request-manager.service';
+import { LoaderService } from '../../services/loader.service';
 
 
 @Component({
@@ -81,6 +83,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileList', { static: false }) fileList!: FileListComponent;
   @ViewChild('fileListDanger', { static: false }) fileListDanger!: FileListComponent;
+  isLoading$ = this.loaderService.isLoading$;
 
   // @ViewChild('inputElementCustomerName', { static: true }) inputElementCustomerName!: ElementRef;
   // @ViewChild('inputElementTransportTypeName', { static: true }) inputElementTransportTypeName!: ElementRef;
@@ -102,6 +105,8 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private location: Location,
     private router: Router,
+    private requestManager: RequestManagerService,
+    private loaderService: LoaderService,
   ) {
     this.requestForm = this.fb.group({
       // + -это значит что в обькте который мы будем отправлять для создания или изменения запроса, есть такое жк поле, а минус будет означть что поле нашей формы не нужно или должно дыть преобразованно в другое поле
@@ -192,60 +197,33 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   initialization_isFormMode(){
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isEditMode = segments[1] !== 'add';
-
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
 
   }
-  async initialization_getDatas() {
-    try {
-      // Используем forkJoin для запуска всех Observable одновременно
-      await lastValueFrom(forkJoin([
-        this.getCustomers(),
-        this.getСargoTypes(),
-        this.getCities(),
-        this.getTransportFormats(),
-        this.getCountries(),
-        this.getСargoPackages(),
-        this.getRequestFormats(),
-        this.getTransportationFormats(),
-        this.getDirectionFlight(),
-        this.getCurrencys(),
-      ]));
 
-      // После завершения всех запросов проверяем режим редактирования
-      if (this.isEditMode) {
-        this.id = Number(this.route.snapshot.paramMap.get('id'));
-        await lastValueFrom(this.getRequest()); // Преобразуем Observable в Promise
-      }
-    } catch (error) {
-      console.error('Ошибка при загрузке данных:', error);
-    }
+  initialization_getDatas() {
+    const queue1 = [
+      this.getCustomers(),
+      this.getСargoTypes(),
+      this.getCities(),
+      this.getTransportFormats(),
+      this.getCountries(),
+      this.getСargoPackages(),
+      this.getRequestFormats(),
+      this.getTransportationFormats(),
+      this.getDirectionFlight(),
+      this.getCurrencys(),
+    ];
+    const queue2 = [
+      this.getRequest(),
+    ];
+    this.requestManager.executeQueues([
+      queue1,
+      this.isEditMode?queue2:[],
+    ]);
   }
-  // initialization_getDatas(){
-  //   this.getCustomers();
-  //   this.getСargoTypes();
-  //   this.getCities();
-  //   this.getTransportFormats();
-  //   this.getCountries();
-  //   this.getСargoPackages();
-  //   this.getRequestFormats();
-  //   this.getTransportationFormats();
-  //   this.getDirectionFlight();
-  //   this.getCurrencys();
-
-  //   if(this.isEditMode){
-  //     this.id = Number(this.route.snapshot.paramMap.get('id'));
-  //     this.getRequest();
-  //   }
-  // }
   initialization_subscribeForm(){
-    // this.subscribeControl_СargoСost();
-
-    // this.subscribeInput_CustomerName();
-    // this.subscribeInput_TransportTypeName();
-    // this.subscribeInput_CargoPackageName();
-    // this.subscribeInput_CargoTypeName();
-    // this.subscribeInput_DepartureCountryName();
-    // this.subscribeInput_ArrivalCountryName();
     this.subscribeControl_CustomerId();
     this.subscribeControl_TransportTypeId();
     this.subscribeControl_CargoPackageId();
@@ -256,10 +234,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.subscribeControl_ArrivalCountryId();
     this.subscribeControl_ArrivalPointId();
     this.subscribeControl_DeparturePointId();
-
   }
-
-
   subscribeControl_CustomerId(){
     this.requestForm.get('customer_id')?.valueChanges
     .pipe(
@@ -1453,7 +1428,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.requestForm.patchValue(request);
         }
         this.transport_kind_id = request.transport_kind_id;
-        this.title = this.isEditMode ? `Редактирование запроса № ${this.id}` : 'Добавление запроса';
+
         // this.getArrivalPoint(this.requestForm.value.arrival_country_id, this.requestForm.value.transport_kind_id);
         // this.getDeparturePoint(this.requestForm.value.departure_country_id, this.requestForm.value.transport_kind_id);
 

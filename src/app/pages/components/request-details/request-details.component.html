@@ -214,7 +214,7 @@
 
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="offerList.colList;sticky: true"></tr>
+      <tr mat-header-row *matHeaderRowDef="offerList.colList; sticky: true"></tr>
       <tr mat-row *matRowDef="let myRowData; columns: offerList.colList"></tr>
     </table>
   </div>
@@ -430,7 +430,7 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="column"></tr>
+    <tr mat-header-row *matHeaderRowDef="column; sticky: true"></tr>
     <tr mat-row *matRowDef="let element; columns: column;" class="example-element-row" [class.example-expanded-row]="expandedElement === element"></tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row" ></tr>
 
