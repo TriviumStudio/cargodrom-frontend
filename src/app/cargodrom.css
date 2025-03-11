@@ -1080,3 +1080,9 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 .table-list.kp table {
   width: 100%;
 }
+
+.table-list .td-block .column.link:hover,
+.table-list .td-block .link:hover {
+  cursor: pointer;
+  text-decoration-line: underline;
+}

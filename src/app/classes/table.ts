@@ -42,6 +42,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   isRowsLoad=false;
 
+  requestCrmStatuses:any[]=[];
+
   readonly xlsxMimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
   protected abstract load<T>(params?: LoadParams<T, F>): Observable<{ total: number, items: T[], column?: string[], sort?: string[],sort_new?:any }>;
@@ -570,7 +572,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
                 this.saveTrueContractorSelectRequest();
               } else {
                 this.router.navigate([], {
-                  queryParams: {}, 
+                  queryParams: {},
                 });
               }
             })
@@ -641,6 +643,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             this.sortableColumns?.push(sor.field);
           });
           this.columnsData=schema.table;
+          if(schema.status){
+            this.requestCrmStatuses=schema.status;
+          }
+
 
           // if(this.isRateDetailsMode){
           //   this.columnsData=schema.table;

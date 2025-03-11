@@ -10,6 +10,34 @@
   align-items: center; /* Центрирование по вертикали */
   z-index: 1000; /* Убедитесь, что лоадер находится поверх других элементов */
 }
+//TABLEs
+.table-list .td-block .column{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+// mat-selects and mat-options in table
+.table-list .td-block .column mat-select.mat-mdc-select {
+  background-color: inherit;
+  border: none;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+
+  .mat-mdc-select-trigger { padding: 0; }
+  .mat-mdc-select-value-text { text-wrap: auto; }
+}
+mat-option.mat-mdc-option.table_options{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 0 5px;
+}
+
+
+
+
+
 //mat-form-field
 // mat-form-field.mat-mdc-form-field.mat-form-field-appearance-outline .mdc-text-field--outlined {
 //   background-color: #F7F9FC; /* фон */
