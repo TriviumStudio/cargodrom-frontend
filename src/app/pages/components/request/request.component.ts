@@ -79,14 +79,14 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   getVal(obj: any, path: string): any {
     if (!path?.includes('/')) {
-        return obj[path] !== undefined ? obj[path] : null;
+      return obj[path] !== undefined ? obj[path] : null;
     }
     const keys = path?.split('/');
     for (const key of keys) {
       if (obj && obj.hasOwnProperty(key)) {
           obj = obj[key];
       } else {
-          return null; // Если ключ не найден, возвращаем null
+        return null; // Если ключ не найден, возвращаем null
       }
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
@@ -99,11 +99,30 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     this.router.navigate(['pages/customer/edit', clientId])
   }
 
-  test(request:any,status:any){
-    console.log(request.status_crm_id);
+  updateRequest(request:any){
+    const body ={
+      status_crm_id: request.status_crm_id,
+      id: request.id
+    };
+    this.requestService.requestUpdate({body}).pipe().subscribe({
+      next: () => {
+        this.snackBar.open(
+          `Статус CRM успешно изменён`,
+          undefined,
+          this.snackBarWithShortDuration
+        );
+      },
+      error: (err) => {
+        this.snackBar.open(
+          `Ошибка редактирования CRM статуса запроса: ` + err.error.error_message,
+          undefined,
+          this.snackBarWithShortDuration
+        );
+      }
+    });
   }
 
-  returnColor(value:any){
+  tableRequest_returnColorCrmStatus(value:any){
     if (!this.requestCrmStatuses) return '';
     const obj = this.requestCrmStatuses.find(obj => obj.id === value);
     return obj?.color || '';
