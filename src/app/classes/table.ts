@@ -598,13 +598,12 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.requestInfo(id).subscribe({
       next: (request) => {
         console.log('request',request);
-
         this.currentRequest=request;
         if(this.isBiddingMode){
           this.filterService.value["country_departure_id"]=this.currentRequest.departure_country_id;
           this.filterService.value["country_arrival_id"]=this.currentRequest.arrival_country_id;
           this.filterService.value["specialization"]=[this.currentRequest.transport_kind_id];
-          // this.filterService.value["rating"]=this.currentRequest.request_type_id;
+          this.filterService.value["allow_trade"]=1;
           this.filterService.apply();
         }
       },
@@ -673,11 +672,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           // console.log(queryParamMap.params.translate);
           if(queryParamMap.params.translate){
             this.saveContractorSelectRequest();
-            console.log(112233);
-
-
           }
-
           this.start = this.getIntParamSafely(queryParamMap, 'start', this.start);
           this.count = this.getIntEnumParamSafely(queryParamMap, 'count', this.limits, this.count);
           this.sortField = this.getStringParamSafely(queryParamMap, 'sortCol', this.sortField as string) as keyof T;

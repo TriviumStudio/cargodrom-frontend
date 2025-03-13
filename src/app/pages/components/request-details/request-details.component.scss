@@ -274,6 +274,9 @@ tr.example-detail-row {
   color: white;
 }
 
+.request-actions button.tor:before{
+  background-image: url(../../../../assets/pic-btn-trade-red.svg);
+}
 .request-actions button.det:before{
   background-image: url(../../../../assets/pic-btn-detail.svg);
 }

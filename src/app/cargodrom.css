@@ -1086,3 +1086,9 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
   cursor: pointer;
   text-decoration-line: underline;
 }
+
+.filter-item .search-box input{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 12px;
+}
