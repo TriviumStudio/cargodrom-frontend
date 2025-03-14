@@ -192,7 +192,13 @@
 
           <th mat-header-cell *matHeaderCellDef [style.width]="'240px'">
             <div class="td-block">
-              <button (click)="onSendKpBtnClick()" class="btn-send" [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'">ОТПРАВИТЬ</button>
+              <button
+                (click)="onSendKpBtnClick()"
+                class="btn-send"
+                [style.visibility]="returnVisibilitySendKpBtn()?'visible':'hidden'"
+              >
+                ОТПРАВИТЬ
+              </button>
             </div>
           </th>
 

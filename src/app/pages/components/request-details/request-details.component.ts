@@ -137,7 +137,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   // KP TABLE HANDLERS
   //-btns
   onSendKpBtnClick(){
-    this.sendOffers(this.arrCheckedKp)
+    this.sendOffers(this.arrCheckedKp);
   }
   returnVisibilitySendKpBtn():boolean{
     if(this.arrCheckedKp.length>0){
@@ -653,10 +653,25 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       takeUntil(this.destroy$)
     ).subscribe({
       next: ({}) => {
-        this.snackBar.open(`Кп успешно отправленны`, undefined, this.snackBarWithShortDuration);
+        this.snackBar.open(
+          this.arrCheckedKp.length>1
+          ?`Ваши предложения в количестве ${this.arrCheckedKp.length}-х ставок были отправлены`
+          :`Ставка была отправлена`,
+          undefined,
+          {
+            duration: 2000,
+            verticalPosition: 'top', // Позиционирование по вертикали
+            horizontalPosition: 'center', // Позиционирование по горизонтали
+            panelClass: ['centered-snackbar'] // Кастомный класс для стилизации
+          }
+        );
       },
       error: (err) => {
-        this.snackBar.open(`Ошибка отправки кп: ` + err.error.error_message, undefined, this.snackBarWithShortDuration);
+        this.snackBar.open(
+          err.error.error_message +': '+ err.error.error_message_description,
+          undefined,
+          this.snackBarWithShortDuration
+        );
       }
     });
   }
