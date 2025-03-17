@@ -17,9 +17,12 @@
         <div class="contractor_block" >
           <div style="display: flex; justify-content: space-between;">
             <div class="agent_block">
-              <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div>
-              <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div>
-              <div class="detailed">Подробнее  ></div>
+              <!-- <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div> -->
+              <div class="label">Подрядчик:</div>
+              <!-- <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div> -->
+              <div>{{rate.contractor.name}}</div>
+              <!-- <div class="detailed">Подробнее  ></div> -->
+              <a [href]="'#/pages/contractor/edit/' + rate.contractor.id"  target="_blank" class="detailed">Подробнее  ></a>
             </div>
             <div class="link_block">
               <div class="pic msg"></div>
@@ -64,10 +67,10 @@
       <ng-template [ngSwitchCase]="'customs'">
         <div class="title">Данные по ставке</div>
         <div class="items">
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.valid_time }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor?.trade_success_count }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Линия:', data: rate?.carrier_text }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_text }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.transit_time_text +' дн.' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor.trade_success_count?rate?.contractor.trade_success_count:'Не предоставлена' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.carrier.name}"></ng-container>
+          <ng-container [ngIf]='rate.route_text' *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_text }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Плотность груза (кг/м3):', data: rate?.request?.cargo_places_density }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Кол-во мест:', data: rate?.request?.cargo_places_count }"></ng-container>
@@ -141,12 +144,12 @@
 
   </div>
 
-  <div class="second_row">
+  <div class="second_row" *ngIf="rate.comment">
     <div class="comment_block">
       <div class="label">
         <span class="pic-i-grey">i</span>Примечание:
       </div>
-      <div class="comment">{{ rate?.comment }}</div>
+      <div class="comment">{{ rate.comment }}</div>
     </div>
   </div>
 

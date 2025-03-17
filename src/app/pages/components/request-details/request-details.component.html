@@ -13,9 +13,9 @@
 <div class="expanded-request-info test" [ngClass]="isExpandedRequestInfo?'visible':''">
   <div class="columns">
     <div class="col" style="width: 50%;">
-      <div class="title">Route of Transportation</div>
+      <div class="title">Направления</div>
       <div class="item w1">
-        <div class="field">Dispatch</div>
+        <div class="field">Отправление</div>
         <div class="info">
           {{currentRequest?.departure_text}}
           <!-- {{currentRequest?.departure_country_name}}, {{currentRequest?.departure_city_name}}, {{currentRequest?.departure_address}} -->
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="item w1">
-        <div class="field">Destination</div>
+        <div class="field">Назначения</div>
         <div class="info">
           {{currentRequest?.arrival_text}}
           <!-- {{currentRequest?.arrival_country_name}}, {{currentRequest?.arrival_city_name}}, {{currentRequest?.arrival_address}}
@@ -32,20 +32,20 @@
       </div>
     </div>
     <div class="col">
-      <div class="title w1">Cargo Details</div>
+      <div class="title w1">Описание груза</div>
 
       <div class="item w4">
-        <div class="field">Type of cargo:</div>
+        <div class="field">Тип груза:</div>
         <div class="info">{{currentRequest?.cargo_type_text}}</div>
       </div>
 
       <div class="item w4">
-        <div class="field">Cargo name:</div>
+        <div class="field">Названия груза:</div>
         <div class="info">{{currentRequest?.cargo_description}}</div>
       </div>
 
       <div class="item w2">
-        <div class="field">Details total:</div>
+        <div class="field">Итого:</div>
         <div class="info">
           {{currentRequest?.cargo_places_count}}<span> pcs </span>
           <span class="space">/</span>
@@ -58,11 +58,11 @@
       </div>
 
       <div class="item w4">
-        <div class="field">Cargo readiness:</div>
+        <div class="field">Готовность груза:</div>
         <div class="info">{{currentRequest?.cargo_readiness}}</div>
       </div>
       <div class="item w4">
-        <div class="field">Incoterms</div>
+        <div class="field">Условия поставки</div>
         <div class="info">{{currentRequest?.incoterms_name}} {{currentRequest?.incoterms_city_name}}</div>
       </div>
       <!-- <div class="item w4">
@@ -78,24 +78,30 @@
         </div>
       </div> -->
       <div class="item w2">
-        <div class="field">Conditions of carriage:</div>
-        <div class="info">?????????????????</div>
+        <div class="field">Условия перевозки:</div>
+        <div class="info">{{currentRequest?.translate?.ru?.cargo_condition_carriage}}</div>
       </div>
     </div>
     <div class="col">
-      <div class="w1 title">Dimensions</div>
-      <div class="w1 dime">{{currentRequest?.cargo_dimensions}}</div>
+      <div class="w1 title">Размеры</div>
+      <textarea
+        class="info"
+        style="border: none;font-weight: bold; color: #2C3640; font-size: 16px; width: 100%; min-height: 100px; text-indent: none;"
+        readonly
+      >
+        {{currentRequest?.translate?.ru?.cargo_dimensions}}
+      </textarea>
+      <!-- <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
-      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
+      <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div> -->
     </div>
   </div>
-  <div class="row">
-    <div class="title">Comment</div>
+  <div class="row" *ngIf="currentRequest.comment">
+    <div class="title">Коментарии</div>
     <div>{{currentRequest.comment}}</div>
   </div>
-  <div class="row">
-    <div class="title">Attached Files</div>
+  <div class="row" *ngIf="currentRequest.documents_file && currentRequest.cargo_file">
+    <div class="title">Файлы</div>
     <div *ngFor="let file of currentRequest.documents_file" class="file-box" (click)="getRequestFile(file.id)">{{file.file_name}}</div>
     <div *ngFor="let file of currentRequest.cargo_file" class="file-box" (click)="getRequestFile(file.id)">{{file.file_name}}</div>
   </div>

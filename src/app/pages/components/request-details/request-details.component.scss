@@ -168,14 +168,14 @@ tr{
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 }
 .table-list.rate table tr:nth-child(even) td {
-  background: #F7F9FC;
+  background: #EDF2F7;
 
 }
 .table-list table tr:nth-child(odd) td {
   background: white;
 }
 .table-list table tr.example-expanded-row td {
-  background: #F7F9FC;
+  background: #EDF2F7;
 }
 tr.example-detail-row {
   height: 0;
@@ -200,7 +200,7 @@ tr.example-detail-row {
     align-items: center;
     .cost{
       padding: 20px;
-      background-color: white;
+      background-color: #FFFFFF;
       border: 1px solid #E0E5EB;
       height: 100%;
       box-sizing: border-box;

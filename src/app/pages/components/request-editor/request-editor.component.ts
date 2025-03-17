@@ -1084,11 +1084,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.requestForm.controls['services'].reset();
     this.requestForm.controls['services_optional'].reset();
     this.transport_kind_id=e;
+
     this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
     this.getIncoterms(this.requestForm.value.transport_kind_id);
     this.getRequestServices(this.requestForm.value.transport_kind_id);
     this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
-    this.filteredTransportFormats=[];
+    // this.filteredTransportFormats=[];
   }
   //изменение поля тип груза
 
@@ -1187,11 +1188,12 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
     this.transportService.transportType({kind_id:id})
       .pipe(
         tap((transportFormats) => {
+          console.log('transportFormats',transportFormats);
           this.transportFormats = transportFormats as TransportType[];
           this.filteredTransportFormats = transportFormats as TransportType[];
         }),
         takeUntil(this._destroy$)
-      );
+      ).subscribe();
   }
   private getTransportFormats() {
     return this.transportService.transportType()
@@ -1428,13 +1430,11 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
           this.requestForm.patchValue(request);
         }
         this.transport_kind_id = request.transport_kind_id;
-
         // this.getArrivalPoint(this.requestForm.value.arrival_country_id, this.requestForm.value.transport_kind_id);
         // this.getDeparturePoint(this.requestForm.value.departure_country_id, this.requestForm.value.transport_kind_id);
-
         this.getFile(request.id);
         this.getDangerFile(request.id);
-        this.getTransportFormatsById(request.transport_kind_id!);
+        this.getTransportFormatsById(this.requestForm.value.transport_kind_id);
         this.getIncoterms(this.requestForm.value.transport_kind_id);
         this.getRequestServices(this.requestForm.value.transport_kind_id);
         this.getRequestServicesAdditional(this.requestForm.value.transport_kind_id);
