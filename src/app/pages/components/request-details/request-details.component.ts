@@ -121,6 +121,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     }
     return obj !== undefined ? obj : null; // Проверка на undefined
   }
+
   // REQUEST HANDLERS
   onDetailsRequestBtnClick(){
     this.isExpandedRequestInfo=!this.isExpandedRequestInfo;

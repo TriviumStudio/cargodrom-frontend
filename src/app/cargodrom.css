@@ -199,7 +199,8 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .table .total  { font-weight: bold; }
 .table .total.bg  { color: #fff; }
 .table .profit  { color: #83909E; font-weight: bold; }
-.type { vertical-align: top; margin: -6px 9px -12px 0;}
+.type { vertical-align: top;}
+/* .type { vertical-align: top; margin: -6px 9px -12px 0;} */
 
 
 .table > .filter { border: solid #e0e5eb; border-width: 1px 1px 0 1px; }

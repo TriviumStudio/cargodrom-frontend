@@ -128,6 +128,15 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     return obj?.color || '';
   }
 
+  getTypeClass(kind_id:number){
+    let classSpec='';
+    if(kind_id===1)classSpec='type avia';
+    if(kind_id===2)classSpec='type road';
+    if(kind_id===3)classSpec='type rw';
+    if(kind_id===4)classSpec='type sea';
+    return classSpec;
+  }
+
 }
 
 // constructor(
