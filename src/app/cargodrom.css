@@ -1099,3 +1099,32 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 a{
   text-decoration: none;
 }
+
+.main_page_info{
+  display: flex;
+  .rate_info {
+    border-right: 1px solid #C3CCD6;
+    margin-right: 24px;
+    .title{
+      color:#DB563B;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 26px;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+    .subtitle{
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 12px;
+      text-align: left;
+      color: #606A74;
+    }
+  }
+}
+.subheader .back{
+  margin-right: 15px;
+  cursor: pointer;
+  background: url(/../assets/pic-backto.svg) no-repeat 50% 50%;
+  width: 13px;
+}

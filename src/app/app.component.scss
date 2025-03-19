@@ -1,7 +1,7 @@
 .no-layout {
   display: contents;
 }
-.vertically .td-block{
+td.vertically .td-block{
   flex-direction: column;
   align-items: flex-start;
 }
