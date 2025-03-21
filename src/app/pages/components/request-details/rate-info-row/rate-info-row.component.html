@@ -133,7 +133,7 @@
           <div>{{item.kind.name}}</div>
           <div style="flex-grow: 1;">{{item.arrival_city.name}}-{{item.departure_city.name}}</div>
           <div>{{item.days_min}}-{{item.days_max}}</div>
-          <div style="flex-grow: 2;">{{item.comment}}</div>
+          <div style="flex-grow: 2;">{{item?.comment}}</div>
           <div>{{item.amount}}</div>
         </div>
       </ng-template>
@@ -149,7 +149,7 @@
       <div class="label">
         <span class="pic-i-grey">i</span>Примечание:
       </div>
-      <div class="comment">{{ rate.comment }}</div>
+      <div class="comment">{{ rate?.comment }}</div>
     </div>
   </div>
 

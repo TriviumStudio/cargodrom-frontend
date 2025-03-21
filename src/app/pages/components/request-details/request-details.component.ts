@@ -60,6 +60,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
   @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
   @ViewChild('dialogRef') dialogRef!: TemplateRef<void>;
+  @ViewChild('fullRouteDetailForm') fullRouteDetailForm!: TemplateRef<void>;
   // @ViewChild(RateAddCustoms) RateAddCustoms!: RateAddCustoms;
 
   constructor(
@@ -302,6 +303,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     const arrIdRows = new Set(this.rows.map((i: any) => i.id));
     const arrIdRowsCheck = this.arrDetailsCheckedCheck.filter(id => arrIdRows.has(id));
     return arrIdRows.size > arrIdRowsCheck.length && arrIdRowsCheck.length > 0;
+  }
+  onOpenFullRouteDetailForm(){
+    this.matDialog.open(this.fullRouteDetailForm).afterClosed().subscribe(res => {
+    });
   }
   // TOGGLE EXPANDED ROW
   onOpenDetailsRateBtnClick(item:any){
