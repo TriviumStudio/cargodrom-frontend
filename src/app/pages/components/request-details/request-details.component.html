@@ -404,7 +404,7 @@
           <!-- && element==expandedElement -->
           <ng-container *ngIf="detailsMethod==='final' " >
 
-            <div class="costs">
+            <div class="costs" *ngIf="element.custom && element.storage && element.delivery">
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:element?.total_cost_text }">
               </ng-container>
               ≈
@@ -416,8 +416,6 @@
               +
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: element?.delivery?.total_cost_text }">
               </ng-container>
-
-
             </div>
 
             <app-rate-info-row *ngIf="element.custom"

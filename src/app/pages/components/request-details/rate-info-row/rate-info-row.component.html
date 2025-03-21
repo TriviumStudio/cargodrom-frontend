@@ -56,7 +56,7 @@
       <ng-template [ngSwitchCase]="'point'">
         <div class="airport_block">
           <div class="label">Аэропорт:</div>
-          <div class="data">{{rate?.point?.name}}</div>
+          <div class="data">{{rate?.point?.name}}<button class="btn-map-blue"></button></div>
           <div class="details">?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1</div>
         </div>
       </ng-template>
@@ -70,7 +70,7 @@
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Транзитный срок:', data: rate?.transit_time_text +' дн.' }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Ставка до:', data: rate?.contractor.trade_success_count?rate?.contractor.trade_success_count:'Не предоставлена' }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.carrier.name}"></ng-container>
-          <ng-container [ngIf]='rate.route_text' *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_text }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_name }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Плотность груза (кг/м3):', data: rate?.request?.cargo_places_density }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Оплачиваемый вес (кг):', data: rate?.request?.cargo_places_paid_weight }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Кол-во мест:', data: rate?.request?.cargo_places_count }"></ng-container>
@@ -101,7 +101,7 @@
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Срок:', data: '????' }"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Авиалиния:', data: rate?.departure_schedule_text?.join(', ').toUpperCase()}"></ng-container>
           <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Объем (м3):', data: '????' }"></ng-container>
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: '????' }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: 'Маршрут:', data: rate?.route_name }"></ng-container>
         </div>
       </ng-template>
     </div>
