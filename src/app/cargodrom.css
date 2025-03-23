@@ -1151,8 +1151,22 @@ a{
   width: 16px;
   border: none;
   padding: 0;
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 auto;
   background-image: url(../assets/pic-btn-map-blue.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: inherit;
+  cursor: pointer;
+}
+.btn-globe-blue{
+  min-height: 16px;
+  min-width: 16px;
+  height: 16px;
+  width: 16px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-image: url(../assets/globe.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-color: inherit;
