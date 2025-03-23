@@ -18,16 +18,16 @@ export class RateInfoRow {
     private sanitizer: DomSanitizer
   ) {}
 
-  yandexMapUrl(address:any):any {
-    console.log(address);
-    const adr='?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1'
-    return this.sanitizeUrl(`https://yandex.ru/maps/-/${address}`);
-  }
+  // yandexMapUrl(address:any):any {
+  //   console.log(address);
+  //   const adr='?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1'
+  //   return this.sanitizeUrl(`https://yandex.ru/maps/-/${address}`);
+  // }
 
 
-  sanitizeUrl(url: string): any {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+  // sanitizeUrl(url: string): any {
+  //   return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  // }
   // sort(arr:any):any{
   //   return arr?.sort((a:any, b:any) => b.select > a.select ? 1 : -1);
   // }

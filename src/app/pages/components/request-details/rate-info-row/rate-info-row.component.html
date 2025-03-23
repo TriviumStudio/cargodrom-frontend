@@ -56,7 +56,16 @@
       <ng-template [ngSwitchCase]="'point'">
         <div class="airport_block">
           <div class="label">Аэропорт:</div>
-          <div class="data">{{rate?.point?.name}}<button class="btn-map-blue"></button><button class="btn-globe-blue"></button></div>
+          <div class="data">
+            {{rate?.point?.name}}
+            <!-- <button class="btn-map-blue"></button> -->
+            <a class="btn-map-blue"
+              title="Open dispatch address in Google maps"
+              href="https://www.google.com/maps/search/?api=1&amp;query={{rate.point.name}},"
+              target="_blank">
+            </a>
+            <button class="btn-globe-blue"></button>
+          </div>
           <div class="details">?????? 142015, Московская область, г. Домодедово, территория "Аэропорт "Домодедово", строение 7/1</div>
           <!-- <iframe
             width="100%"
