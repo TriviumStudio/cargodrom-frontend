@@ -85,7 +85,7 @@
       <div class="title">Данные по ставке</div>
       <div class="items">
         <ng-container *ngFor="let i of rate.summary_data">
-          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: i.name, data: i.value }"></ng-container>
+          <ng-container *ngTemplateOutlet="rateDataItem; context: { label: i.name, data: i.value, isFullWidth: i.wide_row }"></ng-container>
         </ng-container>
       </div>
     </div>
@@ -195,8 +195,8 @@
 </div>
 
 
-<ng-template #rateDataItem let-label="label" let-data="data">
-  <div class="item">
+<ng-template #rateDataItem let-label="label" let-data="data" let-isFullWidth="isFullWidth">
+  <div [class]="isFullWidth?'item w100':'item '" >
     <div class="label">{{label}}</div>
     <div>{{data}}</div>
   </div>
