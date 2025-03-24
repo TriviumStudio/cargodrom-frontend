@@ -4,7 +4,7 @@ import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
 @Injectable()
 export class CustomDateAdapter extends NativeDateAdapter {
   override getFirstDayOfWeek(): number {
-    return 1; // Monday
+    return 1; // Понедельник
   }
 
   override format(date: Date, displayFormat: Object): string {
@@ -14,7 +14,7 @@ export class CustomDateAdapter extends NativeDateAdapter {
       const year = date.getFullYear();
       return `${this._to2digit(day)}.${this._to2digit(month)}.${year}`;
     }
-    return date.toDateString();
+    return super.format(date, displayFormat);
   }
 
   private _to2digit(n: number): string {
@@ -22,14 +22,14 @@ export class CustomDateAdapter extends NativeDateAdapter {
   }
 }
 
-export const APP_DATE_FORMATS: MatDateFormats = {
-  parse: {
-    dateInput: { month: 'short', year: 'numeric', day: 'numeric' },
-  },
-  display: {
-    dateInput: 'input',
-    monthYearLabel: { year: 'numeric', month: 'numeric' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
-  }
-};
+// export const APP_DATE_FORMATS: MatDateFormats = {
+//   parse: {
+//     dateInput: 'DD.MM.YYYY',
+//   },
+//   display: {
+//     dateInput: 'input',
+//     monthYearLabel: 'monthYearLabel',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   }
+// };
