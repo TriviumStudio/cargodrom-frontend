@@ -11,7 +11,8 @@
         <div *ngIf="detailsMethod==='customs'" class="cost">До границы: <span> {{rate?.total_cost_text}}</span></div>
         <div *ngIf="detailsMethod==='point'" class="cost">Склад (СВХ): <span> {{rate?.total_cost_text}}</span></div>
         <div *ngIf="detailsMethod==='transporter'" class="cost">Вывоз: <span> {{rate?.total_cost_text}}</span></div>
-        <div class='percent'>{{percent | number:'1.0-0'}}% <span>от итоговой ставки</span></div>
+        <!-- <div class='percent'>{{percent | number:'1.0-0'}}% <span>от итоговой ставки</span></div> -->
+        <div class='percent'>{{rate?.cost_percent_of_total}}% <span> от итоговой ставки</span></div>
       </div>
       <ng-template [ngSwitchDefault]>
         <div class="contractor_block" >
@@ -28,6 +29,7 @@
               <div class="pic msg"></div>
               <div class="pic phone"></div>
               <div class="pic mail"></div>
+              
             </div>
           </div>
           <div style="display: flex; justify-content: space-between; margin-top: 40px;">
