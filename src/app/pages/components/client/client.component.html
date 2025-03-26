@@ -19,21 +19,38 @@
       <ng-template [ngSwitchDefault]>
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
           <div class="td-block" *ngIf="!col.title">
-            <div class="column"
-              [attr.title]="getColTitle(miniCol.field)"
-              (click)="sort(miniCol.field)"
-              [ngClass]="getSortClass(miniCol.field)"
-              *ngFor="let miniCol of col.items"
-              [style.width]="miniCol.width"
-              [class]="miniCol.class"
-            >
-              <!-- <div class="resize-handle_start" (mousedown)="startResize($event, miniCol)"></div> -->
-              {{miniCol.title}}
-              <!-- <div class="resize-handle_end" (mousedown)="startResize($event, miniCol)"></div> -->
-            </div>
+            <ng-container *ngFor="let miniCol of col.items">
+              <div class="column"
+                [ngClass]="getSortClass(miniCol.field)"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
+                [attr.title]="getColTitle(miniCol.field)"
+                (click)="sort(miniCol.field)"
+              >
+                {{miniCol.title}}
+              </div>
+              <div class="resize-handle_end" (mousedown)="startResize($event, miniCol)"></div>
+            </ng-container>
           </div>
+          <!-- <div class="td-block" *ngIf="!col.title">
+            <ng-container>
+              <div class="column"
+                [attr.title]="getColTitle(miniCol.field)"
+                (click)="sort(miniCol.field)"
+                [ngClass]="getSortClass(miniCol.field)"
+                *ngFor="let miniCol of col.items"
+                [style.width]="miniCol.width"
+                [class]="miniCol.class"
+              >
 
-          <div class="td-block-column" *ngIf="col.title">
+                <ng-container>{{miniCol.title}}</ng-container>
+
+              </div>
+              <div class="resize-handle_end" (mousedown)="startResize($event, miniCol)"></div>
+            </ng-container>
+          </div> -->
+
+          <!-- <div class="td-block-column" *ngIf="col.title">
             <div class="td-block-title">{{col.title}}</div>
             <div class="td-block-line">
               <div class="column"
@@ -45,10 +62,10 @@
                 [class]="miniCol.class"
               >
                 {{miniCol.title}}
-                <!-- <div class="resize-handle" (mousedown)="startResize($event, miniCol)"></div> -->
+                <div class="resize-handle" (mousedown)="startResize($event, miniCol)"></div>
               </div>
             </div>
-          </div>
+          </div> -->
         </th>
 
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">

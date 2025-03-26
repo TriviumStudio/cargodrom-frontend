@@ -1,4 +1,3 @@
-
 .table-list .td-block .column {
   position: relative;
 }
@@ -12,11 +11,13 @@
   top: 0;
 }
 .resize-handle_end{
-  width: 2px;
-  height: 100%;
+  display: block;
+  width: 10px;
+  height: 10px;
   background-color: #ccc;
   cursor: col-resize;
-  position: absolute;
-  right: 5px;
-  top: 0;
+  // position: absolute;
+  // right: 5px;
+  // top: 0;
+  z-index: 100;
 }
