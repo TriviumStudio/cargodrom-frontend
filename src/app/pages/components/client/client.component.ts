@@ -102,9 +102,41 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     this.isResizing = true;
     this.resizingColumn = column;
     this.startX = event.pageX;
-    this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-
+    // this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+    const clickedElement = event.target as HTMLElement;
+    // Явно указываем тип HTMLElement при поиске
+    const columnElement = clickedElement.closest('.column') as HTMLElement | null;
+    if (!columnElement) {
+      console.warn('Не найден элемент с классом .column');
+      return;
+    }
+    this.startWidth=columnElement.offsetWidth;
     event.preventDefault(); // Предотвращаем выделение текста
+  }
+  handleResizeClick(event: MouseEvent, miniCol: any) {
+    console.log('handleResizeClick');
+
+    event.stopPropagation();
+    const clickedElement = event.target as HTMLElement;
+    // Явно указываем тип HTMLElement при поиске
+    const columnElement = clickedElement.closest('.column') as HTMLElement | null;
+    if (!columnElement) {
+      console.warn('Не найден элемент с классом .column');
+      return;
+    }
+    const thElement = columnElement.closest('th') as HTMLElement | null;
+    if (!thElement) {
+      console.warn('Не найден родительский <th>');
+      return;
+    }
+    // Теперь TypeScript знает, что это HTMLElement и offsetWidth доступен
+    const columnWidth = columnElement.offsetWidth;
+    const thWidth = thElement.offsetWidth;
+
+    miniCol.width=`${columnWidth+10}px`;
+
+    console.log('Ширина <th>:', thWidth, 'px');
+    console.log('Ширина .column:', columnWidth, 'px');
   }
 
   @HostListener('document:mousemove', ['$event'])
