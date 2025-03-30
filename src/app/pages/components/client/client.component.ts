@@ -99,6 +99,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   }
 
   startResize(event: MouseEvent, column: any) {
+
     this.isResizing = true;
     this.resizingColumn = column;
     this.startX = event.pageX;
@@ -141,6 +142,8 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
+
+    console.log(`1`);
     if (!this.isResizing || !this.resizingColumn) return;
     const width = this.startWidth + (event.pageX - this.startX);
     this.resizingColumn.width = `${width}px`;
