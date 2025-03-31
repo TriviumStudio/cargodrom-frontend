@@ -5,8 +5,9 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
+import { UserService } from 'src/app/api/services';
 
 @Component({
   selector: 'app-client',
@@ -36,6 +37,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     snackBar: MatSnackBar,
     route: ActivatedRoute,
     router: Router,
+    private userService: UserService,
   ) {
     super(route, router, dialog, snackBar, filterService);
     this.importMetods = {
@@ -95,50 +97,25 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   override ngOnInit() {
     super.ngOnInit();
-    this.loadColumnSizes();
+    // this.loadColumnSizes();
   }
 
   startResize(event: MouseEvent, column: any) {
-
     this.isResizing = true;
     this.resizingColumn = column;
     this.startX = event.pageX;
-    // this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
-    const clickedElement = event.target as HTMLElement;
+    this.startWidth = column.width ? parseInt(column.width, 10) : 100; // Начальная ширина
+    // const clickedElement = event.target as HTMLElement;
     // Явно указываем тип HTMLElement при поиске
-    const columnElement = clickedElement.closest('.column') as HTMLElement | null;
-    if (!columnElement) {
-      console.warn('Не найден элемент с классом .column');
-      return;
-    }
-    this.startWidth=columnElement.offsetWidth;
+    // const columnElement = clickedElement.closest('.column') as HTMLElement | null;
+    // if (!columnElement) {
+    //   console.warn('Не найден элемент с классом .column');
+    //   return;
+    // }
+    // this.startWidth=columnElement.offsetWidth;
     event.preventDefault(); // Предотвращаем выделение текста
   }
-  handleResizeClick(event: MouseEvent, miniCol: any) {
-    console.log('handleResizeClick');
 
-    event.stopPropagation();
-    const clickedElement = event.target as HTMLElement;
-    // Явно указываем тип HTMLElement при поиске
-    const columnElement = clickedElement.closest('.column') as HTMLElement | null;
-    if (!columnElement) {
-      console.warn('Не найден элемент с классом .column');
-      return;
-    }
-    const thElement = columnElement.closest('th') as HTMLElement | null;
-    if (!thElement) {
-      console.warn('Не найден родительский <th>');
-      return;
-    }
-    // Теперь TypeScript знает, что это HTMLElement и offsetWidth доступен
-    const columnWidth = columnElement.offsetWidth;
-    const thWidth = thElement.offsetWidth;
-
-    miniCol.width=`${columnWidth+10}px`;
-
-    console.log('Ширина <th>:', thWidth, 'px');
-    console.log('Ширина .column:', columnWidth, 'px');
-  }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
@@ -153,44 +130,44 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
   onMouseUp() {
     if (this.isResizing) {
       this.isResizing = false;
-      this.saveColumnSizes(); // Сохраняем размеры после завершения изменения
+      // this.saveColumnSizes(); // Сохраняем размеры после завершения изменения
       this.sendColumnSizesToBackend(); // Отправляем размеры на бэкенд
     }
     this.resizingColumn = null;
   }
 
   // Загрузка сохраненных размеров колонок
-  loadColumnSizes() {
-    const savedSizes = localStorage.getItem('columnSizes');
-    if (savedSizes) {
-      const sizes = JSON.parse(savedSizes);
-      this.columnsData.forEach((col:any) => {
-        const savedCol = sizes.find((s: any) => s.column === col.column);
-        if (savedCol) {
-          col.width = savedCol.width;
-          col.items.forEach((item: any) => {
-            const savedItem = savedCol.items.find((i: any) => i.field === item.field);
-            if (savedItem) item.width = savedItem.width;
-          });
-        }
-      });
-    }
-  }
+  // loadColumnSizes() {
+  //   const savedSizes = localStorage.getItem('columnSizes');
+  //   if (savedSizes) {
+  //     const sizes = JSON.parse(savedSizes);
+  //     this.columnsData.forEach((col:any) => {
+  //       const savedCol = sizes.find((s: any) => s.column === col.column);
+  //       if (savedCol) {
+  //         col.width = savedCol.width;
+  //         col.items.forEach((item: any) => {
+  //           const savedItem = savedCol.items.find((i: any) => i.field === item.field);
+  //           if (savedItem) item.width = savedItem.width;
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
 
   // Сохранение размеров колонок в localStorage
-  saveColumnSizes() {
-    const sizes = this.columnsData.map((col:any) => ({
-      column: col.column,
-      width: col.width,
-      items: col.items.map((item:any) => ({
-        field: item.field,
-        width: item.width
-      }))
-    }));
-    console.log('saveColumnSizes',sizes);
+  // saveColumnSizes() {
+  //   const sizes = this.columnsData.map((col:any) => ({
+  //     column: col.column,
+  //     width: col.width,
+  //     items: col.items.map((item:any) => ({
+  //       field: item.field,
+  //       width: item.width
+  //     }))
+  //   }));
+  //   console.log('saveColumnSizes',sizes);
 
-    localStorage.setItem('columnSizes', JSON.stringify(sizes));
-  }
+  //   localStorage.setItem('columnSizes', JSON.stringify(sizes));
+  // }
 
   // Отправка размеров колонок на бэкенд
   sendColumnSizesToBackend() {
@@ -203,7 +180,47 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
       }))
     }));
 
-    console.log(sizes);
+    console.log('columnsData',this.columnsData);
+    console.log('sizes',sizes);
 
+    this.userService.userSaveTableParam({body: {method:'customer_list',param:this.columnsData}})
+      .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$),
+      )
+    .subscribe();
   }
 }
+
+
+  // handleResizeClick(event: MouseEvent, colIndex: any, miniColIndex:any) {
+  //   console.log('handleResizeClick');
+
+  //   event.stopPropagation();
+  //   const clickedElement = event.target as HTMLElement;
+  //   // Явно указываем тип HTMLElement при поиске
+  //   const columnElement = clickedElement.closest('.column') as HTMLElement | null;
+  //   if (!columnElement) {
+  //     console.warn('Не найден элемент с классом .column');
+  //     return;
+  //   }
+  //   const thElement = columnElement.closest('th') as HTMLElement | null;
+  //   if (!thElement) {
+  //     console.warn('Не найден родительский <th>');
+  //     return;
+  //   }
+  //   // Теперь TypeScript знает, что это HTMLElement и offsetWidth доступен
+  //   const columnWidth = columnElement.offsetWidth+10;
+  //   const thWidth = thElement.offsetWidth;
+
+  //   this.columnsData[colIndex].items[miniColIndex].width=`${columnWidth}px`;
+  //   if(this.columnsData[colIndex].items[miniColIndex+1]) {
+  //     this.columnsData[colIndex].items[miniColIndex+1].width=this.columnsData[colIndex].items[miniColIndex+1].width-10
+  //   } else {
+
+  //   }
+
+
+  //   console.log('Ширина <th>:', thWidth, 'px');
+  //   console.log('Ширина .column:', columnWidth, 'px');
+  // }

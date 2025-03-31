@@ -7,10 +7,10 @@
 
 <app-table-filter></app-table-filter>
 
-<div class="table-list" >
+<div class="table-list" [class]="isResizeColumnMode?'resize':''" >
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
 
-    <ng-container *ngFor="let col of columnsData"
+    <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
     >
@@ -22,7 +22,7 @@
               {{col.title}}
             </div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
-              <ng-container *ngFor="let miniCol of col.items">
+              <ng-container *ngFor="let miniCol of col.items;let miniColIndex=index">
                 <div class="column" *ngIf="miniCol.title"
                   [style.width]="miniCol.width"
                   [class]="miniCol.class"
@@ -37,9 +37,14 @@
                   <div class="resize-handle_end"
                     *ngIf="isResizeColumnMode"
                     (mousedown)="startResize($event, miniCol)"
-                    (click)="handleResizeClick($event, miniCol)"
                   >
                   </div>
+                  <!-- <div class="resize-handle_end"
+                    *ngIf="isResizeColumnMode"
+                    (mousedown)="startResize($event, miniCol)"
+                    (click)="handleResizeClick($event, miniCol)"
+                  >
+                  </div> -->
                 </div>
 
               </ng-container>
@@ -55,7 +60,14 @@
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
             >
-              <ng-template [ngSwitchDefault]><div class="col-content">{{ getVal(item,miniCol.field) }}</div></ng-template>
+              <ng-template [ngSwitchDefault]>
+                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
+                <div class="resize-handle_end"
+                  *ngIf="isResizeColumnMode"
+                  (mousedown)="startResize($event, miniCol)"
+                >
+                </div>
+              </ng-template>
               <ng-template [ngSwitchCase]="'test'">test</ng-template>
             </div>
           </div>
