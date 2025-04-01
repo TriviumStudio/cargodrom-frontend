@@ -119,8 +119,6 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(event: MouseEvent) {
-
-    console.log(`1`);
     if (!this.isResizing || !this.resizingColumn) return;
     const width = this.startWidth + (event.pageX - this.startX);
     this.resizingColumn.width = `${width}px`;
@@ -183,13 +181,23 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
     console.log('columnsData',this.columnsData);
     console.log('sizes',sizes);
 
+
+  }
+  onSaveColumnWidth(){
     this.userService.userSaveTableParam({body: {method:'customer_list',param:this.columnsData}})
       .pipe(
         tap(()=>{}),
         takeUntil(this.destroy$),
       )
-    .subscribe();
+    .subscribe(()=>{
+      this.isResizeColumnMode=false;
+    });
   }
+  onCancelColumnWidth(){
+    location.reload();
+  }
+
+
 }
 
 
