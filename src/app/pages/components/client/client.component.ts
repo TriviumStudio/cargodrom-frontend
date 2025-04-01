@@ -97,6 +97,7 @@ export class ClientComponent extends Table<Client, 'name', ClientFilter> {
 
   override ngOnInit() {
     super.ngOnInit();
+    // this.isResizeColumnMode=true;
     // this.loadColumnSizes();
   }
 
