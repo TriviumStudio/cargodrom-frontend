@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
-import { FileService, RequestService } from 'src/app/api/services';
+import { FileService, RequestService, UserService } from 'src/app/api/services';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { RateAddCustoms } from './rate-add-customs/rate-add-customs.component';
 import { LogoutComponent } from 'src/app/auth/components/logout/logout.component';
@@ -73,7 +73,10 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     filter: FilterService,
     private matDialog: MatDialog,
     private fileSrvice: FileService,
-  ) { super(route, router, dialog, snackBar, filter) }
+    userService: UserService,
+  ) {
+    super(route, router, dialog, snackBar, filter,userService)
+  }
 
   override loadRows(): void {
     super.loadRows();

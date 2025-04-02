@@ -1,38 +1,43 @@
-.table-list .td-block .column {
-  position: relative;
-}
-.table-list .resize-handle{
-  position: absolute;
-  right: -1.5px;
-  width: 3px;
-  top: -21px;
-  bottom: -19px;
-  background-color: inherit;
-  cursor: col-resize;
-  pointer-events: none;
-}
-.table-list.resize .resize-handle{
-  background-color: #E0E5EB;
-  pointer-events: all;
-}
-.table-list{
-  z-index: 1;
-}
-.table-list .resize-handle_end {
-  cursor: col-resize;
-  position: absolute;
-  right: 0;
-  width: 3px;
-  top: 0;
-  bottom: 0;
-  background-color: inherit;
-  pointer-events: none;
-}
-.table-list.resize .resize-handle_end {
-  background-color: #E0E5EB;
-  pointer-events: all;
-}
+// .table-list .td-block .column {
+//   position: relative;
+// }
+// .table-list .resize-handle{
+//   position: absolute;
+//   right: -1.5px;
+//   width: 3px;
+//   top: -21px;
+//   bottom: -19px;
+//   background-color: inherit;
+//   cursor: col-resize;
+//   pointer-events: none;
+// }
+// .table-list.resize .resize-handle{
+//   background-color: #DB563B;
+//   pointer-events: all;
+// }
+// // .table-list{
+// //   z-index: 1;
+// // }
+// .table-list .resize-handle_end {
+//   cursor: col-resize;
+//   position: absolute;
+//   // right: 0;
+//   left: -2px;
+//   width: 3px;
+//   top: 0;
+//   bottom: 0;
+//   background-color: inherit;
+//   pointer-events: none;
+// }
+// .table-list.resize .resize-handle_end {
+//   background-color: #DB563B;
+//   pointer-events: all;
+// }
 
 // .table-list.resize td{
 //   border-left-color: inherit;
 // }
+// table .mdc-data-table__header-cell {
+//   overflow: visible;
+// }
+
