@@ -78,15 +78,16 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     super(route, router, dialog, snackBar, filter,userService)
   }
 
-  override loadRows(): void {
-    super.loadRows();
-    // this.getOfferList();
-  }
+  // override loadRows(): void {
+  //   super.loadRows();
+  //   // this.getOfferList();
+  // }
 
   override ngOnInit(): void {
     super.ngOnInit();
     this.getOfferList();
     this.getKpStatus();
+    this.resizeMetod='_list'
   }
 
   //методы для таблицы

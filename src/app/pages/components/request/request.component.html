@@ -59,7 +59,9 @@
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
             >
-              <ng-template [ngSwitchDefault]><div class="col-content">{{ getVal(item,miniCol.field) }}</div></ng-template>
+              <ng-template [ngSwitchDefault]>
+                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
+              </ng-template>
               <ng-template [ngSwitchCase]="'id'">
                 <a class="link" (click)="navigateOnDetails(item.id)">
                   {{ getVal(item,miniCol.field) }}

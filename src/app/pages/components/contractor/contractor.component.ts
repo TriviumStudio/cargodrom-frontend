@@ -43,6 +43,12 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     }
     this.registerAlias('trade_rating', ['trade_count', 'trade_success_count', 'trade_fail_count']);
   }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.resizeMetod='contractor_list';
+  }
+
   //методы для таблицы
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
     this.params=params;
