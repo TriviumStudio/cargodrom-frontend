@@ -250,10 +250,11 @@
 <div style="display: flex; align-items: center;">
   <div class="subtitle">Ставки: {{currentRequest.count_rate_send}}/{{currentRequest.count_rate_answer}}</div>
   <div class="rate-links">
-    <div (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
-    <div (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
-    <div (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
-    <div (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+    <div *ngIf="currentRequest?.tabs?.includes('final')" (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
+    <div *ngIf="currentRequest?.tabs?.includes('custom')" (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
+    <div *ngIf="currentRequest?.tabs?.includes('point')" (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div *ngIf="currentRequest?.tabs?.includes('delivery')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
+    <!-- <div *ngIf="currentRequest?.tabs?.includes('other')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Другие</div> -->
   </div>
 </div>
 
@@ -268,12 +269,14 @@
       <button *ngIf="detailsMethod!=='final'" class="add rate" (click)="onAddRateBtnClick(detailsMethod)">
         <span style="text-wrap: nowrap" >+ СТАВКА</span>
       </button>
-      <button *ngIf="detailsMethod==='final'" class="add kp" (click)="onAddKpBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">
+
+      <button *ngIf="(detailsMethod === 'delivery' || detailsMethod === 'customs') && currentRequest.tabs?.length===1" class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
+      <button *ngIf="currentRequest.tabs?.length==1" class="add kp" (click)="onAddKpBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">
         <span style="text-wrap: nowrap" >+ КП</span>
       </button>
-      <button *ngIf="detailsMethod!=='final'" class="dub" (click)="onDubSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">ДУБЛЬ</button>
-      <button *ngIf="detailsMethod !== 'final' && detailsMethod !== 'point'" class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
-      <button class="del" (click)="onDelSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">УДАЛИТЬ</button>
+
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="dub" (click)="onDubSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">ДУБЛЬ</button>
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="del" (click)="onDelSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -308,6 +311,7 @@
                   >
                   </div>
                 </div>
+
                 <div class="resize-handle_end"
                   *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
                   (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
@@ -344,15 +348,26 @@
       <!-- select столбец -->
       <ng-template [ngSwitchCase]="'select'">
         <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
-          <label class="checkbox-label">
-            <mat-checkbox class="testclass"
-              [indeterminate]="isCheckboxHeaderTableIndeterminate()"
-              [checked]="isCheckboxHeaderTableChecked()"
-              (change)="onCheckboxHeaderTableChange($event)"
-              [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
-            >
-            </mat-checkbox>
-          </label>
+          <div class="td-block" >
+            <div class="column">
+              <label class="checkbox-label">
+                <mat-checkbox class="testclass"
+                  [indeterminate]="isCheckboxHeaderTableIndeterminate()"
+                  [checked]="isCheckboxHeaderTableChecked()"
+                  (change)="onCheckboxHeaderTableChange($event)"
+                  [ngClass]="isCheckboxHeaderTableIndeterminate()?'mat-mdc-checkbox-indeterminate':''"
+                >
+                </mat-checkbox>
+              </label>
+
+            </div>
+          </div>
+
+
+          <div class="resize-handle_end"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+          >
+          </div>
         </th>
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <div class="td-block">
@@ -392,10 +407,10 @@
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
             <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
           </mat-menu>
-          <div class="resize-handle_end"
+          <!-- <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
           >
-          </div>
+          </div> -->
         </th>
         <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
           <!-- <div class="td-block" style="cursor: pointer;" (click)="expandedElement = expandedElement === item ? null : item;" > -->

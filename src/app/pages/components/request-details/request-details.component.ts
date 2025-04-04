@@ -87,7 +87,18 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     super.ngOnInit();
     this.getOfferList();
     this.getKpStatus();
-    this.resizeMetod='_list'
+    // this.resizeMetod='_list'
+    this.definitionResizeMethodInDetailPage();
+  }
+
+  definitionResizeMethodInDetailPage(){
+    const methodMap: { [key: string]: string } = {
+      final: 'request_rate_final_list',
+      customs: 'request_rate_customs_list',
+      point: 'request_rate_point_list',
+      transporter: 'request_rate_transporter_list',
+    };
+    this.resizeMetod=methodMap[this.detailsMethod];
   }
 
   //методы для таблицы

@@ -32,13 +32,13 @@
 
                   </div>
                   <div class="resize-handle"
-                    *ngIf="miniColIndex !== col.items.length - 1"
+                    *ngIf="miniColIndex !== col.items.length - 1 && col.items[miniColIndex+1].title"
                     (mousedown)="startResize($event, miniCol)"
                   >
                   </div>
                 </div>
                 <div class="resize-handle_end"
-                  *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
+                  *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0 "
                   (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
                 >
                 </div>
