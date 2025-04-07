@@ -56,6 +56,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   isExpandedRequestInfo:boolean=false;
 
 
+  @ViewChild('rateOtherDialogRef') rateOtherDialogRef!: TemplateRef<void>;
   @ViewChild('ratePointDialogRef') ratePointDialogRef?: TemplateRef<void>;
   @ViewChild('rateTransporterDialogRef') rateTransporterDialogRef?: TemplateRef<void>;
   @ViewChild('rateСustomsDialogRef') rateСustomsDialogRef?: TemplateRef<void>;
@@ -91,12 +92,23 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.definitionResizeMethodInDetailPage();
   }
 
+  openOtherForm(data:any){
+    const ref = this.rateOtherDialogRef;
+    const config = {
+      height: '85vh',
+      minWidth: '85vw',
+      maxWidth: '95vw'
+    };
+    this.matDialog.open(ref,{data:data, ...config});
+  }
+
   definitionResizeMethodInDetailPage(){
     const methodMap: { [key: string]: string } = {
       final: 'request_rate_final_list',
       customs: 'request_rate_customs_list',
       point: 'request_rate_point_list',
       transporter: 'request_rate_transporter_list',
+      other: 'request_rate_other_list',
     };
     this.resizeMetod=methodMap[this.detailsMethod];
   }
@@ -108,6 +120,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
       customs: this.requestService.requestRateCustomsList.bind(this.requestService),
       point: this.requestService.requestRatePointList.bind(this.requestService),
       transporter: this.requestService.requestRateTransporterList.bind(this.requestService),
+      other: this.requestService.requestRateOtherList.bind(this.requestService),
     };
     const loadMethod = methodMap[this.detailsMethod];
     return loadMethod(params) as Observable<{ total: number; items: LoadRows[] }>;

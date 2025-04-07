@@ -102,7 +102,9 @@
         class="info"
         style="resize: none; border: none;font-weight: bold; color: #2C3640; font-size: 16px; width: 100%; min-height: 100px; text-indent: none;"
         readonly
-      >{{currentRequest?.translate?.ru?.cargo_dimensions}}</textarea>
+      >
+        {{currentRequest?.translate?.ru?.cargo_dimensions}}
+      </textarea>
       <!-- <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div>
       <div class="w1 dime">????????????????? (1200 x 20 x 20, 110 kg) x 11 Wooden pallets - Stackable</div> -->
@@ -252,9 +254,10 @@
   <div class="rate-links">
     <div *ngIf="currentRequest?.tabs?.includes('final')" (click)="onTableMethodChange('final')" [ngClass]="detailsMethod==='final'? 'table-active':'' ">Итоговые</div>
     <div *ngIf="currentRequest?.tabs?.includes('custom')" (click)="onTableMethodChange('customs')" [ngClass]="detailsMethod==='customs'? 'table-active':'' ">До границы</div>
-    <div *ngIf="currentRequest?.tabs?.includes('point')" (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
+    <div *ngIf="currentRequest?.tabs?.includes('svh')" (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
     <div *ngIf="currentRequest?.tabs?.includes('delivery')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
-    <!-- <div *ngIf="currentRequest?.tabs?.includes('other')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Другие</div> -->
+    <div *ngIf="currentRequest?.tabs?.includes('other')" (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div>
+    <div (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div>
   </div>
 </div>
 
@@ -266,17 +269,24 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
+      <button (click)="openOtherForm(123)">open Other Form</button>
+
       <button *ngIf="detailsMethod!=='final'" class="add rate" (click)="onAddRateBtnClick(detailsMethod)">
         <span style="text-wrap: nowrap" >+ СТАВКА</span>
       </button>
 
-      <button *ngIf="(detailsMethod === 'delivery' || detailsMethod === 'customs') && currentRequest.tabs?.length===1" class="bid" (click)="onBidSelectRateBtnClick()">ТОРГИ</button>
-      <button *ngIf="currentRequest.tabs?.length==1" class="add kp" (click)="onAddKpBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">
+      <button *ngIf="(detailsMethod=='customs' || detailsMethod=='transporter') && currentRequest.tabs?.length==1 "
+        class="bid"
+        (click)="onBidSelectRateBtnClick()"
+      >
+        ТОРГИ
+      </button>
+      <button *ngIf="(detailsMethod!=='final' && currentRequest.tabs?.length==1) || (currentRequest.tabs?.length>1 && (detailsMethod=='customs'||detailsMethod=='final' ) ) " class="add kp" (click)="onAddKpBtnClick()">
         <span style="text-wrap: nowrap" >+ КП</span>
       </button>
 
-      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="dub" (click)="onDubSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">ДУБЛЬ</button>
-      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="del" (click)="onDelSelectRateBtnClick()" [disabled]="arrDetailsCheckedCheck.length==0">УДАЛИТЬ</button>
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="dub" (click)="onDubSelectRateBtnClick()">ДУБЛЬ</button>
+      <button *ngIf="arrDetailsCheckedCheck.length!==0" class="del" (click)="onDelSelectRateBtnClick()">УДАЛИТЬ</button>
     </div>
 </app-table-filter>
 
@@ -510,6 +520,14 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+<ng-template #rateOtherDialogRef let-data>
+  <app-rate-add-other
+    [rate]="data"
+    [currentRequest]="currentRequest"
+    (closeDialog)="closeAllDialogs()">
+  </app-rate-add-other>
+</ng-template>
 
 <ng-template #rateСustomsDialogRef let-data>
   <app-rate-add-customs
