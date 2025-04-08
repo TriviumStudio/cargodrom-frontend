@@ -20,6 +20,7 @@ export class RateAddOther implements OnInit, OnDestroy {
 
   weight:any;
 
+
   currencyList:any=[];
 
   chargesShema:any;
@@ -44,17 +45,14 @@ export class RateAddOther implements OnInit, OnDestroy {
     private directionService: DirectionService,
     private systemService: SystemService,
   ) {
-
-
-
     this.rateForm = this.fb.group({
       id:[,[]],
       cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
       contractor_name:['',[]],
-      point_id: [,[]],
-      point_action_id: [,[]],
+      city_id: [,[]],
+      point_action: [,[]],
       comment: [,[]],
       currency: [0,[]],
       values: fb.array([], []),
@@ -66,31 +64,52 @@ export class RateAddOther implements OnInit, OnDestroy {
     this.weight=this.currentRequest.cargo_places_paid_weight;
     this.getChargesShema();
     this.getContractor();
-    this.getArrivalPoinst();
+    this.getArrivalPoinst('');
     this.getPointAction();
     this.getCurrency();
-    // this.chargesShema.forEach((i:any)=>{
-    //   this.charges.push(this.fb.group({
-    //     comment: [,[]],
-    //     cost: [,[]],
-    //     field: [i.field_name,[]],
-    //     fix: [,[]],
-    //     min: [,[]],
-    //     price: [,[]],
-    //     select: [i.status,[]],
-    //     value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
-    //   }));
-    //   this.rateForm.markAsTouched();
-    // });
-    // if(this.rate){
-    //   console.log('this edit mode', this.rate);
-    //   this.rateForm.patchValue(this.rate);
-    // }
     this.rateForm.patchValue({request_id: this.currentRequest.id});
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
+  }
+
+  get requestChar(){
+    const i = this.currencyList.find((r:any) => r.id === this.currentRequest.cargo_currency_id);
+    return i?.char;
+  }
+  get rateChar(){
+    const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
+    return i?.char;
+  }
+
+  displayFn_CityId(id: any): string {
+    if (!this.pointList) return '';
+    const obj = this.pointList.find((obj:any) => obj.id === id);
+    return obj?.name || '';
+  }
+
+  returnRateCost(){
+    let cost:number=0;
+    this.rateForm.value.values.forEach((v:any)=>{
+      if(v.select)cost=cost + v.cost
+    });
+    return cost;
+  }
+  calck_procent(chargeValue:any){
+    let cost;
+    cost=Math.ceil(this.currentRequest.cargo_cost)/100;
+    cost=cost*chargeValue.value.price;
+    chargeValue.patchValue({
+      cost: cost,
+    });
+  }
+  calck_multiplication(chargeValue:any){
+    let cost;
+    cost=chargeValue.value.price*chargeValue.value.value;
+    chargeValue.patchValue({
+      cost: cost,
+    });
   }
 
   setContractorName(contractor_id:number) {
@@ -125,18 +144,18 @@ export class RateAddOther implements OnInit, OnDestroy {
   }
   calckChargeCost(control:any){
     control.patchValue({cost: control.value.price * control.value.value});
-    this.calckRateCost();
+    // this.calckRateCost();
   }
-  calckRateCost(){
-    let cost:number=0;
-    this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost + v.cost
-    });
-    this.rateForm.patchValue({ cost:cost });
-  }
+  // calckRateCost(){
+  //   let cost:number=0;
+  //   this.rateForm.value.values.forEach((v:any)=>{
+  //     if(v.select)cost=cost + v.cost
+  //   });
+  //   this.rateForm.patchValue({ cost:cost });
+  // }
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});
-    this.calckRateCost();
+    // this.calckRateCost();
   }
 
   private getContractor():void{
@@ -164,8 +183,12 @@ export class RateAddOther implements OnInit, OnDestroy {
       });
   }
 
-  private getArrivalPoinst():void{
-    this.directionService.directionPoint({ city_id:this.currentRequest.arrival_city_id, transport_kind_id:this.currentRequest.transport_kind_id! })
+
+
+  getArrivalPoinst(search:any):void{
+    const str=search.target.value;
+
+    this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id,search:str})
       .pipe(
         tap(contractor => {
           console.log('getArrivalPoinst',contractor);
@@ -212,7 +235,7 @@ export class RateAddOther implements OnInit, OnDestroy {
 
   rateSave():void{
     console.log(this.rateForm.value);
-    this.requestService.requestRatePointSave({body:this.rateForm.value})
+    this.requestService.requestRateOtherSave({body:this.rateForm.value})
       .pipe(
         tap(contractor => {
           console.log(contractor);
@@ -222,10 +245,20 @@ export class RateAddOther implements OnInit, OnDestroy {
       .subscribe({
         next: (contractor) => {
           this.closeForm();
-          this.snackBar.open(!this.rate?'Ставка успешно создана':'Ставка успешно изменена', undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(
+            !this.rate
+            ?'Ставка успешно создана'
+            :'Ставка успешно изменена',
+            undefined, this.snackBarWithShortDuration
+          );
         },
         error: (err) => {
-          this.snackBar.open(!this.rate?'Ошибка создания ставки:':'Ошибка изменения ставки:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open(
+            !this.rate
+            ?'Ошибка создания ставки:'
+            :'Ошибка изменения ставки:' + err.error.error_message,
+            undefined, this.snackBarWithShortDuration
+          );
         }
       });
   }
@@ -252,7 +285,7 @@ export class RateAddOther implements OnInit, OnDestroy {
               price: [,[]],
               select: [i.checked,[]],
               // select:[i.checked,{disabled: i.checked},[]],
-              value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
+              value: [i.multiplier==='percent_of_cargo_cost'?Math.ceil(this.currentRequest.cargo_cost):1,[]],
             }));
             this.rateForm.markAsTouched();
           });
@@ -283,3 +316,35 @@ export class RateAddOther implements OnInit, OnDestroy {
     });
   }
 }
+
+// checked
+// :
+// false
+
+// field_comment
+// :
+// false
+
+// field_fix
+// :
+// false
+
+// field_min
+// :
+// false
+
+// field_name
+// :
+// "terminal_handling"
+
+// id
+// :
+// 13
+
+// title
+// :
+// "Терминальная обработка груза"
+
+// unit
+// :
+// "kg"
