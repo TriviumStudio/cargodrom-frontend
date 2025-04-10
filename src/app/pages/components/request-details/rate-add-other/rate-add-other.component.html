@@ -3,13 +3,13 @@
     <div class="form-row">
       <div class="form-item-layout">
 
-        <div class="form-item">
+        <div class="form-item" style="width: 150px; flex-grow: 0;">
           <div class="form-label">Стоимость товаров, {{requestChar}}</div>
           <div class="form-data">
             <input type="text" [value]="currentRequest.cargo_cost" readonly>
           </div>
         </div>
-
+<!--
         <div class="form-item">
           <div class="form-label">Подрядчик:</div>
           <div class="form-data">
@@ -40,10 +40,9 @@
           </div>
         </div>
 
-        <!-- <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Город:', control: 'city_id', data: pointList }"></ng-container> -->
-        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид рейса:', control: 'point_action', data: pointActionList }"></ng-container>
+        <ng-container *ngTemplateOutlet="formItemSelector; context: { label: 'Вид рейса:', control: 'point_action', data: pointActionList }"></ng-container> -->
 
-        <div class="form-item" style="width: 100px;">
+        <!-- <div class="form-item" style="width: 100px;">
           <div class="form-label">Currecy: </div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
@@ -52,19 +51,137 @@
               </mat-select>
             </mat-form-field>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
     </div>
 
-    <div class="charges-block" style="display: flex;">
+    <div class="table-list charges-block" style="display: flex;">
+      <table style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>
+              <div class="td-block" >
+                <div class="column"
+                >
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="td-block" >
+                <div class="column"
+                  *ngFor="let field of fields"
+                >
+                {{field}}
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="td-block" >
+                <div class="column"
+                >
+                Примечание
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody formArrayName="values">
+          <ng-container
+            *ngFor="let chargeValue of charges.controls;
+            let i = index;"
+            [formGroupName]="i"
+          >
+            <tr>
+              <td>
+                <div class="td-block" >
+                  <div class="column">
+                    <label>
+                      <input type="checkbox" formControlName="select">
+                      <i></i>
+                    </label>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="td-block" >
+                  <div class="column">
+                    {{chargeValue.value.title}}
+                  </div>
+                  <div class="column">
+                    <input
+                      type="text"
+                      formControlName="contractor_id"
+                      [matAutocomplete]="contractor"
+                    >
+                    <mat-autocomplete #contractor="matAutocomplete" [displayWith]="displayFn_contractor.bind(this)">
+                      <mat-option *ngFor="let contractor of filteredContractors(chargeValue)" [value]="contractor.id">{{contractor.name}}</mat-option>
+                    </mat-autocomplete>
+                  </div>
+                  <div class="column">
+                    <input
+                      type="text"
+                      formControlName="city_id"
+                      [matAutocomplete]="city_id"
+                    >
+                    <mat-autocomplete #city_id="matAutocomplete" [displayWith]="displayFn_city.bind(this)">
+                      <mat-option *ngFor="let contractor of filteredCitys(chargeValue)" [value]="contractor.id">{{contractor.name}}</mat-option>
+                    </mat-autocomplete>
+                  </div>
 
-      <div class="charge_on">
+                  <div class="column">
+                    <mat-form-field appearance="outline" class="ui-select">
+                      <mat-select formControlName="point_action_id">
+                        <mat-option *ngFor="let point of pointActionList;" [value]="point.id" >{{ point.name }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="column">
+                    <input type="number" formControlName="price"
+                      (ngModelChange)="chargeValue.value.multiplier?calck_procent(chargeValue):calck_multiplication(chargeValue)"
+                    >
+                    <!-- <div class="char">{{chargeValue.value.multiplier?'%':returnRateChar(chargeValue)}}</div> -->
+                  </div>
+                  <div class="column">
+                    <div *ngIf="chargeValue.value.multiplier" class="char">%</div>
+                    <mat-form-field *ngIf="!chargeValue.value.multiplier" appearance="outline" class="ui-select">
+                      <mat-select formControlName="currency">
+                        <mat-option *ngFor="let currency of currencyList;" [value]="currency.id" >{{ currency.code }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="column">
+                    <input type="number" formControlName="count"
+                      [readonly]="chargeValue.value.multiplier"
+                      (ngModelChange)="chargeValue.value.multiplier?'':calck_multiplication(chargeValue)"
+                    >
+                    <div class="char">{{chargeValue.value.multiplier?requestChar:chargeValue.value.multiplier_name}}</div>
+                  </div>
+                  <div class="column">
+                    <input type="number" readonly formControlName="cost">
+                    <div class="char-mini">{{chargeValue.value.multiplier?requestChar:returnRateChar(chargeValue)}}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="td-block" >
+                  <div class="column">
+                    <input type="text" formControlName="comment">
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+
+      </table>
+
+      <!-- <div class="charge_on">
         В ставку включено
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
-            <div *ngIf="chargeValue.value.select" class="charge w100">
+            <div class="charge w100">
               <ng-template
                 [ngSwitchCase]="chargeModel.field_name"
                 *ngFor="let chargeModel of chargesShema; let j = index;"
@@ -102,77 +219,16 @@
                     <span class="unit s">
                       <input type="number" formControlName="cost" readonly>{{rateChar?rateChar:'?'}}
                     </span>
-                    <!-- <span class="unit l" *ngIf="!chargeModel.field_comment">
-                      <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)">
-                      <ng-container *ngIf="rateChar">{{rateChar}}/{{chargeModel.unit}}</ng-container>
-                    </span>
-                    <div class="cross" *ngIf="!chargeModel.field_comment"></div>
-                    <span class="unit m" *ngIf="!chargeModel.field_comment">
-                      <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
-                    </span>
-                    <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
-                    <span class="comment" *ngIf="chargeModel.field_comment">
-                      <input type="text" formControlName="comment">
-                    </span>
-                    <span class="unit s">
-                      <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
-                    </span> -->
                   </ng-template>
 
                 </ng-container>
 
               </ng-template>
 
-
-              <!-- <ng-template
-                [ngSwitchCase]="chargeModel.field_name"
-                *ngFor="let chargeModel of chargesShema;
-                let i = index;"
-              >
-                <label>
-                  <input  type="checkbox" formControlName="select" (change)="calckRateCost()">
-                  <i></i>
-                  {{chargeModel.title}}
-                </label>
-                <span class="unit l" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)">
-                  <ng-container *ngIf="char">{{char}}/{{chargeModel.unit}}</ng-container>
-                </span>
-                <div class="cross" *ngIf="!chargeModel.field_comment"></div>
-                <span class="unit m" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
-                </span>
-                <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
-                <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
-                <span class="unit s">
-                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">$
-                </span>
-              </ng-template> -->
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="charge_off">
-        Не включено
-        <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
-          <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
-            <div *ngIf="!chargeValue.value.select" class="charge w100">
-              <ng-template
-                [ngSwitchCase]="chargeModel.field_name"
-                *ngFor="let chargeModel of chargesShema;
-                let i = index;"
-              >
-                <label style="height: 37px; align-items: center; display: flex;">
-                  <input  type="checkbox" formControlName="select">
-                  <i></i>
-                  {{chargeModel.title}}
-                </label>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="form-row" >

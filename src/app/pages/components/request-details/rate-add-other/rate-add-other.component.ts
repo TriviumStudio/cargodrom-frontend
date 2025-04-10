@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, S
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Title } from '@angular/platform-browser';
+import { count, forkJoin, Subject, takeUntil, tap } from 'rxjs';
 import { Contractor } from 'src/app/api/custom_models';
 import { ContractorService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
 
@@ -18,19 +19,27 @@ export class RateAddOther implements OnInit, OnDestroy {
   @Input() rate?:any;
   @Output() closeDialog = new EventEmitter<void>();
 
+  fields:string[] = [
+    'Наименнование услуги',
+    'Подрядчик',
+    'Город',
+    'Вид прайса',
+    'Стоимость',
+    'Валюта',
+    'Ед.Изм.',
+    'Итого'
+  ];
   weight:any;
 
-
-  currencyList:any=[];
-
-  chargesShema:any;
-  currencyShema:any;
-
   rateForm: FormGroup;
-  private _destroy$ = new Subject();
+  chargesShema:any;
+
   contractorList:any=[];
   pointList:any=[];
   pointActionList:any=[];
+  currencyList:any=[];
+
+  private _destroy$ = new Subject();
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 3000 };
@@ -47,43 +56,125 @@ export class RateAddOther implements OnInit, OnDestroy {
   ) {
     this.rateForm = this.fb.group({
       id:[,[]],
-      cost:[,[]],
       request_id: [,[]],
-      contractor_id: [,[]],
-      contractor_name:['',[]],
-      city_id: [,[]],
-      point_action: [,[]],
       comment: [,[]],
-      currency: [0,[]],
       values: fb.array([], []),
     });
   }
-
   // Методы ЖЦ
   ngOnInit(): void {
     this.weight=this.currentRequest.cargo_places_paid_weight;
-    this.getChargesShema();
-    this.getContractor();
-    this.getArrivalPoinst('');
-    this.getPointAction();
-    this.getCurrency();
-    this.rateForm.patchValue({request_id: this.currentRequest.id});
+    this.initialization_getAllData();
+    // this.getChargesShema();
+    // this.getContractor();
+    // this.getArrivalPoinst();
+    // this.getPointAction();
+    // this.getCurrency();
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
 
+  initialization_getAllData(): void {
+    forkJoin({
+      charges: this.requestService.requestRateFormParam({request_id:this.currentRequest.id, method:'other'}),
+      contractors: this.contractorService.contractorList(),
+      poinst: this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id }),
+      prices: this.transportService.transportPointAction({direction:'arrival'}),
+      currencys: this.systemService.systemCurrency(),
+    }).pipe(
+      tap(schema => {
+        console.log(schema);
+      }),
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (datas) => {
+      // next: ({ charges, contractors, poinst, prices, currencys }) => {
+        this.processData(datas);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка загрузки данных: ${err.message}`, 'Закрыть');
+      }
+    });
+  }
+
+  processData(datas:any){
+    this.contractorList = datas.contractors.items;
+    this.pointList = datas.poinst;
+    this.pointActionList = datas.prices;
+    this.currencyList = datas.currencys;
+    this.processData_charges(datas.charges);
+  }
+  processData_charges(charges:any){
+    this.chargesShema=charges.charges;
+    this.chargesShema.forEach((i:any)=>{
+      this.charges.push(this.fb.group({
+        field: [i.field_name,[]],
+        price: [,[]],
+        count: [
+          i.multiplier==='percent_of_cargo_cost'
+            ? Math.ceil(this.currentRequest.cargo_cost)
+            : 1
+        ,[]],
+        comment: [,[]],
+        select: [i.checked,[]],
+        contractor_id: [,[]],
+        point_action_id: [,[]],
+        city_id: [,[]],
+        currency: [,[]],
+
+        title: [i.title,[]],
+        cost: [,[]],
+        multiplier:i.multiplier==='percent_of_cargo_cost'?true:false,
+        multiplier_name:i.multiplier_name,
+      }));
+      // this.rateForm.markAsTouched();
+    });
+    this.rateForm.patchValue({request_id: this.currentRequest.id});
+    if(this.rate){
+      console.log('this edit mode', this.rate);
+      this.rateForm.patchValue(this.rate);
+    }
+  }
+
+  filteredContractors(form:any){
+    let arr;
+    if(typeof form.value.contractor_id==='string' && form.value.contractor_id!=''){
+      arr = this.contractorList.filter((item: any) => {
+        return item.name && item.name.toLowerCase().includes(form.value.contractor_id.toLowerCase());
+      });
+    }
+    return arr;
+  }
+  filteredCitys(form:any){
+    let arr;
+    if(typeof form.value.city_id==='string' && form.value.city_id!=''){
+      arr = this.pointList.filter((item: any) => {
+        return item.name && item.name.toLowerCase().includes(form.value.city_id.toLowerCase());
+      });
+    }
+    return arr;
+  }
+
   get requestChar(){
     const i = this.currencyList.find((r:any) => r.id === this.currentRequest.cargo_currency_id);
     return i?.char;
   }
-  get rateChar(){
-    const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
+  returnRateChar(form:any){
+    if(!form.value.currency){
+      return'?'
+    }
+    const i = this.currencyList.find((r:any) => r.id === form.value.currency);
     return i?.char;
   }
 
-  displayFn_CityId(id: any): string {
+  displayFn_contractor(id: any): string {
+    if (!this.contractorList) return '';
+    const obj = this.contractorList.find((obj:any) => obj.id === id);
+    return obj?.name || '';
+  }
+  displayFn_city(id: any): string {
     if (!this.pointList) return '';
     const obj = this.pointList.find((obj:any) => obj.id === id);
     return obj?.name || '';
@@ -106,7 +197,7 @@ export class RateAddOther implements OnInit, OnDestroy {
   }
   calck_multiplication(chargeValue:any){
     let cost;
-    cost=chargeValue.value.price*chargeValue.value.value;
+    cost=chargeValue.value.price*chargeValue.value.count;
     chargeValue.patchValue({
       cost: cost,
     });
@@ -185,10 +276,8 @@ export class RateAddOther implements OnInit, OnDestroy {
 
 
 
-  getArrivalPoinst(search:any):void{
-    const str=search.target.value;
-
-    this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id,search:str})
+  getArrivalPoinst():void{
+    this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id })
       .pipe(
         tap(contractor => {
           console.log('getArrivalPoinst',contractor);
@@ -274,18 +363,23 @@ export class RateAddOther implements OnInit, OnDestroy {
       .subscribe({
         next: (schema) => {
           this.chargesShema=schema.charges;
-          this.currencyShema=schema.currency;
+          // this.currencyShema=schema.currency;
           this.chargesShema.forEach((i:any)=>{
             this.charges.push(this.fb.group({
-              comment: [,[]],
-              cost: [,[]],
               field: [i.field_name,[]],
-              fix: [,[]],
-              min: [,[]],
               price: [,[]],
+              count: [i.multiplier==='percent_of_cargo_cost'?Math.ceil(this.currentRequest.cargo_cost):1,[]],
+              comment: [,[]],
               select: [i.checked,[]],
-              // select:[i.checked,{disabled: i.checked},[]],
-              value: [i.multiplier==='percent_of_cargo_cost'?Math.ceil(this.currentRequest.cargo_cost):1,[]],
+              contractor_id: [,[]],
+              point_action_id: [,[]],
+              city_id: [,[]],
+              currency: [,[]],
+
+              title: [i.title,[]],
+              cost: [,[]],
+              multiplier:i.multiplier==='percent_of_cargo_cost'?true:false,
+              multiplier_name:i.multiplier_name,
             }));
             this.rateForm.markAsTouched();
           });
@@ -308,6 +402,8 @@ export class RateAddOther implements OnInit, OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe({
       next: (currencyList) => {
+        console.log(currencyList);
+
         this.currencyList=currencyList;
       },
       error: (err) => {
