@@ -498,6 +498,17 @@
                 *ngTemplateOutlet="rateActions; context: { mode: 'transporter', data: element.delivery }">
               </ng-container>
             </app-rate-info-row>
+
+            <app-rate-info-row *ngIf="element.other"
+              [rate]="element.other"
+              [detailsMethod]="'other'"
+              [costClass]="'final'"
+              [percent]="getRatesPercent(element.other?.total_cost,element.total_cost)"
+            >
+              <ng-container test2
+                *ngTemplateOutlet="rateActions; context: { mode: 'other', data: element.other }">
+              </ng-container>
+            </app-rate-info-row>
           <!-- </ng-template> -->
           </ng-container>
         </div>

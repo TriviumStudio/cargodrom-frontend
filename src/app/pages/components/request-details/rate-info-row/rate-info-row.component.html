@@ -21,15 +21,15 @@
               <!-- <div class="label">{{detailsMethod==='transporter'?'Подрядчик:':'Агент авиалинии:'}}</div> -->
               <div class="label">Подрядчик:</div>
               <!-- <div>{{detailsMethod==='transporter'?rate.contractor.name:rate?.carrier?.name}}</div> -->
-              <div>{{rate.contractor.name}}</div>
+              <div>{{rate.contractor?.name}}</div>
               <!-- <div class="detailed">Подробнее  ></div> -->
-              <a [href]="'#/pages/contractor/edit/' + (rate.contractor.id?rate.contractor.id:rate.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
+              <a [href]="'#/pages/contractor/edit/' + (rate.contractor?.id?rate.contractor.id:rate.contractor_id)"  target="_blank" class="detailed">Подробнее  ></a>
             </div>
             <div class="link_block">
               <div class="pic msg"></div>
               <div class="pic phone"></div>
               <div class="pic mail"></div>
-              
+
             </div>
           </div>
           <div style="display: flex; justify-content: space-between; margin-top: 40px;">
@@ -81,9 +81,13 @@
         </div>
       </ng-template>
 
+      <ng-template [ngSwitchCase]="'other'">
+
+      </ng-template>
+
     </div>
 
-    <div class="second_col">
+    <div class="second_col" *ngIf="detailsMethod!='other'">
       <div class="title">Данные по ставке</div>
       <div class="items">
         <ng-container *ngFor="let i of rate.summary_data">
@@ -141,7 +145,7 @@
       </ng-template>
     </div> -->
 
-    <div class="third_col"  [ngSwitch]="detailsMethod">
+    <div class="third_col"  [ngSwitch]="detailsMethod" [style]="detailsMethod=='other'?'width:100%':''">
 
       <ng-template [ngSwitchDefault]>
         <div class="title">В ставку включено <span>/ не включено</span></div>
@@ -171,6 +175,72 @@
           <div style="flex-grow: 2;">{{item?.comment}}</div>
           <div>{{item.amount}}</div>
         </div>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'other'">
+        <div class="title">Данные по выбранным услугам</div>
+        <div class="table-list charges-block" style="display: flex;">
+          <table style="border-collapse: collapse;" class="other_charges">
+            <thead>
+              <tr>
+                <th>
+                  <div class="td-block" >
+                    <div class="column"
+                      *ngFor="let field of [
+                        'Наименнование услуги',
+                        'Подрядчик',
+                        'Город',
+                        'Вид прайса',
+                        'Стоимость',
+                        
+                        'Ед.Изм.',
+                        'Итого',
+                        'Примечание'
+                      ];"
+                    >
+                    {{field}}
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let chargeValue of rate.values;let i = index;">
+                  <td>
+                    <div class="td-block" >
+                      <div class="column">
+                        {{chargeValue.name}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.contractor.name}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.city_name}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.point_action}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.price}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.count}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.cost_text}}
+                      </div>
+                      <div class="column">
+                        {{chargeValue.comment}}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+            </tbody>
+
+          </table>
+        </div>
+
       </ng-template>
 
       <ng-content select="[test2]"></ng-content>
