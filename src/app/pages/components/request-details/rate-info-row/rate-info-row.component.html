@@ -6,11 +6,13 @@
       <!-- <ng-content select="[test1]"></ng-content> -->
       <div class="cost_block" *ngIf="!costClass">
         <div class="cost">{{rate?.total_cost_text}}</div>
+        lheubt
       </div>
       <div class="cost_block_black" *ngIf="costClass">
         <div *ngIf="detailsMethod==='customs'" class="cost">До границы: <span> {{rate?.total_cost_text}}</span></div>
         <div *ngIf="detailsMethod==='point'" class="cost">Склад (СВХ): <span> {{rate?.total_cost_text}}</span></div>
         <div *ngIf="detailsMethod==='transporter'" class="cost">Вывоз: <span> {{rate?.total_cost_text}}</span></div>
+        <div *ngIf="detailsMethod==='other'" class="cost">Другие: <span> {{rate?.total_cost_text}}</span></div>
         <!-- <div class='percent'>{{percent | number:'1.0-0'}}% <span>от итоговой ставки</span></div> -->
         <div class='percent'>{{rate?.cost_percent_of_total}}% <span> от итоговой ставки</span></div>
       </div>
@@ -192,7 +194,7 @@
                         'Город',
                         'Вид прайса',
                         'Стоимость',
-                        
+
                         'Ед.Изм.',
                         'Итого',
                         'Примечание'
