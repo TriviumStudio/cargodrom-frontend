@@ -275,7 +275,11 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // HANDLING CHECKBOX ACTIONS
   onAddKpBtnClick(){
-    this.openAddKpDialog('Вы уверенны, что хотите создать коммерческое предложение из выбранных  '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Создание коммерческого предложения');
+    if(this.arrDetailsCheckedCheck.length==0){
+      this.snackBar.open(`Выбранные ставки отсутствуют `, undefined, this.snackBarWithShortDuration);
+    } else {
+      this.openAddKpDialog('Вы уверенны, что хотите создать коммерческое предложение из выбранных '+ this.arrDetailsCheckedCheck.length + ' ставок', this.arrDetailsCheckedCheck, 'Создание коммерческого предложения');
+    }
   }
   onAddRateBtnClick(mode:string){
     this.openRateEditor(mode);
