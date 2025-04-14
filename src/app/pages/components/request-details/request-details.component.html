@@ -257,7 +257,7 @@
     <div *ngIf="currentRequest?.tabs?.includes('svh')" (click)="onTableMethodChange('point')" [ngClass]="detailsMethod==='point'? 'table-active':'' ">Склад (СВХ)</div>
     <div *ngIf="currentRequest?.tabs?.includes('delivery')" (click)="onTableMethodChange('transporter')" [ngClass]="detailsMethod==='transporter'? 'table-active':'' ">Вывоз</div>
     <div *ngIf="currentRequest?.tabs?.includes('other')" (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div>
-    <div (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div>
+    <!-- <div (click)="onTableMethodChange('other')" [ngClass]="detailsMethod==='other'? 'table-active':'' ">Другие</div> -->
   </div>
 </div>
 
@@ -269,7 +269,7 @@
   (saveBidding)="saveContractorSelectRequest()"
   >
     <div class="detail-btn" *ngIf="isRateDetailsMode">
-      <button (click)="openOtherForm(123)">open Other Form</button>
+      <!-- <button (click)="openOtherForm(123)">open Other Form</button> -->
 
       <button *ngIf="detailsMethod!=='final'" class="add rate" (click)="onAddRateBtnClick(detailsMethod)">
         <span style="text-wrap: nowrap" >+ СТАВКА</span>
@@ -452,7 +452,7 @@
           <!-- && element==expandedElement -->
           <ng-container *ngIf="detailsMethod==='final' " >
 
-            <div class="costs" *ngIf="element.custom && element.storage && element.delivery">
+            <div class="costs" *ngIf="element.custom && element.storage && element.delivery && element.other">
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Итоговая ставка:', sum:element?.total_cost_text }">
               </ng-container>
               ≈
@@ -463,6 +463,9 @@
               </ng-container>
               +
               <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Вывоз:', sum: element?.delivery?.total_cost_text }">
+              </ng-container>
+              +
+              <ng-container *ngTemplateOutlet="costRateBox; context: { label: 'Другие:', sum: element?.other?.total_cost_text }">
               </ng-container>
             </div>
 
