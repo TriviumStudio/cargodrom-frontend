@@ -48,6 +48,8 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   override ngOnInit() {
     super.ngOnInit();
     this.resizeMetod='request_list';
+    console.log(112233);
+    
   }
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
