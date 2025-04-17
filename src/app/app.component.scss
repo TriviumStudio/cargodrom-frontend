@@ -10,6 +10,10 @@ table thead{
   --mat-option-label-text-size: 13px;
 }
 
+.table-list table {
+  width: 0;
+  min-width: 0%
+}
 table th .td-block-line{
   background-color: #83909E;
   .column{

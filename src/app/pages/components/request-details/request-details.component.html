@@ -299,7 +299,8 @@
       <!-- обычные элементы табл -->
       <ng-template [ngSwitchDefault]>
 
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <!-- <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class"> -->
+        <th mat-header-cell *matHeaderCellDef [class]="col.class">
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
@@ -332,7 +333,8 @@
           </div>
         </th>
 
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <!-- <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class"> -->
+        <td mat-cell *matCellDef="let item" [class]="col.class">
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items"
@@ -340,15 +342,24 @@
               [class]="miniCol.class"
               [ngSwitch]="miniCol.field"
             >
-              <ng-template [ngSwitchDefault]>{{ getVal(item,miniCol.field) }}</ng-template>
+              <ng-template [ngSwitchDefault]>
+                <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
+              </ng-template>
               <ng-template [ngSwitchCase]="'route_text'">
-                <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>{{ getVal(item,miniCol.field) }}
+                <div class="col-content">
+                  <button (click)="onOpenFullRouteDetailForm()" class="inverted_exclamation_mark"></button>
+                  {{ getVal(item,miniCol.field) }}
+                </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'custom/route/route_type_key'">
-                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                <div class="col-content">
+                  <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                </div>
               </ng-template>
               <ng-template [ngSwitchCase]="'route/route_type_key'">
-                <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                <div class="col-content">
+                  <div class="transport-type" [class]="getVal(item,miniCol.field)"></div>
+                </div>
               </ng-template>
             </div>
           </div>
@@ -369,11 +380,8 @@
                 >
                 </mat-checkbox>
               </label>
-
             </div>
           </div>
-
-
           <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
           >

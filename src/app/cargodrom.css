@@ -909,7 +909,8 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 
 .table-list .td-block {  display: flex; flex-direction: row; width: 100%; align-items: center; box-sizing: border-box; padding: 9px 8px 7px; min-height: 48px; height: 100%;    }
 /* .table-list .td-block .column { display: flex; flex-grow: 1; box-sizing: border-box; padding: 0 8px; } */
-.table-list .td-block .column { display: flex; flex-grow: 1; padding: 0 8px; }
+/* .table-list .td-block .column { display: flex; flex-grow: 1; padding: 0 8px; } */
+.table-list .td-block .column { display: flex; padding: 0 8px; }
 
 .table-list .td-block-column { display: flex; flex-direction: column; height: 100%;   }
 .table-list .td-block-title { padding: 0 13px ; border-bottom: 1px solid #9ca6b1;  flex-grow: 1; display: flex; align-items: center; justify-content: center;  }
