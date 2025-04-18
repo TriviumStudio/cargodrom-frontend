@@ -1659,4 +1659,101 @@ export class UserService extends BaseService {
     );
   }
 
+  /** Path part for operation `userResetTableParam()` */
+  static readonly UserResetTableParamPath = '/user_reset_table_param';
+
+  /**
+   * Сброс параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `userResetTableParam()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetTableParam$Response(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, UserService.UserResetTableParamPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сброс параметров вывода таблицы.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `userResetTableParam$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  userResetTableParam(
+    params?: {
+      body?: {
+
+/**
+ * Метод таблицы
+ */
+'method': string;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.userResetTableParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
 }

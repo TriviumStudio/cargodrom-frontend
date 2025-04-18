@@ -1,7 +1,7 @@
 .form-input {
     position: relative;
   }
-  
+
   .toggle-password {
     position: absolute;
     right: 10px;
@@ -11,4 +11,47 @@
     border: none;
     cursor: pointer;
     color: #666;
+  }
+
+  .btn-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    /* Текст заменяем на иконку */
+    color: transparent !important;
+    font-size: 0 !important;
+    /* Управление цветом через маску */
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    background-color: #666; /* Цвет иконки */
+  }
+
+  .toggle-password {
+    mask-image: url(../../../../assets/pic-btn-eye-open.svg);
+    -webkit-mask-image: url(../../../../assets/pic-btn-eye-open.svg);
+  }
+
+  .password-visible {
+    mask-image: url(../../../../assets/pic-btn-eye-close.svg);
+    -webkit-mask-image: url(../../../../assets/pic-btn-eye-close.svg);
+  }
+
+  .toggle-password:hover, .password-visible:hover {
+    background-color: #333;
   }

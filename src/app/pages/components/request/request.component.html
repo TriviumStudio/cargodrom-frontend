@@ -1,10 +1,11 @@
 <app-table-sunheader-file
+  [titles]="{title:'Запросы',subtitle:'запрос'}"
   [importMetods]="importMetods"
   (export)="exportFile()"
   (exportTemplate)="exportFileTemplate()"
 >
 </app-table-sunheader-file>
-1234
+
 <app-table-filter></app-table-filter>
 
 <div class="table-list" [class]="isResizeColumnMode?'resize':''">
@@ -63,7 +64,7 @@
                 <div class="col-content">{{ getVal(item,miniCol.field) }}</div>
               </ng-template>
               <ng-template [ngSwitchCase]="'id'">
-                <a class="link" (click)="navigateOnDetails(item.id)">
+                <a class="link" (click)="navigateOnDetails(item.id,item.tabs[0])">
                   {{ getVal(item,miniCol.field) }}
                 </a>
               </ng-template>

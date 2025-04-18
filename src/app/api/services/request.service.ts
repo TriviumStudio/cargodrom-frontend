@@ -23113,7 +23113,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта приведенная
  */
-'currency'?: int;
+'currency'?: number;
 
 /**
  * Валюта приведенная
@@ -23383,7 +23383,7 @@ export class RequestService extends BaseService {
         /**
          * Валюта приведенная
          */
-        'currency'?: int;
+        'currency'?: number;
         
         /**
          * Валюта приведенная
@@ -23693,7 +23693,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта приведенная
  */
-'currency'?: int;
+'currency'?: number;
 
 /**
  * Валюта приведенная
@@ -23950,7 +23950,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта приведенная
  */
-'currency'?: int;
+'currency'?: number;
 
 /**
  * Валюта приведенная
@@ -24205,7 +24205,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта приведенная
  */
-'currency'?: int;
+'currency'?: number;
 
 /**
  * Валюта приведенная
