@@ -1,3 +1,4 @@
+<div class="request-details-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
 <div class="subheader" >
   <div class="main_page_info">
     <div class="back" [routerLink]="['../../../../request']"></div>
@@ -546,6 +547,8 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+</div>
 
 <ng-template #rateOtherDialogRef let-data>
   <app-rate-add-other

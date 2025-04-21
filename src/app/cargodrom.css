@@ -33,7 +33,7 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .auth-bg { background: #44f url('../assets/auth-bg.png') no-repeat 50% 50%; background-size: cover;; display: flex; justify-content: center; align-items: center; height: 100%; }
 .auth-form { width: 560px; height: auto; background: #fff; position: absolute; }
 .auth-form .hdr { border-bottom: 1px solid #E0E5EB; padding: 27px 32px 24px; display: flex; align-items: center; }
-.auth-form .logo { display: inline-block; background: url('../assets/logo1.svg') no-repeat 0 0; width: 168px; height: 44px; }
+.auth-form .logo { display: inline-block; background: url('../assets/logo-full.svg') no-repeat 0 0; width: 168px; height: 44px; }
 .auth-form .sep { flex-grow: 1; }
 .auth-form .fm-body { padding: 32px 0 15px; }
 .auth-form .form-row { padding: 0 32px 16px; display: flex; align-items: flex-end;  font-size: 13px; line-height: 17px;  }
@@ -62,7 +62,7 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 .main-menu > * { min-width: 56px; display: flex;  }
 .main-menu > * > span { margin: auto; }
 
-.main-menu .logo { background: url('../assets/logo2.svg') no-repeat 50% 50%; }
+.main-menu .logo { background: url('../assets/logo-mini-white.svg') no-repeat 50% 50%; }
 .main-menu .item { font-size: 15px; padding: 0 24px; display: flex; align-items: center; cursor: pointer; box-shadow: inset 1px 0 0 rgba(255,255,255,0.17); text-decoration: none; color: #fff; flex-shrink: 0; }
 .main-menu .item svg { margin-right: 10px; margin-top: -2px; }
 .main-menu .item svg path { fill: #B4C3EB; }
