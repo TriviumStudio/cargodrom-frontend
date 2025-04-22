@@ -1,3 +1,4 @@
+<div class="contractor-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
 <app-table-sunheader-file *ngIf="!isBiddingMode"
   [titles]="{title:'Подрядчики', subtitle:'подрядчик'}"
   [importMetods]="importMetods"
@@ -102,7 +103,7 @@
 
     <!-- настройки(сылка на редактирование) -->
     <ng-template [ngSwitchCase]="'settings'">
-      <th mat-header-cell *matHeaderCellDef class="setting">
+      <th mat-header-cell *matHeaderCellDef class="setting" [style.width]="col.width" [class]="col.class" >
         <div class="setting-link" [matMenuTriggerFor]="menu"></div>
         <mat-menu #menu="matMenu">
           <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
@@ -114,8 +115,13 @@
         >
         </div>
       </th>
-      <td mat-cell *matCellDef="let client" class="setting" [style.width]="col.width" [class]="col.class">
-        <a class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
+      <td mat-cell *matCellDef="let client" class="setting" [style.width]="col.width" [class]="col.class" >
+        <div class="td-block">
+          <div class="column">
+            <a *ngIf="!isBiddingMode" class="link-pic link-edit ico ico-pencil fn-link" [routerLink]="['edit', client.id]" title="Редактировать"></a>
+          </div>
+        </div>
+
       </td>
     </ng-template>
 
@@ -233,6 +239,8 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+</div>
 
 
 <ng-template #saveBiddingRef let-data>

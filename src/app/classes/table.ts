@@ -122,36 +122,6 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     this.destroy$.complete();
   }
 
-  ngAfterViewInit() {
-    this.logAllElementsHeight();
-  }
-
-  logAllElementsHeight() {
-    const root = document.body; // или document.querySelector('app-root')
-    const allElements = root.querySelectorAll('*');
-
-    allElements.forEach((element) => {
-      if (
-        element instanceof HTMLElement &&
-        element.parentElement === root // Проверяем, что родитель — корневой элемент
-      ) {
-        const height = element.offsetHeight;
-        console.log(
-          `Элемент: <${element.tagName.toLowerCase()}> → Высота: ${height}px`
-        );
-      }
-    });
-  }
-
-  getElementSelector(element: HTMLElement): string {
-    const tag = element.tagName.toLowerCase();
-    const id = element.id ? `#${element.id}` : '';
-    const classes = element.className
-      ? `.${element.className.replace(/\s+/g, '.')}`
-      : '';
-    return `${tag}${id}${classes}`;
-  }
-
   protected loadRows(): void {
     const sortCol = this.getSort();
     let params: any = { start: this.start, count: this.count, ...this.filter };
@@ -668,7 +638,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           this.sortDir = schema.sort[0].dir;
 
           if (this.isBiddingMode) {
-            schema.table.pop();
+            // schema.table.pop();
             schema.table.unshift({column:'checkbox'});
           }
 

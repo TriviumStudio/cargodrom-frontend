@@ -1,3 +1,13 @@
+app-request-details{
+  height: 100%;
+}
+.request-details-component{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 56px);
+}
+
 .table-settings  {
   --mat-menu-item-label-text-line-height:13px;
   --mat-menu-item-label-text-size:13px;

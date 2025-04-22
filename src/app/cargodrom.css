@@ -891,7 +891,13 @@ app-settings { display: flex; flex-direction: column; flex: 1 1 auto; }
 /* table list begin */
 .nowrap { white-space: nowrap; }
 
-table { font-size: 13px; line-height: 16px;}
+table {
+  font-size: 13px; line-height: 16px;
+  th.setting,td.setting{
+    min-width: 32px;
+  }
+}
+
 
 
 .table-form table { border-collapse: collapse;}
@@ -910,7 +916,9 @@ table { font-size: 13px; line-height: 16px;}
 .table-form table .td-block-line {  display: flex; flex-direction: row; height: 100%; align-items: center;  flex-grow: 1; gap: 1px; width: 100%; }
 .table-form table .td-block-line .column { padding: 0 13px; text-align: center; box-sizing: border-box; display: flex;  flex-grow: 1; align-items: center; }
 
-.table-list { max-height: 650px; overflow: auto; width: fit-content; max-width: 100%; }
+.table-list {
+  /* max-height: 650px; */
+  overflow: auto; width: fit-content; max-width: 100%; }
 .table-list table { width: 0; min-width: 0%}
 
 .table-list.no-resize {width: auto; }
@@ -1104,6 +1112,7 @@ th.mat-header-cell:first-of-type, td.mat-cell:first-of-type, td.mat-footer-cell:
 
 
 .table-list.kp {
+  min-height: 204px;
   max-height: 204px;
 }
 
