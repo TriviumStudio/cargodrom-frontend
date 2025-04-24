@@ -1,4 +1,4 @@
-<div class="request-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column;">
+<div class="request-component" style="height: calc(100vh - 56px);display: flex; flex-direction: column; width: 100%;">
 <app-table-sunheader-file
   [titles]="{title:'Запросы',subtitle:'запрос'}"
   [importMetods]="importMetods"
@@ -9,8 +9,11 @@
 
 <app-table-filter></app-table-filter>
 
-<div class="table-list" [class]="isResizeColumnMode?'resize':''">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+<button (click)="updateContent()">updateContent</button>
+
+<ng-scrollbar > 
+<div class="table-list" [class]="isResizeColumnMode?'resize':''" >
+  <table mat-table [dataSource]="rows" multiTemplateDataRows class="table-list" >
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -44,10 +47,6 @@
                   (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
                 >
                 </div>
-                <!-- <div class="resize-handle_end"
-                  (mousedown)="startResize($event, miniCol)"
-                >
-                </div> -->
               </ng-container>
             </div>
           </div>
@@ -129,6 +128,8 @@
 
   </table>
 </div>
+</ng-scrollbar> 
+
 
 <app-paginator
   [total]="total"
