@@ -28,7 +28,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
 
   importMetods:any;
 
-  @ViewChild(NgScrollbar) scrollbar!: NgScrollbar;
+  // @ViewChild(NgScrollbar) scrollbar!: NgScrollbar;
 
 
 
@@ -49,11 +49,11 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
     }
   }
 
-  updateContent() {
-    
-      this.scrollbar.update();
-    
-  }
+  // updateContent() {
+
+  //     this.scrollbar.update();
+
+  // }
 
   override ngOnInit() {
     super.ngOnInit();

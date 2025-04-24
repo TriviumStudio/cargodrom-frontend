@@ -273,9 +273,9 @@
     </div>
 </app-table-filter>
 
-<div class="border-block" style="margin: 0 20px; border: 1px solid #E0E5EB; border-left: none;flex-grow: 1; position: relative;">
+<div class="table-border-block">
 
-<div class="table-list rate" style="position:absolute; top:0; left:0; bottom: 0;" [class]="isResizeColumnMode?'resize':''">
+<div class="table-list rate" style="position:absolute; top:0; left:0; bottom: 0;right: 0;" [class]="isResizeColumnMode?'resize':''">
   <table mat-table [dataSource]="rows" multiTemplateDataRows>
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"

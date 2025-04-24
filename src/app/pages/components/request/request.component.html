@@ -9,11 +9,11 @@
 
 <app-table-filter></app-table-filter>
 
-<button (click)="updateContent()">updateContent</button>
+<!-- <button (click)="updateContent()">updateContent</button> -->
 
-<ng-scrollbar > 
+<!-- <ng-scrollbar [autoWidthDisabled]="true"> -->
 <div class="table-list" [class]="isResizeColumnMode?'resize':''" >
-  <table mat-table [dataSource]="rows" multiTemplateDataRows class="table-list" >
+  <table mat-table [dataSource]="rows" multiTemplateDataRows >
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -128,7 +128,7 @@
 
   </table>
 </div>
-</ng-scrollbar> 
+<!-- </ng-scrollbar> -->
 
 
 <app-paginator
