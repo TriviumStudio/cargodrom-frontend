@@ -276,7 +276,7 @@
 <div class="table-border-block">
 
 <div class="table-list rate" style="position:absolute; top:0; left:0; bottom: 0;right: 0;" [class]="isResizeColumnMode?'resize':''">
-  <table mat-table [dataSource]="rows" multiTemplateDataRows>
+  <table mat-table [dataSource]="rows" multiTemplateDataRows [style]="isTableFixedWidth?'width:100%;max-width:100%':''">
     <ng-container *ngFor="let col of columnsData;let colIndex=index"
       [matColumnDef]="col.column"
       [ngSwitch]="col.column"
@@ -285,7 +285,7 @@
       <ng-template [ngSwitchDefault]>
 
         <!-- <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class"> -->
-        <th mat-header-cell *matHeaderCellDef [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [class]="col.class" [style.minWidth]="col.width">
           <div [class]="!col.title?'td-block':'td-block-column'">
             <div *ngIf="col.title" class="td-block-title">{{col.title}}</div>
             <div [class]="!col.title?'no-layout':'td-block-line'">
@@ -303,14 +303,14 @@
                   </div>
                   <div class="resize-handle"
                     *ngIf="miniColIndex !== col.items.length - 1"
-                    (mousedown)="startResize($event, miniCol)"
+                    (mousedown)="startResize($event, miniCol,columnsData[colIndex])"
                   >
                   </div>
                 </div>
 
                 <div class="resize-handle_end"
                   *ngIf="(miniColIndex == col.items.length - 1) && colIndex!==0"
-                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+                  (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
                 >
                 </div>
               </ng-container>
@@ -319,7 +319,7 @@
         </th>
 
         <!-- <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class"> -->
-        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class">
+        <td mat-cell *matCellDef="let item;let i=index" [class]="col.class" [style.minWidth]="col.width">
           <div class="td-block" >
             <div class="column"
               *ngFor="let miniCol of col.items;let miniColIndex=index"
@@ -354,9 +354,9 @@
 
       <!-- select столбец -->
       <ng-template [ngSwitchCase]="'select'">
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block" >
-            <div class="column">
+            
               <label class="checkbox-label">
                 <mat-checkbox class="testclass"
                   [indeterminate]="isCheckboxHeaderTableIndeterminate()"
@@ -366,14 +366,14 @@
                 >
                 </mat-checkbox>
               </label>
-            </div>
+            
           </div>
           <div class="resize-handle_end"
-            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
+            (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1],columnsData[colIndex-1])"
           >
           </div>
         </th>
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <td mat-cell *matCellDef="let item" [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">
             <label class="checkbox-label" *ngIf="col.column==='select'">
               <mat-checkbox class="testclass"
@@ -387,10 +387,10 @@
       </ng-template>
       <!-- checked столбец -->
       <ng-template [ngSwitchCase]="'checked'">
-        <th mat-header-cell *matHeaderCellDef [style.width]="col.width" [class]="col.class">
+        <th mat-header-cell *matHeaderCellDef [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">КП</div>
         </th>
-        <td mat-cell *matCellDef="let item" [style.width]="col.width" [class]="col.class">
+        <td mat-cell *matCellDef="let item" [style.minWidth]="col.width" [class]="col.class">
           <div class="td-block">
             <label class="switch outer" *ngIf="col.column==='checked'">
               <input type="checkbox"  [checked]="item.selected" (change)="onCommercialOfferChange(item)" >
@@ -409,7 +409,8 @@
           <mat-menu #menu="matMenu">
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onCancelColumnWidth()">Отменить изменения</button>
             <button class="table-settings" *ngIf="isResizeColumnMode" mat-menu-item (click)="onSaveColumnWidth()">Сохранить изменения</button>
-            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="isResizeColumnMode=!isResizeColumnMode">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isResizeColumnMode" mat-menu-item (click)="updateColumnSize()">Редактирование размера колонок</button>
+            <button class="table-settings" *ngIf="!isTableFixedWidth" mat-menu-item (click)="onResetColumnWidth()">Вернуть значения по умолчанию</button>
           </mat-menu>
           <!-- <div class="resize-handle_end"
             (mousedown)="startResize($event, columnsData[colIndex-1].items[columnsData[colIndex-1].items.length-1])"
