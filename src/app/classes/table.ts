@@ -750,11 +750,16 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       (th:any, columnIndex:number) => {
         if(this.columnsData[columnIndex]){
           console.log('th.offsetWidth',th.offsetWidth);
-          if(columnIndex===0){
+          if(!this.isRateDetailsMode){
+            if(columnIndex===0){
             this.columnsData[columnIndex].width=`${th.offsetWidth-1}px`;
-          }else{
+            }else{
+              this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
+            }
+          } else {
             this.columnsData[columnIndex].width=`${th.offsetWidth}px`;
           }
+          
         }
         
       }
