@@ -105,7 +105,7 @@ input[type="checkbox"], input[type="radio"], label { vertical-align: middle; }
 
 .subheader { border-bottom: 1px solid #4B66AD; padding: 15px 12px 12px 24px; background: #fff; }
 .subheader .placer { display: flex; align-items: center; min-height: 43px; box-sizing: border-box; }
-/* .subheader .div { flex-grow: 1; } */
+.subheader .div { flex-grow: 1; }
 .subheader .title { font-size: 26px; line-height: 30px; color: #4B66AD; padding-right: 24px;  font-weight: bold; text-decoration: none; }
 .subheader a.title { position: relative; padding-left: 30px; cursor: pointer; }
 .subheader a.title:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; background: url('../assets/pic-backto.svg') no-repeat 50% 50%; width: 13px; }
