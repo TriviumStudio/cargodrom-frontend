@@ -27,12 +27,10 @@ app-request-details .subheader.component{
 app-request, app-contractor, app-client{
    app-table-filter{
     position: sticky;
-    top: 115px;
+    top: 114.5px;
     left: 0;
     right: 0;
     z-index: 1000;
-    
-    
     .filter{
       background-color: #f7f9fc;
       border-bottom: 1px solid #E0E5EB;
@@ -100,6 +98,9 @@ table thead{
 }
 .table-form{
   --mat-table-background-color:#83909E;
+  .table{
+    width: 100%;
+  }
 }
 
 table th .td-block-line{
