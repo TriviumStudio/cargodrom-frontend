@@ -1,5 +1,8 @@
 <div class="subheader">
-  <div class="title">{{titles.title}}</div>
+  <div *ngIf="!orderPage" class="title">{{titles.title}}</div>
+
+  <div class="title" *ngIf="orderPage">Перевозки</div>
+  <div class="title" *ngIf="orderPage">Документы</div>
 
   <div class="btns-file">
 
@@ -8,7 +11,7 @@
       <span>Новый {{titles.subtitle}}</span>
     </button>
 
-    <button (click)="selectFileToImport()" type="button" class="file-btn import">
+    <button *ngIf="importMetods" (click)="selectFileToImport()" type="button" class="file-btn import">
       <div></div>
       <span>Импорт данных</span>
     </button>
@@ -21,6 +24,11 @@
     <button (click)="confirmTableFileDownload()" type="button" class="file-btn export">
       <div></div>
       <span>Экспорт данных</span>
+    </button>
+
+    <button *ngIf="orderPage" (click)="openPopapAnalytics()" type="button" class="file-btn analytics">
+      <div></div>
+      <span>Аналитика</span>
     </button>
 
     <input class="ui-file-input"

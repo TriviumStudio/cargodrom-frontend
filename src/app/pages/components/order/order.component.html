@@ -1,9 +1,13 @@
 <app-table-sunheader-file
-  [importMetods]="importMetods"
+  [titles]="{title:'Заказы', subtitle:'заказ'}"
   (export)="exportFile()"
   (exportTemplate)="exportFileTemplate()"
+  [orderPage]="true"
+  (openAnalytics)="openAnalytics()"
 >
 </app-table-sunheader-file>
+<!-- [importMetods]="importMetods" -->
+
 
 
 <app-table-filter></app-table-filter>
@@ -99,3 +103,13 @@
   (startChange)="onStartChange($event)"
   (countChange)="onCountChange($event)">
 </app-paginator>
+
+
+<ng-template #analyticsPopap class="analytics-popap">
+  <div class="cross" mat-dialog-close>x</div>
+  <h1 >Аналитика по перевозкам</h1>
+  <h2 >Применено ? фильтров</h2>
+  <div mat-dialog-content>
+    123
+  </div>
+</ng-template>

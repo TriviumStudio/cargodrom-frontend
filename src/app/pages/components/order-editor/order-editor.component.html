@@ -1,0 +1,183 @@
+<div (click)="sub()">order editor</div>
+<form [formGroup]="orderForm" class="edit-form">
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Статус:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="status_id"
+              [matAutocomplete]="status"
+            >
+            <mat-autocomplete #status="matAutocomplete" [displayWith]="displayFn_Contractor.bind(this)">
+              <mat-option *ngFor="let contractor of filteredContractorList" [value]="contractor.id">{{contractor.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Запрос:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="request_id"
+              [matAutocomplete]="request"
+            >
+            <mat-autocomplete #request="matAutocomplete" >
+              <mat-option *ngFor="let opt of filteredRequestList" [value]="opt.id">{{opt.id}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Подрядчик:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="contractor_id"
+              [matAutocomplete]="contractor"
+            >
+            <mat-autocomplete #contractor="matAutocomplete" [displayWith]="displayFn_Contractor.bind(this)">
+              <mat-option *ngFor="let contractor of filteredContractorList" [value]="contractor.id">{{contractor.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Клиент:</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="customer_id"
+              [matAutocomplete]="customer"
+            >
+            <mat-autocomplete #customer="matAutocomplete" [displayWith]="displayFn_Customer.bind(this)">
+              <mat-option *ngFor="let opt of filteredCustomerList" [value]="opt.id">{{opt.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-block-title">Транспорт</div>
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Вид перевозки :</div>
+          <div class="form-data">
+            <mat-select formControlName="transport_kind_id">
+              <mat-option (click)="changeArrivalPointList();changeDeparturePointList()"class="edit-form__mat-option" *ngFor="let opt of transportList;" [value]="opt.id">{{ opt.name }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Номер документа :</div>
+          <div class="form-data">
+            <input type="text" formControlName="doc_tc_number"> 
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Трек номер груза :</div>
+          <div class="form-data">
+            <input type="text" formControlName="track_tc"> 
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Трек номер SVH :</div>
+          <div class="form-data">
+            <input type="text" formControlName="track_svh"> 
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="form-block-title">Направления</div>
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Страна отправления :</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="departure_country_id"
+              [matAutocomplete]="departure_country_id"
+            >
+            <mat-autocomplete #departure_country_id="matAutocomplete" [displayWith]="displayFn_Country.bind(this)">
+              <mat-option (click)="onDepartureCountryChange(opt)" *ngFor="let opt of filteredDepartureCountryList" [value]="opt.id">{{opt.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">Город отправления :</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="departure_city_id"
+              [matAutocomplete]="departure_city_id"
+            >
+            <mat-autocomplete #departure_city_id="matAutocomplete" [displayWith]="displayFn_City.bind(this)">
+              <mat-option (click)="onDepartureCityChange(opt)" *ngFor="let opt of filteredDepartureCityList" [value]="opt.id">{{opt.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+        <div class="form-item">
+          <ng-container *ngIf="filteredDeparturePointList">
+            <div class="form-label">Аэропорт вылета :</div>
+            <div class="form-data">
+              <mat-select formControlName="departure_point_id">
+                <mat-option *ngFor="let opt of filteredDeparturePointList;" [value]="opt.id">{{ opt.name }}</mat-option>
+              </mat-select>
+            </div>
+          </ng-container>
+          
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Страна прибытия :</div>
+          <div class="form-data">
+            <input
+              type="text"
+              formControlName="arrival_country_id"
+              [matAutocomplete]="arrival_country_id"
+            >
+            <mat-autocomplete #arrival_country_id="matAutocomplete" [displayWith]="displayFn_Country.bind(this)">
+              <mat-option (click)="onArrivalCountryChange(opt)" *ngFor="let opt of filteredArrivalCountryList" [value]="opt.id">{{opt.name}}</mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+          <div class="form-item">
+            <div class="form-label">Город прибытия :</div>
+            <div class="form-data">
+              <input
+                type="text"
+                formControlName="arrival_city_id"
+                [matAutocomplete]="arrival_city_id"
+              >
+              <mat-autocomplete #arrival_city_id="matAutocomplete" [displayWith]="displayFn_City.bind(this)">
+                <mat-option (click)="onArrivalCityChange(opt)" *ngFor="let opt of filteredArrivalCityList" [value]="opt.id">{{opt.name}}</mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+          <div class="form-item">
+            <ng-container *ngIf="filteredArrivalPointList">
+              <div class="form-label">Аэропорт вылета :</div>
+              <div class="form-data">
+                <mat-select formControlName="arrival_point_id">
+                  <mat-option *ngFor="let opt of filteredArrivalPointList;" [value]="opt.id">{{ opt.name }}</mat-option>
+                </mat-select>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+
+</form>
