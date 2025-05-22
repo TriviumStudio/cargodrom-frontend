@@ -67,7 +67,11 @@
           <div class="form-label">Вид перевозки :</div>
           <div class="form-data">
             <mat-select formControlName="transport_kind_id">
-              <mat-option (click)="changeArrivalPointList();changeDeparturePointList()"class="edit-form__mat-option" *ngFor="let opt of transportList;" [value]="opt.id">{{ opt.name }}</mat-option>
+              <mat-option 
+                (click)="onTransportKindChange()" 
+                *ngFor="let opt of transportList;" 
+                [value]="opt.id">{{ opt.name }}
+              </mat-option>
             </mat-select>
           </div>
         </div>
@@ -178,6 +182,125 @@
         </div>
       </div>
   </div>
+  <div class="form-block-title">Статус и события</div>
+  <div class="form-block" style="display: flex; justify-content: space-between;">
+    <div class="table-form" style="width: 49%;">
+      <table>
+        <thead>
+          <tr><th>
+            <div class="td-block">
+              <div class="column">Статус</div>
+              <div class="column">Планируемая дата</div>
+              <div class="column">Фактическая дата</div>
+              <div class="column">Задержка</div>
+            </div>
+          </th></tr>
+        </thead>
+        <tbody formArrayName="statuses">
+          <ng-container
+              *ngFor="let status of statuses.controls;
+              let i = index;"
+              [formGroupName]="i"
+            >
+              <tr><td>
+                <div class="td-block">
+                  <div class="column">{{status.value.name}}</div>
+                  <div class="column">
+                    <input type="text" formControlName="scheduled_date" [matDatepicker]="picker1">
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <div class="calendar" (click)="picker1.open()" ></div>
+                  </div>
+                  <div class="column">
+                    <input (click)="onDoneDateClick(status)" (dblclick)="onDoneDateDblClick(status)" type="text" formControlName="done_date" [matDatepicker]="picker2">
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <div class="calendar" (click)="picker2.open()"></div>
+                  </div>
+                  <div class="column">
+                    <input type="text" readonly [value]="getDaysDifferenceString(status.value.scheduled_date, status.value.done_date)">
+                  </div>
+                </div>
+              </td></tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-form" style="width: 49%; display: flex; flex-direction: column;">
+      <table>
+        <thead>
+          <tr>
+            <th><div class="td-block"><div class="column">Дата</div></div></th>
+            <th><div class="td-block"><div class="column">Событие</div></div></th>
+          <tr>
+        </thead>
+        <tbody formArrayName="events">
+          <ng-container
+              *ngFor="let event of events.controls;
+              let i = index;"
+              [formGroupName]="i"
+            >
+              <tr>
+                <td>
+                  <div class="td-block">
+                    <div class="column">
+                      <input type="text" formControlName="date" [matDatepicker]="picker3">
+                      <mat-datepicker #picker3></mat-datepicker>
+                      <div class="calendar" (click)="picker3.open()"></div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="td-block">
+                    <div class="column">
+                      <input type="text" formControlName="text">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <button (click)="onAddEventClick()">Добавить</button>
+      <table>
+        <thead>
+          <tr>
+            <th><div class="td-block"><div class="column">Дата</div></div></th>
+            <th><div class="td-block"><div class="column">Событие</div></div></th>
+          <tr>
+        </thead>
+        <tbody formArrayName="events">
+          <ng-container
+              *ngFor="let event of events.controls;
+              let i = index;"
+              [formGroupName]="i"
+            >
+              <tr>
+                <td>
+                  <div class="td-block">
+                    <div class="column">
+                      <input type="text" formControlName="date" [matDatepicker]="picker3">
+                      <mat-datepicker #picker3></mat-datepicker>
+                      <div class="calendar" (click)="picker3.open()"></div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="td-block">
+                    <div class="column">
+                      <input type="text" formControlName="text">
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  
+        
+  
   
 
 </form>
