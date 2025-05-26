@@ -19,4 +19,20 @@
   thead{
     display: none;
   }
+  tbody{
+    border-top: 1px solid #e0e5eb;
+  }
+}
+
+button.add-event{
+  border-radius: 6px;
+  padding: 6px;
+  width: fit-content;
+  margin: 10px 0 10px auto;
+  background-color: #DB563B;
+  color: white;
+}
+
+.form-block table .column input{
+    padding: 11px 8px 9px;
 }

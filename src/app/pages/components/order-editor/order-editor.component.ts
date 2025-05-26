@@ -13,28 +13,46 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from '../../services/loader.service';
 import { formatDate } from '@angular/common';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CustomDateAdapter } from 'src/app/adapters/custom-date.adapter';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-// import { MY_DATE_FORMATS } from 'src/app/adapters/moment-custom-date.adapter';
+
+
 
 export interface SelectOptions{
   id:number;
   name?: string;
   country_id?: number;
 }
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD.MM.YY',
+  },
+  display: {
+    dateInput: 'DD.MM.YY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-request',
   templateUrl: './order-editor.component.html',
   styleUrls: ['./order-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+  ],
 })
 
 export class OrderEditorComponent implements OnInit, OnDestroy{
   orderForm: FormGroup;
+  isEditMode: boolean = false;
+  title: string='';
 
   requestList: SelectOptions[] = []; filteredRequestList: SelectOptions[] = [];
   contractorList: SelectOptions[] = []; filteredContractorList: SelectOptions[] = [];
@@ -58,13 +76,15 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     private transportService: TransportService,
     private directionService: DirectionService,
     private orderService: OrderService,
+    private route: ActivatedRoute,
   ) {
     this.orderForm = this.fb.group({
-      status_id: [ , [Validators.required]],
+      id: [ , [Validators.required]],
+      status_id: [0 , [Validators.required]],
       request_id: [ , [Validators.required]],
       customer_id: [ , [Validators.required]],
       contractor_id: [ , [Validators.required]],
-      border_id: [ , [Validators.required]],
+      border_id: [ 0, [Validators.required]],
       departure_country_id: [ , [Validators.required]],
       departure_city_id: [ , [Validators.required]],
       departure_point_id: [ , [Validators.required]],
@@ -75,16 +95,12 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
       doc_tc_number: [ , [Validators.required]],
       track_tc: [ , [Validators.required]],
       track_svh: [ , [Validators.required]],
-      // tt: [, [Validators.required]],
+      tt: [0, [Validators.required]],
       // events: fb.array([this.createEvents]),
       // statuses: fb.array([this.createStatuses]),
       events: fb.array([]),
       statuses: fb.array([]),
     })
-  }
-
-  sub(){
-    console.log(this.orderForm.value);
   }
   // NG ON
   ngOnInit() {
@@ -108,15 +124,17 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
         console.log('error', err);
       },
       complete: () => {
+        this.initialization_isFormMode();
         this.subscribeToAutocompleteControls();
         for (let i = 0; i < 9; i++) {
           this.statuses.push(this.fb.group({
-            status_id: [0,[]],
-            scheduled_date: ["2025-05-22T19:00:00.000Z",[]],
+            status_id: [i+1,[]],
+            scheduled_date: ["",[]],
             done_date: ['',[]],
             name:[,[]],
           }))
-        }  
+        };
+        this.changeStatusList();
       }
     });
   }
@@ -124,12 +142,40 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+  initialization_isFormMode(){
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.isEditMode = segments[1] !== 'add';
+    const orderId = Number(this.route.snapshot.paramMap.get('id'));
+    this.title = this.isEditMode ? `Редактирование заказа № ${orderId}` : 'Добавление заказа';
+    if(this.isEditMode){
+      this.getOrderInfo({id:orderId}).subscribe({
+        next: (datas) => {
+          datas.events?.forEach(element => {
+            this.onClickAddEvent();
+          });
+          this.orderForm.patchValue(datas);
+          this.changeArrivalPointList();
+          this.changeDeparturePointList();
+        },
+        error: (err) => {
+          console.log('error', err);
+        },
+      });
+    }
+  }
   // FORM
   get events(): FormArray {
     return (this.orderForm.get('events') as FormArray);
   }
   get statuses(): FormArray {
     return (this.orderForm.get('statuses') as FormArray);
+  }
+  get sortEvents(): any {
+    return this.events.controls.sort((a, b) => {
+      const dateA = new Date(a.value.date);
+      const dateB = new Date(b.value.date);
+      return dateB.getTime() - dateA.getTime(); 
+    });
   }
   // INITIALIZATION DATA
   private processData(datas: any) {
@@ -140,7 +186,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     this.countryList = datas.countries;
     this.cityList = datas.citys;
   }
-  // CONTROLS MANAGEMENT
+  // SUBSCRIBE CONTROLS
   private subscribeToAutocompleteControls(){
     const controlsAndArrays = [
       {control:'contractor_id', array:'contractorList', filterArr:'filteredContractorList'},
@@ -170,6 +216,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
         });
     });
   }
+  // CONTROLS MANAGEMENT
   private patchControls(datas:{ value: any, control: string }[]){
     datas.forEach(({ value, control }) => {
       this.orderForm.patchValue({ [control]: value })
@@ -195,6 +242,37 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
       takeUntil(this._destroy$),
     )
   }
+  private getOrderInfo(body:any){
+    return this.orderService.orderInfo(body).pipe(
+      tap((data)=> {
+        console.log('getOrderInfo',data)
+      }),
+      takeUntil(this._destroy$),
+    )
+  }
+  // SEND DATA
+  private createOrder(){
+    const body = this.orderForm.value;
+    return this.orderService.orderMake({body: body}).pipe(
+      tap((data)=> {console.log(data)}),
+      takeUntil(this._destroy$),
+    );
+  }
+  private editOrder(){
+    const body = this.orderForm.value;
+    return this.orderService.orderUpdate({body: body}).pipe(
+      tap((data)=> {console.log(data)}),
+      takeUntil(this._destroy$),
+    );
+  }
+  private deletOrder(){
+    const body = this.orderForm.value.id;
+    return this.orderService.orderDelete({body: {id:body}}).pipe(
+      tap((data)=> {console.log(data)}),
+      takeUntil(this._destroy$),
+    );
+  }
+
   // DISPLAY FN
   displayFn_Contractor(id: any): string {
     if (!this.contractorList) return '';
@@ -240,7 +318,7 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
     this.changeDeparturePointList()
     this.changeStatusList();
   }
-  // CHANGES
+  // CHANGE DATA
   changeArrivalPointList() {
     const body = {
       transport_kind_id: this.orderForm.get('transport_kind_id')?.value,
@@ -270,42 +348,81 @@ export class OrderEditorComponent implements OnInit, OnDestroy{
       this.statuses.patchValue(this.statusList)
     });
   }
-  //DATE
-  getDaysDifferenceString(firstDateStr: string | null | undefined, secondDateStr: string | null | undefined): string {
+  // RETURN DATA
+  returnDateDifference(firstDateStr: string | null | undefined, secondDateStr: string | null | undefined): string {
     if (!firstDateStr || !secondDateStr) return "";
-    const firstDate = new Date(firstDateStr);
-    const secondDate = new Date(secondDateStr);
+    // const firstDate = new Date(firstDateStr);
+    // const secondDate = new Date(secondDateStr);
+    const firstDate = new Date(secondDateStr);
+    const secondDate = new Date(firstDateStr);
     if (isNaN(firstDate.getTime()) || isNaN(secondDate.getTime())) return "";
     if (secondDate >= firstDate) return "";
     const timeDifference = firstDate.getTime() - secondDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     return `${daysDifference} дн.`;
   }
-  // onScheduledDateDblClick(control:any){
-  //   const value = control.value.scheduled_date;
-  //   control.patchValue({
-  //     done_date: value,
-  //   })
-  // }
-  onDoneDateClick(control:any){
-    const date = new Date();
-    date.setHours(0, 0, 0, 0);
-    const value = date.toISOString();
-    control.patchValue({
-      done_date: value,
-    })
+  // STATES
+  isDatePassed(dateString: string): boolean {
+    if (dateString === '') {
+      return true;
+    }
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    const inputDate = new Date(dateString);
+    if (isNaN(inputDate.getTime())) {
+      return false; 
+    }
+    inputDate.setHours(0, 0, 0, 0);
+    return inputDate.getTime() >= currentDate.getTime();
   }
-  onDoneDateDblClick(control:any){
-    const value = control.value.scheduled_date;
-    control.patchValue({
-      done_date: value,
-    })
+  // ON CLICK
+  onClickSubmitForm(){
+    if(this.isEditMode){
+      this.editOrder().subscribe((resp) => {
+      });
+    } else {
+      this.createOrder().subscribe((resp) => {
+      });
+    }
   }
-
-  onAddEventClick(){
+  onClickCancelForm(){
+    window.location.reload();
+  }
+  onClickDeletOrder(){
+    this.deletOrder().subscribe((resp) => {
+    });
+  }
+  onClickDeleteEvent(i:number){
+    this.events.removeAt(i);
+  }
+  onClickAddEvent(){
     this.events.push(this.fb.group({
       text: ['',[]],
       date: ['',[]],
     }))
+  }
+  onClickDoneDate(control:any){
+    if(control.value.scheduled_date!=''){
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      const value = date.toISOString();
+      control.patchValue({ done_date: value, })
+    }
+  }
+  onDblClickDoneDate(control:any){
+    if(control.value.scheduled_date!=''){
+      const value = control.value.scheduled_date;
+      control.patchValue({ done_date: value, })
+    }
+  }
+  onClickStatusCheckbox(control:any){
+    if(control.value.done_date==''){
+      const date = new Date();
+      date.setHours(0, 0, 0, 0);
+      const value = date.toISOString();
+      control.patchValue({ done_date: value, })
+    } else {
+      control.patchValue({ done_date: '', })
+    }
   }
 }

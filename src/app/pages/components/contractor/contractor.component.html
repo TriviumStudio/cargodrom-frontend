@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<app-table-filter
+<app-table-filter [style]="isBiddingMode?'top:126px':''"
   (saveBidding)="saveContractorSelectRequest()"
   [isBiddingMode]="isBiddingMode"
   [quantityContractors]="quantityContractors"

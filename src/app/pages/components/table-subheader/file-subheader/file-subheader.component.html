@@ -6,7 +6,8 @@
 
   <div class="btns-file">
 
-    <button [routerLink]="['add']" class=" file-btn add-link">
+    <!-- <button [routerLink]="['add']" class="file-btn add-link"> -->
+    <button [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
       <div></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
