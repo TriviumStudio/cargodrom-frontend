@@ -27,7 +27,7 @@ body{
 
 /* MAT SELECT */
 /* базовый дизайн мат селектора */
-form mat-select.mat-mdc-select, app-paginator mat-select.mat-mdc-select, .filter mat-select.mat-mdc-select{
+form mat-select.mat-mdc-select, app-paginator mat-select.mat-mdc-select, .filter .additional mat-select.mat-mdc-select{
   background: #F7F9FC;
   font-size: 15px;
   line-height: 15px;
@@ -56,7 +56,7 @@ mat-option.mat-mdc-option{
 }
 
 /* MAT CHECKBOX */
-mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
+/* mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
 mat-checkbox.mat-mdc-checkbox .mdc-checkbox__ripple,
 mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-touch-target {
   display: none; 
@@ -69,10 +69,11 @@ mat-checkbox.mat-mdc-checkbox input[type="checkbox"] {
 }
 
 /* если надо поменять местами чекбокс и текс добавляем класс reverse */
-mat-checkbox.mat-mdc-checkbox.reverse{ 
+/* mat-checkbox.mat-mdc-checkbox.reverse{ 
   .mdc-form-field {flex-direction: row-reverse;}
-}
-/* .mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
+}  */
+
+.mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
 .mat-mdc-checkbox .mdc-form-field .mdc-label {
   display: none !important;
 }
@@ -110,4 +111,4 @@ mat-checkbox.mat-mdc-checkbox.reverse{
 }
 .mat-mdc-checkbox.mat-mdc-checkbox-disabled {
   opacity: 0.4;
-} */
+}
