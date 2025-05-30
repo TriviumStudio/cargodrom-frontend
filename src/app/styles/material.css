@@ -26,8 +26,10 @@ body{
 }
 
 /* MAT SELECT */
-/* базовый дизайн мат селектора */
-form mat-select.mat-mdc-select, app-paginator mat-select.mat-mdc-select, .filter .additional mat-select.mat-mdc-select{
+form mat-select.mat-mdc-select, /* для форм */
+app-paginator mat-select.mat-mdc-select, /* для пагинатора */
+.filter .additional mat-select.mat-mdc-select { /* для доп фильтров */
+  /* базовый дизайн мат селектора */
   background: #F7F9FC;
   font-size: 15px;
   line-height: 15px;
@@ -42,6 +44,7 @@ mat-select .mat-mdc-select-arrow {
   background: url('../../assets/pic-select-arrow.svg') no-repeat;
   width: 10px; height: 10px;
   background-position: center;
+  /* transform: scaleY(-1); */
   svg {display: none;}
 }
 
@@ -56,24 +59,49 @@ mat-option.mat-mdc-option{
 }
 
 /* MAT CHECKBOX */
-/* mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
+mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-ripple, 
 mat-checkbox.mat-mdc-checkbox .mdc-checkbox__ripple,
-mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-touch-target {
+mat-checkbox.mat-mdc-checkbox .mat-mdc-checkbox-touch-target,
+mat-checkbox.mat-mdc-checkbox .mdc-checkbox__background {
   display: none; 
 }
-mat-checkbox.mat-mdc-checkbox .mdc-checkbox__background{
 
+mat-checkbox.mat-mdc-checkbox{
+  margin: 0;
+  padding: 0;
+  --mdc-checkbox-state-layer-size: 20px;
 }
+
 mat-checkbox.mat-mdc-checkbox input[type="checkbox"] {
   width: 20px; height: 20px;
+  border: 1px solid #E0E5EB;
+  background: #F7F9FC;
+  display: block;
+  opacity: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+mat-checkbox.mat-mdc-checkbox input[type="checkbox"]::after {
+  content: '';
+  display: block;
+  width: 9px;
+  background-color: #DB563B;
+  margin: auto 0;
+}
+mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
+  height: 9px;
+}
+mat-checkbox.mat-mdc-checkbox input[type="checkbox"]:indeterminate::after {
+  height: 2px;
 }
 
 /* если надо поменять местами чекбокс и текс добавляем класс reverse */
-/* mat-checkbox.mat-mdc-checkbox.reverse{ 
+mat-checkbox.mat-mdc-checkbox.reverse{ 
   .mdc-form-field {flex-direction: row-reverse;}
-}  */
+}  
 
-.mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
+/* .mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
 .mat-mdc-checkbox .mdc-form-field .mdc-label {
   display: none !important;
 }
@@ -111,4 +139,4 @@ mat-checkbox.mat-mdc-checkbox input[type="checkbox"] {
 }
 .mat-mdc-checkbox.mat-mdc-checkbox-disabled {
   opacity: 0.4;
-}
+} */
