@@ -11,7 +11,9 @@
     margin: 0 15px;
     .subtitle {
       display: flex;
+      align-items: baseline;
       margin-bottom: 5px;
+      padding-bottom: 1px;
       border-bottom: 1px solid #4b66ad;
       font-weight: bold;
       .text {

@@ -244,14 +244,14 @@
                     <input type="text" readonly [value]="returnDateDifference(status.value.scheduled_date, status.value.done_date)">
                   </div>
                   <div class="column" style="width: 40px;">
-                    <label class="checkbox-label">
+                    
                       <mat-checkbox class="testclass"
                         [checked]="status.value.scheduled_date!='' && status.value.done_date!=''"
                         (change)="onClickStatusCheckbox(status)"
                         [disabled]="status.value.scheduled_date==''"
                       >
                       </mat-checkbox>
-                    </label>
+                    
                   </div>
                 </div>
               </td></tr>
