@@ -5,7 +5,10 @@
   .title {
     background-color: #4b66ad;
     color: white;
-    padding: 5px 15px;
+    padding: 15px 15px 10px;
+    font-weight: bold;
+    font-size: 13px;
+  
   }
   .currencys {
     margin: 0 15px;
@@ -37,9 +40,10 @@
     }
     .currencys-list {
       display: flex;
-      gap: 15px;
+      // gap: 15px;
       .currency {
         display: flex;
+        min-width: 71px;
         flex-direction: column;
         gap: 5px;
         .name {
@@ -50,6 +54,7 @@
         }
         .value {
           color: #2c3640;
+          font-weight: bold;
         }
       }
     }
@@ -58,3 +63,4 @@
     margin-bottom: 15px;
   }
 }
+

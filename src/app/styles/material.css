@@ -120,6 +120,17 @@ mat-checkbox.mat-mdc-checkbox.reverse{
   .mdc-form-field {flex-direction: row-reverse;}
 }  
 
+/* MAT MENU PANEL */
+/* для попапа валют */
+.mat-mdc-menu-panel.currencys-popap-menu {
+  margin-top: 4px;
+  margin-left: -15px;
+  pointer-events: none;
+  .mat-mdc-menu-content {
+    padding: 0;
+  }
+}
+
 /* .mat-mdc-checkbox .mdc-form-field .mdc-checkbox,
 .mat-mdc-checkbox .mdc-form-field .mdc-label {
   display: none !important;
