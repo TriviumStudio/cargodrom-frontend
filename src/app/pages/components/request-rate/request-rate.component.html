@@ -91,7 +91,7 @@
         </div>
 
         <div class="form-item-layout">
-          <div class="form-item">
+          <div class="form-item" *ngIf="request?.cargo_readiness">
             <div class="form-label">Cargo readiness:</div>
             <div class="form-data">
               <div>{{request?.cargo_readiness}}</div>
