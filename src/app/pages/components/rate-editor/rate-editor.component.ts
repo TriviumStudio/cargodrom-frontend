@@ -37,6 +37,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @Input() chargeModel?:any;
   @Input() weight?:number;
   @Input() request?:any;
+  @Input() currency?:any;
 
   @Output() removeRate = new EventEmitter<void>();
   @Output() addRate = new EventEmitter<void>();
@@ -77,7 +78,8 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
-      carrier_id: [,[]],
+      carrier: [,[]],
+      carrier_name: [,[]],
       comment: [,[]],
       departure_schedule: [[],[]],
       id: [,[]],
@@ -92,6 +94,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         transit_time_from: [, []],
         transit_time_to: [, []],
       }),
+      currency_id: [,[]],
       values: fb.array([
         // this.fb.group({
         //   comment: [,[]],
@@ -121,7 +124,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         min: [,[]],
         price: [,[]],
         select: [i.status,[]],
-        value: [i.unit==='kg'?this.weight:0,[]],
+        value: [i.unit==='kg'?this.weight:1,[]],
       }));
       this.rateForm.markAsTouched();
     });
@@ -141,6 +144,16 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this._destroy$.next(null);
     this._destroy$.complete();
   }
+
+  get rateChar(){
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency_id);
+    return i?.char?i.char:'?';
+  }
+  get rateCode(){
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency_id);
+    return i?.code?i.code:'?';
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if(this.rateForm.value.rate_type==='detail') this.calckTotalCost();
   }
@@ -209,18 +222,24 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
       },
     });
   }
+
   filterRote(){
-    const filterRoute=this.transportRoute?.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name.toLowerCase().replaceAll(' ', '')));
+    const filterRoute=this.transportRoute?.filter((option:any) => option.name.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.route_name?.toLowerCase().replaceAll(' ', '')));
     return filterRoute.length==0
     ? []
     : filterRoute
   }
+  filterIata(){
+    const filterIata=this.transportCarrier?.filter((option:any) => option.iata.toLowerCase().replaceAll(' ', '').includes(this.rateForm.value.carrier_name?.toLowerCase().replaceAll(' ', '')));
+    return filterIata.length==0
+    ? []
+    : filterIata
+  }
 
-
-  returnAirlineName(id:number):string{
+  returnAirlineName(iata:string):string{
     let name:any='';
     this.transportCarrier.forEach((i:TransportCarrier)=>{
-      if(id==i.id){ name=i.name };
+      if(iata?.toLowerCase()==i.iata?.toLowerCase()){ name=i.name };
     });
     return name;
   }
@@ -231,6 +250,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
     return id===undefined?' ? ':name
   }
+
   onRateTypeChange(){
     this.charges.controls.forEach((e:any)=>{
       e.controls['comment'].reset();

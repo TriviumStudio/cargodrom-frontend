@@ -94,6 +94,7 @@ div{
   padding: 40px;
   font-weight: bold;
   color: #2C3640;
+  
 }
 .form-col:first-child{
   margin-left: -40px;
@@ -376,7 +377,7 @@ div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-b
   margin-left: 5px;
 }
 .list-charges .unit{
-  margin-right: 80px;
+  // margin-right: 80px;
 }
 .charges-values:last-child .unit{
   width: 10px;
@@ -487,6 +488,7 @@ input[type='number'] {
 // .charges-values:last-child{
 //   width: 80px;
 // }
+
 .charges-values .values-input{
   max-width: 75px;
 }
