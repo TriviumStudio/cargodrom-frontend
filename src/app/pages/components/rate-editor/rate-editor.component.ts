@@ -78,7 +78,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     private directionService: DirectionService,
   ) {
     this.rateForm = this.fb.group({
-      carrier: [,[]],
+      carrier_desc: [,[]],
       carrier_name: [,[]],
       comment: [,[]],
       departure_schedule: [[],[]],
@@ -94,7 +94,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         transit_time_from: [, []],
         transit_time_to: [, []],
       }),
-      currency_id: [,[]],
+      currency: [,[]],
       values: fb.array([
         // this.fb.group({
         //   comment: [,[]],
@@ -114,7 +114,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   ngOnInit(): void {
     this.getTransportCarrier();
     this.getTransportRoute();
-
+    
     this.chargeModel.forEach((i:any)=>{
       this.charges.push(this.fb.group({
         comment: [,[]],
@@ -138,6 +138,12 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
         this.touched = true;
       }
     });
+    
+    if(this.rateForm.value.currency==null){
+      this.rateForm.patchValue({
+        currency: this.request.currency
+      })
+    }
     this.rateForm.markAsTouched();
   }
   ngOnDestroy(): void {
@@ -146,11 +152,11 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
 
   get rateChar(){
-    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency_id);
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency);
     return i?.char?i.char:'?';
   }
   get rateCode(){
-    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency_id);
+    const i = this.currency?.find((r:any) => r.id === this.rateForm.value.currency);
     return i?.code?i.code:'?';
   }
 
@@ -262,17 +268,35 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     this.rateForm.controls['total_cost'].reset();
   }
   //Calck
-  calck(control:any){
-    if(control.value.min){
-      control.patchValue({
-        cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
-      });
-    } else if(control.value.fix) {
-      control.patchValue({cost: (control.value.price * control.value.value)+control.value.fix});
+  calck(control: any) {
+    let costValue: number;
+
+    if (control.value.min) {
+      costValue = control.value.min < control.value.price * control.value.value 
+      ? control.value.price * control.value.value 
+      : control.value.min;
+    } else if (control.value.fix) {
+      costValue = (control.value.price * control.value.value) + control.value.fix;
     } else {
-      control.patchValue({cost: control.value.price * control.value.value});
+      costValue = control.value.price * control.value.value;
     }
+
+    // Округляем до двух знаков после запятой
+    const roundedCost = parseFloat(costValue.toFixed(2));
+
+    control.patchValue({ cost: roundedCost });
   }
+  // calck(control:any){
+  //   if(control.value.min){
+  //     control.patchValue({
+  //       cost: control.value.min<control.value.price * control.value.value?control.value.price * control.value.value:control.value.min
+  //     });
+  //   } else if(control.value.fix) {
+  //     control.patchValue({cost: (control.value.price * control.value.value)+control.value.fix});
+  //   } else {
+  //     control.patchValue({cost: control.value.price * control.value.value});
+  //   }
+  // }
   calckCost(control:any){
     control.patchValue({
       value: control.value.cost,

@@ -25,7 +25,7 @@
         (click)="onChangeRate(i)"
         class="rate_label"
       >
-        Rate #{{i+1}} ({{rateForm.value.carrier_name}})
+        Rate #{{i+1}} ({{rate?.carrier_name}})
       </div>
       <button class="btn-add-rate rate_labels-btns" (click)="onAddRate()"><span class="icon-btn-plus"></span>Add Rate</button>
       <button class="btn-dup-rate rate_labels-btns" (click)="onDuplicateRate()"><span class="icon-btn-plus"></span>Duplicate Rate</button>
@@ -50,7 +50,7 @@
         <div class="form-label">Airline:</div>
         <div class="form-data">
           <input type="text" 
-            formControlName="carrier" 
+            formControlName="carrier_desc" 
             [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''" 
             [value]="returnAirlineName(rateForm.value.carrier_name)"
           >
@@ -178,7 +178,7 @@
       <div class="form-label">Currency:</div>
         <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
-            <mat-select formControlName="currency_id">
+            <mat-select formControlName="currency">
               <mat-option
                 *ngFor="let transportRoute of currency;"
                 [value]="transportRoute.id"

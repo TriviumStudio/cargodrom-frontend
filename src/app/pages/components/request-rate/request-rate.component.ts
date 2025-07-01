@@ -144,9 +144,9 @@ export class RequestRateComponent implements OnInit, OnDestroy {
         tap((rates)=> {
           console.log('getRequestRates', rates);
           if (!rates) throw ({ error: { error_message: `Запрос не существует` } });
-          this.rates.push(this.fb.control({}));
+          // this.rates.push(this.fb.control({}));
           rates.rates?.forEach((e:any) => {
-            // this.addRate();
+            this.addRate();
             this.requestForm.patchValue(rates);
 
           });
