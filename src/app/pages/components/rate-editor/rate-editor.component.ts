@@ -11,6 +11,7 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { CalculationsService } from '../../services/calculations.service';
 
 @Component({
   selector: 'app-rate-editor',
@@ -70,6 +71,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   @ViewChild('deleteRateDialogRef') deleteRateDialogRef?: TemplateRef<void>;
 
   constructor(
+    private calculationsService: CalculationsService,
     private fb: FormBuilder,
     private transportService: TransportService,
     private snackBar: MatSnackBar,
@@ -269,23 +271,31 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   }
   //Calck
   calck(control: any) {
-    let costValue: number;
-
-    if (control.value.min) {
-      costValue = control.value.min < control.value.price * control.value.value 
-      ? control.value.price * control.value.value 
-      : control.value.min;
-    } else if (control.value.fix) {
-      costValue = (control.value.price * control.value.value) + control.value.fix;
-    } else {
-      costValue = control.value.price * control.value.value;
-    }
-
-    // Округляем до двух знаков после запятой
-    const roundedCost = parseFloat(costValue.toFixed(2));
-
-    control.patchValue({ cost: roundedCost });
+    const costValue = this.calculationsService.calculateRate(
+      control.value.price,
+      control.value.value,
+      { min: control.value.min, fix: control.value.fix}
+    );
+    control.patchValue({ cost: costValue });
   }
+  // calck(control: any) {
+  //   let costValue: number;
+
+  //   if (control.value.min) {
+  //     costValue = control.value.min < control.value.price * control.value.value 
+  //     ? control.value.price * control.value.value 
+  //     : control.value.min;
+  //   } else if (control.value.fix) {
+  //     costValue = (control.value.price * control.value.value) + control.value.fix;
+  //   } else {
+  //     costValue = control.value.price * control.value.value;
+  //   }
+
+  //   // Округляем до двух знаков после запятой
+  //   const roundedCost = parseFloat(costValue.toFixed(2));
+
+  //   control.patchValue({ cost: roundedCost });
+  // }
   // calck(control:any){
   //   if(control.value.min){
   //     control.patchValue({
@@ -297,6 +307,7 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
   //     control.patchValue({cost: control.value.price * control.value.value});
   //   }
   // }
+
   calckCost(control:any){
     control.patchValue({
       value: control.value.cost,
@@ -304,11 +315,18 @@ export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, Contro
     });
   }
   calckTotalCost(){
-    let cost=0;
+    // let cost=0;
+    let cost:any[]=[];
+    // this.rateForm.value.values.forEach((v:any)=>{
+    //   if(v.select)cost=cost+v.cost
+    // });
     this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost+v.cost
+      if(v.select){
+        cost.push(v.cost)
+      }
     });
-    this.rateForm.patchValue({ total_cost:cost });
+    let sum = this.calculationsService.calculateSum(cost);
+    this.rateForm.patchValue({ total_cost:sum });
   }
   // Datepicker multy
   returnSelectDateText(){

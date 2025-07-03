@@ -361,6 +361,7 @@ div.mat-calendar-body-selected, .mat-calendar-body-cell.selected .mat-calendar-b
   width: 100%;  margin-bottom: 25px;
 }
 //charges chexbox
+
 .form-block [type="checkbox"]:checked + i + span {
   font-weight: bold;
   font-size: 17px;
@@ -494,6 +495,9 @@ input[type='number'] {
 
 .charges-values .values-input{
   max-width: 75px;
+}
+.additional .form-data{
+  width: 75px;
 }
 // .charges-values .values-input:first-child{
 //   margin-right: 0px;

@@ -170,8 +170,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
 
-    // this.load(params)
-    this.tableService.getRows(params)
+    this.load(params)
+    // this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
