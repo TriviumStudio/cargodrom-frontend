@@ -12,6 +12,7 @@ import { PositionComponent } from './components/position/position.component';
 import { SettingsComponent } from './settings.component';
 import { ClientGroupComponent } from './components/client-group/client-group.component';
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
+import { FilterListComponent } from './components/filter-list/filter-list.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,12 @@ const routes: Routes = [
         component: ClientGroupComponent,
         pathMatch: 'full',
         title: 'Группы клиентов'
+      },
+      {
+        path: 'table-filter/:table',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Должности',
       },
     ]
   },

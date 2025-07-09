@@ -17,6 +17,8 @@ import { DepartmentEmployeeComponent } from './components/department-employee/de
 import { PersonalSettingsComponent } from './components/personal-settings/personal-settings.component';
 import { ClientGroupComponent } from './components/client-group/client-group.component';
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
+import { SimpleTableComponent } from '../../table/components/simple-table/simple-table.component';
+import { FilterListComponent } from './components/filter-list/filter-list.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { ClientGroupEditorComponent } from './components/client-group-editor/cli
     DepartmentEmployeeComponent,
     PersonalSettingsComponent,
     ClientGroupComponent,
-    ClientGroupEditorComponent
+    ClientGroupEditorComponent,
+    FilterListComponent,
+    SimpleTableComponent,
   ],
   imports: [
     CommonModule,

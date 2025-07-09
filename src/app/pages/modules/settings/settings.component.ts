@@ -68,6 +68,50 @@ export class SettingsComponent implements OnInit, OnDestroy {
       ]
     },
     {
+      title: 'Фильтры на формах',
+      cssClass: 'settings-table-filter',
+      expanded: false,
+      items: [
+        {
+          title: 'Запросы',
+          link: './table-filter/requests',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+        {
+          title: 'Подрядчики',
+          link: './table-filter/contractors',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+        {
+          title: 'Клиенты',
+          link: './table-filter/customer',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+        {
+          title: 'Заказы',
+          link: './table-filter/orders',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+        {
+          title: 'Ставки',
+          link: './table-filter/rates',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+        {
+          title: 'Тарифы',
+          link: './table-filter/tariffs',
+          canAdd: true,
+          addButtonTitle: 'Добавить новый фильтр'
+        },
+      
+      ]
+    },
+    {
       title: 'Справочники',
       cssClass: 'settings-directory',
       expanded: false,
