@@ -113,4 +113,8 @@ export class FilterListComponent implements OnInit, OnDestroy{
     this._destroy$.complete();
   }
 
+  get List(){
+    return this.columnsList.map(column => column.field)
+  }
+
 }

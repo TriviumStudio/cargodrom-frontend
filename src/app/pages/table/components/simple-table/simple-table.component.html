@@ -7,8 +7,6 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> {{col.title}} </th>
       <td mat-cell *matCellDef="let element"> dd </td>
     </ng-template>
-
-    <ng-content></ng-content>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columnList"></tr>
@@ -16,18 +14,7 @@
 </table> -->
 
 
-<table mat-table [dataSource]="data">
-  <!-- Статические колонки (через ng-content) -->
-  
-  
-  <!-- Динамические колонки -->
-   <ng-container *ngFor="let col of columns;let colIndex=index" [matColumnDef]="col.field">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> 123 </th>
-    <td mat-cell *matCellDef="let element"> ddddd </td>
-  </ng-container>
-
-  <ng-content></ng-content>
-
-  <!-- <tr mat-header-row *matHeaderRowDef="columnList"></tr>
-  <tr mat-row *matRowDef="let row; columns: columnList"></tr> -->
-</table>
+<!-- <th > btn</th> -->
+<td > BBBTTTNNN </td>
+<!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> test1</th>
+<td mat-cell *matCellDef="let element"> dd </td> -->

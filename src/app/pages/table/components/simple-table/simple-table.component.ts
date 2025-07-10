@@ -9,11 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 //   imports: [CommonModule, MatTableModule] // Добавляем необходимые модули
 })
 export class SimpleTableComponent {
-  @Input() columns: any[] = [];
-  @Input() data: any[] = [];
+//   @Input() columns: any[] = [];
+//   @Input() data: any[] = [];
 
-  get columnList(){
-    return this.columns.map(column => column.field)
-  }
+//   get columnList(){
+//     return this.columns.map(column => column.field)
+//   }
 
 }

@@ -16060,9 +16060,14 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * Транспортная компания
@@ -16480,9 +16485,14 @@ export class RequestService extends BaseService {
         };
         
         /**
-         * ID транспортной компания (ID берем из запроса - transport_carrier)
+         * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
          */
-        'carrier_id': number;
+        'carrier_name': string;
+        
+        /**
+         * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+         */
+        'carrier_desc'?: string;
         
         /**
          * Транспортная компания
@@ -16956,9 +16966,14 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * Транспортная компания
@@ -17359,9 +17374,14 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * Транспортная компания
@@ -17760,9 +17780,14 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * Транспортная компания
@@ -18053,9 +18078,14 @@ export class RequestService extends BaseService {
 'contractor_id': number;
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * ID маршрута (ID берем из запроса - direction_route)
@@ -18244,9 +18274,14 @@ export class RequestService extends BaseService {
 'contractor_id': number;
 
 /**
- * ID транспортной компания (ID берем из запроса - transport_carrier)
+ * ID транспортной компания (код) (ID берем из запроса - transport_carrier)
  */
-'carrier_id': number;
+'carrier_name': string;
+
+/**
+ * ID транспортной компания (наименование) (ID берем из запроса - transport_carrier)
+ */
+'carrier_desc'?: string;
 
 /**
  * ID маршрута (ID берем из запроса - direction_route)
