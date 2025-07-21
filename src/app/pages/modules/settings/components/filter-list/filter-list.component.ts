@@ -3,8 +3,8 @@ import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@ang
 import { LoadParams, Table } from '../../../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, count, debounceTime, distinctUntilChanged, forkJoin, map, startWith, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable, Subject, count, debounceTime, distinctUntilChanged, filter, forkJoin, map, startWith, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { ContractorService, CustomerService, DirectionService, OrderService, RequestService, TransportService, UserService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
@@ -19,9 +19,13 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { SimpleTableComponent } from "../../../../table/components/simple-table/simple-table.component";
+import { TableListService } from 'src/app/pages/table/services/table-list.service';
+import { LoginComponent } from 'src/app/auth/components/login/login.component';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 
 @Component({
-  selector: 'app-request',
+  selector: 'app-settings-filter-list',
   templateUrl: './filter-list.component.html',
   styleUrls: ['./filter-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -30,67 +34,12 @@ import { SimpleTableComponent } from "../../../../table/components/simple-table/
 export class FilterListComponent implements OnInit, OnDestroy{
   isEditMode: boolean = false;
 
+  rows:any[]=[];
+  columns:any;
+
+  displayedColumns:string[]=[];
+
   private _destroy$ = new Subject();
-
-  dataList:any[] = [{},{},{}];
-  columnsList:any[] = [
-    {
-      title: 'Наименование фильтра',
-      field: 'name',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Тип фильтра',
-      field: 'type',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Поле баз данных',
-      field: 'bd',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Статус',
-      field: 'status',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: '',
-      field: 'move',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: '',
-      field: 'btn',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-
-  ]
-
 
   constructor(
     private fb: FormBuilder,
@@ -102,19 +51,52 @@ export class FilterListComponent implements OnInit, OnDestroy{
     private directionService: DirectionService,
     private orderService: OrderService,
     private route: ActivatedRoute,
+    private tableService: TableListService,
+    private router: Router,
   ) { }
   
   // NG ON
   ngOnInit() {
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.getTableColumns(segments[1]);
+    this.getTableRows(segments[1]);
 
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        const segments = this.route.snapshot.url.map(s => s.path);
+        this.getTableColumns(segments[1]);
+        this.getTableRows(segments[1]);
+      }
+    });
   }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
 
-  get List(){
-    return this.columnsList.map(column => column.field)
+  getTableColumns(param:any){
+    this.tableService.getParam(param).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(columns => {
+      this.columns=columns.param1;
+      this.displayedColumns= this.columns.map((c:any) => c.field);
+    })
+  }
+  getTableRows(param:any){
+    let params={ table:param, count: 10 };
+    this.tableService.getRows(params).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(rows => {
+       this.rows=rows.items;
+      console.log(rows);
+      
+    })
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    console.log(event.previousIndex);
+    console.log(event.currentIndex);
+    
+    moveItemInArray(this.rows, event.previousIndex, event.currentIndex);
+  }
 }
