@@ -41,6 +41,8 @@ export class FilterListComponent implements OnInit, OnDestroy{
 
   private _destroy$ = new Subject();
 
+  dragDisabled: boolean = true;
+
   constructor(
     private fb: FormBuilder,
     private loaderService: LoaderService,
@@ -93,10 +95,26 @@ export class FilterListComponent implements OnInit, OnDestroy{
     })
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event.previousIndex);
-    console.log(event.currentIndex);
-    
-    moveItemInArray(this.rows, event.previousIndex, event.currentIndex);
+  // Новые методы для управления перетаскиванием
+  onDragHandleMouseEnter(event: MouseEvent): void {
+    this.dragDisabled = false;
+    event.stopPropagation();
   }
+
+  onDragHandleMouseLeave(event: MouseEvent): void {
+    this.dragDisabled = true;
+    event.stopPropagation();
+  }
+
+  drop(event: CdkDragDrop<string[]>): void {
+    const newRows = [...this.rows];
+    moveItemInArray(newRows, event.previousIndex, event.currentIndex);
+    this.rows = newRows;
+  }
+
+  // drop(event: CdkDragDrop<string[]>) {
+  //   const newRows = [...this.rows];
+  //   moveItemInArray(newRows, event.previousIndex, event.currentIndex);
+  //   this.rows = newRows; // Присваиваем новый массив
+  // }
 }

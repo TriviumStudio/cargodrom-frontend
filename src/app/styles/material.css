@@ -135,7 +135,7 @@ mat-checkbox.mat-mdc-checkbox.switcher  input[type="checkbox"]::after {
   margin-left: 3px;
   background-color: #E0E5EB;
 }
-mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
+mat-checkbox.mat-mdc-checkbox.switcher input[type="checkbox"].mdc-checkbox--selected::after {
   margin-left: auto;
   background-color: #DB563B;
 }
