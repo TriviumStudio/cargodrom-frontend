@@ -55,7 +55,7 @@
       </ng-template>
 
       <ng-template [ngSwitchCase]="'btn'">
-        <button mat-button>edit</button>
+        <button mat-button (click)="open(element)">edit</button>
         <button mat-button>del</button>
       </ng-template>
 

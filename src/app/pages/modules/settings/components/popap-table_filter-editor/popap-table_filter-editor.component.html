@@ -1,0 +1,41 @@
+
+<h2 mat-dialog-title>Добавление записи</h2>
+
+<mat-dialog-content>
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class='form-block'>
+    <div class='form-data'>
+      <div class="form-item">
+        <div class="form-label">наименнование фильтра: </div>
+        <div class="form-data">
+          <input matInput type="text" formControlName="name" >
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">тип поля фильтра: </div>
+        <div class="form-data">
+          <input matInput type="text" formControlName="type" >
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-label">поле базы данных: </div>
+        <div class="form-data">
+          <input matInput type="text" formControlName="field" >
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-data">
+          <mat-checkbox formControlName="show" class="switcher" >
+            {{form.value.show?'Фильтр включен':'Фильтр отключен'}}
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+<button mat-button (click)="onCancel()">Отмена</button>
+<button mat-raised-button (click)="onSubmit()">Сохранить</button>
+

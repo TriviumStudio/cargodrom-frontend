@@ -14,10 +14,12 @@
 .draggable-row {
 
     
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+//   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   
   &:not(.cdk-drag-placeholder) {
     background: white;
+
+
   }
 }
 
@@ -33,6 +35,7 @@
 .cdk-drag-placeholder {
   opacity: 0.3;
   background: #ccc;
+
 }
 
 .cdk-drag-animating {

@@ -19,6 +19,9 @@ import { ClientGroupComponent } from './components/client-group/client-group.com
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
 import { SimpleTableComponent } from '../../table/components/simple-table/simple-table.component';
 import { FilterListComponent } from './components/filter-list/filter-list.component';
+import { AddPopupComponent } from './components/popap-table_filter-editor/popap-table_filter-editor.component';
+import { PagesModule } from '../../pages.module';
+
 
 
 @NgModule({
@@ -38,6 +41,8 @@ import { FilterListComponent } from './components/filter-list/filter-list.compon
     ClientGroupEditorComponent,
     FilterListComponent,
     SimpleTableComponent,
+    AddPopupComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -45,7 +50,6 @@ import { FilterListComponent } from './components/filter-list/filter-list.compon
     FormsModule,
     ReactiveFormsModule,
     SettingsRoutingModule,
-
   ]
 })
 export class SettingsModule { }

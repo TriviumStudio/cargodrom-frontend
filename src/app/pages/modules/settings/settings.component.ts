@@ -13,6 +13,7 @@ interface MenuItem {
   title: string;
   link: string;
   canAdd?: boolean;
+  addPopap?: boolean;
   addButtonTitle?: string;
 }
 @Component({

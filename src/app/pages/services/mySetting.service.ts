@@ -153,7 +153,8 @@ export class MySettingsService {
         title: table.name,
         link: `./table-filter/${pluralId}`,
         canAdd: true,
-        addButtonTitle: 'Добавить новый фильтр'
+        addButtonTitle: 'Добавить новый фильтр',
+        addPopap: true,
       };
     });
   }
@@ -195,5 +196,6 @@ interface MenuItem {
   title: string;
   link: string;
   canAdd?: boolean;
+  addPopap?: boolean;
   addButtonTitle?: string;
 }

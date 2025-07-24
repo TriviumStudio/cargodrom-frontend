@@ -77,11 +77,11 @@ export class TableListService implements OnDestroy {
       rows: (params) => this.orderService.orderList(params),
       columns: (params) => this.orderService.orderListParam(params)
     },
-    settings_filters: {
-      path: 'pages/settings/table-filter/',
-      rows: (params) => this.settingsSertvice.settingsFilterList(params),
-      columns: (params) => this.getTableFiltersListParam(params)
-    },
+    // settings_filters: {
+    //   path: 'pages/settings/table-filter/',
+    //   rows: (params) => this.settingsSertvice.settingsFilterList(params),
+    //   columns: (params) => this.getTableFiltersListParam(params)
+    // },
   };
 
   constructor(
@@ -137,72 +137,16 @@ export class TableListService implements OnDestroy {
     );
   }
 
-  getTableFiltersListParam(param: any): Observable<any> {
-    const result = {
-      metod: 'getTableFiltersListParam',
-      param: param,
-      param1: paramSettingsTableFilter,
-    };
-    return of(result); // Используем `of` из RxJS для создания Observable
-  }
+  // getTableFiltersListParam(param: any): Observable<any> {
+  //   const result = {
+  //     metod: 'getTableFiltersListParam',
+  //     param: param,
+  //     param1: paramSettingsTableFilter,
+  //   };
+  //   return of(result); // Используем `of` из RxJS для создания Observable
+  // }
 }
 
-const paramSettingsTableFilter = [
-    {
-      title: 'Наименование фильтра',
-      field: 'name',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Тип фильтра',
-      field: 'type',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Поле баз данных',
-      field: 'field',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: 'Статус',
-      field: 'status',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: '',
-      field: 'move',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
-    {
-      title: '',
-      field: 'btn',
-      subcolumns: [
-        {
-          value:'value'
-        },
-      ]
-    },
 
-  ]
 
 

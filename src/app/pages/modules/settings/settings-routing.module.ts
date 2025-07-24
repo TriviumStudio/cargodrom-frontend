@@ -63,8 +63,8 @@ const routes: Routes = [
       {
         path: 'table-filter/:table',
         component: FilterListComponent,
-        pathMatch: 'full',
-        title: 'Должности',
+        // pathMatch: 'full',
+        title: 'Фильтры на формах',
       },
     ]
   },
@@ -128,6 +128,18 @@ const routes: Routes = [
     pathMatch: 'full',
     title: 'Редактирование группы клиентов',
   },
+  // {
+  //   path: 'table-filter/:table/add',
+  //   component: FilterListComponent,
+  //   pathMatch: 'full',
+  //   title: 'Фильтры на формах',
+  // },
+  // {
+  //   path: 'table-filter/:table/:id',
+  //   component: FilterListComponent,
+  //   pathMatch: 'full',
+  //   title: 'Фильтры на формах',
+  // },
 ];
 
 @NgModule({
