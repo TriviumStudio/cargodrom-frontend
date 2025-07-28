@@ -63,9 +63,11 @@ const routes: Routes = [
       {
         path: 'table-filter/:table',
         component: FilterListComponent,
-        // pathMatch: 'full',
+        pathMatch: 'full',
         title: 'Фильтры на формах',
+        
       },
+      
     ]
   },
   {

@@ -1635,12 +1635,17 @@ export class SettingsService extends BaseService {
    */
   settingsFilterFormParam$Response(
     params?: {
+
+    /**
+     * Таблица/раздел
+     */
+      table?: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Таблицы/разделы
  */
 'tables': Array<{
 }>;
@@ -1650,9 +1655,16 @@ export class SettingsService extends BaseService {
  */
 'types': Array<{
 }>;
+
+/**
+ * Поля таблицы
+ */
+'fields'?: Array<{
+}>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsFilterFormParamPath, 'get');
     if (params) {
+      rb.query('table', params.table, {});
     }
 
     return this.http.request(
@@ -1663,7 +1675,7 @@ export class SettingsService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Таблицы
+         * Таблицы/разделы
          */
         'tables': Array<{
         }>;
@@ -1672,6 +1684,12 @@ export class SettingsService extends BaseService {
          * Типы
          */
         'types': Array<{
+        }>;
+        
+        /**
+         * Поля таблицы
+         */
+        'fields'?: Array<{
         }>;
         }>;
       })
@@ -1690,12 +1708,17 @@ export class SettingsService extends BaseService {
    */
   settingsFilterFormParam(
     params?: {
+
+    /**
+     * Таблица/раздел
+     */
+      table?: string;
     },
     context?: HttpContext
   ): Observable<{
 
 /**
- * Таблицы
+ * Таблицы/разделы
  */
 'tables': Array<{
 }>;
@@ -1704,13 +1727,19 @@ export class SettingsService extends BaseService {
  * Типы
  */
 'types': Array<{
+}>;
+
+/**
+ * Поля таблицы
+ */
+'fields'?: Array<{
 }>;
 }> {
     return this.settingsFilterFormParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Таблицы/разделы
  */
 'tables': Array<{
 }>;
@@ -1719,11 +1748,17 @@ export class SettingsService extends BaseService {
  * Типы
  */
 'types': Array<{
+}>;
+
+/**
+ * Поля таблицы
+ */
+'fields'?: Array<{
 }>;
 }>): {
 
 /**
- * Таблицы
+ * Таблицы/разделы
  */
 'tables': Array<{
 }>;
@@ -1732,6 +1767,12 @@ export class SettingsService extends BaseService {
  * Типы
  */
 'types': Array<{
+}>;
+
+/**
+ * Поля таблицы
+ */
+'fields'?: Array<{
 }>;
 } => r.body)
     );
@@ -1868,6 +1909,103 @@ export class SettingsService extends BaseService {
 'result': 'OK';
 }> {
     return this.settingsFilterSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `settingsFilterSaveOrder()` */
+  static readonly SettingsFilterSaveOrderPath = '/settings_filter_save_order';
+
+  /**
+   * Сохранение порядка фильтров.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `settingsFilterSaveOrder()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  settingsFilterSaveOrder$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'ids': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsFilterSaveOrderPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение порядка фильтров.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `settingsFilterSaveOrder$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  settingsFilterSaveOrder(
+    params?: {
+      body?: {
+
+/**
+ * ID
+ */
+'ids': Array<number>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.settingsFilterSaveOrder$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

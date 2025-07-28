@@ -32,8 +32,8 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag></tr>
 </table> -->
 
-<table class="example-boundary" mat-table [dataSource]="rows" cdkDropList (cdkDropListDropped)="drop($event)" >
-  <!-- Колонки таблицы -->
+<!-- <table class="example-boundary" mat-table [dataSource]="rows" cdkDropList (cdkDropListDropped)="drop($event)" >
+
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.field">
     
     <th mat-header-cell *matHeaderCellDef [ngSwitch]="column.field">
@@ -55,7 +55,7 @@
       </ng-template>
 
       <ng-template [ngSwitchCase]="'btn'">
-        <button mat-button (click)="open(element)">edit</button>
+        <button mat-button (click)="openFilterEditor(element)">edit</button>
         <button mat-button>del</button>
       </ng-template>
 
@@ -79,5 +79,50 @@
       class="draggable-row"
       cdkDragBoundary=".mdc-data-table__content">
   </tr>
-</table>
+</table> -->
 
+<div class="flex-table" cdkDropList (cdkDropListDropped)="drop($event)">
+  <!-- Заголовки -->
+  <div class="flex-row header">
+    <div *ngFor="let column of columns" class="flex-cell" [class]="column?.class" [ngSwitch]="column.field">
+      <ng-template [ngSwitchDefault]>
+        {{column.title}}
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Строки -->
+  <div *ngFor="let row of rows" 
+       class="flex-row draggable-row body"
+       cdkDrag 
+       [cdkDragData]="row"
+       [cdkDragDisabled]="dragDisabled"
+       cdkDragBoundary=".flex-table">
+    
+    <div *ngFor="let column of columns" class="flex-cell" [class]="column?.class" [ngSwitch]="column.field">
+      <ng-template [ngSwitchDefault]>
+        {{row[column.field]}}
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'status'">
+        <mat-checkbox [checked]="row.show" (change)="row.show = !row.show" class="switcher">
+          {{row.show?'Фильтр включен':'Фильтр отключен'}}
+        </mat-checkbox>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'btn'">
+        <button mat-button class="icon edit" (click)="openFilterEditor(row)" style="margin-right: 10px;"></button>
+        <button mat-button class="icon delete-gr" (click)="onDeletefilter(row.id)"></button>
+      </ng-template>
+
+      <ng-template [ngSwitchCase]="'move'">
+        <div cdkDragHandle 
+             class="drag-handle"
+             (mouseenter)="onDragHandleMouseEnter($event)"
+             (mouseleave)="onDragHandleMouseLeave($event)">
+          Переместить
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

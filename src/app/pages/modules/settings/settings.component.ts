@@ -2,6 +2,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { MySettingsService } from '../../services/mySetting.service';
+import { MatDialog } from '@angular/material/dialog';
 
 interface MenuGroup {
   title: string;
@@ -15,6 +16,7 @@ interface MenuItem {
   canAdd?: boolean;
   addPopap?: boolean;
   addButtonTitle?: string;
+  popap?:any;
 }
 @Component({
   selector: 'app-settings',
@@ -32,7 +34,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private mySettingService: MySettingsService
+    private mySettingService: MySettingsService,
+    private dialog: MatDialog,
+    
   ) {
     this.routerEventSubscription = router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
@@ -50,11 +54,28 @@ export class SettingsComponent implements OnInit, OnDestroy {
       error: (err) => console.error('Ошибка загрузки меню настроек', err)
     });
   }
-
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
     this.routerEventSubscription.unsubscribe();
+  }
+
+  openPopap(popap:any){
+    // this.dialog.open(popap, {data: { table: 'test',}
+    //   // width: '500px',
+    //   // data: { table: this.route.snapshot.params['table'],filter:filter }
+    // });
+    // Открываем диалоговое окно (AddPopupComponent) и передаем в него данные
+    const dialogRef = this.dialog.open(popap);
+
+    // Подписываемся на событие закрытия диалога
+    dialogRef.afterClosed().subscribe(result => {
+      // this.getTableRows();  // Обновляем данные таблицы после закрытия
+      if(result){
+        this.mySettingService.loadTableRows(result);
+      }
+      
+    });
   }
 
   toggleGroup(group: MenuGroup): void {

@@ -2,7 +2,7 @@ import { Contractor, SearchFilterSchema } from '../../../../../api/custom_models
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../../../classes';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, Subject, count, debounceTime, distinctUntilChanged, filter, forkJoin, map, startWith, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
@@ -23,6 +23,7 @@ import { TableListService } from 'src/app/pages/table/services/table-list.servic
 import { LoginComponent } from 'src/app/auth/components/login/login.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddPopupComponent } from '../popap-table_filter-editor/popap-table_filter-editor.component';
+import { MySettingsService } from 'src/app/pages/services/mySetting.service';
 
 
 @Component({
@@ -33,6 +34,8 @@ import { AddPopupComponent } from '../popap-table_filter-editor/popap-table_filt
 })
 
 export class FilterListComponent implements OnInit, OnDestroy{
+  snackBarWithShortDuration: MatSnackBarConfig = { duration: 2000 };
+  snackBarWithLongDuration: MatSnackBarConfig = { duration: 4000 };
   isEditMode: boolean = false;
 
   rows: any[]=[];
@@ -57,22 +60,19 @@ export class FilterListComponent implements OnInit, OnDestroy{
     private router: Router,
     private settingsSertvice: SettingsService,
     private dialog: MatDialog,
+    private mySettingService: MySettingsService,
+    private snackBar: MatSnackBar,
   ) { }
   
   // NG ON
   ngOnInit() {
-    const segments = this.route.snapshot.url.map(s => s.path);
-    console.log(segments);
+    // В компоненте или в сервисе
     
-    
-    this.getTableRows({table:segments[1]});
-
+    this.subscribeTableRows();
+    this.getTableRows();
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        const segments = this.route.snapshot.url.map(s => s.path);
-        console.log(segments);
-        
-        this.getTableRows({table:segments[1]});
+        this.getTableRows();
       }
     });
   }
@@ -80,11 +80,24 @@ export class FilterListComponent implements OnInit, OnDestroy{
     this._destroy$.next(null);
     this._destroy$.complete();
   }
-  open(filter:any){
-    this.dialog.open(AddPopupComponent, {
-      // width: '500px',
-      data: { table: this.route.snapshot.params['table'],filter:filter }
+  openFilterEditor(filter: any) {
+    // Открываем диалоговое окно (AddPopupComponent) и передаем в него данные
+    const dialogRef = this.dialog.open(AddPopupComponent, {
+      // width: '500px',  // Можно настроить ширину по желанию
+      data: { 
+        // table: this.route.snapshot.params['table'],  // Если нужно, можно раскомментировать
+        filter: JSON.parse(JSON.stringify(filter))  // Глубокое копирование, чтобы избежать изменений исходного объекта
+      }
     });
+
+    // Подписываемся на событие закрытия диалога
+    dialogRef.afterClosed().subscribe(result => {
+      if(result)this.getTableRows();  // Обновляем данные таблицы после закрытия
+      
+    });
+  }
+  onDeletefilter(id:number){
+    this.deleteFilter(id);
   }
 
   // getTableColumns(param:any){
@@ -95,13 +108,34 @@ export class FilterListComponent implements OnInit, OnDestroy{
   //     this.displayedColumns= this.columns.map((c:any) => c.field);
   //   })
   // }
-  getTableRows(param:any){
-    this.settingsSertvice.settingsFilterList(param).pipe(
-      takeUntil(this._destroy$)
-    ).subscribe(rows => {
-      if(rows.items != undefined) this.rows=rows.items;
-      console.log(rows);
-    })
+  // getTableRows(){
+  //   const segments = this.route.snapshot.url.map(s => s.path);
+  //   console.log(segments);
+  //   this.settingsSertvice.settingsFilterList({table:segments[1]}).pipe(
+  //     takeUntil(this._destroy$)
+  //   ).subscribe(rows => {
+  //     if(rows.items != undefined) this.rows=rows.items;
+  //     console.log(rows);
+  //   })
+  // }
+  getTableRows(){
+    const segments = this.route.snapshot.url.map(s => s.path);
+    this.mySettingService.loadTableRows(segments[1]);
+    // const segments = this.route.snapshot.url.map(s => s.path);
+    // console.log(segments);
+    // this.settingsSertvice.settingsFilterList({table:segments[1]}).pipe(
+    //   takeUntil(this._destroy$)
+    // ).subscribe(rows => {
+    //   if(rows.items != undefined) this.rows=rows.items;
+    //   console.log(rows);
+    // })
+  }
+  subscribeTableRows(){
+    // В компоненте
+    this.mySettingService.getTableRows$().subscribe(rows => {
+    this.rows = rows;
+    // Дополнительная обработка если нужно
+    });
   }
 
   // Новые методы для управления перетаскиванием
@@ -119,6 +153,7 @@ export class FilterListComponent implements OnInit, OnDestroy{
     const newRows = [...this.rows];
     moveItemInArray(newRows, event.previousIndex, event.currentIndex);
     this.rows = newRows;
+    this.saveFilterSequenc();
   }
 
   // drop(event: CdkDragDrop<string[]>) {
@@ -126,6 +161,34 @@ export class FilterListComponent implements OnInit, OnDestroy{
   //   moveItemInArray(newRows, event.previousIndex, event.currentIndex);
   //   this.rows = newRows; // Присваиваем новый массив
   // }
+
+  private saveFilterSequenc(){
+    let ids:number[]=[];
+    this.rows.forEach(element => { ids.push(element.id) });
+    this.settingsSertvice.settingsFilterSaveOrder({body:{ids:ids}}).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        this.snackBar.open(`Последовательность фильтиров сохраннена`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка сохранения последовательности фильтров: ${{err}}`, undefined, this.snackBarWithShortDuration);
+      },
+    })
+  }
+  private deleteFilter(id:number){
+    this.settingsSertvice.settingsFilterDelete({body:{id:[id]}}).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        this.snackBar.open(`Фильтр удален`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка удаления фильтра: ${{err}}`, undefined, this.snackBarWithShortDuration);
+      },
+    })
+
+  }
 }
 
 const paramSettingsTableFilter = [
@@ -168,6 +231,7 @@ const paramSettingsTableFilter = [
   {
     title: '',
     field: 'move',
+    class: 'border',
     subcolumns: [
       {
         value:'value'

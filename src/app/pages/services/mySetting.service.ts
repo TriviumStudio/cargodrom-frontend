@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { SettingsService as ApiSettingsService } from 'src/app/api/services';
-import { tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
+import { AddPopupComponent } from '../modules/settings/components/popap-table_filter-editor/popap-table_filter-editor.component';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 /**
  * Сервис для работы с меню настроек приложения
@@ -11,8 +14,13 @@ import { tap } from 'rxjs/operators';
 })
 export class MySettingsService {
   private _menuGroups: MenuGroup[] = [];
+  private _tableRows$ = new BehaviorSubject<any[]>([]); // Subject для хранения и передачи строк таблицы
+  private _destroy$ = new Subject<void>(); // Subject для отписки
 
-  constructor(private apiSettingsService: ApiSettingsService) {}
+  constructor(
+    private apiSettingsService: ApiSettingsService,
+    private route: ActivatedRoute
+  ) {}
 
   /**
    * Возвращает текущие группы меню настроек
@@ -155,6 +163,7 @@ export class MySettingsService {
         canAdd: true,
         addButtonTitle: 'Добавить новый фильтр',
         addPopap: true,
+        popap: AddPopupComponent,
       };
     });
   }
@@ -177,6 +186,45 @@ export class MySettingsService {
     
     return tableId;
   }
+
+  /**
+   * Загружает строки таблицы и обновляет BehaviorSubject
+   * @param tableName Название таблицы для загрузки
+   */
+  loadTableRows(tableName: string) {
+    this.apiSettingsService.settingsFilterList({ table: tableName }).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(rows => {
+      if (rows.items != undefined) {
+        this._tableRows$.next(rows.items);
+      }
+    });
+  }
+
+  /**
+   * Возвращает Observable для подписки на изменения строк таблицы
+   * @returns Observable с массивом строк таблицы
+   */
+  getTableRows$() {
+    return this._tableRows$.asObservable();
+  }
+
+  /**
+   * Обновляет данные в BehaviorSubject вручную
+   * @param rows Новые данные для таблицы
+   */
+  updateTableRows(rows: any[]) {
+    this._tableRows$.next(rows);
+  }
+
+  /**
+   * Очищает ресурсы при уничтожении сервиса
+   */
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
+    this._tableRows$.complete();
+  }
 }
 
 /**
@@ -198,4 +246,5 @@ interface MenuItem {
   canAdd?: boolean;
   addPopap?: boolean;
   addButtonTitle?: string;
+  popap?: any
 }

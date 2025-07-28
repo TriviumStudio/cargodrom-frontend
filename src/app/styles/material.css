@@ -40,6 +40,7 @@ form mat-select.mat-mdc-select, /* для форм */
     height: 40px;
   } 
 }
+form .bg mat-select.mat-mdc-select {background: white;}
 app-paginator mat-select.mat-mdc-select/* для пагинатора */{
   font-size: 13px;
   line-height: 15px;

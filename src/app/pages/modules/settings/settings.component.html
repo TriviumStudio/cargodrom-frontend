@@ -16,12 +16,9 @@
       <a *ngIf="!activeMenuItem?.addPopap" [routerLink]="[activeMenuItem?.link, 'add']" class="btn add">
         <span>{{ activeMenuItem?.addButtonTitle }}</span>
       </a>
-      <button *ngIf="activeMenuItem?.addPopap" class="btn add" type="button" >
+      <button *ngIf="activeMenuItem?.addPopap" class="btn add" type="button" (click)="openPopap(activeMenuItem?.popap)" >
         {{ activeMenuItem?.addButtonTitle }}
       </button>
-      <a  [routerLink]="['./add']" class="btn add">
-        <span>123{{ activeMenuItem?.addButtonTitle }}</span>
-      </a>
     </ng-container>
     
   </div>
