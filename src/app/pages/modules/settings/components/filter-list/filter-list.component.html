@@ -94,6 +94,7 @@
   <!-- Строки -->
   <div *ngFor="let row of rows" 
        class="flex-row draggable-row body"
+       [class]="row.show?'':'no-active_filter'"
        cdkDrag 
        [cdkDragData]="row"
        [cdkDragDisabled]="dragDisabled"
@@ -105,7 +106,7 @@
       </ng-template>
 
       <ng-template [ngSwitchCase]="'status'">
-        <mat-checkbox [checked]="row.show" (change)="row.show = !row.show" class="switcher">
+        <mat-checkbox [checked]="row.show" (change)="onFilterShowChange(row)" class="switcher">
           {{row.show?'Фильтр включен':'Фильтр отключен'}}
         </mat-checkbox>
       </ng-template>

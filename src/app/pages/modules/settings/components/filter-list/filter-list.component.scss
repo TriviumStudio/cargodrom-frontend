@@ -41,6 +41,8 @@
 // .cdk-drag-animating {
 //   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 // }
+
+
 .flex-table {
   display: flex;
   flex-direction: column;
@@ -53,6 +55,9 @@
 .flex-row {
   display: flex;
   border-bottom: 1px solid #e0e0e0;
+  &.no-active_filter{
+    background: #F7F9FC;
+  }
   
   &:last-child {
     border-bottom: none;

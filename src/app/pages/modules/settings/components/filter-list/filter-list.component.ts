@@ -162,6 +162,15 @@ export class FilterListComponent implements OnInit, OnDestroy{
   //   this.rows = newRows; // Присваиваем новый массив
   // }
 
+  onFilterShowChange(filter:any){
+    filter.show = !filter.show;
+    const param = {
+      id: filter.id,
+      show: filter.show,
+    };
+    this.saveFilter(param);
+  }
+
   private saveFilterSequenc(){
     let ids:number[]=[];
     this.rows.forEach(element => { ids.push(element.id) });
@@ -187,7 +196,19 @@ export class FilterListComponent implements OnInit, OnDestroy{
         this.snackBar.open(`Ошибка удаления фильтра: ${{err}}`, undefined, this.snackBarWithShortDuration);
       },
     })
-
+  }
+  private saveFilter(param:any){
+    this.settingsSertvice.settingsFilterSave({body:param})
+    .pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (schema) => {
+        this.snackBar.open(`Фильтр сохраннен`, undefined, this.snackBarWithShortDuration);
+      },
+      error: (err) => {
+        this.snackBar.open(`Ошибка сохранения фильтра: ${{err}}`, undefined, this.snackBarWithShortDuration);
+      },
+    });
   }
 }
 
