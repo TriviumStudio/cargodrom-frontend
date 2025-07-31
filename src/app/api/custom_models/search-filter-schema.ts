@@ -32,6 +32,7 @@ export interface FilterCheckboxControl extends FilterControl {
     id: string;
     name: string;
   }[];
+  any_text?:string;
 }
 
 export interface FilterRadioControl extends FilterControl {
@@ -40,6 +41,7 @@ export interface FilterRadioControl extends FilterControl {
     id: string;
     name: string;
   }[];
+  any_text?:string;
 }
 
 export interface FilterPeriodControl extends FilterControl {

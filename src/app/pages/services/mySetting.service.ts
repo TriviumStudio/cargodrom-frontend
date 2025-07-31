@@ -51,6 +51,7 @@ export class MySettingsService {
     return [
       this.createCommonSettingsGroup(),
       this.createCompanyStructureGroup(),
+      this.createSystemGroup(),
       this.createTableFiltersGroup(tables),
       this.createDirectoriesGroup()
     ];
@@ -107,6 +108,44 @@ export class MySettingsService {
           link: './employee',
           canAdd: true,
           addButtonTitle: 'Добавить сотрудника'
+        }
+      ]
+    };
+  }
+
+  /**
+   * Создает группу "Система"
+   * @returns Группа меню с элементами системы
+   */
+  private createSystemGroup(): MenuGroup {
+    return {
+      title: 'Система',
+      cssClass: 'settings-system',
+      expanded: false,
+      items: [
+        {
+          title: 'Общие настройки',
+          link: './general-settings',
+          canAdd: false,
+          // addButtonTitle: 'Добавить подразделение'
+        },
+        {
+          title: 'Брендирование',
+          link: './branding',
+          canAdd: false,
+          // addButtonTitle: 'Добавить должность'
+        },
+        {
+          title: 'Уведомления',
+          link: './notifications',
+          canAdd: false,
+          // addButtonTitle: 'Добавить сотрудника'
+        },
+        {
+          title: 'Рассылки',
+          link: './mailings',
+          canAdd: false,
+          // addButtonTitle: 'Добавить сотрудника'
         }
       ]
     };

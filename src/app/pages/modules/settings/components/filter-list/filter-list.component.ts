@@ -1,3 +1,173 @@
+// import { Component, OnDestroy, OnInit } from '@angular/core';
+// import { MatDialog } from '@angular/material/dialog';
+// import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+// import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+// import { Subject, takeUntil } from 'rxjs';
+// import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { AddPopupComponent } from '../popap-table_filter-editor/popap-table_filter-editor.component';
+// import { MySettingsService } from 'src/app/pages/services/mySetting.service';
+// import { SettingsService } from 'src/app/api/services';
+// import { paramSettingsTableFilter } from './filter-list.constants';
+
+// interface FilterRow {
+//   id: number;
+//   name: string;
+//   type: string;
+//   field: string;
+//   status: string;
+//   show: boolean;
+// }
+
+// @Component({
+//   selector: 'app-settings-filter-list',
+//   templateUrl: './filter-list.component.html',
+//   styleUrls: ['./filter-list.component.scss'],
+// })
+// export class FilterListComponent implements OnInit, OnDestroy {
+//   snackBarWithShortDuration: MatSnackBarConfig = { duration: 2000 };
+//   snackBarWithLongDuration: MatSnackBarConfig = { duration: 4000 };
+//   isEditMode = false;
+
+//   rows: FilterRow[] = [];
+//   columns: ColumnDefinition[] = paramSettingsTableFilter;
+//   displayedColumns = this.columns.map((c) => c.field);
+
+//   private destroy$ = new Subject<void>();
+//   dragDisabled = true;
+
+//   constructor(
+//     private route: ActivatedRoute,
+//     private router: Router,
+//     private settingsService: SettingsService,
+//     private dialog: MatDialog,
+//     private mySettingService: MySettingsService,
+//     private snackBar: MatSnackBar,
+//   ) {}
+
+//   ngOnInit() {
+//     this.subscribeTableRows();
+//     this.getTableRows();
+    
+//     this.router.events.pipe(
+//       takeUntil(this.destroy$),
+//       filter(event => event instanceof NavigationEnd)
+//     ).subscribe(() => {
+//       this.getTableRows();
+//     });
+//   }
+
+//   ngOnDestroy(): void {
+//     this.destroy$.next();
+//     this.destroy$.complete();
+//   }
+
+//   openFilterEditor(filter: FilterRow): void {
+//     const dialogRef = this.dialog.open(AddPopupComponent, {
+//       data: { 
+//         filter: { ...filter }  // Используем spread operator вместо JSON parse/stringify
+//       }
+//     });
+
+//     dialogRef.afterClosed().subscribe(result => {
+//       if (result) {
+//         this.getTableRows();
+//       }
+//     });
+//   }
+
+//   onDeleteFilter(id: number): void {
+//     this.deleteFilter(id);
+//   }
+
+//   getTableRows(): void {
+//     const segments = this.route.snapshot.url.map(s => s.path);
+//     this.mySettingService.loadTableRows(segments[1]);
+//   }
+
+//   subscribeTableRows(): void {
+//     this.mySettingService.getTableRows$()
+//       .pipe(takeUntil(this.destroy$))
+//       .subscribe(rows => {
+//         this.rows = rows;
+//       });
+//   }
+
+//   onDragHandleMouseEnter(event: MouseEvent): void {
+//     this.dragDisabled = false;
+//     event.stopPropagation();
+//   }
+
+//   onDragHandleMouseLeave(event: MouseEvent): void {
+//     this.dragDisabled = true;
+//     event.stopPropagation();
+//   }
+
+//   drop(event: CdkDragDrop<FilterRow[]>): void {
+//     if (event.previousIndex !== event.currentIndex) {
+//       const newRows = [...this.rows];
+//       moveItemInArray(newRows, event.previousIndex, event.currentIndex);
+//       this.rows = newRows;
+//       this.saveFilterSequence();
+//     }
+//   }
+
+//   onFilterShowChange(filter: FilterRow): void {
+//     filter.show = !filter.show;
+//     this.saveFilter({
+//       id: filter.id,
+//       show: filter.show,
+//     });
+//   }
+
+//   private saveFilterSequence(): void {
+//     const ids = this.rows.map(row => row.id);
+//     this.settingsService.settingsFilterSaveOrder({ body: { ids } })
+//       .pipe(takeUntil(this.destroy$))
+//       .subscribe({
+//         next: () => {
+//           this.showSnackbar('Последовательность фильтров сохранена');
+//         },
+//         error: (err) => {
+//           this.showSnackbar(`Ошибка сохранения последовательности фильтров: ${err.message}`, true);
+//         },
+//       });
+//   }
+
+//   private deleteFilter(id: number): void {
+//     this.settingsService.settingsFilterDelete({ body: { id: [id] } })
+//       .pipe(takeUntil(this.destroy$))
+//       .subscribe({
+//         next: () => {
+//           this.showSnackbar('Фильтр удален');
+//           this.getTableRows(); // Обновляем список после удаления
+//         },
+//         error: (err) => {
+//           this.showSnackbar(`Ошибка удаления фильтра: ${err.message}`, true);
+//         },
+//       });
+//   }
+
+//   private saveFilter(params: { id: number; show?: boolean }): void {
+//     this.settingsService.settingsFilterSave({ body: params })
+//       .pipe(takeUntil(this.destroy$))
+//       .subscribe({
+//         next: () => {
+//           this.showSnackbar('Фильтр сохранен');
+//         },
+//         error: (err) => {
+//           this.showSnackbar(`Ошибка сохранения фильтра: ${err.message}`, true);
+//         },
+//       });
+//   }
+
+//   private showSnackbar(message: string, isError = false): void {
+//     this.snackBar.open(
+//       message,
+//       undefined,
+//       isError ? this.snackBarWithLongDuration : this.snackBarWithShortDuration
+//     );
+//   }
+// }
 import { Contractor, SearchFilterSchema } from '../../../../../api/custom_models';
 import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { LoadParams, Table } from '../../../../../classes';
@@ -18,7 +188,7 @@ import { CustomDateAdapter } from 'src/app/adapters/custom-date.adapter';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { SimpleTableComponent } from "../../../../table/components/simple-table/simple-table.component";
+import { GridTableComponent } from "../../../../table/components/simple-table/grid-table.component";
 import { TableListService } from 'src/app/pages/table/services/table-list.service';
 import { LoginComponent } from 'src/app/auth/components/login/login.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -132,7 +302,9 @@ export class FilterListComponent implements OnInit, OnDestroy{
   }
   subscribeTableRows(){
     // В компоненте
-    this.mySettingService.getTableRows$().subscribe(rows => {
+    this.mySettingService.getTableRows$().pipe(
+      takeUntil(this._destroy$)
+    ).subscribe(rows => {
     this.rows = rows;
     // Дополнительная обработка если нужно
     });

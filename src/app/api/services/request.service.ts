@@ -15854,7 +15854,7 @@ export class RequestService extends BaseService {
       contractor?: number;
 
     /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
+     * Авиалинии1
      */
       carrier?: Array<string>;
 
@@ -16760,7 +16760,7 @@ export class RequestService extends BaseService {
       contractor?: number;
 
     /**
-     * Авиалинии (ID берем из запроса - transport_carrier)
+     * Авиалинии1
      */
       carrier?: Array<string>;
 

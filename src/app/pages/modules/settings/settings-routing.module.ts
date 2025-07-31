@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings.component';
 import { ClientGroupComponent } from './components/client-group/client-group.component';
 import { ClientGroupEditorComponent } from './components/client-group-editor/client-group-editor.component';
 import { FilterListComponent } from './components/filter-list/filter-list.component';
+import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
 
 const routes: Routes = [
   {
@@ -65,9 +66,31 @@ const routes: Routes = [
         component: FilterListComponent,
         pathMatch: 'full',
         title: 'Фильтры на формах',
-        
       },
-      
+      {
+        path: 'general-settings',
+        component: GeneralSettingsComponent,
+        pathMatch: 'full',
+        title: 'Общие настройки',
+      },
+      {
+        path: 'branding',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Брендирование',
+      },
+      {
+        path: 'notifications',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Уведомления',
+      },
+      {
+        path: 'mailings',
+        component: FilterListComponent,
+        pathMatch: 'full',
+        title: 'Рассылки',
+      },
     ]
   },
   {

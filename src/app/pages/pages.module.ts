@@ -51,7 +51,7 @@ import { RateAddOther } from './components/request-details/rate-add-other/rate-a
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 import { TestPage } from './places/test-page/test-page.component';
-import { SimpleTableComponent } from './table/components/simple-table/simple-table.component';
+import { GridTableComponent } from './table/components/simple-table/grid-table.component';
 
 
 
@@ -109,6 +109,7 @@ import { SimpleTableComponent } from './table/components/simple-table/simple-tab
     EmployeeRegisterComponent,
 
     TestPage,
+    
 
     // SimpleTableComponent,
 
