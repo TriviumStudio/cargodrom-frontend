@@ -75,5 +75,24 @@ button.icon.edit-w{
 }
 
 button.long{
-  
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  &::before{
+    display: block;
+    width: 20px;
+    height: 20px;
+    content: '';
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 6px;
+  }
+  &.save{
+    background-color: #DB563B;
+    color: white;
+    &::before{
+      background-image: url('../../assets/pic-btn-save.svg');
+    }
+  }
 }

@@ -108,8 +108,16 @@ mat-checkbox.mat-mdc-checkbox input[type="checkbox"]::after {
   padding: 0;
   margin: auto 0;
 }
-mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
+/* mat-checkbox.mat-mdc-checkbox input[type="checkbox"].mdc-checkbox--selected::after {
   height: 9px;
+} */
+mat-checkbox.mat-mdc-checkbox-checked{
+  label{
+    font-weight: bold;
+  }
+  input[type="checkbox"].mdc-checkbox--selected::after {
+    height: 9px;
+  }
 }
 mat-checkbox.mat-mdc-checkbox input[type="checkbox"]:indeterminate::after {
   height: 2px;

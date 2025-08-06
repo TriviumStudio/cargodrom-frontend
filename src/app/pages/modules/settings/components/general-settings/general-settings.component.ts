@@ -51,10 +51,22 @@ export class GeneralSettingsComponent  implements OnInit, OnDestroy  {
     this.getCurrency();
     this.getSettings();
   }
-  
+
   onSubmit(){
     this.postSettings();
   }
+
+//   filteredCurrecy(){
+//     console.log('filteredCurrecy');
+    
+//     let arr:any;
+//     arr = this.currency.filter(item => 
+//       item.id!==this.form.value.currency_1 &&
+//       item.id!==this.form.value.currency_2 &&
+//       item.id!==this.form.value.currency_3
+//     );
+//     return arr;
+//   }
 
   private getSettings(){
     this.settingsSertvice.settingsGet()
@@ -63,7 +75,9 @@ export class GeneralSettingsComponent  implements OnInit, OnDestroy  {
     ).subscribe({
       next: (data) => {
         if(data.language)this.language=data.language;
-        if(data.language)this.timezone=data.language;
+        if(data.timezone_list)this.timezone=data.timezone_list;
+        this.form.patchValue(data);
+        console.log(data);
       },
       error: (err) => {
         this.snackBar.open(`Ошибка получения настроек: ${{err}}`, undefined, this.snackBarWithShortDuration);

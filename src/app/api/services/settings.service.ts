@@ -66,64 +66,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, url
@@ -176,6 +126,24 @@ export class SettingsService extends BaseService {
  * Наименование
  */
 'name'?: string;
+}>;
+
+/**
+ * Временные зоны: список
+ */
+'timezone_list'?: Array<{
+}>;
+
+/**
+ * Способы уведомления: список
+ */
+'notify_types_list'?: Array<{
+}>;
+
+/**
+ * События для уведомлений: список
+ */
+'notify_events_list'?: Array<{
 }>;
 
 /**
@@ -268,64 +236,14 @@ export class SettingsService extends BaseService {
         'currency_3'?: string;
         
         /**
-         * Способ уведомления: SMS
+         * Способы уведомления
          */
-        'notify_by_sms'?: boolean;
+        'notify_type'?: Array<string>;
         
         /**
-         * Способ уведомления: E-mail
+         * События для уведомлений
          */
-        'notify_by_email'?: boolean;
-        
-        /**
-         * Способ уведомления: Skype
-         */
-        'notify_by_skype'?: boolean;
-        
-        /**
-         * Способ уведомления: Сообщение в системе
-         */
-        'notify_by_system'?: boolean;
-        
-        /**
-         * Уведомления: Смена пароля
-         */
-        'notify_change_password'?: boolean;
-        
-        /**
-         * Уведомления: Смена контактных данных
-         */
-        'notify_change_contact'?: boolean;
-        
-        /**
-         * Уведомления: Вход в систему с другого устройства
-         */
-        'notify_other_login'?: boolean;
-        
-        /**
-         * Уведомления: Добавление ставки
-         */
-        'notify_add_rate'?: boolean;
-        
-        /**
-         * Уведомления: Добавление подрядчика
-         */
-        'notify_add_contractor'?: boolean;
-        
-        /**
-         * Уведомления: Изменение тарифов
-         */
-        'notify_change_tariff'?: boolean;
-        
-        /**
-         * Уведомления: Изменение курса валюты
-         */
-        'notify_change_currency'?: boolean;
-        
-        /**
-         * Уведомления: Изменение параметров ставки
-         */
-        'notify_change_rate_param'?: boolean;
+        'notify_event'?: Array<string>;
         
         /**
          * Брендирование: Логотип вашей компании, url
@@ -378,6 +296,24 @@ export class SettingsService extends BaseService {
          * Наименование
          */
         'name'?: string;
+        }>;
+        
+        /**
+         * Временные зоны: список
+         */
+        'timezone_list'?: Array<{
+        }>;
+        
+        /**
+         * Способы уведомления: список
+         */
+        'notify_types_list'?: Array<{
+        }>;
+        
+        /**
+         * События для уведомлений: список
+         */
+        'notify_events_list'?: Array<{
         }>;
         
         /**
@@ -479,64 +415,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, url
@@ -589,6 +475,24 @@ export class SettingsService extends BaseService {
  * Наименование
  */
 'name'?: string;
+}>;
+
+/**
+ * Временные зоны: список
+ */
+'timezone_list'?: Array<{
+}>;
+
+/**
+ * Способы уведомления: список
+ */
+'notify_types_list'?: Array<{
+}>;
+
+/**
+ * События для уведомлений: список
+ */
+'notify_events_list'?: Array<{
 }>;
 
 /**
@@ -673,64 +577,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, url
@@ -783,6 +637,24 @@ export class SettingsService extends BaseService {
  * Наименование
  */
 'name'?: string;
+}>;
+
+/**
+ * Временные зоны: список
+ */
+'timezone_list'?: Array<{
+}>;
+
+/**
+ * Способы уведомления: список
+ */
+'notify_types_list'?: Array<{
+}>;
+
+/**
+ * События для уведомлений: список
+ */
+'notify_events_list'?: Array<{
 }>;
 
 /**
@@ -865,64 +737,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, url
@@ -975,6 +797,24 @@ export class SettingsService extends BaseService {
  * Наименование
  */
 'name'?: string;
+}>;
+
+/**
+ * Временные зоны: список
+ */
+'timezone_list'?: Array<{
+}>;
+
+/**
+ * Способы уведомления: список
+ */
+'notify_types_list'?: Array<{
+}>;
+
+/**
+ * События для уведомлений: список
+ */
+'notify_events_list'?: Array<{
 }>;
 
 /**
@@ -1076,64 +916,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)
@@ -1210,64 +1000,14 @@ export class SettingsService extends BaseService {
 'currency_3'?: string;
 
 /**
- * Способ уведомления: SMS
+ * Способы уведомления
  */
-'notify_by_sms'?: boolean;
+'notify_type'?: Array<string>;
 
 /**
- * Способ уведомления: E-mail
+ * События для уведомлений
  */
-'notify_by_email'?: boolean;
-
-/**
- * Способ уведомления: Skype
- */
-'notify_by_skype'?: boolean;
-
-/**
- * Способ уведомления: Сообщение в системе
- */
-'notify_by_system'?: boolean;
-
-/**
- * Уведомления: Смена пароля
- */
-'notify_change_password'?: boolean;
-
-/**
- * Уведомления: Смена контактных данных
- */
-'notify_change_contact'?: boolean;
-
-/**
- * Уведомления: Вход в систему с другого устройства
- */
-'notify_other_login'?: boolean;
-
-/**
- * Уведомления: Добавление ставки
- */
-'notify_add_rate'?: boolean;
-
-/**
- * Уведомления: Добавление подрядчика
- */
-'notify_add_contractor'?: boolean;
-
-/**
- * Уведомления: Изменение тарифов
- */
-'notify_change_tariff'?: boolean;
-
-/**
- * Уведомления: Изменение курса валюты
- */
-'notify_change_currency'?: boolean;
-
-/**
- * Уведомления: Изменение параметров ставки
- */
-'notify_change_rate_param'?: boolean;
+'notify_event'?: Array<string>;
 
 /**
  * Брендирование: Логотип вашей компании, строка base64 (svg, png, jpg, gif, bmp)

@@ -22,6 +22,7 @@ import { FilterListComponent } from './components/filter-list/filter-list.compon
 import { AddPopupComponent } from './components/popap-table_filter-editor/popap-table_filter-editor.component';
 import { PagesModule } from '../../pages.module';
 import { GeneralSettingsComponent } from './components/general-settings/general-settings.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 
@@ -43,7 +44,8 @@ import { GeneralSettingsComponent } from './components/general-settings/general-
     FilterListComponent,
     GridTableComponent,
     AddPopupComponent,
-    GeneralSettingsComponent
+    GeneralSettingsComponent,
+    NotificationsComponent,
     
   ],
   imports: [

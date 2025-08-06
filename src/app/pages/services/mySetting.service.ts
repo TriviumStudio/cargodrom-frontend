@@ -129,24 +129,24 @@ export class MySettingsService {
           canAdd: false,
           // addButtonTitle: 'Добавить подразделение'
         },
-        {
-          title: 'Брендирование',
-          link: './branding',
-          canAdd: false,
-          // addButtonTitle: 'Добавить должность'
-        },
+        // {
+        //   title: 'Брендирование',
+        //   link: './branding',
+        //   canAdd: false,
+        //   // addButtonTitle: 'Добавить должность'
+        // },
         {
           title: 'Уведомления',
           link: './notifications',
           canAdd: false,
           // addButtonTitle: 'Добавить сотрудника'
         },
-        {
-          title: 'Рассылки',
-          link: './mailings',
-          canAdd: false,
-          // addButtonTitle: 'Добавить сотрудника'
-        }
+        // {
+        //   title: 'Рассылки',
+        //   link: './mailings',
+        //   canAdd: false,
+        //   // addButtonTitle: 'Добавить сотрудника'
+        // }
       ]
     };
   }
