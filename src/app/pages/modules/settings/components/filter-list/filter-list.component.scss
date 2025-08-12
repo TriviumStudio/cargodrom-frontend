@@ -77,7 +77,7 @@
   .flex-cell:nth-child(3){width: 20%;}
   .flex-cell:nth-child(4){width: 20%;}
   .flex-cell:nth-child(5){width: 10%;}
-  .flex-cell:nth-child(6){width: 5%;}
+  .flex-cell:nth-child(6){min-width: 40px;}
   
 }
 

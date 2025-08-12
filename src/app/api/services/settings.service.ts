@@ -1110,6 +1110,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра фиксирован
+ */
+'type_fixed'?: boolean;
+
+/**
  * Поле БД
  */
 'field': string;
@@ -1118,6 +1123,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsFilterListPath, 'get');
@@ -1170,6 +1180,11 @@ export class SettingsService extends BaseService {
         'type': string;
         
         /**
+         * Тип фильтра фиксирован
+         */
+        'type_fixed'?: boolean;
+        
+        /**
          * Поле БД
          */
         'field': string;
@@ -1178,6 +1193,11 @@ export class SettingsService extends BaseService {
          * Статус
          */
         'show': boolean;
+        
+        /**
+         * Место
+         */
+        'place': string;
         }>;
         }>;
       })
@@ -1251,6 +1271,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра фиксирован
+ */
+'type_fixed'?: boolean;
+
+/**
  * Поле БД
  */
 'field': string;
@@ -1259,6 +1284,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }>;
 }> {
     return this.settingsFilterList$Response(params, context).pipe(
@@ -1300,6 +1330,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра фиксирован
+ */
+'type_fixed'?: boolean;
+
+/**
  * Поле БД
  */
 'field': string;
@@ -1308,6 +1343,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }>;
 }>): {
 
@@ -1347,6 +1387,11 @@ export class SettingsService extends BaseService {
 'type': string;
 
 /**
+ * Тип фильтра фиксирован
+ */
+'type_fixed'?: boolean;
+
+/**
  * Поле БД
  */
 'field': string;
@@ -1355,6 +1400,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }>;
 } => r.body)
     );
@@ -1401,6 +1451,12 @@ export class SettingsService extends BaseService {
  */
 'fields'?: Array<{
 }>;
+
+/**
+ * Места
+ */
+'places'?: Array<{
+}>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, SettingsService.SettingsFilterFormParamPath, 'get');
     if (params) {
@@ -1430,6 +1486,12 @@ export class SettingsService extends BaseService {
          * Поля таблицы
          */
         'fields'?: Array<{
+        }>;
+        
+        /**
+         * Места
+         */
+        'places'?: Array<{
         }>;
         }>;
       })
@@ -1474,6 +1536,12 @@ export class SettingsService extends BaseService {
  */
 'fields'?: Array<{
 }>;
+
+/**
+ * Места
+ */
+'places'?: Array<{
+}>;
 }> {
     return this.settingsFilterFormParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -1495,6 +1563,12 @@ export class SettingsService extends BaseService {
  */
 'fields'?: Array<{
 }>;
+
+/**
+ * Места
+ */
+'places'?: Array<{
+}>;
 }>): {
 
 /**
@@ -1513,6 +1587,12 @@ export class SettingsService extends BaseService {
  * Поля таблицы
  */
 'fields'?: Array<{
+}>;
+
+/**
+ * Места
+ */
+'places'?: Array<{
 }>;
 } => r.body)
     );
@@ -1564,6 +1644,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }
     },
     context?: HttpContext
@@ -1638,6 +1723,11 @@ export class SettingsService extends BaseService {
  * Статус
  */
 'show': boolean;
+
+/**
+ * Место
+ */
+'place': string;
 }
     },
     context?: HttpContext

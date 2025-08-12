@@ -11,9 +11,9 @@
           <input matInput type="text" formControlName="name" >
         </div>
       </div>
-      <div class="form-item">
+      <div class="form-item" *ngIf="!data.filter.type_fixed">
         <div class="form-label">тип поля фильтра: </div>
-        <div class="form-data">
+        <div class="form-data" >
           <mat-select formControlName="type">
             <mat-option value="">-- Не выбрано --</mat-option>
             <mat-option *ngFor="let item of filterTypes;" [value]="item.id">{{ item.name }}</mat-option>
@@ -21,11 +21,11 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-label">поле базы данных: </div>
-        <div class="form-data">
-          <mat-select formControlName="field">
+        <div class="form-label">место: </div>
+        <div class="form-data" >
+          <mat-select formControlName="place">
             <mat-option value="">-- Не выбрано --</mat-option>
-            <mat-option *ngFor="let item of filterFields;" [value]="item.id">{{ item.name }}</mat-option>
+            <mat-option *ngFor="let item of filterPlaces;" [value]="item.id">{{ item.name }}</mat-option>
           </mat-select>
         </div>
       </div>
@@ -43,6 +43,7 @@
 
 <mat-dialog-actions align="end" style="padding:20px 40px;">
   <!-- <button mat-button mat-dialog-close (click)="onCancel()">Отмена</button> -->
-  <button mat-raised-button [mat-dialog-close]="form.value.table" (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Добавить этот фильтр</button>
+  <!-- <button mat-raised-button [mat-dialog-close]="form.value.table" (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button> -->
+  <button mat-raised-button (click)="onSubmit()" style="background: #DB563B; color: white; margin-right: auto;">Сохранить</button>
 </mat-dialog-actions>
 

@@ -27,8 +27,8 @@
       </ng-template>
 
       <ng-template [ngSwitchCase]="'btn'">
-        <button mat-button class="icon edit" (click)="openFilterEditor(row)" style="margin-right: 10px;"></button>
-        <button mat-button class="icon delete-gr" (click)="onDeletefilter(row.id)"></button>
+        <button class="icon edit" (click)="openFilterEditor(row)"></button>
+        <!-- <button class="icon delete-gr" (click)="onDeletefilter(row.id)"></button> -->
       </ng-template>
 
       <ng-template [ngSwitchCase]="'move'">

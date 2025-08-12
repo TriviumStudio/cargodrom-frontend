@@ -194,37 +194,37 @@ export class MySettingsService {
   private transformTablesToMenuItems(tables: any[]): MenuItem[] {
     return tables.map(table => {
       // Формируем URL в множественном числе с обработкой исключений
-      const pluralId = this.getPluralTableId(table.id);
+      const pluralId = table.id;
       
       return {
         title: table.name,
         link: `./table-filter/${pluralId}`,
-        canAdd: true,
-        addButtonTitle: 'Добавить новый фильтр',
-        addPopap: true,
-        popap: AddPopupComponent,
+        canAdd: false,
+        // addButtonTitle: 'Добавить новый фильтр',
+        // addPopap: true,
+        // popap: AddPopupComponent,
       };
     });
   }
 
-  /**
-   * Преобразует идентификатор таблицы в форму множественного числа
-   * @param tableId Идентификатор таблицы в единственном числе
-   * @returns Идентификатор таблицы во множественном числе
-   */
-  private getPluralTableId(tableId: string): string {
-    // Обработка специальных случаев
-    if (tableId === 'customer') {
-      return 'customers';
-    }
+  // /**
+  //  * Преобразует идентификатор таблицы в форму множественного числа
+  //  * @param tableId Идентификатор таблицы в единственном числе
+  //  * @returns Идентификатор таблицы во множественном числе
+  //  */
+  // private getPluralTableId(tableId: string): string {
+  //   // Обработка специальных случаев
+  //   if (tableId === 'customer') {
+  //     return 'customers';
+  //   }
     
-    // Стандартное правило - добавление 's' в конец
-    if (!tableId.endsWith('s')) {
-      return tableId + 's';
-    }
+  //   // Стандартное правило - добавление 's' в конец
+  //   if (!tableId.endsWith('s')) {
+  //     return tableId + 's';
+  //   }
     
-    return tableId;
-  }
+  //   return tableId;
+  // }
 
   /**
    * Загружает строки таблицы и обновляет BehaviorSubject
@@ -239,6 +239,7 @@ export class MySettingsService {
       }
     });
   }
+  
 
   /**
    * Возвращает Observable для подписки на изменения строк таблицы

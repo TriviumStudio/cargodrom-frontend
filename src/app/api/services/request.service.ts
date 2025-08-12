@@ -15849,27 +15849,27 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики (ID берем из запроса - contractor_list)
+     * Подрядчики
      */
       contractor?: number;
 
     /**
      * Авиалинии
      */
-      carrier?: Array<string>;
+      carrier?: number;
 
     /**
      * Тип маршрута (ID берем из запроса - direction_flight)
      */
-      departure_flight?: string;
+      departure_flight?: number;
 
     /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
+     * Аэропорт вылета
      */
       departure_point?: number;
 
     /**
-     * Аэропорт прибытия (ID берем из запроса - direction_point)
+     * Аэропорт прибытия
      */
       arrival_point?: number;
 
@@ -16311,7 +16311,7 @@ export class RequestService extends BaseService {
     if (params) {
       rb.query('request_id', params.request_id, {});
       rb.query('contractor', params.contractor, {});
-      rb.query('carrier', params.carrier, {"style":"form","explode":false});
+      rb.query('carrier', params.carrier, {});
       rb.query('departure_flight', params.departure_flight, {});
       rb.query('departure_point', params.departure_point, {});
       rb.query('arrival_point', params.arrival_point, {});
@@ -16755,27 +16755,27 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Подрядчики (ID берем из запроса - contractor_list)
+     * Подрядчики
      */
       contractor?: number;
 
     /**
      * Авиалинии
      */
-      carrier?: Array<string>;
+      carrier?: number;
 
     /**
      * Тип маршрута (ID берем из запроса - direction_flight)
      */
-      departure_flight?: string;
+      departure_flight?: number;
 
     /**
-     * Аэропорт вылета (ID берем из запроса - direction_point)
+     * Аэропорт вылета
      */
       departure_point?: number;
 
     /**
-     * Аэропорт прибытия (ID берем из запроса - direction_point)
+     * Аэропорт прибытия
      */
       arrival_point?: number;
 
@@ -18443,12 +18443,12 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта (ID берем из запроса - direction_point)
+     * Наименование аэропорта
      */
       point?: number;
 
     /**
-     * Вид прайса (ID берем из запроса - transport_point_action)
+     * Вид прайса
      */
       point_action?: number;
 
@@ -19155,12 +19155,12 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта (ID берем из запроса - direction_point)
+     * Наименование аэропорта
      */
       point?: number;
 
     /**
-     * Вид прайса (ID берем из запроса - transport_point_action)
+     * Вид прайса
      */
       point_action?: number;
 
@@ -20432,12 +20432,12 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта (ID берем из запроса - direction_point)
+     * Наименование аэропорта
      */
       arrival_point?: number;
 
     /**
-     * Подрядчики (ID берем из запроса - contractor_list)
+     * Подрядчики
      */
       contractor?: number;
 
@@ -21164,12 +21164,12 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
-     * Наименование аэропорта (ID берем из запроса - direction_point)
+     * Наименование аэропорта
      */
       arrival_point?: number;
 
     /**
-     * Подрядчики (ID берем из запроса - contractor_list)
+     * Подрядчики
      */
       contractor?: number;
 
@@ -23432,6 +23432,11 @@ export class RequestService extends BaseService {
       request_id: number;
 
     /**
+     * Подрядчики
+     */
+      contractor?: number;
+
+    /**
      * Начальная позиция
      */
       start?: number;
@@ -23717,6 +23722,7 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateOtherListPath, 'get');
     if (params) {
       rb.query('request_id', params.request_id, {});
+      rb.query('contractor', params.contractor, {});
       rb.query('start', params.start, {});
       rb.query('count', params.count, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
@@ -24004,6 +24010,11 @@ export class RequestService extends BaseService {
      * ID Запроса
      */
       request_id: number;
+
+    /**
+     * Подрядчики
+     */
+      contractor?: number;
 
     /**
      * Начальная позиция
