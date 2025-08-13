@@ -40,7 +40,7 @@ export class CustomerService extends BaseService {
     /**
      * Поиск клиента по названию...
      */
-      name?: any;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
@@ -55,12 +55,12 @@ export class CustomerService extends BaseService {
     /**
      * ИНН
      */
-      inn?: any;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-      contact_fio?: any;
+      contact_fio?: string;
 
     /**
      * Начальная позиция
@@ -812,7 +812,7 @@ export class CustomerService extends BaseService {
     /**
      * Поиск клиента по названию...
      */
-      name?: any;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
@@ -827,12 +827,12 @@ export class CustomerService extends BaseService {
     /**
      * ИНН
      */
-      inn?: any;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-      contact_fio?: any;
+      contact_fio?: string;
 
     /**
      * Начальная позиция
@@ -7287,7 +7287,7 @@ export class CustomerService extends BaseService {
     /**
      * Поиск клиента по названию...
      */
-      name?: any;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
@@ -7302,12 +7302,12 @@ export class CustomerService extends BaseService {
     /**
      * ИНН
      */
-      inn?: any;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-      contact_fio?: any;
+      contact_fio?: string;
 
     /**
      * Сортировка
@@ -7385,7 +7385,7 @@ export class CustomerService extends BaseService {
     /**
      * Поиск клиента по названию...
      */
-      name?: any;
+      name?: string;
 
     /**
      * Страна (ID берем из запроса - direction_country)
@@ -7400,12 +7400,12 @@ export class CustomerService extends BaseService {
     /**
      * ИНН
      */
-      inn?: any;
+      inn?: string;
 
     /**
      * Контактное лицо
      */
-      contact_fio?: any;
+      contact_fio?: string;
 
     /**
      * Сортировка

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoaderService } from './services/loader.service';
 import { Observable } from 'rxjs';
 
@@ -9,16 +9,17 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class PagesComponent implements OnInit {
-  
+  isLoading$!: Observable<boolean>;
 
-  isLoading$: Observable<boolean>=new Observable<true>;
-
-  constructor(private loaderService: LoaderService) {
-    this.isLoading$ = this.loaderService.isLoading$;
-  }
+  constructor(
+    private loaderService: LoaderService,
+    private cdRef: ChangeDetectorRef  // ← Добавляем
+  ) {}
 
   ngOnInit(): void {
-    console.log('pages!!!');
+    this.isLoading$ = this.loaderService.isLoading$;
+    
+    // Если сервис сразу эмитит значение, можно вручную запустить проверку
+    this.cdRef.detectChanges();
   }
-
 }

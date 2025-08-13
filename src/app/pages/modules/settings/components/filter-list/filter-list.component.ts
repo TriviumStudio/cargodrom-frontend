@@ -256,14 +256,15 @@ export class FilterListComponent implements OnInit, OnDestroy{
       // width: '500px',  // Можно настроить ширину по желанию
       data: { 
         // table: this.route.snapshot.params['table'],  // Если нужно, можно раскомментировать
-        filter: JSON.parse(JSON.stringify(filter))  // Глубокое копирование, чтобы избежать изменений исходного объекта
+        // filter: JSON.parse(JSON.stringify(filter))  // Глубокое копирование, чтобы избежать изменений исходного объекта
+        filter: filter
       }
     });
 
     // Подписываемся на событие закрытия диалога
     dialogRef.afterClosed().subscribe(result => {
-      if(result)this.getTableRows();  // Обновляем данные таблицы после закрытия
-      
+      console.log('close dialog');
+      this.getTableRows();  // Обновляем данные таблицы после закрытия
     });
   }
   onDeletefilter(id:number){
@@ -306,6 +307,8 @@ export class FilterListComponent implements OnInit, OnDestroy{
       takeUntil(this._destroy$)
     ).subscribe(rows => {
     this.rows = rows;
+    console.log(rows);
+    
     // Дополнительная обработка если нужно
     });
   }
@@ -396,7 +399,7 @@ const paramSettingsTableFilter = [
   },
   {
     title: 'Тип фильтра',
-    field: 'type',
+    field: 'type_text',
     subcolumns: [
       {
         value:'value'

@@ -25,7 +25,9 @@
         <div class="form-data" >
           <mat-select formControlName="place">
             <mat-option value="">-- Не выбрано --</mat-option>
-            <mat-option *ngFor="let item of filterPlaces;" [value]="item.id">{{ item.name }}</mat-option>
+            <ng-container *ngFor="let item of filteredPlace;">
+              <mat-option  [value]="item.id" >{{ item.name }}</mat-option>
+            </ng-container>
           </mat-select>
         </div>
       </div>

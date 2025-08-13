@@ -50,6 +50,9 @@
   border: 1px solid #e0e0e0;
   
   overflow: hidden;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
 }
 
 .flex-row {
@@ -64,12 +67,8 @@
   }
   
   &.header {
-    font-weight: bold;
     background-color: #83909E;
     color: white;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 13px;
   }
   
   .flex-cell:nth-child(1){width: 20%;}
@@ -117,8 +116,6 @@
   cursor: move;
   color: #666;
   display: flex;
-  align-items: baseline;
-  
   &:hover {
     color: #333;
   }

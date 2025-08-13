@@ -1447,12 +1447,6 @@ export class SettingsService extends BaseService {
 }>;
 
 /**
- * Поля таблицы
- */
-'fields'?: Array<{
-}>;
-
-/**
  * Места
  */
 'places'?: Array<{
@@ -1480,12 +1474,6 @@ export class SettingsService extends BaseService {
          * Типы
          */
         'types': Array<{
-        }>;
-        
-        /**
-         * Поля таблицы
-         */
-        'fields'?: Array<{
         }>;
         
         /**
@@ -1532,12 +1520,6 @@ export class SettingsService extends BaseService {
 }>;
 
 /**
- * Поля таблицы
- */
-'fields'?: Array<{
-}>;
-
-/**
  * Места
  */
 'places'?: Array<{
@@ -1559,12 +1541,6 @@ export class SettingsService extends BaseService {
 }>;
 
 /**
- * Поля таблицы
- */
-'fields'?: Array<{
-}>;
-
-/**
  * Места
  */
 'places'?: Array<{
@@ -1581,12 +1557,6 @@ export class SettingsService extends BaseService {
  * Типы
  */
 'types': Array<{
-}>;
-
-/**
- * Поля таблицы
- */
-'fields'?: Array<{
 }>;
 
 /**
