@@ -16,8 +16,8 @@ import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/materi
 import { MaterialModule } from './material/material.module';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { LoaderComponent } from './pages/loader/loader.component';
-import { LoadingInterceptor } from './pages/loader/loader.interceptor';
+import { LoaderComponent } from './loader/loader.component';
+import { LoadingInterceptor } from './loader/loader.interceptor';
 
 
 

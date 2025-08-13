@@ -52,7 +52,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { OrderEditorComponent } from './components/order-editor/order-editor.component';
 import { TestPage } from './places/test-page/test-page.component';
 import { GridTableComponent } from './table/components/simple-table/grid-table.component';
-import { LoadingInterceptor } from './loader/loader.interceptor';
+import { LoadingInterceptor } from '../loader/loader.interceptor';
 
 
 
