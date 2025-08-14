@@ -9,9 +9,9 @@ import { LoaderService } from './loader.service';
   template: `
     <div *ngIf="isLoading" class="global-loader">
       <div class="spinner"></div>
-      <div class="debug-info">
+      <!-- <div class="debug-info">
         Debug: {{ debugInfo }}
-      </div>
+      </div> -->
     </div>
   `,
   styleUrls: ['./loader.component.css']
