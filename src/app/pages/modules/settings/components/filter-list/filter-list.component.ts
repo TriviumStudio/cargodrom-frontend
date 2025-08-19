@@ -407,8 +407,8 @@ const paramSettingsTableFilter = [
     ]
   },
   {
-    title: 'Поле баз данных',
-    field: 'field',
+    title: 'Место',
+    field: 'place_text',
     subcolumns: [
       {
         value:'value'
