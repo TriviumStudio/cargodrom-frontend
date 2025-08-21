@@ -19,7 +19,7 @@ export class TableSubheaderFileComponent implements OnInit {
 
   @Input() titles:any={title:'',subtitle:''};
   @Input() orderPage:boolean=false;
-  @Input()  importMetods:any;
+  @Input() importMetods:any;
   @Output() export = new EventEmitter<void>();
   @Output() exportTemplate = new EventEmitter<void>();
   @Output() openAnalytics = new EventEmitter<void>();

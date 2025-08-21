@@ -22,7 +22,7 @@
       <span>Шаблон для импорта</span>
     </button>
 
-    <button (click)="confirmTableFileDownload()" type="button" class="file-btn export">
+    <button *ngIf="importMetods" (click)="confirmTableFileDownload()" type="button" class="file-btn export">
       <div></div>
       <span>Экспорт данных</span>
     </button>
