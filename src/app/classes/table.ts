@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { SortColumn } from '../api/custom_models/sort-column';
 import { Directive, OnInit, OnDestroy, ViewChild, TemplateRef, ElementRef, HostListener, inject } from '@angular/core';
-import { NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, NEVER, Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { FilterService } from '../filter/services/filter.service';
@@ -22,6 +22,10 @@ export interface LoadParams<T, F> {
 
 @Directive()
 export abstract class Table<T extends { id: number }, A = never, F = never> implements OnInit, OnDestroy {
+
+  private rowsSubject = new BehaviorSubject<T[]>([]);
+  rows$: Observable<T[]> = this.rowsSubject.asObservable();
+
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 1000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 5000 };
   filter?: F;
@@ -174,6 +178,8 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       .subscribe(rows => {
         console.log('rows', rows);
         this.rows = rows ? rows.items as T[] : [];
+        // Отправляем данные в BehaviorSubject
+        this.rowsSubject.next(rows.items as T[]);
         this.total = rows.total;
 
         if(this.isBiddingMode){
@@ -183,7 +189,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           });
           this.getContractorsSelectRequest();
         }
-        this.isRowsLoad=true
+         this.isRowsLoad=true
       });
   }
 

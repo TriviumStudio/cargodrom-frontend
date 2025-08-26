@@ -1412,15 +1412,9 @@ export class MessageService extends BaseService {
   ): Observable<StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, MessageService.MessageFormParamPath, 'get');
@@ -1435,15 +1429,9 @@ export class MessageService extends BaseService {
         return r as StrictHttpResponse<{
         
         /**
-         * Таблицы
+         * Статусы
          */
-        'tables': Array<{
-        }>;
-        
-        /**
-         * Типы
-         */
-        'types': Array<{
+        'status': Array<{
         }>;
         }>;
       })
@@ -1467,43 +1455,25 @@ export class MessageService extends BaseService {
   ): Observable<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }> {
     return this.messageFormParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 }>): {
 
 /**
- * Таблицы
+ * Статусы
  */
-'tables': Array<{
-}>;
-
-/**
- * Типы
- */
-'types': Array<{
+'status': Array<{
 }>;
 } => r.body)
     );

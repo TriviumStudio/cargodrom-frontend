@@ -4,7 +4,7 @@ import { LoadParams, Table } from '../../../classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink } from '@angular/router';
-import { Observable, filter, map, takeUntil, tap } from 'rxjs';
+import { Observable, filter, map, take, takeUntil, tap } from 'rxjs';
 import { FilterService } from 'src/app/filter/services/filter.service';
 import { MessageService, RequestService, UserService } from 'src/app/api/services';
 import { Request, RequestFilter } from 'src/app/api/custom_models/request';
@@ -61,31 +61,55 @@ export class MessagePage extends Table<Request, 'id', RequestFilter> {
 
   override ngOnInit() {
     super.ngOnInit();
-    this.resizeMetod='request_list';
-    const currentUrl = this.router.url;
-    const segments = currentUrl.split('/').filter((segment) => segment !== '');
-    console.log(segments);
-
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        let isChildRouteActive = this.router.url.includes('/message/edit/') || this.router.url.includes('/message/add');
-        console.log("isChildRouteActive",isChildRouteActive);  
-        if(isChildRouteActive) this.openMessage()                
-    });
+    this.resizeMetod='message_list';
+    // const currentUrl = this.router.url;
+    // const segments = currentUrl.split('/').filter((segment) => segment !== '');
+    // console.log('segments',segments);
+    // if(segments[2]=='add'){
+    //   this.openMessage(); 
+    // } else if(segments[2]=='edit') {
+    //   this.openEditor(segments[3])
+    // }
+    // this.subscribeRouterEvent();    
   }
 
-  openMessage(mes?:any) {
-      // Открываем диалоговое окно (AddPopupComponent) и передаем в него данные
-      const dialogRef = this.dialog.open(MessageEditorComponent, mes?{data: { }}:undefined);
-  
-      // Подписываемся на событие закрытия диалога
-      dialogRef.afterClosed().pipe(takeUntil(this.destroy$)).subscribe(result => {
-        console.log('close dialog');
-        this.router.navigate(['pages/message'])
-        
-        // Обновляем данные таблицы после закрытия
-      });
-    }
+  // openEditor(mes_id: number | string): void {
+  //   this.rows$
+  //   .pipe(
+  //     filter(rows => rows && rows.length > 0),
+  //     take(1)
+  //   )
+  //   .subscribe(rows => {
+  //     const foundElement = rows.find(row => row.id == mes_id);
+  //     this.openMessage(foundElement);
+  //   });
+  // }
+
+  openMessage(message?:any) {
+    // Открываем диалоговое окно (AddPopupComponent) и передаем в него данные
+    const dialogRef = this.dialog.open(MessageEditorComponent, message?{data: {message }}:undefined);
+    // Подписываемся на событие закрытия диалога
+    dialogRef.afterClosed()
+    .pipe(
+      takeUntil(this.destroy$),
+      take(1)
+    )
+    .subscribe(result => {
+      // this.router.navigate(['pages/message'])
+      if(result.reload_table)this.loadRows();
+    });
+  }
+  // private subscribeRouterEvent() {
+  //   this.router.events
+  //   .pipe(
+  //     filter(event => event instanceof NavigationEnd),
+  //     takeUntil(this.destroy$)
+  //   )
+  //   .subscribe(() => {
+  //     let isChildRouteActive = this.router.url.includes('/message/edit/') || this.router.url.includes('/message/add');
+  //     if(isChildRouteActive) this.openMessage();               
+  //   });
+  // }
 
   load<Request>(params?: LoadParams<Request, RequestFilter>): Observable<{ total: number; items: Request[];sort_new:any; }> {
     // this.params=params;

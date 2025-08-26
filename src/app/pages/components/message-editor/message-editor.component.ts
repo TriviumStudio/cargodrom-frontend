@@ -10,11 +10,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { SettingsService } from 'src/app/api/services';
+import { forkJoin, map, Subject, takeUntil, tap } from 'rxjs';
+import {
+  CompanyService,
+  ContractorService,
+  MessageService,
+  SettingsService,
+} from 'src/app/api/services';
 import { MySettingsService } from 'src/app/pages/services/mySetting.service';
 import { LoaderService } from 'src/app/pages/services/loader.service';
-
 
 @Component({
   selector: 'app-message-editor',
@@ -22,12 +26,16 @@ import { LoaderService } from 'src/app/pages/services/loader.service';
 })
 export class MessageEditorComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  table: Table|any;
+  table: Table | any;
+  isEditMode:boolean=false;
 
-  title:string='';
+  title: string = '';
 
-  filterTypes: any[] = [];
-  filterPlaces: any[] = [];
+  contractors: any[] = [];
+  companys: any[] = [];
+  users: any[] = [];
+
+  messageStatus:any[]=[];
 
   snackBarWithShortDuration: MatSnackBarConfig = { duration: 2000 };
   snackBarWithLongDuration: MatSnackBarConfig = { duration: 4000 };
@@ -43,6 +51,9 @@ export class MessageEditorComponent implements OnInit, OnDestroy {
     private mySettingService: MySettingsService,
     private router: Router,
     private loader: LoaderService,
+    private companyService: CompanyService,
+    private contractorService: ContractorService,
+    private massegeService: MessageService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.form = this.fb.group({
@@ -50,66 +61,89 @@ export class MessageEditorComponent implements OnInit, OnDestroy {
       subject: [, [Validators.required]],
       text: [, [Validators.required]],
       data: [, [Validators.required]],
-      to_user_id: [ , [Validators.required]],
-      to_company_id: [true, [Validators.required]],
-      to_contractor_id: [, [Validators.required]],
+      to_user_id: ['', [Validators.required]],
+      to_company_id: ['', [Validators.required]],
+      to_contractor_id: ['', [Validators.required]],
       status: [, [Validators.required]],
+      to: ['', [Validators.required]],
     });
   }
 
+  onToChange(){
+    this.form.controls['to_user_id'].reset();
+    this.form.controls['to_contractor_id'].reset();
+    this.form.controls['to_contractor_id'].reset();
+  }
   ngOnDestroy(): void {
     this._destroy$.next(null);
     this._destroy$.complete();
   }
   ngOnInit(): void {
     console.log('popap data', this.data);
-    // this.form.patchValue(this.data.filter);
-    this.tableNameDefinition();
     this.getData();
-
-    if(this.data){
-      console.log('edit mode',this.data);
+    if (this.data) {
+      this.isEditMode=true;
+      console.log('edit mode', this.data);
+      this.form.patchValue(this.data.message)
     } else {
       console.log('create mode');
+      this.isEditMode=false;
     }
   }
 
-  get currentPlace(){
-    return this.filterPlaces.find((el:any)=>{
-      return el.id==this.form.value.place;
-    });
-  }
-  get currentType(){
-    return this.filterTypes.find((el:any)=>{
-      return el.id==this.form.value.type;
-    });
+  private getData() {
+    forkJoin({
+      companys: this.companyService.companyList(),
+      contractors: this.contractorService.contractorList(),
+      message_status: this.massegeService.messageFormParam(),
+      //users: this.directionService.directionCity({ country_id:this.currentRequest.arrival_country_id }),
+    })
+      .pipe(
+        map(({ companys, contractors, message_status }) => ({
+          companys: companys.items
+            ? companys.items.map(({ id, name }) => ({ id, name }))
+            : [],
+          contractors: contractors.items
+            ? contractors.items.map(({ id, name }) => ({ id, name }))
+            : [],
+          message_status: message_status.status?message_status.status:[],
+        })),
+        tap((schema) => {
+          console.log(schema);
+        }),
+        takeUntil(this._destroy$)
+      )
+      .subscribe({
+        next: ({ companys, contractors, message_status }) => {
+          this.companys = companys;
+          this.contractors = contractors;
+          this.messageStatus = message_status;
+        },
+        error: (err) => {
+          this.snackBar.open(
+            `Ошибка загрузки данных: ${err.message}`,
+            'Закрыть'
+          );
+        },
+      });
   }
 
-//   get filteredPlace(){
-//     return this.filterPlaces.filter((el:any)=>{
-//       if(el.id=='header'){
-//         return this.table.header && this.currentType.header
-//       } else {
-//         return true
-//       }
-//     });
-//   }
-
-  private saveFilter(param: any) {
-    console.log(param);
-    this.settingsSertvice.settingsFilterSave({ body: param })
+  private saveMessage() {
+    console.log(this.form);
+    this.massegeService
+      .messageSave({ body: this.form.value })
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (schema) => {
           this.snackBar.open(
-            `Фильтр сохраннен`,
+            `Сообщение сохраннено`,
             undefined,
             this.snackBarWithShortDuration
           );
         },
         error: (err) => {
           this.snackBar.open(
-            `Ошибка сохранения фильтра: ${{ err }}`,
+            `Ошибка сохранения сообщения: ${{ err }}`,
             undefined,
             this.snackBarWithShortDuration
           );
@@ -119,54 +153,14 @@ export class MessageEditorComponent implements OnInit, OnDestroy {
         },
       });
   }
-  private tableNameDefinition() {
-    const currentUrl = this.router.url;
-    const segments = currentUrl.split('/').filter((segment) => segment !== '');
-    const lastSegment = segments[segments.length - 1];
-    console.log(lastSegment);
-    this.form.patchValue({
-      table: lastSegment,
-    });
-  }
-  private getData() {
-    this.loader.wrapRequests<{ opt: FilterConfig }>({
-        // Указываем явный тип для возвращаемого значения
-        opt: this.settingsSertvice.settingsFilterFormParam({
-          table: this.form.value.table,
-        }),
-      })
-      .pipe(
-        tap((schema) => {
-          console.log(schema);
-        }),
-        takeUntil(this._destroy$)
-      )
-      .subscribe({
-        next: (data) => {
-          // Соответственно меняем тип здесь
-          this.filterTypes = data.opt.types;
-          this.filterPlaces = data.opt.places;
-          this.table = data.opt.tables.find((el:any)=>{
-            return el.id==this.form.value.table
-          })
-        },
-        error: (err) => {
-          this.snackBar.open(
-            `Ошибка получения массивов для селекторов формы: ${err}`,
-            undefined,
-            this.snackBarWithShortDuration
-          );
-        },
-      });
-  }
 
   onCancel(): void {
-    this.dialogRef.close();
-    console.log(123);
-    
+    this.dialogRef.close(
+      {reload_table:true}
+    );
   }
   onSubmit(): void {
-    this.saveFilter(this.form.value);
+    this.saveMessage();
   }
 }
 

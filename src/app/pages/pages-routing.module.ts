@@ -238,26 +238,34 @@ const routes: Routes = [
       {
         path: 'message',
         component: MessagePage,
-        // pathMatch: 'full',
+        pathMatch: 'full',
         title: 'Сообщения',
         canActivate: [AuthGuard],
-        children: [
-          {
-            path: 'edit/:id',
-            component: MessagePage,
-            title: 'Редактирование сообщения',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-          {
-            path: 'add',
-            component: MessagePage,
-            title: 'Создание сообщения',
-            pathMatch: 'full',
-            canActivate: [AuthGuard],
-          },
-        ]
+        
       },
+      // {
+      //   path: 'message',
+      //   component: MessagePage,
+      //   // pathMatch: 'full',
+      //   title: 'Сообщения',
+      //   canActivate: [AuthGuard],
+      //   children: [
+      //     {
+      //       path: 'edit/:id',
+      //       component: MessagePage,
+      //       title: 'Редактирование сообщения',
+      //       pathMatch: 'full',
+      //       canActivate: [AuthGuard],
+      //     },
+      //     {
+      //       path: 'add',
+      //       component: MessagePage,
+      //       title: 'Создание сообщения',
+      //       pathMatch: 'full',
+      //       canActivate: [AuthGuard],
+      //     },
+      //   ]
+      // },
       {
         path: 'settings',
         loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule),

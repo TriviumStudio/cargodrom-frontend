@@ -1,6 +1,8 @@
 <div class="request-component">
 <app-table-sunheader-file
   [titles]="{title:'Сообщения',subtitle:'сообщение'}"
+  (openAddPopap)="openMessage()"
+  [addPopap]="true"
 >
 </app-table-sunheader-file>
 
