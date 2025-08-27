@@ -208,7 +208,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -611,7 +611,7 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
-         * Валюта
+         * Валюта (ID берем из запроса - system_currency)
          */
         'currency'?: number;
         
@@ -1051,7 +1051,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -1442,7 +1442,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -1831,7 +1831,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -3193,7 +3193,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -3582,7 +3582,7 @@ export class ContractorService extends BaseService {
         'allow_trade'?: boolean;
         
         /**
-         * Валюта
+         * Валюта (ID берем из запроса - system_currency)
          */
         'currency'?: number;
         
@@ -3984,7 +3984,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -4364,7 +4364,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -4742,7 +4742,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -5089,7 +5089,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency': number;
 
@@ -5310,7 +5310,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency': number;
 
@@ -5540,7 +5540,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
@@ -5761,7 +5761,7 @@ export class ContractorService extends BaseService {
 'allow_trade'?: boolean;
 
 /**
- * Валюта
+ * Валюта (ID берем из запроса - system_currency)
  */
 'currency'?: number;
 
