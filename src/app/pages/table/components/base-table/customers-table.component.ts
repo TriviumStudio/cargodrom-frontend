@@ -130,6 +130,7 @@ export class CustomersTableComponent implements OnInit {
         }
       });
     }
+    console.log('columns in new table', columns);
     
     return columns;
   }
