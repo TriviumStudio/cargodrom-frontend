@@ -56,6 +56,8 @@ import { LoadingInterceptor } from '../loader/loader.interceptor';
 import { MessagePage } from './components/message/message.page';
 import { MessageEditorComponent } from './components/message-editor/message-editor.component';
 import { TableList } from './table-list/table-list.component';
+import { BaseTableComponent } from './table/components/base-table/base-table.componet';
+import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
 
 
 
@@ -120,6 +122,8 @@ import { TableList } from './table-list/table-list.component';
     
 
     // SimpleTableComponent,
+    BaseTableComponent,
+    CustomersTableComponent,
 
   ],
   imports: [

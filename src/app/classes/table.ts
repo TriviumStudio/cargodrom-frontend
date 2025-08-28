@@ -174,6 +174,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     //   ? { request_id:this.requestId, method: this.detailsMethod, start: this.start, count: this.count, ...this.filter }
     //   : { start: this.start, count: this.count, sort: JSON.stringify(sortCol) as unknown as SortColumn<T>[], ...this.filter  };
     this.load(params as any)
+    .pipe(
+        tap(()=>{}),
+        takeUntil(this.destroy$),
+      )
     // this.tableService.getRows(params)
       .subscribe(rows => {
         console.log('rows', rows);
@@ -686,10 +690,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
           if(schema.status){
             this.requestCrmStatuses=schema.status;
           }
+          this.subscribeRouteQueryParamMap();
         },
         error: (err) => this.snackBar.open(`Ошибка получения параметров вывода таблицы ` + err?.error?.error_message, undefined, this.snackBarWithShortDuration) ,
         complete:()=> {
-          this.subscribeRouteQueryParamMap();
+          // this.subscribeRouteQueryParamMap();
         }
       });
   }
