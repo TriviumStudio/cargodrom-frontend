@@ -1,5 +1,5 @@
 // base-table.component.ts
-import { Component, Input, TemplateRef, ContentChild } from '@angular/core';
+import { Component, Input, TemplateRef, ContentChild, ViewChild } from '@angular/core';
 import { TableColumn } from './table.models';
 
 @Component({
@@ -8,15 +8,20 @@ import { TableColumn } from './table.models';
     <div class="table-container">
       <!-- Заголовок таблицы -->
       <div class="table-header">
-        <div *ngFor="let column of columns" class="header-cell" [style.width]="column.width"> {{ column.title }}</div>
+        <div *ngFor="let column of columns" class="header-cell" [style.width]="column.width">
+          <div *ngFor="let subCol of column?.items" class="header-cell" [style.width]="subCol.width"> 
+            {{ subCol.title }}
+          </div>
+        </div>
       </div>
       
       <!-- Тело таблицы -->
       <div class="table-body">
         <div *ngFor="let row of rows" class="table-row">
           <div *ngFor="let column of columns" class="table-cell" [style.width]="column.width">
-            <!-- Передаем управление отображением в дочерний компонент -->
-            <ng-container *ngTemplateOutlet="columnTemplate || defaultTemplate; context: { $implicit: row, column: column }"></ng-container>
+            <div *ngFor="let subCol of column?.items" class="table-cell" [style.width]="subCol.width">
+              <ng-container *ngTemplateOutlet="columnTemplate; context: { $implicit: row, column: subCol }"></ng-container>
+            </div>
           </div>
         </div>
       </div>
@@ -25,11 +30,6 @@ import { TableColumn } from './table.models';
       <div *ngIf="!rows || rows.length === 0" class="empty-state">
         Данные отсутствуют
       </div>
-
-      <!-- Дефолтный шаблон (спрятан) -->
-      <ng-template #defaultTemplate let-row let-column="column">
-        {{ row[column.field] || '-' }}
-      </ng-template>
     </div>
   `,
   styles: [`
@@ -71,6 +71,7 @@ import { TableColumn } from './table.models';
     .table-cell {
       padding: 12px;
       border-right: 1px solid #ddd;
+      display: flex;
       flex-grow:1;
     }
     
@@ -82,7 +83,23 @@ import { TableColumn } from './table.models';
   `]
 })
 export class BaseTableComponent {
-  @Input() columns: TableColumn[] = [];
+  @Input() columns: any[] = [];
   @Input() rows: any[] = [];
   @ContentChild(TemplateRef) columnTemplate!: TemplateRef<any>;
+  @ViewChild('header') headerTemplate!: TemplateRef<any>;
+
+    protected loadColumns(): void {
+    throw new Error('Метод loadColumns должен быть переопределен в дочернем классе');
+  }
+
+  protected loadRows(): void {
+    throw new Error('Метод loadRows должен быть переопределен в дочернем классе');
+  }
+
+  protected initializeTable(): void {
+    this.loadColumns();
+    this.loadRows();
+  }
+
+  // Остальные методы...
 }

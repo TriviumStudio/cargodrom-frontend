@@ -1,8 +1,8 @@
 // customers-table.component.ts
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { CustomerService } from '../../../../api/services/customer.service';
 import { BaseTableComponent } from './base-table.componet';
-import { TableColumn, Customer } from './table.models';
+import { Customer } from './table.models';
 
 @Component({
   selector: 'app-customers-table',
@@ -10,20 +10,16 @@ import { TableColumn, Customer } from './table.models';
     <div class="customers-table">
       <h2>Клиенты</h2>
       
-      <app-base-table [columns]="columns" [rows]="customers">
+      <app-base-table [columns]="columns" [rows]="rows">
         <ng-template let-row let-column="column">
-          
-          <!-- Умный шаблон, который сам решает как отображать каждую колонку -->
           <ng-container [ngSwitch]="column.field">
             
-            <!-- Кастомное отображение для колонки settings -->
             <ng-container *ngSwitchCase="'settings'">
               <button class="settings-btn" (click)="openSettings(row)">
                 ⚙️ Настройки
               </button>
             </ng-container>
 
-            <!-- Кастомное отображение для других колонок при необходимости -->
             <ng-container *ngSwitchCase="'phone'">
               📞 {{ row[column.field] || '-' }}
             </ng-container>
@@ -32,18 +28,16 @@ import { TableColumn, Customer } from './table.models';
               ✉️ {{ row[column.field] || '-' }}
             </ng-container>
 
-            <!-- Дефолтное отображение для всех остальных колонок -->
             <ng-container *ngSwitchDefault>
               {{ row[column.field] || '-' }}
             </ng-container>
             
           </ng-container>
-          
         </ng-template>
       </app-base-table>
     </div>
   `,
-  styles: [`
+    styles: [`
     .customers-table {
       margin: 20px;
     }
@@ -67,77 +61,159 @@ import { TableColumn, Customer } from './table.models';
     }
   `]
 })
-export class CustomersTableComponent implements OnInit {
-  columns: TableColumn[] = [];
-  customers: any[] = [];
+export class CustomersTableComponent extends BaseTableComponent {
 
-  constructor(private customerService: CustomerService) {}
 
-  ngOnInit() {
-    this.loadTableData();
+  constructor(private customerService: CustomerService) {
+    super();
   }
 
-  loadTableData() {
+    ngOnInit() {
+    
+  }
+  ngAfterViewInit(){
+    this.initializeTable();
+  }
+
+  protected override loadColumns(): void {
     this.customerService.customerListParam().subscribe({
       next: (schema) => {
-        this.columns = this.extractColumns(schema);
-        this.loadCustomers();
+        this.columns = schema.table || [];
       },
       error: (error) => {
         console.error('Ошибка загрузки схемы таблицы:', error);
+        this.columns = [];
       }
     });
   }
 
-  loadCustomers() {
+  protected override loadRows(): void {
     this.customerService.customerList({}).subscribe({
       next: (response) => {
-        this.customers = response.items || [];
+        this.rows = response.items || [];
       },
       error: (error) => {
         console.error('Ошибка загрузки клиентов:', error);
+        this.rows = [];
       }
     });
   }
-
-  private extractColumns(schema: any): TableColumn[] {
-    const columns: TableColumn[] = [];
-    
-    if (schema.table && Array.isArray(schema.table)) {
-      schema.table.forEach((section: any) => {
-        if (section.items && Array.isArray(section.items)) {
-          section.items.forEach((item: any) => {
-            if (item.field && typeof item.field === 'string') {
-              columns.push({
-                field: item.field,
-                title: item.title || item.field,
-                width: item.width
-              });
-            }
-            
-            if (item.items && typeof item.items === 'object') {
-              Object.values(item.items).forEach((nestedItem: any) => {
-                if (nestedItem.field) {
-                  columns.push({
-                    field: nestedItem.field,
-                    title: nestedItem.title || nestedItem.field,
-                    width: nestedItem.width
-                  });
-                }
-              });
-            }
-          });
-        }
-      });
-    }
-    console.log('columns in new table', columns);
-    
-    return columns;
-  }
-
-
 
   openSettings(customer: Customer) {
     console.log('Настройки клиента:', customer);
   }
+
+
+  // Остальные методы...
 }
+// // customers-table.component.ts
+// import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+// import { CustomerService } from '../../../../api/services/customer.service';
+// import { BaseTableComponent } from './base-table.componet'
+// import { Customer } from './table.models';
+
+// @Component({
+//   selector: 'app-customers-table',
+//   template: `
+//     <div class="customers-table">
+//       <h2>Клиенты</h2>
+      
+//       <app-base-table [columns]="columns" [rows]="rows">
+//         <!-- Только кастомный шаблон без дублирования дефолтного -->
+//         <ng-template let-row let-column="column">
+//           <ng-container [ngSwitch]="column.field">
+            
+//             <!-- Кастомное отображение для колонки settings -->
+//             <ng-container *ngSwitchCase="'settings'">
+//               <button class="settings-btn" (click)="openSettings(row)">
+//                 ⚙️ Настройки
+//               </button>
+//             </ng-container>
+
+//             <!-- Кастомное отображение для других колонок -->
+//             <ng-container *ngSwitchCase="'phone'">
+//               📞 {{ row[column.field] || '-' }}
+//             </ng-container>
+
+//             <ng-container *ngSwitchCase="'email'">
+//               ✉️ {{ row[column.field] || '-' }}
+//             </ng-container>
+
+//             <ng-container *ngSwitchDefault>
+//               {{ row[column.field] || '-' }}
+//                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+//             </ng-container>
+
+//             <!-- Для остальных колонок используется дефолтный шаблон из базового класса -->
+            
+//           </ng-container>
+//         </ng-template>
+//       </app-base-table>
+//     </div>
+//   `,
+//   styles: [`
+//     .customers-table {
+//       margin: 20px;
+//     }
+    
+//     h2 {
+//       margin-bottom: 15px;
+//       color: #333;
+//     }
+    
+//     .settings-btn {
+//       padding: 6px 12px;
+//       border: 1px solid #ddd;
+//       background: white;
+//       border-radius: 4px;
+//       cursor: pointer;
+//       font-size: 12px;
+//     }
+    
+//     .settings-btn:hover {
+//       background: #f5f5f5;
+//     }
+//   `]
+// })
+// export class CustomersTableComponent extends BaseTableComponent implements OnInit {
+//     @ViewChild(TemplateRef) headerTemplate!: TemplateRef<any>;
+  
+//   constructor(private customerService: CustomerService) {
+//     super();
+//   }
+
+//   ngOnInit() {
+    
+//   }
+//   ngAfterViewInit(){
+//     this.initializeTable();
+//   }
+
+//   protected override loadColumns(): void {
+//     this.customerService.customerListParam().subscribe({
+//       next: (schema) => {
+//         this.columns = schema.table || [];
+//       },
+//       error: (error) => {
+//         console.error('Ошибка загрузки схемы таблицы:', error);
+//         this.columns = [];
+//       }
+//     });
+//   }
+
+//   protected override loadRows(): void {
+//     this.customerService.customerList({}).subscribe({
+//       next: (response) => {
+//         this.rows = response.items || [];
+//       },
+//       error: (error) => {
+//         console.error('Ошибка загрузки клиентов:', error);
+//         this.rows = [];
+//       }
+//     });
+//   }
+
+//   openSettings(customer: Customer) {
+//     console.log('Настройки клиента:', customer);
+//   }
+// }
