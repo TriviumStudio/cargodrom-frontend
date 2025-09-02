@@ -1,0 +1,47 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <div class="form-block">
+    <div class="form-row">
+      Логотип вашей компании
+      <div class="form-item" style="max-width: 705px;">
+        <div class="form-label">Файл изображения должен быть не меньше 200 точек по высоте, ширина будет масштабирована автоматически. Доступные форматы: .PNG, .SVG, .JPG, .BMP, .GIF. Загруженное изображение появится в левом верхнем углу экрана слева от главного меню.</div>
+        <div class="form-data">
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      Использование брендовых цветов
+      <div class="form-item" style="max-width: 705px;">
+        <div class="form-label">Выберите оттенки для акцентных объектов в интерфейсе системы исходя из вашей фирменной цветовой гаммы. Миниатюры макетов ниже показывают в реальном времени, как система будет выглядеть с новыми цветами.</div>
+        <div class="form-data">
+          <div style="width: 50%;" [ngSwitch]="page">
+            <ng-container *ngSwitchCase="'Запросы'">
+              <ng-container *ngTemplateOutlet="request"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <button class="save long" type="submit">Сохранить изменения</button>
+    </div>
+  </div>
+</form>
+
+
+<ng-template #request>
+  <div class="page-container">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="page" *ngFor="let page of ['Дашбоард','Запросы','Ставки','Заказы','Тарицы','Подрядчики','Отчеты','Клиенты','Справочник']"></div>
+      <div class="currency"></div>
+      <div class="page mini" *ngFor="let page of ['mes','set','exi']"></div>
+    </div>
+    <div class="subheader"></div>
+    <div class="filters">
+      <div class="filters_main"></div>
+      <div class="filters_additional"></div>
+    </div>
+    <div class="table"></div>
+    <div class="paginator"></div>
+  </div>
+</ng-template>

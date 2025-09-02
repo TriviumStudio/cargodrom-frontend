@@ -33,6 +33,8 @@ import { Customer } from './table.models';
           </ng-container>
         </ng-template>
       </app-base-table>
+
+      <app-header></app-header>
     </div>
   `,
   styles: [

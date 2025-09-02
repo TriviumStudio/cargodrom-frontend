@@ -58,6 +58,7 @@ import { MessageEditorComponent } from './components/message-editor/message-edit
 import { TableList } from './table-list/table-list.component';
 import { BaseTableComponent } from './table/components/base-table/base-table.componet';
 import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
+import { SettingsModule } from './modules/settings/settings.module';
 
 
 
@@ -134,6 +135,7 @@ import { CustomersTableComponent } from './table/components/base-table/customers
     MaterialModule,
     FilterModule,
     NgScrollbarModule,
-  ]
+  ],
+  exports: [HeaderComponent, RequestComponent]
 })
 export class PagesModule { }
