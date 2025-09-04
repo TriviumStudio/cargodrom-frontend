@@ -10,14 +10,18 @@
     </div>
     <div class="form-row">
       Использование брендовых цветов
-      <div class="form-item" style="max-width: 705px;">
+      <div class="form-item" style="max-width: 720px;">
         <div class="form-label">Выберите оттенки для акцентных объектов в интерфейсе системы исходя из вашей фирменной цветовой гаммы. Миниатюры макетов ниже показывают в реальном времени, как система будет выглядеть с новыми цветами.</div>
-        <div class="form-data">
-          <div style="width: 50%;" [ngSwitch]="page">
+        <div class="form-data" style="height: 335px;">
+          <div style="transform: scale(0.371); width: 1940px; transform-origin: top left; pointer-events: none; background-color: #F7F9FC; border: 1px solid #C3CCD6;">
+            <app-header style="--header-color: {{color}}"></app-header>
+            <app-request></app-request>
+          </div>
+          <!-- <div [ngSwitch]="page">
             <ng-container *ngSwitchCase="'Запросы'">
               <ng-container *ngTemplateOutlet="request"></ng-container>
             </ng-container>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -30,18 +34,59 @@
 
 <ng-template #request>
   <div class="page-container">
-    <div class="header">
-      <div class="logo"></div>
-      <div class="page" *ngFor="let page of ['Дашбоард','Запросы','Ставки','Заказы','Тарицы','Подрядчики','Отчеты','Клиенты','Справочник']"></div>
-      <div class="currency"></div>
-      <div class="page mini" *ngFor="let page of ['mes','set','exi']"></div>
+    <div class="app-header">
+      <div class="i logo"></div>
+      <div class="i page" *ngFor="let page of pagesArr" [class]="page.field">{{page.name}}</div>
+      <div class="i currencys">
+        <div class="currency" *ngFor="let currency of [{name:'USD ($)',value:'69.3475'},{name:'EUR (€)',value:'80.3220'},{name:'CNY (Ұ)',value:'10.1193'}]">
+          <div class="name">{{currency.name}}</div>
+          <div class="value">{{currency.value}}</div>
+        </div>
+      </div>
+      <div class="i page mini" *ngFor="let page of ['message','settings','logout']"></div>
     </div>
-    <div class="subheader"></div>
+    <div class="page-subheader">
+      <div class="page-name"></div>
+      <div class="btn" *ngFor="let btn of [{name:'Новый запрос',class:'add'},{name:'Импорт данных',class:'import'},{name:'Экспорт данных',class:'export'}]"></div>
+      <div class="search">Поиск запроса по номеру...</div>
+    </div>
     <div class="filters">
-      <div class="filters_main"></div>
-      <div class="filters_additional"></div>
+      <div class="filters_main">
+        <div class="filter" *ngFor="let filter of mainFiltersArr">
+          <div class="name"></div>
+          <div class="values">
+            <div class="value" *ngFor="let value of filter.values">{{value}}</div>
+          </div>
+        </div>
+        <div class="toggle_additional-filter">Дополнительно</div>
+        <div class="btns">
+          <div class="apply">Применить</div>
+          <div class="cancel"></div>
+        </div>
+      </div>
+      <div class="filters_additional">
+        <div class="filter" *ngFor="let filter of additionalFiltersArr">
+          <div class="name">{{filter.name}}</div>
+          <div class="value">{{filter.value}}</div>
+        </div>
+      </div>
     </div>
-    <div class="table"></div>
+    <div class="table">
+      <div class="table-head">
+        <div class="col" *ngFor="let col of tableColumnsArr">
+          <div class="sub-col" *ngFor="let subCol of col.items">{{subCol.title}}</div>
+        </div>
+      </div>
+      <div class="table-body">
+        <div class="col" *ngFor="let col of tableColumnsArr">
+          <div class="sub-col" *ngFor="let subCol of col.items">{{subCol.title}}</div>
+        </div>
+      </div>
+    </div>
     <div class="paginator"></div>
   </div>
 </ng-template>
+
+
+
+
