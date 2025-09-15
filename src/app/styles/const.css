@@ -1,13 +1,19 @@
 .content{
-  --main-background:#F7F9FC;/* Основной фон Некоторые поля ввода Четные строки таблиц */
-  --accent-objects:#DB563B;/* Важные кнопки, ссылки Важные пиктограммы Акцентные объекты*/
-  --menu-panel:#4B66AD;/* Панели меню Заголовки страниц Второстепенные ссылки */
-
-  --main-text:#2C3640;/* Основной текст*/
-  --additional-text:#606A74;/* Дополнительный текст */
-  --minor-elements:#83909E;/* Второстепенные элементы */
-
-  --frames-and-dividers:#E0E5EB;/* Рамки и разделители */
-  --positive-event:#81DD7C;/* Позитивное событие */
-  --negative-event:#FD7171;/* Негативное событие */
+  --header_menu: #4B66AD;
+  --header_menu_text: #FFFFFF;
+  --background: #F7F9FC;
+  --background2: #FFFFFF;
+  --background3: #83909e;
+  --text: #212121;
+  --text2: #606a74;
+  --text3: #FFFFFF;
+  --line: #E0E5EB;
+  --accent: #db563b;
+  --accent_text: #FFFFFF;
+  --event_positive: #81dd7c;
+  --event_positive_text: #FFFFFF;
+  --event_negative: #fd7171;
+  --event_negative_text: #FFFFFF;
+  --event_neutral: #aab7c5;
+  --event_neutral_text: #FFFFFF;
 }

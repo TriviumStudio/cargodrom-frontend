@@ -1,0 +1,19 @@
+app-header{
+  position: static;
+}
+app-request .request-component app-table-sunheader-file{
+  position: static;
+}
+
+.form-row:not(:last-child){
+  gap: 24px;
+  display: flex;
+  flex-direction: column;
+  .info{
+    width: 720px;
+    padding-left: 16px;
+    border-left: 2px solid #DB563B;
+    color: #606A74;
+  }
+}
+
