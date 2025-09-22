@@ -10,10 +10,38 @@ app-request .request-component app-table-sunheader-file{
   display: flex;
   flex-direction: column;
   .info{
-    width: 720px;
+    max-width: 720px;
+    width: 50%;
     padding-left: 16px;
     border-left: 2px solid #DB563B;
     color: #606A74;
+    box-sizing:content-box;
   }
 }
 
+.color{
+  position: relative;
+  input{
+    padding-left: 90px;
+  }
+  
+}
+.color::before{
+  content: '';
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 12px;
+  margin: auto 0 ;
+  top: calc(50% - 6px);
+  left: 16px;
+  background-color: var(--input-color);
+  border: 1px solid #E0E5EB;
+  
+}
+mat-option .color::before{
+  left:0
+}
+mat-option .color div{
+  margin-left: 74px;
+}

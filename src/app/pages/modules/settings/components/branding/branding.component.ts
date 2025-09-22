@@ -86,7 +86,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   }
 
   getCssVariablesString(): string {
-    console.log(this.form);
+    // console.log(this.form.value);
     
     const colors = this.form.get('branding_colors')?.value;
     if (!colors) {

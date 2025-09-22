@@ -9,19 +9,52 @@
     <div class="form-row">
       <div class="form-block-sub-title">Использование брендовых цветов</div>
       <div class="info">Выберите оттенки для акцентных объектов в интерфейсе системы исходя из вашей фирменной цветовой гаммы. Миниатюры макетов ниже показывают в реальном времени, как система будет выглядеть с новыми цветами.</div>
-      <div style="display: flex;">
-        <div style="display: flex; width: 50%;">
-          <div *ngFor="let p of pageTypes" (click)="currentPageType=p">{{p}}</div>
-          <div style="margin-right: auto;"></div>
+      
+      <div style="display: flex; width: 100%; border-bottom: 1px solid #C3CCD6; gap:40px">
+        <div style="display: flex; width: 60%;">
+          <div *ngFor="let p of pageTypes" (click)="currentPageType=p" style="padding: 12px 24px; border: 1px solid #C3CCD6;">{{p}}</div>
         </div>
-        
-        <div style="display: flex; width: 720px; border-bottom: 1px solid #C3CCD6;">
-          <div style="width: 30%;">Отменить действие</div>
-          <div style="width: 30%;">Повторить действие</div>
-          <div style="width: 30%;">Вернуться к исходному</div>
+        <div style="display: flex; width: 715px; min-width: 715px; padding: 0 40px; box-sizing: border-box; gap: 40px">
+          <div style="width: 170px; flex-grow: 1;">Отменить действие</div>
+          <div style="width: 170px; flex-grow: 1;">Повторить действие</div>
+          <div style="width: 170px; flex-grow: 1;">Вернуться к исходному</div>
         </div>
       </div>
-      <ng-container *ngTemplateOutlet="req"></ng-container>
+
+      <div style="display: flex; gap:40px">
+        <div style="width: 60%;">
+          <ng-container *ngTemplateOutlet="req"></ng-container>
+        </div>
+        <div style="display: flex; width: 715px; min-width: 715px; padding: 0 40px; box-sizing: border-box; gap: 20px 40px; flex-wrap: wrap; align-items: end; align-content: flex-start;">
+          <ng-container formGroupName="branding_colors">
+            <div class="form-item" *ngFor="let col of colors;let i = index" style="width: 185px; flex-grow: 0; height: fit-content;">
+              <div class="form-label">{{col.name}}</div>
+              <div class="form-data color" [ngStyle]="{'--input-color': form.value.branding_colors[col.id]}">
+                <!-- <input type="text" [formControlName]="col.id" style="background-color: white;"> -->
+                <input
+                  type="text"
+                  [formControlName]="col.id"
+                  [matAutocomplete]="auto"
+                >
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-optgroup [label]="'По умолчанию'">
+                    <mat-option [value]="col.color" style="display: flex;">
+                      <div class="color" [ngStyle]="{'--input-color': col.color}">
+                        <div>{{col.color}}</div>
+                      </div>
+                    </mat-option>
+                  </mat-optgroup>
+                  <mat-optgroup [label]="'История'">
+        
+                  </mat-optgroup>
+                  
+                </mat-autocomplete>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      
     </div>
 
     <div class="form-row">
@@ -147,7 +180,8 @@
 </ng-template> -->
 
 <ng-template #req>
-<svg width="720" height="384" viewBox="0 0 720 384" fill="none" xmlns="http://www.w3.org/2000/svg" [style]="getCssVariablesString()" style="width:50%; height:auto">
+<svg width="100%"  viewBox="0 0 720 384" fill="none" xmlns="http://www.w3.org/2000/svg" [style]="getCssVariablesString()">
+<!-- <svg width="720" height="384" viewBox="0 0 720 384" fill="none" xmlns="http://www.w3.org/2000/svg" [style]="getCssVariablesString()" style="width:100%; height:auto"> -->
 <g clip-path="url(#clip0_3006_1693)">
 <rect width="720" height="384" fill="#F7F9FC"/>
 <rect width="720" height="21" transform="translate(0 21)" fill="white"/>
