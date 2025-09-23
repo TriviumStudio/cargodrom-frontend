@@ -206,3 +206,16 @@ mat-checkbox.mat-mdc-checkbox.reverse{
 .mat-mdc-checkbox.mat-mdc-checkbox-disabled {
   opacity: 0.4;
 } */
+
+/* optgroup */
+/* optgroup-label */
+.mat-mdc-optgroup {
+  --mat-optgroup-label-text-color: #606A74;
+  --mat-optgroup-label-text-line-height: 10px;
+  --mat-optgroup-label-text-size: 10px;
+  
+  text-transform: uppercase;  
+  /* --mat-optgroup-label-text-tracking; */
+  /* --mat-optgroup-label-text-weight; */  
+  /* --mat-optgroup-label-text-font: */
+}

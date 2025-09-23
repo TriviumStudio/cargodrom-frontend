@@ -3,55 +3,68 @@
     <div class="form-row">
       <div class="form-block-sub-title">Логотип вашей компании</div>
       <div class="info">Файл изображения должен быть не меньше 200 точек по высоте, ширина будет масштабирована автоматически. Доступные форматы: .PNG, .SVG, .JPG, .BMP, .GIF. Загруженное изображение появится в левом верхнем углу экрана слева от главного меню.</div>
-      <input class="img-input" type="file" >
+      <div class="logo-input">
+        <input type="text">
+        <button type="button" class="icon edit"></button>
+        <button type="button" class="icon delete-gr"></button>
+      </div>
+      <input type="file" style="display: none;">
     </div>
     
     <div class="form-row">
       <div class="form-block-sub-title">Использование брендовых цветов</div>
       <div class="info">Выберите оттенки для акцентных объектов в интерфейсе системы исходя из вашей фирменной цветовой гаммы. Миниатюры макетов ниже показывают в реальном времени, как система будет выглядеть с новыми цветами.</div>
       
-      <div style="display: flex; width: 100%; border-bottom: 1px solid #C3CCD6; gap:40px">
-        <div style="display: flex; width: 60%;">
-          <div *ngFor="let p of pageTypes" (click)="currentPageType=p" style="padding: 12px 24px; border: 1px solid #C3CCD6;">{{p}}</div>
+      <div class="brending-menu">
+        <div class="pages">
+          <div class="page" *ngFor="let p of pageTypes" 
+            (click)="currentPageType=p" 
+            [ngStyle]="{'background-color': currentPageType==p?'white':'#F7F9FC', 'color': currentPageType==p?'#2C3640':'#606A74','margin-bottom': currentPageType==p?'-1px':''}"
+          >
+          {{p}}
+          </div>
         </div>
-        <div style="display: flex; width: 715px; min-width: 715px; padding: 0 40px; box-sizing: border-box; gap: 40px">
-          <div style="width: 170px; flex-grow: 1;">Отменить действие</div>
-          <div style="width: 170px; flex-grow: 1;">Повторить действие</div>
-          <div style="width: 170px; flex-grow: 1;">Вернуться к исходному</div>
+        <div class="btns">
+          <!-- <button class="cancel">Отменить действие</button>
+          <button class="repeat">Повторить действие</button>
+          <button class="return">Вернуться к исходному</button> -->
+          <div class="cancel">Отменить действие</div>
+          <div class="repeat">Повторить действие</div>
+          <div class="return">Вернуться к исходному</div>
         </div>
       </div>
 
-      <div style="display: flex; gap:40px">
-        <div style="width: 60%;">
+      <div class="brending-form">
+        <div class="demo">
           <ng-container *ngTemplateOutlet="req"></ng-container>
+          <!-- <app-header style="zoom: 0.4;"></app-header>
+          <app-request style="zoom: 0.4;"></app-request> -->
         </div>
-        <div style="display: flex; width: 715px; min-width: 715px; padding: 0 40px; box-sizing: border-box; gap: 20px 40px; flex-wrap: wrap; align-items: end; align-content: flex-start;">
-          <ng-container formGroupName="branding_colors">
-            <div class="form-item" *ngFor="let col of colors;let i = index" style="width: 185px; flex-grow: 0; height: fit-content;">
-              <div class="form-label">{{col.name}}</div>
-              <div class="form-data color" [ngStyle]="{'--input-color': form.value.branding_colors[col.id]}">
-                <!-- <input type="text" [formControlName]="col.id" style="background-color: white;"> -->
-                <input
-                  type="text"
-                  [formControlName]="col.id"
-                  [matAutocomplete]="auto"
-                >
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-optgroup [label]="'По умолчанию'">
-                    <mat-option [value]="col.color" style="display: flex;">
-                      <div class="color" [ngStyle]="{'--input-color': col.color}">
-                        <div>{{col.color}}</div>
-                      </div>
-                    </mat-option>
-                  </mat-optgroup>
-                  <mat-optgroup [label]="'История'">
-        
-                  </mat-optgroup>
-                  
-                </mat-autocomplete>
-              </div>
+        <div class="inputs" formGroupName="branding_colors">
+          <div class="form-item input" *ngFor="let col of colors;let i = index">
+            <div class="form-label">{{col.name}}</div>
+            <div class="form-data color" [ngStyle]="{'--input-color': form.value.branding_colors[col.id]}">
+              <!-- <input type="text" [formControlName]="col.id" style="background-color: white;"> -->
+              <input
+                type="text"
+                [formControlName]="col.id"
+                [matAutocomplete]="auto"
+                style="background-color: white;"
+              >
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-optgroup [label]="'По умолчанию'">
+                  <mat-option [value]="col.color" style="display: flex;">
+                    <div class="color" [ngStyle]="{'--input-color': col.color}">
+                      <div>{{col.color}}</div>
+                    </div>
+                  </mat-option>
+                </mat-optgroup>
+                <mat-optgroup [label]="'История'">
+                </mat-optgroup>
+              </mat-autocomplete>
             </div>
-          </ng-container>
+          </div>
+          
         </div>
       </div>
       

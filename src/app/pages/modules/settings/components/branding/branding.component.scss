@@ -1,10 +1,71 @@
-app-header{
-  position: static;
-}
-app-request .request-component app-table-sunheader-file{
-  position: static;
-}
+.brending-menu{
+  display: flex; 
+  width: 100%; 
+  border-bottom: 1px solid #C3CCD6; 
+  gap:40px;
+  .pages{
+    display: flex; 
+    width: 60%;
+    .page{
+      padding: 12px 24px;
+      border: 1px solid #C3CCD6;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 22px;
+      cursor: pointer;
+      border-bottom: none;
+    }
+  }
+  .btns{
+    display: flex;
+    width: 715px;
+    min-width: 715px;
+    padding: 0 40px;
+    box-sizing: border-box;
+    gap: 40px;
+    div{
+      display: flex;
+      width: 170px; flex-grow: 1;
+      font-size: 13px; font-style: normal; font-weight: 400; line-height: 18px;
+      background-color: inherit;
+      padding: 12px 0;
+      &::before{
+        content: '';
+        display: block;
+        width: 16px; height: 16px;
 
+      }
+      &.cancel{
+        color: #DB563B;
+        &::before{
+          
+        }
+      }
+      &.repeat{
+        color: #83909E;
+      }
+      &.return{
+        color: #DB563B;
+      }
+    }
+  }
+}
+.brending-form{
+  display: flex;
+  gap:40px;
+  .demo{width: 60%;}
+  .inputs{
+    display: flex; 
+    width: 715px; min-width: 715px; 
+    padding: 0 40px; 
+    box-sizing: border-box; 
+    gap: 20px 40px; 
+    flex-wrap: wrap; 
+    align-items: end; align-content: flex-start;
+    .input{width: 185px; flex-grow: 0; height: fit-content;}
+  }
+}
 .form-row:not(:last-child){
   gap: 24px;
   display: flex;
@@ -44,4 +105,58 @@ mat-option .color::before{
 }
 mat-option .color div{
   margin-left: 74px;
+}
+
+.logo-input{
+  position: relative;
+  max-width: 720px;
+  width: 50%;
+  cursor: pointer;
+}
+
+// .logo-input::after, .logo-input::before{
+//   content: '';
+//   width: 40px;
+//   height: 38px;
+//   display: block;
+//   position: absolute;
+//   background-color: white;
+//   background-position: center;
+//   background-repeat: no-repeat;
+// }
+// .logo-input::after{
+//   right: 1px;
+//   top:1px;
+//   border-top-right-radius: 6px;
+//   border-bottom-right-radius: 6px;
+//   background-image: url(../../../../../../assets/pic-btn-del-gray.svg);
+// }
+// .logo-input::before{
+//   right: 41px;
+//   top:1px;
+//   border-right: 1px solid #E0E5EB;
+//   border-left: 1px solid #E0E5EB;
+//   background-image: url(../../../../../../assets/pic-btn-edit.svg);
+// }
+
+.logo-input{
+  button{
+    width: 40px;
+    height: 38px;
+    display: block;
+    position: absolute;
+    background-color: white;
+  }
+  button.edit{
+    right: 41px;
+    top:1px;
+    border-right: 1px solid #E0E5EB;
+    border-left: 1px solid #E0E5EB;
+  }
+  button.delete-gr{
+    right: 1px;
+    top:1px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px; 
+  }
 }
