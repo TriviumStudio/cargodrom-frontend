@@ -24,30 +24,15 @@
     padding: 0 40px;
     box-sizing: border-box;
     gap: 40px;
-    div{
+    button{
       display: flex;
       width: 170px; flex-grow: 1;
       font-size: 13px; font-style: normal; font-weight: 400; line-height: 18px;
       background-color: inherit;
       padding: 12px 0;
-      &::before{
-        content: '';
-        display: block;
-        width: 16px; height: 16px;
-
-      }
-      &.cancel{
-        color: #DB563B;
-        &::before{
-          
-        }
-      }
-      &.repeat{
-        color: #83909E;
-      }
-      &.return{
-        color: #DB563B;
-      }
+    }
+    app-icon{
+      margin-right: 8px;
     }
   }
 }

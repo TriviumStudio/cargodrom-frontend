@@ -1,18 +1,19 @@
-// add-popup.component.ts
+// branding.component.ts
 import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, Subscription, takeUntil } from 'rxjs';
 import { SettingsService, SystemService } from 'src/app/api/services';
 import { MySettingsService } from 'src/app/pages/services/mySetting.service';
 import { FilterListComponent } from '../filter-list/filter-list.component';
 import { CurrencyService } from 'src/app/pages/services/сurrency/currency.service';
 import { BaseComponent } from 'src/app/classes/base-component';
+import { FormHistoryService } from './branding.service';
 
-// type Page = 'Дашбоард' | 'Запросы' | 'Подрядчики' | 'Отчеты' | 'Клиенты' | 'Сообщения';
 type PageTypes = 'Таблица' | 'Форма';
+
 @Component({
   selector: 'app-branding',
   templateUrl: './branding.component.html',
@@ -21,19 +22,18 @@ type PageTypes = 'Таблица' | 'Форма';
 export class BrandingComponent extends BaseComponent implements OnInit {
   form: FormGroup;
 
-  language: any[] = [];
-  currency: any[] = [];
-  timezone: any[] = [];
-
-  // page:Page='Запросы';
-  // pages:Page[]=['Дашбоард','Запросы','Подрядчики','Отчеты','Клиенты','Сообщения']
-
-  pageTypes: PageTypes[]=['Таблица', 'Форма'];
-  currentPageType: PageTypes='Таблица';
+  pageTypes: PageTypes[] = ['Таблица', 'Форма'];
+  currentPageType: PageTypes = 'Таблица';
 
   colors: any[] = [];
+  originalColors:any;
 
+  canUndo = false;
+  canRedo = false;
 
+  private colorHistory: any[] = []; // История значений
+  private currentHistoryIndex = -1; // Текущая позиция в истории
+  private maxHistoryLength = 50; // Максимальная длина истории
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +44,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     private router: Router,
     private systemService: SystemService,
     private currencyService: CurrencyService,
+    private historyService: FormHistoryService,
   ) {
     super();
     this.form = this.fb.group({
@@ -51,66 +52,32 @@ export class BrandingComponent extends BaseComponent implements OnInit {
       branding_colors: this.createColorGroup(),
     });
   }
+
   // Метод для создания группы цветов для каждой страницы
   private createColorGroup(): FormGroup {
     return this.fb.group({
-      header_menu: ['',[Validators.required]],
-      header_menu_text: ['',[Validators.required]],
-      background: ['',[Validators.required]],
-      background2: ['',[Validators.required]],
-      background3: ['',[Validators.required]],
-      text: ['',[Validators.required]],
-      text2: ['',[Validators.required]],
-      text3: ['',[Validators.required]],
-      line: ['',[Validators.required]],
-      accent: ['',[Validators.required]],
-      accent_text: ['',[Validators.required]],
-      event_positive: ['',[Validators.required]],
-      event_positive_text: ['',[Validators.required]],
-      event_negative: ['',[Validators.required]],
-      event_negative_text: ['',[Validators.required]],
-      event_neutral: ['',[Validators.required]],
-      event_neutral_text: ['',[Validators.required]],
+      header_menu: ['', [Validators.required]],
+      header_menu_text: ['', [Validators.required]],
+      background: ['', [Validators.required]],
+      background2: ['', [Validators.required]],
+      background3: ['', [Validators.required]],
+      text: ['', [Validators.required]],
+      text2: ['', [Validators.required]],
+      text3: ['', [Validators.required]],
+      line: ['', [Validators.required]],
+      accent: ['', [Validators.required]],
+      accent_text: ['', [Validators.required]],
+      event_positive: ['', [Validators.required]],
+      event_positive_text: ['', [Validators.required]],
+      event_negative: ['', [Validators.required]],
+      event_negative_text: ['', [Validators.required]],
+      event_neutral: ['', [Validators.required]],
+      event_neutral_text: ['', [Validators.required]],
     });
   }
-
-  // get brandingColors(){
-  //   console.log(<FormGroup>this.form.get('branding_colors'));
-    
-  //   return <FormGroup>this.form.get('branding_colors');
-  // }
 
   ngOnInit(): void {
     this.getSettings();
-    this.initCurrencySubscription();
-  }
-
-  getCssVariablesString(): string {
-    // console.log(this.form.value);
-    
-    const colors = this.form.get('branding_colors')?.value;
-    if (!colors) {
-      return '';
-    }
-    const cssVariables: string[] = [];
-    // Проходим по всем свойствам и преобразуем в CSS переменные
-    Object.entries(colors).forEach(([key, value]) => {
-      if (value) {
-        cssVariables.push(`--${key}: ${value};`);
-      }
-    });
-    // Возвращаем одной строкой без :root {}
-    return cssVariables.join(' ');
-  }
-
-  private initCurrencySubscription(): void {
-    this.currencyService.currencies$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(currencies => {
-        this.currency = currencies;
-        // Если нужно обновить форму после получения валют
-        // this.updateFormWithCurrencies();
-      });
   }
 
   private getSettings() {
@@ -120,18 +87,119 @@ export class BrandingComponent extends BaseComponent implements OnInit {
       )
       .subscribe({
         next: (data) => {
-          
-          if (data.language) this.language = data.language;
-          if (data.timezone_list) this.timezone = data.timezone_list;
           this.form.patchValue(data);
-          console.log(data);
+          console.log('getSettings',data);
           if (data.colors) this.colors = data.colors as [];
+          if (data.branding_colors) this.originalColors = data.branding_colors;
+          
+
+          // После загрузки настроек инициализируем историю и подписываемся на изменения
+          this.initializeHistory();
+          this.subscribeToColorChanges();
         },
         error: (err) => {
           this.snackBar.open(`Ошибка получения настроек: ${err}`, undefined, this.snackBarWithShortDuration);
         },
       });
   }
+
+  private initializeHistory(): void {
+    const initialColors = this.form.get('branding_colors')?.value;
+    this.colorHistory = [JSON.parse(JSON.stringify(initialColors))]; // Глубокая копия
+    this.currentHistoryIndex = 0;
+    this.updateUndoRedoState();
+  }
+
+  private subscribeToColorChanges(): void {
+    this.form.get('branding_colors')?.valueChanges
+      .pipe(
+        debounceTime(1500), // Задержка для группировки быстрых изменений
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)), // Только уникальные изменения
+        takeUntil(this.destroy$)
+      )
+      .subscribe(newColors => {
+        console.log('newColors',newColors);
+        this.addToHistory(newColors);
+      });
+  }
+
+  private addToHistory(colors: any): void {
+    // Если мы не в конце истории, обрезаем историю после текущей позиции
+    if (this.currentHistoryIndex < this.colorHistory.length - 1) {
+      this.colorHistory = this.colorHistory.slice(0, this.currentHistoryIndex + 1);
+    }
+
+    // Добавляем новое состояние (глубокая копия)
+    this.colorHistory.push(JSON.parse(JSON.stringify(colors)));
+
+    // Ограничиваем длину истории
+    if (this.colorHistory.length > this.maxHistoryLength) {
+      this.colorHistory.shift(); // Удаляем самый старый элемент
+    } else {
+      this.currentHistoryIndex++;
+    }
+
+    this.updateUndoRedoState();
+  }
+
+  // Кнопка "Назад"
+  undo(): void {
+    if (this.canUndo) {
+      this.currentHistoryIndex--;
+      const previousColors = this.colorHistory[this.currentHistoryIndex];
+      
+      // Временно отписываемся от изменений чтобы не добавить в историю
+      const colorsControl = this.form.get('branding_colors');
+      if (colorsControl) {
+        colorsControl.patchValue(previousColors, { emitEvent: false });
+      }
+      
+      this.updateUndoRedoState();
+    }
+  }
+
+  // Кнопка "Повтор"
+  redo(): void {
+    if (this.canRedo) {
+      this.currentHistoryIndex++;
+      const nextColors = this.colorHistory[this.currentHistoryIndex];
+      const colorsControl = this.form.get('branding_colors');
+      if (colorsControl) {
+        colorsControl.patchValue(nextColors, { emitEvent: false });
+      }
+      this.updateUndoRedoState();
+    }
+  }
+
+  
+  returnOriginalColors(){
+    console.log(this.form.value.branding_colors, this.originalColors);
+    this.form.get('branding_colors')?.patchValue(this.originalColors);
+  }
+
+  isColorsEqual(obj1: any, obj2: any): boolean {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
+
+  private updateUndoRedoState(): void {
+    this.canUndo = this.currentHistoryIndex > 0;
+    this.canRedo = this.currentHistoryIndex < this.colorHistory.length - 1;
+  }
+
+  getCssVariablesString(): string {
+    const colors = this.form.get('branding_colors')?.value;
+    if (!colors) {
+      return '';
+    }
+    const cssVariables: string[] = [];
+    Object.entries(colors).forEach(([key, value]) => {
+      if (value) {
+        cssVariables.push(`--${key}: ${value};`);
+      }
+    });
+    return cssVariables.join(' ');
+  }
+
   private postSettings() {
     this.settingsSertvice.settingsUpdate({ body: this.form.value })
       .pipe(

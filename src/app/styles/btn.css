@@ -1,6 +1,10 @@
 button{
   border: none;
+  &:hover:not(:disabled) {
+    opacity: 0.6;
+  }
 }
+
 button.icon {
   background-color: inherit;
   min-width: 16px;
