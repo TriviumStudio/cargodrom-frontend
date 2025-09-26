@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoaderService } from './services/loader.service';
 import { Observable } from 'rxjs';
+import { PageService } from './pages.service';
 
 @Component({
   selector: 'app-pages',
@@ -13,7 +14,8 @@ export class PagesComponent implements OnInit {
 
   constructor(
     private loaderService: LoaderService,
-    private cdRef: ChangeDetectorRef  // ← Добавляем
+    private cdRef: ChangeDetectorRef , // ← Добавляем
+    private pageService: PageService,
   ) {}
 
   ngOnInit(): void {

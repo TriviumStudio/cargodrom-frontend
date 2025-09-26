@@ -9,8 +9,17 @@
 // }
 
 
-  
 
+.demo{
+  app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
+    position: static;
+  }
+  app-request, app-contractor, app-client{
+  app-table-filter{
+    position: static;
+  }
+}
+}
 app-header, app-table-sunheader-file, app-editor-header, .subheader.component{
   position: sticky;
   top: 0;

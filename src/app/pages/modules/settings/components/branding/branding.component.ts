@@ -1,5 +1,5 @@
 // branding.component.ts
-import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
@@ -20,6 +20,12 @@ type PageTypes = 'Таблица' | 'Форма';
   styleUrls: ['./branding.component.scss'],
 })
 export class BrandingComponent extends BaseComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  @ViewChild('fileNameInput') fileNameInput!: ElementRef;
+
+  selectedFile: File | null = null;
+  base64String: string | null = null;
+
   form: FormGroup;
 
   pageTypes: PageTypes[] = ['Таблица', 'Форма'];
@@ -48,7 +54,8 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   ) {
     super();
     this.form = this.fb.group({
-      branding_logo: [, [Validators.required]],
+      branding_logo: ['', [Validators.required]],
+      branding_logo_name: ['', [Validators.required]],
       branding_colors: this.createColorGroup(),
     });
   }
@@ -80,6 +87,62 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     this.getSettings();
   }
 
+    onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      
+      // Обновляем текстовое поле с именем файла
+      this.fileNameInput.nativeElement.value = file.name;
+      
+      // Конвертируем в base64
+      this.convertToBase64(file);
+    }
+  }
+
+  convertToBase64(file: File): void {
+    const reader = new FileReader();
+    
+    reader.onload = (e: any) => {
+      // e.target.result.name=this.fileNameInput.nativeElement.value;
+      this.base64String = e.target.result;
+      console.log('Base64 строка:', this.getPureBase64());
+      // Здесь вы можете использовать base64String как нужно
+      this.form.patchValue({
+        branding_logo: this.getPureBase64(),
+        branding_logo_name: this.fileNameInput.nativeElement.value
+      })
+      
+    };
+    
+    reader.onerror = (error) => {
+      console.error('Ошибка чтения файла:', error);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+
+  // Если нужно получить чистый base64 (без data:image/... префикса)
+  getPureBase64(): string | null {
+    if (this.base64String) {
+      return this.base64String.split(',')[1];
+    }
+    return null;
+  }
+
+  clearFile(): void {
+    this.selectedFile = null;
+    this.base64String = null;
+    this.fileNameInput.nativeElement.value = '';
+    this.fileInput.nativeElement.value = '';
+
+    // Сбрасываем значения в форме
+    this.form.patchValue({
+      branding_logo: '',
+      branding_logo_name: ''
+    });
+  }
+
   private getSettings() {
     this.settingsSertvice.settingsGet()
       .pipe(
@@ -91,8 +154,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
           console.log('getSettings',data);
           if (data.colors) this.colors = data.colors as [];
           if (data.branding_colors) this.originalColors = data.branding_colors;
-          
-
+          if (data.branding_logo_name) this.fileNameInput.nativeElement.value = data.branding_logo_name;
           // После загрузки настроек инициализируем историю и подписываемся на изменения
           this.initializeHistory();
           this.subscribeToColorChanges();
@@ -218,19 +280,33 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   onSubmit() {
     this.postSettings();
   }
+
+  header:any={
+    fullLinks:[
+      {name:'Дашбоард',field:'dashboard'},
+      {name:'Запросы',field:'request'},
+      {name:'Ставки',field:'bit'},
+      {name:'Заказы',field:'order'},
+      {name:'Тарифы',field:'tariff'},
+      {name:'Подрядчики',field:'contractor'},
+      {name:'Отчеты',field:'report'},
+      {name:'Клиенты',field:'customer'},
+      {name:'Справочник',field:'guide'},
+    ],
+    currency:[ 
+      {name:'USD ($)',value:'69.3475'},
+      {name:'EUR (€)',value:'80.3220'},
+      {name:'CNY (Ұ)',value:'10.1193'},
+    ],
+    link:['mes','opt','off']
+  };
+  subheader:any={};
+
+
 }
 
-// pagesArr:any[]=[
-//     {name:'Дашбоард',field:'dashboard'},
-//     {name:'Запросы',field:'request'},
-//     {name:'Ставки',field:'bit'},
-//     {name:'Заказы',field:'order'},
-//     {name:'Тарифы',field:'tariff'},
-//     {name:'Подрядчики',field:'contractor'},
-//     {name:'Отчеты',field:'report'},
-//     {name:'Клиенты',field:'customer'},
-//     {name:'Справочник',field:'guide'},
-//   ];
+
+
 //   mainFiltersArr=[
 //     {name:'Период',values:['День','Неделя','Месяц','13.03.17–21.05.20']},
 //     {name:'Статус запроса',values:['Все','Новый','Ждем ставки','Ставки получены','Отправлено КП']},

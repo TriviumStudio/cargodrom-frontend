@@ -18,7 +18,7 @@
 
 /* html * {max-height: 1000000px; box-sizing: border-box } */
 /* html { height: 100%; padding: 0; margin: 0; font-family: 'regular', 'arial', 'sans-serif'; min-width: 1600px; } */
-html { height: 100%; padding: 0; margin: 0; font-family: 'regular', 'arial', 'sans-serif';}
+html { height: 100%; padding: 0; margin: 0; font-family: 'regular', 'arial', 'sans-serif'; min-width: 1455px;}
 body { height: 100%; padding: 0; margin: 0; background: #f7f9fc; color: #2C3640; }
 
 input, textarea, a:focus{outline-width:0;outline:none;}

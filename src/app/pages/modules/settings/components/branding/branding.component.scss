@@ -39,10 +39,10 @@
 .brending-form{
   display: flex;
   gap:40px;
-  .demo{width: 60%;}
+  .demo{width: 60%; }
   .inputs{
     display: flex; 
-    width: 715px; min-width: 715px; 
+    width: 715px;
     padding: 0 40px; 
     box-sizing: border-box; 
     gap: 20px 40px; 
@@ -51,13 +51,27 @@
     .input{width: 185px; flex-grow: 0; height: fit-content;}
   }
 }
+@media (max-width: 1750px) {
+  .brending-form{
+    flex-direction: column;
+    .inputs{
+      width: 100%;
+    }
+    .demo{
+      width: 100%;
+      svg{
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
 .form-row:not(:last-child){
   gap: 24px;
   display: flex;
   flex-direction: column;
   .info{
-    max-width: 720px;
-    width: 50%;
+    width: 720px;
     padding-left: 16px;
     border-left: 2px solid #DB563B;
     color: #606A74;
@@ -144,4 +158,19 @@ mat-option .color div{
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px; 
   }
+}
+
+.demo .page{
+  width: 720px;
+  height: 384px;
+  border: 1px solid #C3CCD6;
+  .header {
+    display: flex;
+    height: 21px;
+    background-color: var(--header_menu);
+    .name{
+      color: var(--header_menu_text);
+    }
+  }
+  
 }
