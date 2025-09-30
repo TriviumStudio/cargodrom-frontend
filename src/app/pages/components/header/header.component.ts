@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { interval, Observable, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { MessageService, SystemService } from 'src/app/api/services';
 import { CurrencyService } from '../../services/сurrency/currency.service';
-import { PageService } from '../../pages.service';
+import { BrandingService } from '../../pages.service';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     private matDialog: MatDialog,
     private currencyService: CurrencyService,
     private messageService: MessageService,
-    private pageService: PageService,
+    private pageService: BrandingService,
 
   ) {this.logoUrl$ = this.pageService.getLogoLink(); }
 

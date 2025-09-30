@@ -1,5 +1,8 @@
 button{
   border: none;
+  &:disabled {
+    cursor: auto;
+  } 
   &:hover:not(:disabled) {
     opacity: 0.6;
   }

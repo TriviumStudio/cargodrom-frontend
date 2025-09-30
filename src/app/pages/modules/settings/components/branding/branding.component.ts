@@ -87,7 +87,7 @@ export class BrandingComponent extends BaseComponent implements OnInit {
     this.getSettings();
   }
 
-    onFileSelected(event: any): void {
+  onFileSelected(event: any): void {
     const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
@@ -263,7 +263,8 @@ export class BrandingComponent extends BaseComponent implements OnInit {
   }
 
   private postSettings() {
-    this.settingsSertvice.settingsUpdate({ body: this.form.value })
+    const body = this.fileInput.nativeElement.value? this.form.value :{branding_colors:this.form.value.branding_colors };
+    this.settingsSertvice.settingsUpdate({ body: body })
       .pipe(
         takeUntil(this.destroy$)
       )

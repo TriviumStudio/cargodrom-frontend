@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { LoaderService } from './services/loader.service';
 import { Observable } from 'rxjs';
-import { PageService } from './pages.service';
+import { BrandingService } from './pages.service';
 
 @Component({
   selector: 'app-pages',
@@ -12,11 +12,15 @@ import { PageService } from './pages.service';
 export class PagesComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
+  colors$: Observable<string>;
+
   constructor(
     private loaderService: LoaderService,
     private cdRef: ChangeDetectorRef , // ← Добавляем
-    private pageService: PageService,
-  ) {}
+    private pageService: BrandingService,
+  ) {
+    this.colors$ = this.pageService.getColors(); 
+  }
 
   ngOnInit(): void {
     this.isLoading$ = this.loaderService.isLoading$;

@@ -32,8 +32,9 @@ form mat-select.mat-mdc-select, /* для форм */
   background: #F7F9FC;
   font-size: 15px;
   line-height: 15px;
+  border-radius: 6px;
   .mat-mdc-select-trigger {
-    border: 1px solid #E0E5EB;
+    border: 1px solid var(--line);
     border-radius: 6px;
     padding: 0 13px; margin: 0;
     box-sizing: border-box;

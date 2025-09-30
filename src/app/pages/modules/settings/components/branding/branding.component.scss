@@ -5,7 +5,8 @@
   gap:40px;
   .pages{
     display: flex; 
-    width: 60%;
+    width: 45%;
+    flex-grow: 1;
     .page{
       padding: 12px 24px;
       border: 1px solid #C3CCD6;
@@ -38,31 +39,35 @@
 }
 .brending-form{
   display: flex;
+  flex-wrap: wrap;
   gap:40px;
-  .demo{width: 60%; }
+  .demo{
+    width: 45%;
+    flex-grow: 1;
+    svg{ width: 100%; height: auto;}
+  }
   .inputs{
     display: flex; 
     width: 715px;
     padding: 0 40px; 
     box-sizing: border-box; 
     gap: 20px 40px; 
+    
     flex-wrap: wrap; 
     align-items: end; align-content: flex-start;
-    .input{width: 185px; flex-grow: 0; height: fit-content;}
+    .input{width: 184px; flex-grow: 0; height: fit-content;}
   }
 }
 @media (max-width: 1750px) {
   .brending-form{
-    flex-direction: column;
+    
     .inputs{
       width: 100%;
+      
     }
     .demo{
       width: 100%;
-      svg{
-        width: 100%;
-        height: auto;
-      }
+      
     }
   }
 }
@@ -172,5 +177,13 @@ mat-option .color div{
       color: var(--header_menu_text);
     }
   }
+  
+}
+
+.sony{
+  background-image: url('https://dev.cargodrom.com//content/branding/327.fe3cfe712b34f56b042054f9665bec7d/logo.jpg');
+  width: 100px; height: 100px;
+  background-position: center;
+  background-size: cover;
   
 }
