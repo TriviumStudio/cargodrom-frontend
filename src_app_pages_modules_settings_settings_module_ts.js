@@ -800,9 +800,16 @@ class BrandingComponent extends src_app_classes_base_component__WEBPACK_IMPORTED
     return cssVariables.join(' ');
   }
   postSettings() {
-    const body = this.fileInput.nativeElement.value ? this.form.value : {
-      branding_colors: this.form.value.branding_colors
-    };
+    let body;
+    if (this.fileInput.nativeElement.value) {
+      body = this.form.value;
+    } else if (!this.fileInput.nativeElement.value && !this.fileNameInput.nativeElement.value) {
+      body = this.form.value;
+    } else {
+      body = {
+        branding_colors: this.form.value.branding_colors
+      };
+    }
     this.settingsSertvice.settingsUpdate({
       body: body
     }).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_8__.takeUntil)(this.destroy$)).subscribe({
