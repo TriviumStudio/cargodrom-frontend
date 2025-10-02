@@ -60,6 +60,7 @@ import { BaseTableComponent } from './table/components/base-table/base-table.com
 import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
 import { SettingsModule } from './modules/settings/settings.module';
 import { IconComponent } from './icon/icon.component';
+import { NavigationHistoryService } from './services/navigation-history.service';
 
 
 
@@ -137,6 +138,9 @@ import { IconComponent } from './icon/icon.component';
     MaterialModule,
     FilterModule,
     NgScrollbarModule,
+  ],
+  providers: [
+    NavigationHistoryService,// Сервис будет доступен в рамках PagesModule
   ],
   exports: [HeaderComponent, RequestComponent, IconComponent]
 })

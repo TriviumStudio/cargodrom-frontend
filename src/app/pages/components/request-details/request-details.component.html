@@ -1,7 +1,7 @@
 <div class="request-details-component">
 <div class="subheader component" >
   <div class="main_page_info">
-    <div class="back" [routerLink]="['../../../../request']"></div>
+    <div class="back" (click)="goBack()"></div>
     <app-request-info-block  [request]="currentRequest"></app-request-info-block>
   </div>
   <div class="request-actions">
