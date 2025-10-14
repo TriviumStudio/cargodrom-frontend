@@ -28,17 +28,17 @@
         <div class="btns">
           <button class="cancel" type="button" (click)="undo()" 
             [disabled]="!canUndo">
-            <app-icon [name]="'back'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon>
+            <!-- <app-icon [name]="'back'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon> -->
             Отменить действие
           </button>
           <button class="repeat" type="button" (click)="redo()" 
             [disabled]="!canRedo">
-            <app-icon [name]="'repeat'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon>
+            <!-- <app-icon [name]="'repeat'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon> -->
             Повторить действие
           </button>
           <button class="return" type="button" (click)="returnOriginalColors()"
             [disabled]="isColorsEqual(originalColors, form.value.branding_colors)">
-            <app-icon [name]="'cancel'" [width]="'14px'" [height]="'14px'" [color]="'red'"></app-icon>
+            <!-- <app-icon [name]="'cancel'" [width]="'14px'" [height]="'14px'" [color]="'red'"></app-icon> -->
             Вернуться к исходному
           </button>
         </div>
@@ -52,11 +52,24 @@
           <app-request style="zoom: 0.4"></app-request> -->
         </div>
         <div class="inputs" formGroupName="branding_colors">
+
           <div class="form-item input" *ngFor="let col of colors;let i = index">
             <div class="form-label">{{col.name}}</div>
-            <div class="form-data color" [ngStyle]="{'--input-color': form.value.branding_colors[col.id]}">
-              <!-- <input type="text" [formControlName]="col.id" style="background-color: var(--background2);"> -->
-              <input
+              <app-color-picker [formControlName]="col.id" [standartColor]="col.color"></app-color-picker>
+              
+              <!-- <input type="text" readonly [value]="form.value.branding_colors[col.id]"
+                [(colorPicker)]="form.value.branding_colors[col.id]"
+                [cpPresetColors]="colorHistoryObj[col.id].concat(col.id)"
+                [cpAddColorButton]="true"
+                [cpPositionRelativeToArrow]="true"
+                [cpOKButton]="true"
+                [cpOKButtonText]="'Принять'"
+                [cpAlphaChannel]="'disabled'"
+                [cpOutputFormat]="'hex'"
+                [cpPresetLabel]="'Возможные цвета'"
+              /> -->
+      
+              <!-- <input
                 type="text"
                 [formControlName]="col.id"
                 [matAutocomplete]="auto"
@@ -70,7 +83,7 @@
                     </div>
                   </mat-option>
                 </mat-optgroup>
-                <mat-optgroup [label]="'История'" *ngIf="colorHistoryObj[col.id].length>1" >
+                <mat-optgroup [label]="'История'" *ngIf="colorHistoryObj[col.id].length>1">
                   <ng-container *ngFor="let history of colorHistoryObj[col.id]">
                     <mat-option *ngIf="history!=col.color" [value]="history" style="display: flex;">
                       <div class="color" [ngStyle]="{'--input-color': history}">
@@ -80,10 +93,25 @@
                   </ng-container>
                   
                 </mat-optgroup>
-              </mat-autocomplete>
-            </div>
+                
+              </mat-autocomplete> -->
+            
           </div>
-          <input type="color">
+
+<!-- <color-alpha-picker></color-alpha-picker>
+<color-block></color-block>
+<color-chrome [disableAlpha]="true" [className]="'my-color-picker'"></color-chrome>
+<color-circle></color-circle>
+<color-compact></color-compact>
+<color-github></color-github>
+<color-hue-picker></color-hue-picker>
+<color-material></color-material>
+<color-photoshop></color-photoshop>
+<color-sketch></color-sketch>
+<color-slider></color-slider>
+<color-swatches></color-swatches>
+<color-twitter></color-twitter> -->
+
           
         </div>
       </div>

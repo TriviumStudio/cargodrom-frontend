@@ -22,6 +22,7 @@ import { MatRadioModule } from '@angular/material/radio';
 
 // CDK Modules
 import { DragDropModule } from '@angular/cdk/drag-drop'; // <-- Добавьте этот импорт
+import {OverlayModule} from '@angular/cdk/overlay';
 
 // DateAdapter Configuration
 import {
@@ -70,8 +71,8 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    
     DragDropModule, // <-- Добавьте этот модуль в imports
+    OverlayModule,
   ],
   providers: [
     {
@@ -100,6 +101,7 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatRadioModule,
     
     DragDropModule, // <-- И экспортируйте его
+    OverlayModule,
 
     // Your custom components & directives
     PopupDialogComponent,
