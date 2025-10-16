@@ -7,7 +7,7 @@ import { NgxColorPickerModule } from '../lib/ngx-color-picker.module';
 
 @NgModule({
   declarations: [
-    ColorPickerComponent
+    ColorPickerComponent,
   ],
   imports: [
     CommonModule,

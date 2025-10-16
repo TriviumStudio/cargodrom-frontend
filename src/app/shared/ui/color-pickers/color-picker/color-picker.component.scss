@@ -214,10 +214,18 @@
     width: 100% !important;
     box-shadow: none !important;
     border-radius: 0 !important;
+    .chrome-body{
+      padding: 14px 6px 12px;
+    }
   }
-
   .flexbox-fix:last-child {
     border-bottom: none !important;
+  }
+   .chrome-color{
+    display: none;
+  }
+  .chrome-fields .chrome-field:nth-child(4){
+    display: none;
   }
 }
 
@@ -270,3 +278,11 @@
     }
   }
 }
+
+
+
+.apply-btn {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
