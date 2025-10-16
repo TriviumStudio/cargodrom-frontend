@@ -26,8 +26,8 @@
         <div *ngFor="let col of history" style="width: 12px; height: 12px; border-radius: 50%;" [style]="{'background-color': col}" (click)="currentColor=col"></div>
       </div>
       
-      <button type="button" class="close-btn apply-btn " [style]="{'background-color': currentColor}" (click)="apply()">
-        Применить
+      <button type="button" class="close-btn apply-btn " [style]="{'background-color': currentColor}" (click)="apply()" [disabled]="currentColor==color">
+        {{currentColor==color?'Цвет активен':'Применить'}}
       </button>
     </div>
   </div>

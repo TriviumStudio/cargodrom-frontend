@@ -160,7 +160,9 @@ export class ColorPickerComponent implements ControlValueAccessor, AfterViewInit
   }
 
   addColorInHistory(color:string){
-    if(this.history[0]!=color)this.history.splice(1, 0, color); // Добавляет color на позицию с индексом 1
+    // Проверяем, что цвет не равен первому элементу И не содержится в истории
+    if(this.history[0] != color && !this.history.includes(color)) this.history.splice(1, 0, color); // Добавляет color на позицию с индексом 1
+    // Удалем последний элемент из истории если история больше 9
     if(this.history.length>9) this.history.pop();
   }
 
