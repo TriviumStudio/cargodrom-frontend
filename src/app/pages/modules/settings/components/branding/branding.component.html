@@ -56,6 +56,7 @@
           <div class="form-item input" *ngFor="let col of colors;let i = index">
             <div class="form-label">{{col.name}}</div>
               <app-color-picker [formControlName]="col.id" [standartColor]="col.color"></app-color-picker>
+              <app-color-picker-standart [formControlName]="col.id" [standartColor]="col.color"></app-color-picker-standart>
               
               <!-- <input type="text" readonly [value]="form.value.branding_colors[col.id]"
                 [(colorPicker)]="form.value.branding_colors[col.id]"

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ColorPickerModule } from './ui/color-pickers/color-picker/color-picker.module';
+import { ColorPickerModule } from './ui/color-picker/color-picker.module';
+import { AutocompleteModule } from './ui/autocomplete/autocomplete.module';
+import { UiModule } from './ui/ui.module';
 
 
 
@@ -8,12 +10,11 @@ import { ColorPickerModule } from './ui/color-pickers/color-picker/color-picker.
   declarations: [
   ],
   imports: [
-    // CommonModule,
-    ColorPickerModule,
+    UiModule,
   ],
   exports: [
-    // CommonModule,
-    ColorPickerModule,
+    CommonModule,
+    UiModule,
   ]
 })
 export class SharedModule { }
