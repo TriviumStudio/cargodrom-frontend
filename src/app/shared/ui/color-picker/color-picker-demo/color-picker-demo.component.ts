@@ -4,18 +4,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 type DropdownPlacement = 'top' | 'bottom';
 
 @Component({
-  selector: 'app-color-picker',
-  templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss'],
+  selector: 'app-color-picker-demo',
+  templateUrl: './color-picker-demo.component.html',
+  styleUrls: ['./color-picker-demo.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ColorPickerComponent),
+      useExisting: forwardRef(() => ColorPickerDemoComponent),
       multi: true
     }
   ]
 })
-export class ColorPickerComponent implements ControlValueAccessor, AfterViewInit, OnDestroy, OnInit {
+export class ColorPickerDemoComponent implements ControlValueAccessor, AfterViewInit, OnDestroy, OnInit {
   @Input() placeholder: string = 'Выберите цвет';
   @Input() disabled: boolean = false;
   @Input() preferredPlacement: DropdownPlacement = 'bottom';
