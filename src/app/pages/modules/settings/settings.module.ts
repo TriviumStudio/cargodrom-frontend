@@ -58,7 +58,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SettingsRoutingModule,
-    
+    // PagesModule,
     SharedModule,
   ]
 })

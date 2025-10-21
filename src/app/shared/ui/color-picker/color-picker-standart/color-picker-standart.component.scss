@@ -34,8 +34,8 @@
     }
     
     &:focus {
-      border-color: #409eff;
-      box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.2);
+      border-color: var(--header_menu);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
       outline: none;
     }
     
@@ -54,7 +54,7 @@
 .color-history {
   display: flex;
   margin: 12px auto 0;
-  gap: 8px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
@@ -64,6 +64,7 @@
   border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s ease;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
   
   &:hover {
     transform: scale(1.1);

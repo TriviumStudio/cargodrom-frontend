@@ -1247,3 +1247,9 @@ a{
   background-color: inherit;
   cursor: pointer;
 }
+
+.demo-page{
+  app-header, app-table-sunheader-file, app-table-filter, .table-list table, app-paginator{
+    pointer-events: none;
+  }
+}

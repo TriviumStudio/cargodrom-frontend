@@ -45,12 +45,19 @@
       </div>
 
       <div class="brending-form" >
-        <div class="demo" [style]="getCssVariablesString()">
-          <ng-container *ngTemplateOutlet="req_table"></ng-container>
-          <!-- <ng-container *ngTemplateOutlet="req"></ng-container> -->
-          <!-- <app-header style="zoom: 0.4"></app-header>
-          <app-request style="zoom: 0.4"></app-request> -->
+        <div class="demo">
+          <iframe [style]="{'display': currentPageType=='Таблица'?'':'none'}" src="/#/pages/request" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница таблица"></iframe>
+          <iframe [style]="{'display': currentPageType=='Форма'?'':'none'}" src="/#/pages/request/add" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница форма" style="pointer-events: none;"></iframe>
         </div>
+        <!-- <div class="demo" [ngSwitch]="currentPageType">
+          [style]="{'background-color': currentColor}"
+          <ng-template ngSwitchCase="Таблица">
+            <iframe src="/#/pages/request" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница таблица"></iframe>
+          </ng-template>
+          <ng-template ngSwitchCase="Форма">
+            <iframe src="/#/pages/request/add" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница форма" style="pointer-events: none;"></iframe>
+          </ng-template>
+        </div> -->
         <div class="inputs" formGroupName="branding_colors">
 
           <div class="form-item input" *ngFor="let col of colors;let i = index">
