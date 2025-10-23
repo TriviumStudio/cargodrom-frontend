@@ -1,0 +1,23 @@
+.new-icon{
+  &::before{ 
+    width: var(--icon-w, var(--icon-s, 100%)); 
+    height: var(--icon-h, var(--icon-s, 100%));
+    background-color: var(--icon-color) !important;
+
+    mask-image: var(--icon-bg-image); -webkit-mask-image: var(--icon-bg-image);
+    mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat;
+    mask-position: center; -webkit-mask-position: center;
+    mask-size: contain; -webkit-mask-size: contain;
+
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+  }
+  /* варианты иконок */
+  &.edit::before{--icon-bg-image: url('../../assets/pic-btn-edit.svg');}
+  /* &.delet-gr::before{--icon-bg-image: url('../../assets/pic-btn-del-gray.svg')}; */
+  &.delet::before{--icon-bg-image: url('../../assets/pic-btn-del.svg')};
+  /* размеры (s-size, когда ширина и высота равны)*/
+  &.s10px{--icon-s:10px}
+  &.s16px{--icon-s:16px}
+}

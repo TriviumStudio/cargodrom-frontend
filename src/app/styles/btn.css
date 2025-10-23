@@ -24,7 +24,11 @@ button.icon.delete{
   background-image: url('../../assets/pic-btn-del.svg');  
 }
 button.icon.edit{
-  background-image: url('../../assets/pic-btn-edit.svg');  
+  background-image: url('../../assets/pic-btn-edit.svg');
+  &::before{
+    --icon-bg-image: url('../../assets/pic-btn-edit.svg');
+    /* background-image: url('../../assets/pic-btn-edit.svg'); */
+  }
 }
 button.icon.edit-w{
   background-image: url('../../assets/pic-btn-edit-w.svg');  
@@ -103,3 +107,4 @@ button.long{
     }
   }
 }
+

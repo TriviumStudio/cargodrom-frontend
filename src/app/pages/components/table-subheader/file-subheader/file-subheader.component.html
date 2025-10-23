@@ -8,7 +8,7 @@
 
     <!-- <button [routerLink]="['add']" class="file-btn add-link"> -->
     <button *ngIf="!addPopap" [routerLink]="orderPage?['/pages/order/add']:['add']" class="file-btn add-link">
-      <div></div>
+      <div appIconColor="var(--header_menu)"></div>
       <span>Новый {{titles.subtitle}}</span>
     </button>
 

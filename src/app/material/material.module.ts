@@ -40,6 +40,8 @@ import { EditorHeaderComponent } from './components/editor-header/editor-header.
 import { FocusInitialDirective } from './directives/focus-initial.directive';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
 
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     PopupDialogComponent,
@@ -73,6 +75,8 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     MatRadioModule,
     DragDropModule, // <-- Добавьте этот модуль в imports
     OverlayModule,
+
+    MatIconModule,
   ],
   providers: [
     {
@@ -109,6 +113,8 @@ import { PhoneMaskDirective } from './directives/phone-mask.directive';
     EditorHeaderComponent,
     FocusInitialDirective,
     PhoneMaskDirective,
+
+    MatIconModule,
   ]
 })
 export class MaterialModule {}

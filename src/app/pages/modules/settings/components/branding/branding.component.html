@@ -6,8 +6,10 @@
       <div class="info">Файл изображения должен быть не меньше 200 точек по высоте, ширина будет масштабирована автоматически. Доступные форматы: .PNG, .SVG, .JPG, .BMP, .GIF. Загруженное изображение появится в левом верхнем углу экрана слева от главного меню.</div>
       <div class="logo-input">
         <input type="text" #fileNameInput readonly>
-        <button type="button" class="icon edit" (click)="fileInput.click()"></button>
-        <button type="button" class="icon delete-gr" (click)="clearFile()"></button>
+        <!-- <button type="button" class="new-icon edit" appIconColor="var(--accent)" [style.--icon-s]="'16px'" (click)="fileInput.click()"></button>
+        <button type="button" class="new-icon delet-gr" appIconColor="var(--background3)" [style.--icon-s]="'16px'" (click)="clearFile()"></button> -->
+        <button type="button" class="new-icon edit s16px" style="--icon-color: var(--accent, #DB563B)"  (click)="fileInput.click()"></button>
+        <button type="button" class="new-icon delet s16px" style="--icon-color: var(--background3, #83909E)" (click)="clearFile()"></button>
       </div>
       <input #fileInput type="file" style="display: none;" (change)="onFileSelected($event)" accept="image/*">
     </div>
@@ -60,6 +62,7 @@
 
     <div class="form-row">
       <button class="save long" type="submit">Сохранить изменения</button>
+      
     </div>
   </div>
 </form>
