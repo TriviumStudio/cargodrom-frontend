@@ -39,7 +39,7 @@ export class EditorHeaderComponent implements OnInit {
 
   goBack(): void {
     // this.location.back();
-    this.navigationHistoryService.back('./')
+    this.navigationHistoryService.back('/pages/request')
   }
 
   goCalc():void{

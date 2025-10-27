@@ -56,7 +56,7 @@ button.icon.edit-w{
   }
 
   button.save {
-    background-color: #DB563B;
+    background-color: var(--accent,  #DB563B);
   }
   button.del {
     background-color: black;
