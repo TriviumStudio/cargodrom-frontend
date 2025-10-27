@@ -28,19 +28,16 @@
           </div>
         </div>
         <div class="btns">
-          <button class="cancel" type="button" (click)="undo()" 
-            [disabled]="!canUndo">
-            <!-- <app-icon [name]="'back'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon> -->
+          <button type="button" (click)="undo()" [disabled]="!canUndo" style="color: var(--accent, #DB563B);">
+            <div class="new-icon back s16px" style="--icon-color: var(--accent, #DB563B)"></div>
             Отменить действие
           </button>
-          <button class="repeat" type="button" (click)="redo()" 
-            [disabled]="!canRedo">
-            <!-- <app-icon [name]="'repeat'" [width]="'16px'" [height]="'16px'" [color]="'red'"></app-icon> -->
+          <button type="button" (click)="redo()" [disabled]="!canRedo" style="color: var(--background3, #83909E);">
+            <div class="new-icon repeat s16px" style="--icon-color: var(--background3, #83909E)"></div>
             Повторить действие
           </button>
-          <button class="return" type="button" (click)="returnOriginalColors()"
-            [disabled]="isColorsEqual(originalColors, form.value.branding_colors)">
-            <!-- <app-icon [name]="'cancel'" [width]="'14px'" [height]="'14px'" [color]="'red'"></app-icon> -->
+          <button type="button" (click)="returnOriginalColors()" [disabled]="isColorsEqual(originalColors, form.value.branding_colors)" style="color: var(--accent, #DB563B);">
+            <div class="new-icon cancel s14px" style="--icon-color: var(--accent, #DB563B)"></div>
             Вернуться к исходному
           </button>
         </div>
@@ -48,8 +45,10 @@
 
       <div class="brending-form" >
         <div class="demo">
-          <iframe [style]="{'display': currentPageType=='Таблица'?'':'none'}" src="/#/pages/request" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница таблица"></iframe>
-          <iframe [style]="{'display': currentPageType=='Форма'?'':'none'}" src="/#/pages/request/add" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо страница форма" style="pointer-events: none;"></iframe>
+          <iframe [style]="{'display': currentPageType=='Таблица'?'':'none'}" src="/#/pages/request" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо таблица"></iframe>
+          <iframe [style]="{'display': currentPageType=='Форма'?'':'none'}" src="/#/pages/request/add" scrolling="no" frameborder="0" [appIframeStyle]="getCssVariablesString()" title="Демо форма" style="pointer-events: none;"></iframe>
+          <!-- <app-header [style]="getCssVariablesString()"></app-header>
+          <app-request [style]="getCssVariablesString()"></app-request> -->
         </div>
         <div class="inputs" formGroupName="branding_colors">
           <div class="form-item input" *ngFor="let col of colors;let i = index">
@@ -61,8 +60,10 @@
     </div>
 
     <div class="form-row">
-      <button class="save long" type="submit">Сохранить изменения</button>
-      
+      <button class="long" type="submit" style="background-color: var(--accent, #DB563B); color: var(--accent_text, #FFFFFF);">
+        <div class="new-icon save s16px" style="--icon-color: var(--accent_text, #FFFFFF)"></div>
+        Сохранить изменения
+      </button>
     </div>
   </div>
 </form>

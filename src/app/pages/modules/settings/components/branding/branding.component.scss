@@ -32,9 +32,9 @@
       font-size: 13px; font-style: normal; font-weight: 400; line-height: 18px;
       background-color: inherit;
       padding: 12px 0;
-    }
-    app-icon{
-      margin-right: 8px;
+      .new-icon{
+        margin-right: 8px;
+      }
     }
   }
 }
@@ -43,10 +43,12 @@
   flex-wrap: wrap;
   gap:40px;
   .demo{
+    display: flex;
+    flex-direction: column;
     width: 45%;
     flex-grow: 1;
     svg{ width: 100%; height: auto;}
-    iframe{width: 100%; zoom: 0.4;  border: 1px solid var(--line,#E0E5EB);}
+    iframe, app-request, app-header{width: 100%; height: fit-content; zoom: 0.4;  border: 1px solid var(--line,#E0E5EB);}
 
   }
   .inputs{
@@ -69,8 +71,8 @@
       
     }
     .demo{
-      width: 100%;
-      iframe{
+      width: 1px;
+      iframe, app-request, app-header{
         width: 100%;
         // height: 870px;
         zoom: 0.55;

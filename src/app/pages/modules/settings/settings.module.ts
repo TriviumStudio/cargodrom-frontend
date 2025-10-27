@@ -60,6 +60,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SettingsRoutingModule,
     // PagesModule,
     SharedModule,
-  ]
+    PagesModule
+]
 })
 export class SettingsModule { }
