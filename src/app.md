@@ -13,7 +13,7 @@ src/
 │   │   │   └── table/
 │   │   ├── pipes/                      // duration.pipe.ts, filter.pipe.ts
 │   │   ├── directives/                 // tooltip.directive.ts
-│   │   └── shared.module.ts            // Импортируется куда угодно
+│   │   └── shared.module.ts            // Импортируется куда угодно 
 │   │
 │   ├── features/                       // Основные функциональные модули
 │   │   ├── user/                       // Фича "Пользователи"

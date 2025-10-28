@@ -44,7 +44,7 @@ export class FilterService implements OnDestroy {
   }
 
   private getDefault(control: FilterControl): any {
-    if (control.form === 'checkbox' || control.form === 'checkbox_reset') {
+    if (control.form === 'checkbox' || control.form === 'checkbox_reset' || control.form === 'multi_select') {
       return [];
     }
     return '';
@@ -95,12 +95,6 @@ export class FilterService implements OnDestroy {
       ...(searchFilterSchema.additional || []),
     ];
     return allControls;
-  }
-
-  returnGradient(){
-    console.log();
-    
-    return true;
   }
 
   ngOnDestroy(): void {
