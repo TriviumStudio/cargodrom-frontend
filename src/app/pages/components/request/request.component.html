@@ -64,6 +64,8 @@
                 <div class="col-content" [innerHTML]="getVal(item,miniCol.field)"></div>
               </ng-template>
               <ng-template [ngSwitchCase]="'id'">
+                
+                
                 <a class="link" (click)="navigateOnDetails(item.id,item.tabs[0])">
                   {{ getVal(item,miniCol.field) }}
                 </a>
@@ -75,11 +77,11 @@
                   <div class="kso-item" [ngClass]="item.kso.o.active?'':'negative'"></div>
                 </div>
               </ng-template>
-              <ng-template [ngSwitchCase]="'customer_name'" >
+              <!-- <ng-template [ngSwitchCase]="'customer_name'" >
                 <a  class="link" (click)="navigateOnClient(item.customer_id)">
                   {{ getVal(item,miniCol.field) }}
-                </a>
-              </ng-template>
+                </a> 
+              </ng-template> -->
               <!-- <ng-template [ngSwitchCase]="'customer_info'">
                 <ng-content [innerHTML]="getVal(item,miniCol.field)"></ng-content>
                 <a class="link" (click)="navigateOnClient(item.customer_id)">
