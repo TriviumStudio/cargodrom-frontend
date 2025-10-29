@@ -43,19 +43,22 @@
         </div> -->
 
         <div class="form-item">
-          <div class="form-label">агент: <span class="req">•</span></div>
-          <div class="form-data">
-            <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
-            <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
-              <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
-                {{option.full_name}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['carrier_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
-          </div>
-        </div>
+           <div class="form-label">язык общения: <span class="req">•</span></div>
+           <div class="form-data">
+            <mat-form-field appearance="outline" class="ui-select">
+              <!--<mat-label class="form-label">язык общения</mat-label>-->
+              <mat-select formControlName="language_id" panelClass="panel-class-name">
+                <mat-option value="en">Английский</mat-option>
+                <mat-option value="ru">Русский</mat-option>
+              </mat-select>
+              <mat-error *ngIf="contractorForm.controls['language_id'].hasError('required')">
+                Это поле обязательно
+              </mat-error>
+            </mat-form-field>
+           </div>
+         </div>
+
+        
 
         <!-- <div class="form-item">
           <div class="form-label">агент: </div>
@@ -169,21 +172,36 @@
       </div>
 
       <div class="form-item-layout">
+
         <div class="form-item">
-           <div class="form-label">язык общения: <span class="req">•</span></div>
-           <div class="form-data">
-            <mat-form-field appearance="outline" class="ui-select">
-              <!--<mat-label class="form-label">язык общения</mat-label>-->
-              <mat-select formControlName="language_id" panelClass="panel-class-name">
-                <mat-option value="en">Английский</mat-option>
-                <mat-option value="ru">Русский</mat-option>
-              </mat-select>
-              <mat-error *ngIf="contractorForm.controls['language_id'].hasError('required')">
-                Это поле обязательно
-              </mat-error>
-            </mat-form-field>
-           </div>
-         </div>
+          <div class="form-label">Тип подрядчика: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
+            <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
+              <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
+                {{option.name}}
+              </mat-option>
+              <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="contractorForm.controls['counterparty_id'].hasError('required')">
+              Это поле обязательно
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">агент: <span class="req">•</span></div>
+          <div class="form-data">
+            <input matInput type="text" formControlName="carrier_id" [matAutocomplete]="carrier_id">
+            <mat-autocomplete #carrier_id="matAutocomplete" [displayWith]="displayFn_CarrierId.bind(this)">
+              <mat-option *ngFor="let option of filteredTransportCarrier" [value]="option.id">
+                {{option.full_name}}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+        </div>
+
+        
          <!-- <div class="form-item">
            <div class="form-label">вид подрядчика: <span class="req">•</span></div>
            <div class="form-data">
@@ -199,21 +217,7 @@
          </div> -->
 
 
-        <div class="form-item">
-          <div class="form-label">Тип контрагента: <span class="req">•</span></div>
-          <div class="form-data">
-            <input matInput type="text" formControlName="counterparty_id" [matAutocomplete]="counterparty_id" >
-            <mat-autocomplete #counterparty_id="matAutocomplete" [displayWith]="displayFn_CounterpartyId.bind(this)">
-              <mat-option *ngFor="let option of filteredCounterpartys" [value]="option.id">
-                {{option.name}}
-              </mat-option>
-              <mat-option *ngIf="filteredCounterpartys.length==0" disabled >Типов нет</mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="contractorForm.controls['counterparty_id'].hasError('required')">
-              Это поле обязательно
-            </mat-error>
-          </div>
-        </div>
+        
 
         <!-- <div class="form-item">
           <div class="form-label">Тип контрагента: <span class="req">•</span></div>
@@ -279,7 +283,7 @@
 
     </div>
 
-    <div class="form-row sep">
+    <div class="form-row sep" *ngIf="contractorForm.value.allow_trade">
       Формат отправки запроса: <span class="req">•</span>
       <label *ngFor="let format of requestFormats">
         <input type="radio" formControlName="request_format_id" [value]="format.id">
@@ -293,7 +297,7 @@
 
     <div class="form-row" >
       <div class="form-item" style="width: 100px;">
-        <div class="form-label">валюта:</div>
+        <div class="form-label">Валюта предоставления ставок</div>
         <div class="form-data">
         <mat-form-field appearance="outline" class="ui-select">
           <mat-select formControlName="currency">
