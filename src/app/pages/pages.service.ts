@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BrandingService {
-  private readonly baseLink = environment.production?'https://dev.cargodrom.com/':'https://cargodrom.com/';
+  private readonly baseLink = environment.production?'https://cargodrom.com/':'https://dev.cargodrom.com/';
   
   // Subject для хранения ссылки на логотип
   private logoLinkSubject = new BehaviorSubject<string>('');
