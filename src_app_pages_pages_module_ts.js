@@ -5119,7 +5119,7 @@ function ContractorEditorComponent_mat_option_30_Template(rf, ctx) {
     const option_r32 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("value", option_r32.id);
     _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtextInterpolate1"](" ", option_r32.name, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵtextInterpolate1"](" ", option_r32.full_name, " ");
   }
 }
 function ContractorEditorComponent_mat_error_31_Template(rf, ctx) {
@@ -5482,10 +5482,10 @@ class ContractorEditorComponent {
     this.contractorForm.get('carrier_id')?.valueChanges.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_16__.debounceTime)(1000), (0,rxjs__WEBPACK_IMPORTED_MODULE_17__.distinctUntilChanged)(), (0,rxjs__WEBPACK_IMPORTED_MODULE_18__.takeUntil)(this._destroy$)).subscribe(value => {
       if (typeof value === 'string') {
         this.filteredTransportCarrier = this.transportCarrier.filter(item => {
-          return item.name && item.name.toLowerCase().includes(value.toLowerCase());
+          return item.full_name && item.full_name.toLowerCase().includes(value.toLowerCase());
         });
         if (this.filteredTransportCarrier.length == 1) {
-          if (this.filteredTransportCarrier[0].name?.toLowerCase() === value.toLowerCase()) {
+          if (this.filteredTransportCarrier[0].full_name?.toLowerCase() === value.toLowerCase()) {
             this.contractorForm.patchValue({
               carrier_id: this.filteredTransportCarrier[0].id
             });
@@ -5602,7 +5602,7 @@ class ContractorEditorComponent {
       return '';
     }
     const obj = this.transportCarrier.find(obj => obj.id === id);
-    return obj?.name || '';
+    return obj?.full_name || '';
   }
   displayFn_TypeId(id) {
     if (!this.contractorTypes) {
@@ -5826,7 +5826,7 @@ class ContractorEditorComponent {
       selectors: [["app-contractor-editor"]],
       decls: 215,
       vars: 47,
-      consts: [[3, "title", "isEditMode", "name", "backLink", "save", "remove"], [1, "edit-form", 3, "formGroup"], [1, "form-block"], [1, "form-row"], [1, "form-item-layout"], [1, "form-data", "form-item", "torg"], ["type", "checkbox", "formControlName", "allow_trade"], [1, "form-item"], [1, "form-label"], [1, "req"], [1, "form-data"], ["appearance", "outline", 1, "ui-select"], ["formControlName", "type_id"], [3, "value", "click", 4, "ngFor", "ngForOf"], [4, "ngIf"], ["matInput", "", "type", "text", "formControlName", "carrier_id", 3, "matAutocomplete"], [3, "displayWith"], ["carrier_id", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "hidden", "formControlName", "id"], ["type", "text", "name", "name", "formControlName", "name", "placeholder", "\u2014", "appFocusInitial", ""], ["type", "text", "name", "ind", "formControlName", "ind", "placeholder", "\u2014"], ["matInput", "", "type", "text", "formControlName", "country_id", 3, "matAutocomplete"], ["country_id", "matAutocomplete"], ["disabled", "", 4, "ngIf"], ["matInput", "", "type", "text", "formControlName", "city_id", 3, "matAutocomplete"], ["city_id", "matAutocomplete"], [1, "form-item", "w50"], ["type", "text", "name", "address", "formControlName", "address", "placeholder", "\u2014"], ["type", "text", "name", "phone", "formControlName", "phone", "placeholder", "\u2014", "appPhoneMask", ""], ["type", "text", "name", "web", "formControlName", "web", "placeholder", "\u2014"], ["formControlName", "language_id", "panelClass", "panel-class-name"], ["value", "en"], ["value", "ru"], ["matInput", "", "type", "text", "formControlName", "counterparty_id", 3, "matAutocomplete"], ["counterparty_id", "matAutocomplete"], ["formControlName", "association_id", "multiple", ""], ["matInput", "", "type", "text", "formControlName", "tax_id", 3, "matAutocomplete"], ["tax_id", "matAutocomplete"], [1, "form-row", "sep"], [4, "ngFor", "ngForOf"], [1, "form-item", 2, "width", "100px"], ["formControlName", "currency"], [1, "form-block-title"], [1, "form-row-sm"], [1, "title"], ["name", "rating_nps", "formControlName", "rating_nps"], [1, "link"], ["href", "#"], ["name", "user_rating_nps", "formControlName", "user_rating_nps"], [1, "data", "flags"], [1, "plus"], [1, "minus"], [1, "neutral"], [1, "data"], [1, "win"], [1, "fail"], ["formArrayName", "contacts"], ["class", "user-item", 4, "ngFor", "ngForOf"], [1, "user-item"], [1, "btn", "v", "add", 3, "click"], [1, "hdr", "ftr"], [1, "fn"], [1, "btn", "v", "save", 3, "click"], ["class", "btn v del", 3, "click", 4, "ngIf"], [1, "btn", "v", "cancel", 3, "click"], [3, "value", "click"], [3, "value"], ["disabled", ""], ["type", "radio", "formControlName", "request_format_id", 3, "value"], [1, "btn", "v", "del", 3, "click"], [3, "homeCountryId", "countries", "formControlName"]],
+      consts: [[3, "title", "isEditMode", "name", "backLink", "save", "remove"], [1, "edit-form", 3, "formGroup"], [1, "form-block"], [1, "form-row"], [1, "form-item-layout"], [1, "form-data", "form-item", "torg", 2, "width", "50%"], ["type", "checkbox", "formControlName", "allow_trade"], [1, "form-item"], [1, "form-label"], [1, "req"], [1, "form-data"], ["appearance", "outline", 1, "ui-select"], ["formControlName", "type_id"], [3, "value", "click", 4, "ngFor", "ngForOf"], [4, "ngIf"], ["matInput", "", "type", "text", "formControlName", "carrier_id", 3, "matAutocomplete"], [3, "displayWith"], ["carrier_id", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "hidden", "formControlName", "id"], ["type", "text", "name", "name", "formControlName", "name", "placeholder", "\u2014", "appFocusInitial", ""], ["type", "text", "name", "ind", "formControlName", "ind", "placeholder", "\u2014"], ["matInput", "", "type", "text", "formControlName", "country_id", 3, "matAutocomplete"], ["country_id", "matAutocomplete"], ["disabled", "", 4, "ngIf"], ["matInput", "", "type", "text", "formControlName", "city_id", 3, "matAutocomplete"], ["city_id", "matAutocomplete"], [1, "form-item", "w50"], ["type", "text", "name", "address", "formControlName", "address", "placeholder", "\u2014"], ["type", "text", "name", "phone", "formControlName", "phone", "placeholder", "\u2014", "appPhoneMask", ""], ["type", "text", "name", "web", "formControlName", "web", "placeholder", "\u2014"], ["formControlName", "language_id", "panelClass", "panel-class-name"], ["value", "en"], ["value", "ru"], ["matInput", "", "type", "text", "formControlName", "counterparty_id", 3, "matAutocomplete"], ["counterparty_id", "matAutocomplete"], ["formControlName", "association_id", "multiple", ""], ["matInput", "", "type", "text", "formControlName", "tax_id", 3, "matAutocomplete"], ["tax_id", "matAutocomplete"], [1, "form-row", "sep"], [4, "ngFor", "ngForOf"], [1, "form-item", 2, "width", "100px"], ["formControlName", "currency"], [1, "form-block-title"], [1, "form-row-sm"], [1, "title"], ["name", "rating_nps", "formControlName", "rating_nps"], [1, "link"], ["href", "#"], ["name", "user_rating_nps", "formControlName", "user_rating_nps"], [1, "data", "flags"], [1, "plus"], [1, "minus"], [1, "neutral"], [1, "data"], [1, "win"], [1, "fail"], ["formArrayName", "contacts"], ["class", "user-item", 4, "ngFor", "ngForOf"], [1, "user-item"], [1, "btn", "v", "add", 3, "click"], [1, "hdr", "ftr"], [1, "fn"], [1, "btn", "v", "save", 3, "click"], ["class", "btn v del", 3, "click", 4, "ngIf"], [1, "btn", "v", "cancel", 3, "click"], [3, "value", "click"], [3, "value"], ["disabled", ""], ["type", "radio", "formControlName", "request_format_id", 3, "value"], [1, "btn", "v", "del", 3, "click"], [3, "homeCountryId", "countries", "formControlName"]],
       template: function ContractorEditorComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵelementStart"](0, "app-editor-header", 0);

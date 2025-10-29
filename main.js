@@ -1578,6 +1578,7 @@ class ContractorService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseS
         "style": "form",
         "explode": false
       });
+      rb.query('bidding_request_id', params.bidding_request_id, {});
     }
     return this.http.request(rb.build({
       responseType: 'json',
