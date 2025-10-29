@@ -25952,10 +25952,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   BrandingService: () => (/* binding */ BrandingService)
 /* harmony export */ });
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 5797);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 271);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 7580);
-/* harmony import */ var src_app_api_services__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/api/services */ 3273);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 5797);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 271);
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/environments/environment */ 5312);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 7580);
+/* harmony import */ var src_app_api_services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api/services */ 3273);
+
 
 
 
@@ -25966,11 +25968,11 @@ __webpack_require__.r(__webpack_exports__);
 class BrandingService {
   constructor(settingsService) {
     this.settingsService = settingsService;
-    this.baseLink = 'https://dev.cargodrom.com/';
+    this.baseLink = src_environments_environment__WEBPACK_IMPORTED_MODULE_0__.environment.production ? 'https://cargodrom.com/' : 'https://dev.cargodrom.com/';
     // Subject для хранения ссылки на логотип
-    this.logoLinkSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__.BehaviorSubject('');
+    this.logoLinkSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('');
     // Subject для хранения CSS переменных цветов
-    this.colorsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__.BehaviorSubject('');
+    this.colorsSubject = new rxjs__WEBPACK_IMPORTED_MODULE_2__.BehaviorSubject('');
     // Public observables для подписки на изменения
     this.logoLink$ = this.logoLinkSubject.asObservable();
     this.colors$ = this.colorsSubject.asObservable();
@@ -25987,7 +25989,7 @@ class BrandingService {
    * @returns {Observable<string>} - Observable с полной ссылкой на логотип
    */
   getLogoLink() {
-    return this.logoLink$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_2__.map)(logoLink => logoLink !== '' ? this.baseLink + logoLink : ''));
+    return this.logoLink$.pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.map)(logoLink => logoLink !== '' ? this.baseLink + logoLink : ''));
   }
   /**
    * Получить полную ссылку на логотип как синхронное значение
@@ -26080,11 +26082,11 @@ class BrandingService {
   }
   static {
     this.ɵfac = function BrandingService_Factory(t) {
-      return new (t || BrandingService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](src_app_api_services__WEBPACK_IMPORTED_MODULE_0__.SettingsService));
+      return new (t || BrandingService)(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵinject"](src_app_api_services__WEBPACK_IMPORTED_MODULE_1__.SettingsService));
     };
   }
   static {
-    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({
+    this.ɵprov = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵdefineInjectable"]({
       token: BrandingService,
       factory: BrandingService.ɵfac,
       providedIn: 'root'
