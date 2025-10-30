@@ -121,7 +121,7 @@ app-pages{ .content {min-height: 100%; height: auto; }}
 .subheader .title { font-size: 26px; line-height: 30px; color: var(--header_menu); padding-right: 24px;  font-weight: bold; text-decoration: none; }
 .subheader a.title { position: relative; padding-left: 30px; cursor: pointer; }
 .subheader a.title:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; background: url('../../assets/pic-backto.svg') no-repeat 50% 50%; width: 13px; }
-.subheader .title div { font-size: 13px; line-height: 13px; color: #606A74; font-weight: normal; margin-top: 8px; }
+.subheader .title div { font-size: 13px; line-height: 13px; color: var(--text2,#606A74); font-weight: normal; margin-top: 8px; .req{color: var(--accent, #db563b);} }
 .subheader .item { margin-left: 24px; font-size: 13px; line-height: 12px; color: #606A74; }
 .subheader .item .val {  font-size: 15px; line-height: 17px; color: #2C3640; font-weight: bold; display: block; margin-top: 5px; }
 

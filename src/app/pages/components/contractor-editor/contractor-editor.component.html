@@ -307,8 +307,34 @@
         </div>
       </div>
     </div>
-  </div>
+    <!-- Простой массив -->
+    <input 
+      type="text"
+      [appAutocomplete]="simpleArray"
+      (valueChange)="onValueChange($event)"
+      placeholder="Простой массив"
+    >
 
+    <!-- Массив объектов с указанием полей -->
+    <input 
+      formControlName="type_id" 
+      type="text"
+      [appAutocomplete]="objectArray"
+      [valueField]="'id'"
+      [displayField]="'name'"
+      [selectorClass]="'material'"
+      (valueChange)="onValueChange($event)"
+      placeholder="Объекты с полями"
+    >
+
+    <!-- Массив объектов без указания полей -->
+    <input 
+      type="text"
+      [appAutocomplete]="objectArray"
+      (valueChange)="onValueChange($event)"
+      placeholder="Объекты без полей"
+    >
+  </div>
 
   <div class="form-block-title">Рейтинг</div>
   <div class="form-block">

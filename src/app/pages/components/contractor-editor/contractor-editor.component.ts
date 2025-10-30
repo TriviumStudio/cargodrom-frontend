@@ -608,6 +608,20 @@ export class ContractorEditorComponent implements OnInit {
   // }
 
 
+  simpleArray = ['Яблоко', 'Банан', 'Апельсин', 'Груша'];
+  
+  objectArray = [
+    { id: 1, name: 'Иван', email: 'ivan@mail.com' },
+    { id: 2, name: 'Петр', email: 'petr@mail.com' },
+    { id: 3, name: 'Мария', email: 'maria@mail.com' },
+    { id: 4, name: 'Анна', email: 'anna@mail.com' }
+  ];
+
+  onValueChange(value: any) {
+    console.log('Выбрано значение:', value);
+    // Здесь можно обновить форму или выполнить другие действия
+  }
+
 
 }
 
