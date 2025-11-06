@@ -10,7 +10,6 @@ import { Editor } from 'src/app/classes/editor';
 import { Location, formatDate, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
 import { FileListComponent } from '../file-list/file-list.component';
 import { TransportKind, TransportSubKind, TransportType } from 'src/app/api/custom_models/transport';
 import { Incoterms, Request, RequestFormat, RequestServices } from 'src/app/api/custom_models/request';

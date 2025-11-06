@@ -11,7 +11,7 @@ import { Editor } from 'src/app/classes/editor';
 import { Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
-import { byField } from 'src/app/constants';
+import { byField } from 'src/app/shared/constants';
 import { FileListComponent } from '../file-list/file-list.component';
 
 @Component({

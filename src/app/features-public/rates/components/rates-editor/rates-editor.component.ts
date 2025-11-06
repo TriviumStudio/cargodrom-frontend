@@ -1,37 +1,34 @@
-import { Country } from '../../../api/custom_models/country';
-import { Contact, responsibilityDirections } from '../../../api/custom_models';
-import { FormBuilder, FormGroup, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, FormArray } from '@angular/forms';
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { unknownCountry } from 'src/app/shared/constants';
-import { CargoPackage } from 'src/app/api/custom_models/cargo';
-import { CargoService, ContractorService, DirectionService, TransportService } from 'src/app/api/services';
+import { ContractorService, DirectionService, TransportService } from 'src/app/api/services';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/transport';
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { CalculationsService } from '../../services/calculations.service';
+import { RatesByUidPage } from '../../pages/rate-by-uid/rate-by-uid.page';
+import { CalculationsService } from 'src/app/pages/services/calculations.service';
 
 @Component({
-  selector: 'app-rate-editor',
-  templateUrl: './rate-editor.component.html',
+  selector: 'app-rates-editor',
+  templateUrl: './rates-editor.component.html',
   // styleUrls: ['./rate-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: RateEditorComponent
+      useExisting: RatesByUidPage
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: RateEditorComponent,
+      useExisting: RatesByUidPage,
       multi: true,
     },
   ]
 })
-export class RateEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
+export class RatesEditorComponent implements OnInit, OnDestroy, OnChanges, ControlValueAccessor, Validator {
   @Input() requestKindId!:number;
   @Input() rates?:any;
   @Input() currentRateNumber?:number;

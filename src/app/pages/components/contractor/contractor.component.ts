@@ -2,7 +2,7 @@ import { ContractorFilter } from './../../../api/custom_models/contractor-filter
 import { ContractorService } from './../../../api/services/contractor.service';
 import { Component } from '@angular/core';
 import { Contractor, SearchFilterSchema } from '../../../api/custom_models';
-import { LoadParams, Table } from '../../../classes';
+import { LoadParams, Table } from 'src/app/shared/classes';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';

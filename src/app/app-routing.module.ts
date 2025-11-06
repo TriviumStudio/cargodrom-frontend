@@ -18,21 +18,44 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
-  {
-    path: 'pages',
-    loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
-    // canActivate: [AuthGuard]
+  { // Основные фичи(FeaturesModule)
+    path: '',
+    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
+    canActivate: [AuthGuard]
   },
-  { path: 'password_recovery', component: PasswordRecoveryComponent, canActivate: [UserGuard], title: 'Востановление пароля' },
-  { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
-  { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
-  { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
-  { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},
-  { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},
-  { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения'},
-  { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения' },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { // Публичные фичи(FeaturesPublicModule)
+    path: '',
+    loadChildren: () => import('./features-public/features-public.module').then(m => m.FeaturesPublicModule),
+    canActivate: [UserGuard]
+  },
+  { // Аутентификация(AuthModule)
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    canActivate: [UserGuard]
+  },
+  // Редиректы(redirect)
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard' },
+
+
+  // старая схема
+  // {
+  //   path: 'pages',
+  //   loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+  //   // canActivate: [AuthGuard]
+  // },
+  // // Публичные роуты(Public)
+  // { path: 'password_recovery', component: PasswordRecoveryComponent, canActivate: [UserGuard], title: 'Востановление пароля' },
+  // { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
+  // { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
+  // { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
+  // { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},
+  // { path: 'register', component: RegisterComponent, canActivate: [UserGuard], title: 'Регистрация в системе'},
+  // { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения'},
+  // { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения' },
+  // // Редиректы(redirect)
+  // { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  // { path: '**', redirectTo: 'pages' },
 ];
 
 @NgModule({
