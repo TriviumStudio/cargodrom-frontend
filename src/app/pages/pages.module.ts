@@ -145,6 +145,6 @@ import { SharedModule } from '../shared/shared.module';
   providers: [
     NavigationHistoryService,// Сервис будет доступен в рамках PagesModule
   ],
-  exports: [HeaderComponent, RequestComponent, IconComponent]
+  exports: []
 })
 export class PagesModule { }

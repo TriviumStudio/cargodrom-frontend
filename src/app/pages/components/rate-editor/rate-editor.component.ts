@@ -12,6 +12,7 @@ import { TransportCarrier, TransportRoute } from 'src/app/api/custom_models/tran
 import { formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CalculationsService } from '../../services/calculations.service';
+import { RequestRateComponent } from '../request-rate/request-rate.component';
 
 @Component({
   selector: 'app-rate-editor',
@@ -22,11 +23,11 @@ import { CalculationsService } from '../../services/calculations.service';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: RateEditorComponent
+      useExisting: RequestRateComponent,
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: RateEditorComponent,
+      useExisting: RequestRateComponent,
       multi: true,
     },
   ]

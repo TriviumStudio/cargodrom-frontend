@@ -6,7 +6,7 @@ import { Observable, Subject, find, map, pipe, takeUntil, tap, retry, debounce, 
 import { ContractorService } from './../../../api/services/contractor.service';
 import { City, Client, ClientGroup, Contractor, ContractorRequestFormat, Country, Currency, Customer, DirectionCity, Employee, FileDocument, TaxSystem, RequestFile } from 'src/app/api/custom_models';
 import { CargoService, CompanyService, CustomerService, DirectionService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Editor } from 'src/app/classes/editor';
+import { Editor } from 'src/app/shared/classes/editor';
 import { Location, formatDate, getLocaleMonthNames } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';

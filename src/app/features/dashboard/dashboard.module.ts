@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardPage } from './pages/dashboard/dashboard.page';
 // import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { 
     path: '', 
-    // component: DashboardComponent,
+    component: DashboardPage,
     title: 'Дашборд'
   }
 ];

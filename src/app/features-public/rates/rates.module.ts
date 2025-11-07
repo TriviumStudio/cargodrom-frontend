@@ -23,6 +23,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     SharedModule,
+    CommonModule,
   ],
   exports: [RouterModule]
 })

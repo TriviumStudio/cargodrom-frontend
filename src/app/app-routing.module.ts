@@ -9,6 +9,7 @@ import {ConfirmComponent} from "./auth/components/confirm/confirm.component";
 import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
 import { EmployeeRegisterComponent } from './pages/components/employee-register/employee-register.component';
 import { PasswordRecoveryComponent } from './auth/components/password-recovery/password-recovery.component';
+import { PagesModule } from './pages/pages.module';
 
 const config: ExtraOptions = {
   useHash: true,
@@ -21,7 +22,7 @@ const routes: Routes = [
   { // Основные фичи(FeaturesModule)
     path: '',
     loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   { // Публичные фичи(FeaturesPublicModule)
     path: '',
@@ -38,7 +39,7 @@ const routes: Routes = [
   { path: '**', redirectTo: 'dashboard' },
 
 
-  // старая схема
+  // // старая схема
   // {
   //   path: 'pages',
   //   loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),

@@ -29,12 +29,12 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      {
-        path: 'test',
-        component: TestPage,
-        pathMatch: 'full',
-        canActivate: [AuthGuard],
-      },
+      // {
+      //   path: 'test',
+      //   component: TestPage,
+      //   pathMatch: 'full',
+      //   canActivate: [AuthGuard],
+      // },
       {
         path: '',
         redirectTo: 'dashboard',
