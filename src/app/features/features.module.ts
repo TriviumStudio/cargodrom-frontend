@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FeaturesComponent } from './features.component';
 import { HeaderFeaturesComponent } from './header/header.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { UserGuard } from '../auth/user.guard';
 
 const routes: Routes = [
   {
@@ -40,6 +41,16 @@ const routes: Routes = [
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
       },
     ]
+  },
+  {
+    path: 'invatet',
+    canActivate: [UserGuard],
+    loadChildren: () => import('./invatet/invatet.module').then(m => m.InvatetModule),
+  },
+  {
+    path: 'auth',
+    canActivate: [UserGuard],
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
   },
 ];
 
