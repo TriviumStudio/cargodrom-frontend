@@ -46,17 +46,6 @@
         </div>
       </div>
 
-      <div class="form-item">
-        <div class="form-label">Airline:</div>
-        <div class="form-data">
-          <input type="text" 
-            formControlName="carrier_desc" 
-            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''" 
-            [value]="returnAirlineName(rateForm.value.carrier_name)"
-          >
-        </div>
-      </div>
-
       <div class="form-item" style="width: 105px;">
         <div class="form-label">Airline (iata):</div>
         <div class="form-data">
@@ -69,6 +58,17 @@
           <mat-autocomplete autoActiveFirstOption #carrier_name="matAutocomplete">
             <mat-option *ngFor="let route of filterIata()" [value]="route.iata">{{route.iata}}</mat-option>
           </mat-autocomplete>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <div class="form-label">Airline:</div>
+        <div class="form-data">
+          <input type="text"
+            formControlName="carrier_desc"
+            [readonly]="returnAirlineName(rateForm.value.carrier_name)!=''"
+            [value]="returnAirlineName(rateForm.value.carrier_name)"
+          >
         </div>
       </div>
 
@@ -159,7 +159,7 @@
     </div>
 
     <div class="form-item-layout" >
-      
+
       <div class="form-item w110" formGroupName="transit_time">
         <div class="form-label">Transit time from:</div>
         <div class="form-data">
@@ -175,7 +175,7 @@
       </div>
 
       <div class="form-item w110">
-      <div class="form-label">Currency:</div>
+      <div class="form-label">Сurrency Rate:</div>
         <div class="form-data">
           <mat-form-field appearance="outline" class="ui-select">
             <mat-select formControlName="currency">

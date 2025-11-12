@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { CargoService, CustomerService, DirectionService, FileService, RequestService, SystemService, TransportService } from 'src/app/api/services';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CityService } from '../../services/city.service';
 import { CountryService } from '../../services/country.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';

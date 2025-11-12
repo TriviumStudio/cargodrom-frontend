@@ -19,11 +19,11 @@ const config: ExtraOptions = {
 };
 
 const routes: Routes = [
-  // { // Основные фичи(FeaturesModule)
-  //   path: '',
-  //   loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
-  //   // canActivate: [AuthGuard]
-  // },
+  { // Основные фичи(FeaturesModule)
+    path: '',
+    loadChildren: () => import('./features/features.module').then(m => m.FeaturesModule),
+    // canActivate: [AuthGuard]
+  },
   // // { // Публичные фичи(FeaturesPublicModule)
   // //   path: '',
   // //   loadChildren: () => import('./features-public/features-public.module').then(m => m.FeaturesPublicModule),
@@ -47,7 +47,7 @@ const routes: Routes = [
   },
   // Публичные роуты(Public)
   { path: 'password_recovery', component: PasswordRecoveryComponent, canActivate: [UserGuard], title: 'Востановление пароля' },
-  { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
+  // { path: 'rate_request/:uid', component: RequestRateComponent, title: 'Rates' },
   { path: 'employee_register/:uid', component: EmployeeRegisterComponent, title: 'Employee Register' },
   { path: 'login', component: LoginComponent, canActivate: [UserGuard], title: 'Вход в систему' },
   { path: 'logout', component: LogoutComponent, title: 'Выход из системы'},

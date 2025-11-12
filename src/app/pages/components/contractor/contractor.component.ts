@@ -53,13 +53,13 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   //методы для таблицы
 
-  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; }> {
+  load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; full_total:number }> {
     this.params=params;
     console.log(123);
 
     // return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
     // return this.importMetods.test(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
-    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
+    return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; full_total:number  }>;
   }
   protected override loadFilterSchemaTest(): Observable<any>  {
     return this.contractorService.contractorListParam().pipe(map(val => val as any));

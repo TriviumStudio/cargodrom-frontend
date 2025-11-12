@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './error.interceptor';
 import { TokenInterceptor } from './token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { PageTitleService } from './page-title.service';
 import { TitleStrategy } from '@angular/router';
@@ -27,9 +27,10 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     LoaderComponent,
-    
+
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     AuthModule,
@@ -40,7 +41,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
   ],
   providers: [
-    
+
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ,
     {

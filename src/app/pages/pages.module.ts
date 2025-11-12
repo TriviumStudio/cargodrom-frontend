@@ -68,7 +68,7 @@ import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  
+
   declarations: [
     DashboardComponent,
     PagesComponent,
@@ -97,10 +97,11 @@ import { SharedModule } from '../shared/shared.module';
     PlaceEditorComponent,
     RequestServicesComponent,
     RequestEditorTranslateComponent,
-    RequestRateComponent,
+    // RequestRateComponent,
+    // RateEditorComponent,
     RequestDetails,
 
-    RateEditorComponent,
+
 
 
     RequestInfoBlock,
@@ -123,13 +124,13 @@ import { SharedModule } from '../shared/shared.module';
     MessagePage,
     MessageEditorComponent,
     TableList,
-    
+
 
     // SimpleTableComponent,
     BaseTableComponent,
     CustomersTableComponent,
     IconComponent,
-    
+
 
   ],
   imports: [
