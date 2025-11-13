@@ -6,13 +6,12 @@ import { FileService, RequestService, SystemService } from 'src/app/api/services
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-rate-by-uid',
-  templateUrl: './rate-by-uid.page.html',
-  styleUrls: ['./rate-by-uid.page.scss'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'page-request-public',
+  templateUrl: './request-public.page.html',
+  styleUrls: ['./request-public.page.scss'],
 })
 
-export class RatesByUidPage implements OnInit, OnDestroy {
+export class RequestPublicPage implements OnInit, OnDestroy {
   //ПЕРЕМЕННЫЕ
   id: number=0;
   //снек бар
@@ -50,6 +49,8 @@ export class RatesByUidPage implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     const uid = this.route.snapshot.paramMap.get('uid');
+    console.log(uid);
+
     this.requestForm.patchValue({
       uid:uid
     })

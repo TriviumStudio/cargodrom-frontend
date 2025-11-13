@@ -166,7 +166,7 @@
 
     <div class="form-row rate" formArrayName="rates">
       <div *ngFor="let rate of rates.controls; let i=index" >
-        <app-rates-editor
+        <!-- <app-rates-editor
           (removeRate)="removeRate(i)"
           (addRate)="addRate()"
           (indexRateChange)="indexRateChange($event)"
@@ -181,7 +181,7 @@
           [request]="request"
           [currency]="currencyList"
         >
-        </app-rates-editor>
+        </app-rates-editor> -->
       </div>
     </div>
 

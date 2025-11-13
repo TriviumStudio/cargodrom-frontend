@@ -112,7 +112,7 @@ export class BrandingService {
       if (value && typeof value === 'string') {
         // Преобразуем ключ в kebab-case для CSS переменных
         const cssVarName = `--user-brend_${key.replace(/_/g, '_')}`;
-        cssVariables.push(`${cssVarName}: ${value};`);
+        cssVariables.push(`${cssVarName}: ${value}`);
       }
     });
 

@@ -39,6 +39,7 @@ import { SharedModule } from './shared/shared.module';
     MatDatepickerModule,
     NgScrollbarModule,
     SharedModule,
+    AppRoutingModule,
   ],
   providers: [
 

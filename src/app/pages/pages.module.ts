@@ -97,8 +97,8 @@ import { SharedModule } from '../shared/shared.module';
     PlaceEditorComponent,
     RequestServicesComponent,
     RequestEditorTranslateComponent,
-    // RequestRateComponent,
-    // RateEditorComponent,
+    RequestRateComponent,
+    RateEditorComponent,
     RequestDetails,
 
 
