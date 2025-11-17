@@ -28,7 +28,7 @@
           </div>
           <div class="form-data">
             <mat-form-field appearance="outline" class="ui-select">
-              <mat-select formControlName="type_id" appSelectClear>
+              <mat-select formControlName="type_id">
                 <mat-option *ngFor="let contractorType of contractorTypes;" [value]="contractorType.id" (click)="onContractorTypeChange(contractorType)">{{ contractorType.name }}</mat-option>
               </mat-select>
               <ng-container *ngTemplateOutlet="inputError; context: { field: 'type_id'}"></ng-container>
@@ -258,11 +258,13 @@
               [items]="transportCarrier"
               bindLabel="full_name"
               bindValue="id"
-              [placeholder]="contractorForm.value.carrier_id?.length>0? 'Выбранно эл.: '+contractorForm.value.carrier_id.length:'—'"
+              [placeholder]="contractorForm.value.carrier_id?.length>0? 'Выбранно эл.: '+contractorForm.value.carrier_id.length:''"
               formControlName="carrier_id" >
               <!-- <ng-template ng-label-tmp let-item="item">{{ item.iata?item.iata:item.name }}
               </ng-template> -->
-              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear"></ng-template>
+              <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+
+              </ng-template>
             </ng-select>
             <ng-container *ngTemplateOutlet="inputError; context: { field: 'carrier_id'}"></ng-container>
           </div>
