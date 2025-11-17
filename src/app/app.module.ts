@@ -19,6 +19,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingInterceptor } from './interceptors/loader.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { RequestRateComponent } from './pages/components/request-rate/request-rate.component';
+import { RateEditorComponent } from './pages/components/rate-editor/rate-editor.component';
+import { PagesModule } from './pages/pages.module';
 
 
 
@@ -28,8 +31,10 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     LoaderComponent,
 
+
   ],
   imports: [
+    PagesModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,

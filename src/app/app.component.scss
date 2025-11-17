@@ -416,7 +416,8 @@ mat-form-field.mat-mdc-form-field {
 
 
 // features-component .content{
-app-rate-by-uid, features-component .content{
+app-rate-by-uid, features-component .content,
+.content, app-request-rate{
   --accent:var(--user-brend_accent, #db563b);
   --accent_text:var(--user-brend_accent_text, #FFFFFF);
   --background:var(--user-brend_background,#F7F9FC);
