@@ -77,6 +77,7 @@
 form ng-select.ng-select.custom{
   &:not(.ng-select-filtered) .ng-placeholder {display: flex;}
   ng-dropdown-panel.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+    font-size: 13px;
     background-color: var(--background2);
     &.ng-option-selected{
       background-color: var(--background2);

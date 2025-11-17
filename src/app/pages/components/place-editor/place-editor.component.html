@@ -11,7 +11,7 @@
       <div class="form-label" *ngIf="num===1">Вид упаковки:</div>
       <div class="form-data">
         <input matInput type="text" formControlName="cargo_package_id" [matAutocomplete]="cargo_package_id" >
-        <mat-autocomplete #cargo_package_id="matAutocomplete" [displayWith]="displayFn_CargoPackageId.bind(this)">
+        <mat-autocomplete #cargo_package_id="matAutocomplete" [displayWith]="displayFn_CargoPackageId.bind(this)"  (optionSelected)="cargoPackageChange()">
           <mat-option *ngFor="let option of filteredCargoPackage" [value]="option.id">
             {{option.name}}
           </mat-option>
