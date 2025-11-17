@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunkcargodrom_frontend"] = self["webpackChunkcargodrom_frontend"] || []).push([["polyfills"],{
 
-/***/ 4050:
+/***/ 24050:
 /*!**************************!*\
   !*** ./src/polyfills.ts ***!
   \**************************/
@@ -9,7 +9,7 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_localize_init__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/localize/init */ 1643);
-/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zone.js */ 4124);
+/* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! zone.js */ 74124);
 /* harmony import */ var zone_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(zone_js__WEBPACK_IMPORTED_MODULE_1__);
 /***************************************************************************************************
  * Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
@@ -66,7 +66,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 4124:
+/***/ 74124:
 /*!***********************************************!*\
   !*** ./node_modules/zone.js/fesm2015/zone.js ***!
   \***********************************************/
@@ -2742,7 +2742,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   $localize: () => (/* reexport safe */ _angular_localize__WEBPACK_IMPORTED_MODULE_0__["ɵ$localize"])
 /* harmony export */ });
-/* harmony import */ var _angular_localize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/localize */ 5116);
+/* harmony import */ var _angular_localize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/localize */ 95116);
 /**
  * @license Angular v16.2.12
  * (c) 2010-2022 Google LLC. https://angular.io/
@@ -2757,7 +2757,7 @@ globalThis.$localize = _angular_localize__WEBPACK_IMPORTED_MODULE_0__["ɵ$locali
 
 /***/ }),
 
-/***/ 5116:
+/***/ 95116:
 /*!**************************************************************!*\
   !*** ./node_modules/@angular/localize/fesm2022/localize.mjs ***!
   \**************************************************************/
@@ -3885,7 +3885,7 @@ function stripBlock(messagePart, rawMessagePart) {
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(4050));
+/******/ var __webpack_exports__ = (__webpack_exec__(24050));
 /******/ }
 ]);
 //# sourceMappingURL=polyfills.js.map
