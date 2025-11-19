@@ -5,8 +5,8 @@ import { DashboardPage } from './pages/dashboard/dashboard.page';
 // import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
+  {
+    path: '',
     component: DashboardPage,
     title: 'Дашборд'
   }
@@ -15,7 +15,6 @@ const routes: Routes = [
 @NgModule({
   // declarations: [DashboardComponent],
   imports: [
-    CommonModule,
     RouterModule.forChild(routes)
   ]
 })

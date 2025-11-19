@@ -4,20 +4,25 @@ import { RouterModule, Routes } from '@angular/router';
 // import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
+  {
+    path: '',
     // component: DashboardComponent,
     title: 'Запросы'
   },
-  { 
-    path: 'add', 
+  {
+    path: 'add',
     // component: DashboardComponent,
     title: 'Добавление запроса'
   },
-  { 
-    path: 'edit/:id', 
+  {
+    path: 'edit/:id',
     // component: DashboardComponent,
     title: 'Редактирование запроса'
+  },
+  {
+    path: ':rate_types',
+    // component: DashboardComponent,
+    title: 'Детализация запроса'
   },
 ];
 

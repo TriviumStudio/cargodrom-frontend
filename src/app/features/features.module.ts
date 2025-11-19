@@ -45,7 +45,7 @@ const routes: Routes = [
     ]
   },
   {// модуль публичных фич
-    path: '',
+    path: 'invatet',
     // canActivate: [UserGuard],
     loadChildren: () => import('./invatet/invatet.module').then(m => m.InvatetModule),
   },
