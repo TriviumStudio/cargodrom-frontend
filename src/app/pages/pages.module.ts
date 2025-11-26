@@ -59,7 +59,6 @@ import { TableList } from './table-list/table-list.component';
 import { BaseTableComponent } from './table/components/base-table/base-table.componet';
 import { CustomersTableComponent } from './table/components/base-table/customers-table.component';
 import { SettingsModule } from './modules/settings/settings.module';
-import { IconComponent } from './icon/icon.component';
 import { NavigationHistoryService } from './services/navigation-history.service';
 import { SharedModule } from '../shared/shared.module';
 
@@ -70,85 +69,26 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
 
   declarations: [
-    DashboardComponent,
     PagesComponent,
     HeaderComponent,
-    RequestComponent,
-    RequestEditorComponent,
-    OrderComponent,
-    OrderEditorComponent,
-    BitComponent,
-    TariffComponent,
-    ReportComponent,
-    ClientComponent,
-    GuideComponent,
     CurrencyComponent,
-    ContractorComponent,
-    ContractorEditorComponent,
-    RatingComponent,
-    ContactEditorComponent,
-    TradeDirectionComponent,
-    ClientEditorComponent,
-    ServicesComponent,
-    FileListComponent,
-    ResponsibilityMatrixComponent,
-    ResponsibilityRowComponent,
-    ResponsibilityComponent,
-    PlaceEditorComponent,
-    RequestServicesComponent,
-    RequestEditorTranslateComponent,
-    RequestRateComponent,
-    RateEditorComponent,
-    RequestDetails,
 
-
-
-
-    RequestInfoBlock,
-    RateInfoRow,
-    RateAddPoint,
-    RateAddTransporter,
-    RateAddCustoms,
-    RateAddOther,
-
-    OfferEditorComponent,
-
-    // RequestPage,
-    //   RequestTableComponent,
-
-    TableSubheaderFileComponent,
-    // TableComponent,
     EmployeeRegisterComponent,
 
-    TestPage,
-    MessagePage,
-    MessageEditorComponent,
-    TableList,
-
-
-    // SimpleTableComponent,
     BaseTableComponent,
     CustomersTableComponent,
-    IconComponent,
-
-
+    TableList,
+    TestPage,
   ],
   imports: [
-    CommonModule,
     PagesRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    FilterModule,
-    NgScrollbarModule,
     SharedModule,
   ],
   providers: [
     NavigationHistoryService,// Сервис будет доступен в рамках PagesModule
   ],
-  exports: [
-    RateEditorComponent,
-    RequestDetails,
-  ]
+  // exports: [
+  //   RateEditorComponent,
+  // ]
 })
 export class PagesModule { }

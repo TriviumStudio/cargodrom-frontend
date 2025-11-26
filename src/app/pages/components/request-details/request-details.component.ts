@@ -352,7 +352,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
   }
   // Link to offer editor page
   navToOfferEditor(offer_id:number){
-    this.router.navigate(['pages/offer', offer_id])
+    this.router.navigate(['pages/request/offer', offer_id])
   }
   // Link to request editor page
   navToRequestEditor(){

@@ -107,11 +107,11 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   ngOnInit(): void {
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isBiddingMode = segments[1] === 'bidding';
-    this.isRateDetailsMode = segments[1] === 'details';
+    this.isBiddingMode = segments[0] === 'bidding';
+    this.isRateDetailsMode = segments[0] === 'details';
     if(this.isRateDetailsMode || this.isBiddingMode){
-      if(this.isRateDetailsMode) this.detailsMethod=segments[2];
-      this.requestId = Number(this.route.snapshot.paramMap.get('id'));
+      if(this.isRateDetailsMode) this.detailsMethod=segments[1];
+      this.requestId = Number(this.route.snapshot.paramMap.get('id'));//TODO:предлать все на paramMap.get в похожих случаях
       this.getRequestInfo(this.requestId);
     }
     this.filterService.onApply().subscribe(filter => {

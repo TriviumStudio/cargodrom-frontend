@@ -125,7 +125,7 @@ displayName(item: any): string {
 
   initialization_chooseModeForm(){
     const segments = this.route.snapshot.url.map(s => s.path);
-    this.isEditMode = segments[1] !== 'add';
+    this.isEditMode = segments[0] !== 'add';
     this.title = this.isEditMode ? 'Информация о подрядчике' : 'Добавление подрядчика';
   }
   async initialization_getDatas() {
