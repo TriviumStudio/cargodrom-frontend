@@ -146,7 +146,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
       const baseUrl = window.location.href.split('/#')[0];
       return value.replace(
         /\[urlclient\](.*?)\[\/urlclient\]/ig,
-        `<a class="link" target="_blank" href="${baseUrl}/#/pages/customer/edit/${obj.customer_id}">$1</a>`
+        `<a class="link" target="_blank" href="${baseUrl}/#/customer/edit/${obj.customer_id}">$1</a>`
       );
     }
     return value;

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { AuthGuard } from '../auth/auth.guard';
+import { UserGuard } from '../auth/user.guard';
 
 const routes: Routes = [
   {
@@ -58,8 +59,16 @@ const routes: Routes = [
   },
   {
     path: '',
+    // canActivate: [UserGuard],
     loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule),
   },
+  {
+    path: '',
+    // canActivate: [UserGuard],
+    loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule),
+  },
+  // { path: '', redirectTo: 'dashboard', pathMatch: 'full', },
+  { path: '**', redirectTo: 'dashboard' },
 ];
 
 @NgModule({

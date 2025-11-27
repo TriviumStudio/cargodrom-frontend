@@ -5,7 +5,7 @@ import { BitComponent } from '../../components/bit/bit.component';
 
 const routes: Routes = [
   {
-    path: 'bit',
+    path: '',
     component: BitComponent,
     title: 'Ставки',
   },

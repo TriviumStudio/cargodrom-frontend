@@ -612,7 +612,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
   }
   calc():void{
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.router.navigate(['pages/request/edit/translate', id]);
+    this.router.navigate(['request/edit/translate', id]);
   }
 
   //РЕДАКТИРОВАНИЕ ДАННЫХ ПЕРЕД ОТПРАВКОЙ
@@ -1502,7 +1502,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         if(this.isNavigateAfterSave){
           this.goBack();
         } else {
-          this.router.navigate(['pages/request/edit', test.id]);
+          this.router.navigate(['request/edit', test.id]);
         }
         this.snackBar.open(`Запрос создан`, undefined, this.snackBarWithShortDuration);
       },

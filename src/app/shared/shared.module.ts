@@ -9,6 +9,7 @@ import { TableSubheaderFileComponent } from '../pages/components/table-subheader
 import { RouterModule } from '@angular/router';
 import { FileListComponent } from '../pages/components/file-list/file-list.component';
 import { RequestInfoBlock } from '../pages/components/request-info-block/request-info-block.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,9 @@ import { RequestInfoBlock } from '../pages/components/request-info-block/request
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
 
     FilterModule,
-    // NgScrollbarModule,
-
   ],
   exports: [
     CommonModule,
@@ -37,13 +37,12 @@ import { RequestInfoBlock } from '../pages/components/request-info-block/request
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
+    HttpClientModule,
 
     FilterModule,
     TableSubheaderFileComponent,
     FileListComponent,
     RequestInfoBlock,
-
-
   ]
 })
 export class SharedModule { }
