@@ -27,8 +27,8 @@ const routes: Routes = [
   // { path: 'confirm', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения'},
   // { path: 'confirm/:uid', component: ConfirmComponent, canActivate: [UserGuard], title: 'Код подтверждения' },
   // Редиректы(redirect)
-  { path: 'rate', redirectTo: 'request-rates/5191ebbc0ba015a608f285b78b524449' },
-  { path: 'rate_request:uid', redirectTo: 'request-rates/:uid' },
+  // { path: 'rate', redirectTo: 'request-rates/5191ebbc0ba015a608f285b78b524449' },
+  // { path: 'rate_request:uid', redirectTo: 'request-rates/:uid' },
 
   // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   // { path: '**', redirectTo: 'dashboard' },
