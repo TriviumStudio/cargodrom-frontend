@@ -85,6 +85,9 @@ form ng-select.ng-select.custom, .filter ng-select.ng-select.custom{
       color: var(--accent);
       .ng-option-label{font-weight: normal;}
     }
+    &.ng-option-marked{
+      background-color: #F7F9FC;
+    }
   }
 
   div.ng-select-container{
