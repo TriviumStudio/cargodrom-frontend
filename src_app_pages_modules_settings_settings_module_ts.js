@@ -177,8 +177,8 @@ class BrandingComponent extends src_app_shared_classes_base_component__WEBPACK_I
     this.colors = [];
     this.canUndo = false;
     this.canRedo = false;
-    this.tableLink = this.getSafeUrl('/#/pages/request');
-    this.formLink = this.getSafeUrl('/#/pages/request/add');
+    this.tableLink = this.getSafeUrl('/#/request');
+    this.formLink = this.getSafeUrl('/#/request/add');
     this.colorHistory = []; // История значений
     this.currentHistoryIndex = -1; // Текущая позиция в истории
     this.maxHistoryLength = 50; // Максимальная длина истории
@@ -845,7 +845,7 @@ class ClientGroupEditorComponent extends _classes_settings_editor__WEBPACK_IMPOR
         }
         if (rf & 2) {
           const _r2 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵreference"](35);
-          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/pages/settings/client-group");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/settings/client-group");
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("formGroup", ctx.form);
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](22);
@@ -1716,7 +1716,7 @@ class CompanyEditorComponent extends _classes_settings_editor__WEBPACK_IMPORTED_
         }
         if (rf & 2) {
           const _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵreference"](465);
-          _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/pages/settings/company");
+          _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/settings/company");
           _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵproperty"]("formGroup", ctx.form);
           _angular_core__WEBPACK_IMPORTED_MODULE_7__["ɵɵadvance"](24);
@@ -2239,7 +2239,7 @@ class DepartmentEditorComponent extends _classes_settings_editor__WEBPACK_IMPORT
         }
         if (rf & 2) {
           const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵreference"](36);
-          _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/pages/settings/department");
+          _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/settings/department");
           _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("formGroup", ctx.form);
           _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](22);
@@ -3226,7 +3226,7 @@ class EmployeeEditorComponent extends _classes_settings_editor__WEBPACK_IMPORTED
         }
         if (rf & 2) {
           const _r13 = _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵreference"](159);
-          _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("isSend", true)("backLink", "/pages/settings/employee");
+          _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("isSend", true)("backLink", "/settings/employee");
           _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵproperty"]("formGroup", ctx.form);
           _angular_core__WEBPACK_IMPORTED_MODULE_8__["ɵɵadvance"](22);
@@ -5352,7 +5352,7 @@ class PositionEditorComponent extends _classes_settings_editor__WEBPACK_IMPORTED
         }
         if (rf & 2) {
           const _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵreference"](53);
-          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/pages/settings/position");
+          _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("title", ctx.title)("isEditMode", ctx.isEditMode)("name", ctx.nameForHeader)("backLink", "/settings/position");
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("formGroup", ctx.form);
           _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](22);
