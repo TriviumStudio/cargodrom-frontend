@@ -576,7 +576,7 @@ function ContractorEditorComponent_ng_template_190_Template(rf, ctx) {
   if (rf & 2) {
     const field_r54 = ctx.field;
     const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngIf", ctx_r37.contractorForm.controls[field_r54].hasError("required"));
+    _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngIf", ctx_r37.isRequiredField(field_r54));
   }
 }
 const _c1 = function () {
@@ -724,14 +724,14 @@ class ContractorEditorComponent {
       association_id: [[]],
       tax_id: [undefined],
       // type_id: [undefined, [Validators.required]],
-      type_id: [''],
+      type_id: [],
       language_id: [undefined],
-      country_id: [''],
-      city_id: [''],
+      country_id: [],
+      city_id: [],
       request_format_id: [''],
       // exclude_from_trade: [false]
       allow_trade: [false],
-      counterparty_id: [''],
+      counterparty_id: [],
       // carrier_name:[,[]],
       carrier_id: [[], []],
       currency: [, []]
@@ -748,6 +748,10 @@ class ContractorEditorComponent {
 
   test(i, c) {
     console.log(i, c);
+  }
+  isRequiredField(field) {
+    const control = this.contractorForm.get(field);
+    return control?.hasValidator(_angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required) ?? false;
   }
   onSearchChange(event) {
     const searchText = event.target.value.toLowerCase();
@@ -1388,13 +1392,13 @@ class ContractorEditorComponent {
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](4);
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngTemplateOutlet", _r36)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpureFunction0"](112, _c14));
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("closeOnSelect", false)("multiple", true)("items", ctx.transportCarrier)("placeholder", (ctx.contractorForm.value.carrier_id == null ? null : ctx.contractorForm.value.carrier_id.length) > 0 ? "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u043E \u044D\u043B.: " + ctx.contractorForm.value.carrier_id.length : "");
+          _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("closeOnSelect", false)("multiple", true)("items", ctx.transportCarrier)("placeholder", (ctx.contractorForm.value.carrier_id == null ? null : ctx.contractorForm.value.carrier_id.length) > 0 ? "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u043E \u044D\u043B.: " + ctx.contractorForm.value.carrier_id.length : "\u2014");
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngTemplateOutlet", _r34)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpureFunction0"](113, _c14));
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](4);
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngTemplateOutlet", _r36)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpureFunction0"](114, _c15));
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("items", ctx.associations)("multiple", true)("placeholder", (ctx.contractorForm.value.carrier_id == null ? null : ctx.contractorForm.value.carrier_id.length) > 0 ? "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u043E \u044D\u043B.: " + ctx.contractorForm.value.association_id.length : "")("closeOnSelect", false);
+          _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("items", ctx.associations)("multiple", true)("placeholder", (ctx.contractorForm.value.association_id == null ? null : ctx.contractorForm.value.association_id.length) > 0 ? "\u0412\u044B\u0431\u0440\u0430\u043D\u043D\u043E \u044D\u043B.: " + ctx.contractorForm.value.association_id.length : "\u2014")("closeOnSelect", false);
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵproperty"]("ngTemplateOutlet", _r34)("ngTemplateOutletContext", _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵpureFunction0"](115, _c15));
           _angular_core__WEBPACK_IMPORTED_MODULE_10__["ɵɵadvance"](4);

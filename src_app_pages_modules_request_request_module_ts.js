@@ -1802,7 +1802,7 @@ class PlaceEditorComponent {
       text: ' не стакинг'
     }];
     this.placeForm = this.fb.group({
-      cargo_package_id: [, []],
+      cargo_package_id: [1, []],
       stacking: [true, []],
       length: [, []],
       width: [, []],
@@ -10109,7 +10109,7 @@ class RequestEditorComponent {
       transport_type_id: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required]],
       //ОПИСАНИЕ ГРУЗА
       cargo_description: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required, _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.minLength(2)]],
-      cargo_package_id: [, []],
+      cargo_package_id: [1, []],
       cargo_package_name: ['', []],
       cargo_type_id: [, []],
       cargo_type_name: ['', []],
@@ -10186,7 +10186,7 @@ class RequestEditorComponent {
     console.log('segments', segments);
   }
   initialization_getDatas() {
-    const queue1 = [this.getCustomers(), this.getСargoTypes(), this.getCities(), this.getTransportFormats(), this.getCountries(), this.getСargoPackages(), this.getRequestFormats(), this.getTransportationFormats(), this.getDirectionFlight(), this.getCurrencys()];
+    const queue1 = [this.getCustomers(), this.getСargoPackages(), this.getСargoTypes(), this.getCities(), this.getTransportFormats(), this.getCountries(), this.getRequestFormats(), this.getTransportationFormats(), this.getDirectionFlight(), this.getCurrencys()];
     const queue2 = [this.getRequest()];
     this.requestManager.executeQueues([queue1, this.isEditMode ? queue2 : []]);
   }
@@ -10794,9 +10794,8 @@ class RequestEditorComponent {
   //
   //
   placeCargoPackageChange(i) {
-    console.log(123);
     this.places.controls.forEach((item, index) => {
-      if (i < index && !item.value.cargo_package_id) {
+      if (i < index && !item.value.width && !item.value.weight && !item.value.height && !item.value.length && !item.value.count) {
         console.log(item, index, this.requestForm.value.cargo_places[i].cargo_package_id);
         item.patchValue({
           cargo_package_id: this.requestForm.value.cargo_places[i].cargo_package_id
@@ -10979,7 +10978,7 @@ class RequestEditorComponent {
   }
   //изменение поля вида запроса
   onRequestFormatsChange(id) {
-    this.requestForm.controls['cargo_package_id'].reset();
+    // this.requestForm.controls['cargo_package_id'].reset();
     this.requestForm.controls['cargo_type_id'].reset();
     this.requestForm.controls['cargo_places_count'].reset();
     this.requestForm.controls['cargo_places_weight'].reset();
@@ -11104,6 +11103,9 @@ class RequestEditorComponent {
     return this.cargoService.cargoPackage().pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_17__.tap)(cargoPackages => {
       this.cargoPackages = cargoPackages;
       this.filteredCargoPackage = cargoPackages;
+      if (!this.isEditMode) this.requestForm.patchValue({
+        cargo_package_id: 1
+      });
     }), (0,rxjs__WEBPACK_IMPORTED_MODULE_15__.takeUntil)(this._destroy$));
   }
   getСargoTypes() {
