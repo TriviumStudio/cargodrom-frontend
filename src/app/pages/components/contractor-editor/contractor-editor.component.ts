@@ -50,6 +50,8 @@ export class ContractorEditorComponent implements OnInit {
   // counterpartys:Counterparty[]=[];
   formParams:any;
 
+  requiredContactFields:string[]=[];
+
   private _destroy$ = new Subject();
 
 
@@ -105,7 +107,7 @@ export class ContractorEditorComponent implements OnInit {
     //   this.getTransportCarrier(e)
     // });
   }
-  test(i:any,c:any){
+  test(i:any,c?:any){
     console.log(i,c);
 
   }
@@ -130,8 +132,6 @@ export class ContractorEditorComponent implements OnInit {
     this.initialization_getDatas();
     // this.initialization_subscribeForm();
     this.getFormParam();
-
-
   }
 
   initialization_chooseModeForm(){
@@ -161,52 +161,6 @@ export class ContractorEditorComponent implements OnInit {
     }
 
   }
-
-
-  displayFn_TaxId(id: any): string {
-    if (!this.taxSystems) {
-      return '';
-    }
-    const obj = this.taxSystems.find(obj => obj.id === id);
-    return obj?.name || '';
-  }
-  displayFn_CounterpartyId(id: any): string {
-    if (!this.counterpartys) {
-      return '';
-    }
-    const obj = this.counterpartys.find(obj => obj.id === id);
-    return obj?.name || '';
-  }
-  displayFn_CityId(id: any): string {
-    if (!this.cities) {
-      return '';
-    }
-    const obj = this.cities.find(obj => obj.id === id);
-    return obj?.name || '';
-  }
-  displayFn_CountryId(id: any): string {
-    if (!this.countries) {
-      return '';
-    }
-    const obj = this.countries.find(obj => obj.id === id);
-    return obj?.name || '';
-  }
-  displayFn_CarrierId(id: any): string {
-    if (!this.transportCarrier) {
-      return '';
-    }
-    const obj = this.transportCarrier.find(obj => obj.id === id);
-    return obj?.full_name || '';
-  }
-  displayFn_TypeId(id: any): string {
-    if (!this.contractorTypes) {
-      return '';
-    }
-    const obj = this.contractorTypes.find(obj => obj.id === id);
-    return obj?.name || '';
-  }
-
-
 
   ngOnDestroy(): void {
     this._destroy$.next(null);
@@ -513,12 +467,18 @@ export class ContractorEditorComponent implements OnInit {
       },
       error: (err) => this.snackBar.open(`Ошибка сохранения подрядчика: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)});
   }
+
   applyRequiredValidators() {
+    console.log('valid', this.formParams, this.contractorForm);
+
     this.formParams.required?.forEach((required_item:any) => {
       const control = this.contractorForm.get(required_item.field);
-      if (control) {
+      if (control && !required_item.parent) {
         control.setValidators(Validators.required);
         control.updateValueAndValidity();
+      } else if (required_item.parent=='contacts') {
+        this.requiredContactFields=[];
+        this.requiredContactFields.push(required_item.field);
       }
     });
   }
@@ -531,7 +491,11 @@ export class ContractorEditorComponent implements OnInit {
         distinctUntilChanged(),
         takeUntil(this._destroy$),)
       .subscribe((value: any) => {
-        const body = { dependent_fields: this.formParams.dependent_fields?.map((dependent_field:any) => ({field: dependent_field, value: this.contractorForm.value[dependent_field]}))}
+        const body = {
+          dependent_fields: this.formParams.dependent_fields?.map((dependent_field:any) =>
+            ({field: dependent_field, value: this.contractorForm.value[dependent_field]})
+          )
+        }
         // const body = this.formParams.dependent_fields?.map((dependent_field:any) => ({dependent_fields: [{field: dependent_field, value: this.contractorForm.value[dependent_field]}]}));
         this.getFormParam(body);
 
@@ -718,3 +682,49 @@ export class ContractorEditorComponent implements OnInit {
   //     }
   //   });
   // }
+
+  //   displayFn_TaxId(id: any): string {
+  //   if (!this.taxSystems) {
+  //     return '';
+  //   }
+  //   const obj = this.taxSystems.find(obj => obj.id === id);
+  //   return obj?.name || '';
+  // }
+  // displayFn_CounterpartyId(id: any): string {
+  //   if (!this.counterpartys) {
+  //     return '';
+  //   }
+  //   const obj = this.counterpartys.find(obj => obj.id === id);
+  //   return obj?.name || '';
+  // }
+  // displayFn_CityId(id: any): string {
+  //   if (!this.cities) {
+  //     return '';
+  //   }
+  //   const obj = this.cities.find(obj => obj.id === id);
+  //   return obj?.name || '';
+  // }
+  // displayFn_CountryId(id: any): string {
+  //   if (!this.countries) {
+  //     return '';
+  //   }
+  //   const obj = this.countries.find(obj => obj.id === id);
+  //   return obj?.name || '';
+  // }
+  // displayFn_CarrierId(id: any): string {
+  //   if (!this.transportCarrier) {
+  //     return '';
+  //   }
+  //   const obj = this.transportCarrier.find(obj => obj.id === id);
+  //   return obj?.full_name || '';
+  // }
+  // displayFn_TypeId(id: any): string {
+  //   if (!this.contractorTypes) {
+  //     return '';
+  //   }
+  //   const obj = this.contractorTypes.find(obj => obj.id === id);
+  //   return obj?.name || '';
+  // }
+
+
+

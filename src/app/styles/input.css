@@ -145,3 +145,10 @@ form ng-select.ng-select.custom, .filter ng-select.ng-select.custom{
     .ng-arrow{border-color: transparent transparent var(--accent);}
   }
 }
+
+/* .ng-valid, .ng-valid .ng-select-container{
+  border-color: green !important;
+} */
+.ng-invalid.ng-touched, ng-select.ng-invalid.ng-touched .ng-select-container{
+  border-color: var(--event_negative) !important;
+}

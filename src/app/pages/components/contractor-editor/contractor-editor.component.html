@@ -1,6 +1,6 @@
 <app-editor-header [title]="title" (save)="save()" (remove)="remove()" [isEditMode]="isEditMode"  [name]="nameForHeader" [backLink]="'contractor'"></app-editor-header>
 
-<form class="edit-form" [formGroup]="contractorForm">
+<form class="edit-form" [formGroup]="contractorForm" (click)="test(contractorForm)">
   <div class="form-block">
     <div class="form-row">
       <div class="form-item-layout">
@@ -18,9 +18,6 @@
           <div class="form-data">
           </div>
         </div>
-
-
-
 
         <div class="form-item">
           <div class="form-label">
@@ -439,7 +436,7 @@
   <div formArrayName="contacts">
   <div class="user-item" *ngFor="let contact of contacts.controls; let i=index">
     <div class="form-block-title">Контактное лицо №{{i + 1}}<span class="btn v del" (click)="removeContact(i)">Удалить</span></div>
-    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i"></app-contact-editor>
+    <app-contact-editor [homeCountryId]="contractorForm.controls['country_id'].value" [countries]="countries" [formControlName]="i" [requiredFields]="requiredContactFields"></app-contact-editor>
   </div>
 
   <div class="user-item">
