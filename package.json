@@ -8,7 +8,6 @@
     "build": "ng build --configuration development --base-href /cargodrom-frontend",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "custom_api": "ng-openapi-gen -c ng-openapi-gen.json",
     "api": "ng-openapi-gen -i https://dev.cargodrom.com/openapi2.php",
     "api:dev": "ng-openapi-gen -i https://dev.cargodrom.com/openapi2.php",
     "api:prod": "ng-openapi-gen -i https://cargodrom.com/openapi2.php",
