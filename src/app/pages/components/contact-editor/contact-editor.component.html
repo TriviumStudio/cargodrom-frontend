@@ -45,7 +45,7 @@
       <div class="form-label">офисный телефон:
         <ng-container *ngTemplateOutlet="inputLabelReq; context: { field: 'phone'}"></ng-container>
       </div>
-      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—" required appPhoneMask></div>
+      <div class="form-data"><input type="text" name="phone" formControlName="phone" placeholder="—"  appPhoneMask></div>
     </div>
 
     <div class="form-item">
@@ -104,7 +104,7 @@
       <!-- <app-responsibility-matrix formControlName="export" [homeCountry]="homeCountry" [countries]="countries" type="export"></app-responsibility-matrix> -->
       <!-- <app-responsibility-matrix formControlName="import" [homeCountry]="homeCountry" [countries]="countries" type="import"></app-responsibility-matrix>
       <app-responsibility-row formControlName="local" [homeCountry]="homeCountry"></app-responsibility-row> -->
-      <app-responsibility formControlName="direction" [countries]="countries"></app-responsibility>
+      <app-responsibility formControlName="direction" [countries]="countries" [requiredDirection]="requiredDirection"></app-responsibility>
     </div>
   </div>
 </form>

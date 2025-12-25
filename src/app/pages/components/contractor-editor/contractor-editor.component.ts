@@ -36,6 +36,7 @@ export class ContractorEditorComponent implements OnInit {
   transportCarrier:any[]=[]; filteredTransportCarrier:any[]=[];
   countries: Country[] = []; filteredCountries: Country[] = [];
   cities: any[] = []; filteredCitys: any[] = [];
+  directionPoint: any[] = []; filteredDirectionPoint: any[] = [];
 
   counterpartys:Counterparty[]=[]; filteredCounterpartys:Counterparty[]=[];
   currencyList:any;
@@ -51,6 +52,7 @@ export class ContractorEditorComponent implements OnInit {
   formParams:any;
 
   requiredContactFields:string[]=[];
+  requiredDirection:boolean=false;
 
   private _destroy$ = new Subject();
 
@@ -89,6 +91,7 @@ export class ContractorEditorComponent implements OnInit {
       language_id: [undefined],
       country_id: [],
       city_id: [],
+      svh_id: [],
       request_format_id: [''],
       // exclude_from_trade: [false]
       allow_trade:[false],
@@ -110,6 +113,32 @@ export class ContractorEditorComponent implements OnInit {
   test(i:any,c?:any){
     console.log(i,c);
 
+  }
+
+  customSearchFn = (term: string, item: any): boolean => {
+    // Получаем значения из других контролов формы
+    const selectedCityId = this.contractorForm?.get('city_id')?.value;
+    const selectedCountryId = this.contractorForm?.get('country_id')?.value;
+
+    // Все условия должны выполняться одновременно
+    let isValid = true;
+
+    // 1. Фильтрация по поисковому термину (name)
+    if (term) {
+      isValid = isValid && item.name.toLowerCase().includes(term.toLowerCase());
+    }
+
+    // 2. Фильтрация по city_id (если выбран)
+    if (selectedCityId) {
+      isValid = isValid && item.city_id === selectedCityId;
+    }
+
+    // 3. Фильтрация по country_id (если выбран)
+    if (selectedCountryId) {
+      isValid = isValid && item.country_id === selectedCountryId;
+    }
+
+    return isValid;
   }
 
   isRequiredField(field: string): boolean {
@@ -146,6 +175,7 @@ export class ContractorEditorComponent implements OnInit {
         this.getTransportCarrier(),
         this.getCountries(),
         this.getCities(),
+        this.getDirectionPoint(),
         this.getCounterparty(),
         this.getTaxSystems(),
         this.getAssociations(),
@@ -224,6 +254,8 @@ export class ContractorEditorComponent implements OnInit {
     return ids.map(id => this.associations.find(a => a.id === id)?.name).join(', ');
   }
 
+
+
   onContractorTypeChange(e:any){
     console.log(e);
 
@@ -236,13 +268,24 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   onCountryChange(country:any) {
-    if(country)console.log('onCountryChange',country);
-    this.contractorForm.controls['city_id'].reset();
-    this.updateFilteredCityList();
+    if(country){
+      this.contractorForm.controls['city_id'].reset();
+      this.updateFilteredCityList();
+      this.updateDirectionPointList();
+    }
   }
   onCityChange(city:any) {
-    if(city?.country_id!=this.contractorForm.value.country_id){
-      this.patchCountryControl(city?.country_id)
+    if(city ){
+      this.patchCountryControl(city?.country_id);
+      this.updateDirectionPointList();
+    }
+  }
+  onSvhChange(svh:any){
+    console.log(svh);
+
+    if(svh){
+      this.contractorForm.patchValue({ country_id: svh.country_id, city_id: svh.city_id })
+      this.updateFilteredCityList();
     }
   }
 
@@ -252,11 +295,35 @@ export class ContractorEditorComponent implements OnInit {
     ? this.cities.filter(item => item.country_id == countryId)
     : this.cities
   }
+  updateDirectionPointList(){
+    const countryId = this.contractorForm.value.country_id;
+    const cityId = this.contractorForm.value.city_id;
+    if(cityId){
+      this.filteredDirectionPoint=this.directionPoint.filter(item => item.city_id == cityId )
+    } else if (countryId) {
+      this.filteredDirectionPoint=this.directionPoint.filter(item => item.country_id == countryId )
+    } else {
+      // this.filteredDirectionPoint=this.directionPoint;
+    }
+    // this.filteredDirectionPoint = countryId || cityId
+    // ? this.directionPoint.filter(item =>
+    //   item.country_id == countryId || countryId
+    //   &&
+    //   item.city_id == cityId || cityId)
+    // : this.directionPoint
+  }
 
   patchCountryControl(country_id:any){
     this.contractorForm.patchValue({
       country_id: country_id
     });
+  }
+
+  onCounterpartyChange(counterparty:any){
+    if(counterparty.id==12 && this.filteredDirectionPoint.length<1) {
+      this.snackBar.open(`Отсутствуют СВХ, измените место нахождения или тип подрядчика`, undefined, this.snackBarWithLongDuration)
+      this.filteredDirectionPoint=this.directionPoint;
+    }
   }
 
   canSave(): boolean {
@@ -381,6 +448,16 @@ export class ContractorEditorComponent implements OnInit {
         takeUntil(this._destroy$)
       );
   }
+  private getDirectionPoint() {
+    return this.directionService.directionPoint({transport_kind_id:1,})
+      .pipe(
+        tap((directionPoint) =>{
+          this.directionPoint = directionPoint;
+          this.filteredDirectionPoint = directionPoint;
+        }),
+        takeUntil(this._destroy$)
+      );
+  }
   private getRequestFormats() {
     return this.contractorService.contractorRequestFormat()
       .pipe(
@@ -425,7 +502,8 @@ export class ContractorEditorComponent implements OnInit {
         // if (typeof contractor.country_id === 'number') {
         //   this.getCities(contractor.country_id);
         // }
-        if(contractor.country_id)this.updateFilteredCityList();
+        this.updateFilteredCityList();
+        this.updateDirectionPointList();
 
 
         // Устанавливаем имя для заголовка
@@ -470,15 +548,18 @@ export class ContractorEditorComponent implements OnInit {
 
   applyRequiredValidators() {
     console.log('valid', this.formParams, this.contractorForm);
-
+    this.requiredContactFields=[];
+    this.requiredDirection=false;
     this.formParams.required?.forEach((required_item:any) => {
       const control = this.contractorForm.get(required_item.field);
-      if (control && !required_item.parent) {
+
+      if (required_item.parent=='contacts') {
+        this.requiredContactFields.push(required_item.field);
+      } else if (required_item.parent=='contacts/direction') {
+        this.requiredDirection=true;
+      } else if (control && !required_item.parent) {
         control.setValidators(Validators.required);
         control.updateValueAndValidity();
-      } else if (required_item.parent=='contacts') {
-        this.requiredContactFields=[];
-        this.requiredContactFields.push(required_item.field);
       }
     });
   }

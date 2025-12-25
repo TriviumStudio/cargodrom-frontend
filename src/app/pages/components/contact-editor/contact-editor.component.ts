@@ -5,6 +5,7 @@ import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { unknownCountry } from 'src/app/shared/constants';
+import { responsibilityValidator } from './responsibility.validator';
 
 @Component({
   selector: 'app-contact-editor',
@@ -28,6 +29,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
   @Input() countries: Country[] = [];
   @Input() homeCountryId?: number;
   @Input() requiredFields: string[]=[];
+  @Input() requiredDirection: boolean=false;
   readonly unknownCountry = unknownCountry;
   homeCountry: Country = unknownCountry;
   contactForm: FormGroup;
@@ -67,7 +69,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
       // }),
 
-      direction:[[],[]]
+      direction:[[]]
 
     });
   }
@@ -122,7 +124,7 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
     return control.value && this.contactForm.valid ? null : { contact: true };
   }
 
-    private clearAllRequiredValidators() {
+  private clearAllRequiredValidators() {
     // Убираем валидатор required со всех полей
     Object.keys(this.contactForm.controls).forEach(key => {
       const control = this.contactForm.get(key);
@@ -135,6 +137,8 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
 
   private applyRequiredValidators() {
     // Применяем required только к указанным полям
+    console.log('this.requiredFields',this.requiredFields);
+
     this.requiredFields?.forEach(fieldName => {
       const control = this.contactForm.get(fieldName);
       if (control) {
@@ -144,6 +148,13 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
         console.warn(`Поле ${fieldName} не найдено в форме`);
       }
     });
+    const directionControl = this.contactForm.get('direction');
+    if(directionControl && this.requiredDirection){
+      directionControl.setValidators([responsibilityValidator()]);
+      directionControl.updateValueAndValidity();
+      console.log(this.contactForm.get('direction'));
+
+    }
   }
 
   isRequiredField(field: string): boolean {
