@@ -157,7 +157,7 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
     }
   }
   addCustomCharge(){
-    this.form.value.custom_services?.push({name:'Напишите название услуги',check: false});
+    this.form.value.custom_services?.push({name:'',check: false});
   }
   delCustomCharge(i:number){
     this.form.value.custom_services?.splice(i, 1);

@@ -27,17 +27,20 @@
   &.add-link::before{--icon-bg-image: url('../../assets/pic-btn-addLink.svg')}
   &.import::before{--icon-bg-image: url('../../assets/pic-btn-import.svg')}
   &.export::before{--icon-bg-image: url('../../assets/pic-btn-export.svg')}
+
+  &.transport-type1::before, &.tt1::before, &.tt.avia::before{--icon-bg-image: url('../../assets/pic-service-air.svg')}
+  &.transport-type2::before, &.tt2::before, &.tt.road::before{--icon-bg-image: url('../../assets/pic-service-road.svg')}
+  &.transport-type3::before, &.tt3::before, &.tt.sea::before{--icon-bg-image: url('../../assets/pic-service-sea.svg')}
+  &.transport-type4::before, &.tt4::before, &.tt.rw::before{--icon-bg-image: url('../../assets/pic-service-rail.svg')}
   /* размеры (s-size, когда ширина и высота равны)*/
   &.s10px{--icon-s:10px}
   &.s14px{--icon-s:14px}
   &.s16px{--icon-s:16px}
+  &.s22px{--icon-s:22px}
   /* gradient */
   &.gradient{
     --icon-color-gradient: linear-gradient(0deg, var(--icon-color), var(--accent));
   }
 }
 
-.transport-type1{ }
-.transport-type2{ }
-.transport-type3{ }
-.transport-type4{ }
+

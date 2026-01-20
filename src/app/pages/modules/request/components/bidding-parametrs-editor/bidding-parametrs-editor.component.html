@@ -1,4 +1,4 @@
-<form class="edit-form" style="width: 700px;" [formGroup]="form">
+<form class="edit-form" style="width: 600px;" [formGroup]="form">
   <div class="form-block-title">Форма запроса ставки</div>
   <div class="form-block">
     <div class="form-row">
@@ -7,8 +7,15 @@
 
         <div class="form-item">
           <div class="form-label">вид перевозки: <span class="req">•</span></div>
-          <div class="form-data">
-            <button *ngFor="let item of transportationTypes" type="button" (click)="patchField('transport_kind_key',item.key)">{{item.name}}</button>
+          <div class="form-data transport">
+            <button *ngFor="let item of transportationTypes"
+              type="button"
+              (click)="patchField('transport_kind_key',item.key)"
+              class="transport"
+              [class]="item.key==form.value.transport_kind_key?'active':''"
+            >
+              <div class="new-icon tt s22px" [class]="item.key" style="--icon-color: var(--tt-color);"></div>
+            </button>
           </div>
         </div>
         <div class="form-item">
@@ -18,6 +25,18 @@
           </div>
         </div>
 
+      </div>
+
+      <div class="form-item-layout">
+
+      </div>
+
+      <div class="form-item-layout">
+
+      </div>
+
+      <div class="form-item-layout">
+        
       </div>
 
     </div>
@@ -39,7 +58,7 @@
           </mat-checkbox>
           <input type="text" placeholder="Напишите название услуги" [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}">
           <button class="del-charge" (click)="delCustomCharge(i)">
-            <div class="new-icon cancel s14px" style="--icon-color: var(--accent, #DB563B);"></div>
+            <div class="new-icon cancel s14px" style="--icon-color: var(--accent);"></div>
           </button>
         </div>
 
@@ -49,7 +68,7 @@
 
     <div class="form-row">
       <div class="form-item">
-        <div class="form-label">примечание: <span class="req">•</span></div>
+        <div class="form-label">примечание:</div>
         <div class="form-data">
           <input type="text"  formControlName="comment" readonly>
         </div>

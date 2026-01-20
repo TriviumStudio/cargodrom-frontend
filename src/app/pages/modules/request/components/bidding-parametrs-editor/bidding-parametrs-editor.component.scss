@@ -11,7 +11,28 @@
       background-color: inherit;
       right: 13px; top: 13px;
       padding: 0; margin: 0;
+
     }
   }
 
 }
+.form-data.transport {
+  display: flex;
+  gap: 8px;
+  --tt-color:var(--background3);
+  button.transport{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: 55px;
+    height: 39px;
+    border-radius: 6px;
+    background-color: inherit;
+    &.active{
+      --tt-color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .new-icon{
+      margin: 0 auto;
+    }
+  }
+}
+
