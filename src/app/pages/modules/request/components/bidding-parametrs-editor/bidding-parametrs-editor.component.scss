@@ -1,0 +1,17 @@
+.form-row .form-block-sub-title{
+  margin-bottom: 30px;
+
+}
+.charges{
+  display: flex; flex-direction: column; gap: 25px;
+  .custom_char{
+    display: flex; align-items: baseline; gap: 5px; position: relative;
+    button.del-charge{
+      position: absolute;
+      background-color: inherit;
+      right: 13px; top: 13px;
+      padding: 0; margin: 0;
+    }
+  }
+
+}

@@ -17,6 +17,8 @@ import { RateInfoRow } from '../../components/request-details/rate-info-row/rate
 import { ContractorModule } from '../contractor/contractor.module';
 import { ContractorComponent } from '../../components/contractor/contractor.component';
 import { OfferEditorComponent } from '../../components/offer-editor/offer-editor.component';
+import { TranslateTransporterRateComponent } from './components/translate-transporter-rate/translate-transporter-rate.component';
+import { BiddingParametrsEditor } from './components/bidding-parametrs-editor/bidding-parametrs-editor.component';
 // import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
@@ -37,11 +39,21 @@ const routes: Routes = [
     title: 'Редактирование запроса',
     data: { isEditMode: true, }
   },
-  //TODO: перевод теперь только у катомс и транспортер рейтов и если они в другую страну, у разных рейтов свой перевод
+  //TODO: перевод теперь только у кастомс и транспортер(вывоз) рейтов и если они в другую страну, у разных рейтов свой перевод
   {
     path: 'edit/translate/:id',
     component: RequestEditorTranslateComponent,
     title: 'Проверка перевода запроса',
+  },
+  {
+    path: ':requestId/bidding-parametrs/edit',
+    component: BiddingParametrsEditor,
+    title: 'Проверка параметров торгов для доставки',
+  },
+  {
+    path: ':requestId/translate-transporter-rate/:rateId',
+    component: TranslateTransporterRateComponent,
+    title: 'Проверка перевода ставки вывоз',
   },
   // {
   //   path: 'translate',
@@ -59,6 +71,12 @@ const routes: Routes = [
   //   ]
   // },
   //TODO: переделать детализацию, сделать таблицы через <router-outlet></router-outlet> что бы таблица кп не обновлялась
+  //TODO: ниже написал как можно сократить адрес path: 'details/:type(customs|transporter|final|point|other)/:id'
+  // {
+  //   path: 'details/:type(customs|transporter|final|point|other)/:id',
+  //   component: RequestDetails,
+  //   title: 'Детализация запроса',
+  // },
   {
     path: 'details/final/:id',
     component: RequestDetails,
@@ -85,10 +103,33 @@ const routes: Routes = [
     title: 'Детализация запроса',
   },
   {
-    path: 'bidding/:id',
+    path: 'bidding/customs/:id',
     component: ContractorComponent,
-    title: 'Торги запроса',
+    title: 'Торги запроса (до границы)',
   },
+    {
+    path: 'bidding/delivery/:id',
+    component: ContractorComponent,
+    title: 'Торги запроса (доставка)',
+  },
+  //TODO:подумать вот над такой реализацией
+  // {
+  //   path: 'bidding',
+  //   component: BiddingPage,
+  //   children:[
+  //     {
+  //       path: 'customs/:requestId',
+  //       component: BiddingTable,
+  //       title: 'Торги запроса (до границы)',
+  //     },
+  //     {
+  //       path: 'delivery/:requestId',
+  //       component: BiddingTable,
+  //       title: 'Торги запроса (доставка)',
+  //     },
+  //   ]
+  // },
+
   {
     path: 'offer/:id',
     component: OfferEditorComponent,
@@ -111,6 +152,8 @@ const routes: Routes = [
     RateAddCustoms,
     RateAddOther,
     OfferEditorComponent,
+    TranslateTransporterRateComponent,
+    BiddingParametrsEditor,
   ],
   imports: [
     RouterModule.forChild(routes),

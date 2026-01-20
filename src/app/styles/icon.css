@@ -1,4 +1,6 @@
 .new-icon{
+  width: var(--icon-w, var(--icon-s, 100%));
+  height: var(--icon-h, var(--icon-s, 100%));
   &::before{
     width: var(--icon-w, var(--icon-s, 100%));
     height: var(--icon-h, var(--icon-s, 100%));
@@ -27,9 +29,8 @@
   &.export::before{--icon-bg-image: url('../../assets/pic-btn-export.svg')}
   /* размеры (s-size, когда ширина и высота равны)*/
   &.s10px{--icon-s:10px}
-  &.s16px{--icon-s:16px}
   &.s14px{--icon-s:14px}
-  &.s10px{--icon-s:10px}
+  &.s16px{--icon-s:16px}
   /* gradient */
   &.gradient{
     --icon-color-gradient: linear-gradient(0deg, var(--icon-color), var(--accent));
