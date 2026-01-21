@@ -22475,15 +22475,15 @@ export class RequestService extends BaseService {
 'kinds': Array<string>;
 
 /**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
  * Список услуг по видам транспорта
  */
 'charges': {
 };
-
-/**
- * Описание груза из запроса
- */
-'description'?: string;
 
 /**
  * Комментарий к запросу
@@ -22496,6 +22496,11 @@ export class RequestService extends BaseService {
 'arrival_address'?: string;
 
 /**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
  * Город отправления для доставки
  */
 'departure_city': {
@@ -22506,6 +22511,11 @@ export class RequestService extends BaseService {
  */
 'departure_point'?: {
 };
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
 
 /**
  * Город назначения для доставки
@@ -22530,29 +22540,25 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * ID города отправления для доставки
- */
-'departure_city_id': number;
-
-/**
- * ID пункта отправления для доставки
- */
-'departure_point_id'?: number;
-
-/**
- * ID города назначения для доставки
- */
-'arrival_city_id'?: number;
-
-/**
- * ID пункта назначения для доставки
- */
-'arrival_point_id'?: number;
-
-/**
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterParamPath, 'get');
     if (params) {
@@ -22572,15 +22578,15 @@ export class RequestService extends BaseService {
         'kinds': Array<string>;
         
         /**
+         * Типы транспорта
+         */
+        'types': Array<string>;
+        
+        /**
          * Список услуг по видам транспорта
          */
         'charges': {
         };
-        
-        /**
-         * Описание груза из запроса
-         */
-        'description'?: string;
         
         /**
          * Комментарий к запросу
@@ -22593,6 +22599,11 @@ export class RequestService extends BaseService {
         'arrival_address'?: string;
         
         /**
+         * Страна отправления для доставки
+         */
+        'departure_country_id': number;
+        
+        /**
          * Город отправления для доставки
          */
         'departure_city': {
@@ -22603,6 +22614,11 @@ export class RequestService extends BaseService {
          */
         'departure_point'?: {
         };
+        
+        /**
+         * Страна назначения для доставки
+         */
+        'arrival_country_id': number;
         
         /**
          * Город назначения для доставки
@@ -22627,29 +22643,25 @@ export class RequestService extends BaseService {
         'transport_type_id': number;
         
         /**
-         * ID города отправления для доставки
-         */
-        'departure_city_id': number;
-        
-        /**
-         * ID пункта отправления для доставки
-         */
-        'departure_point_id'?: number;
-        
-        /**
-         * ID города назначения для доставки
-         */
-        'arrival_city_id'?: number;
-        
-        /**
-         * ID пункта назначения для доставки
-         */
-        'arrival_point_id'?: number;
-        
-        /**
          * Услуги отмеченный для торгов
          */
         'services'?: Array<number>;
+        
+        /**
+         * Дополнительные услуги
+         */
+        'custom_services'?: Array<{
+        
+        /**
+         * Наименование услуги
+         */
+        'name': string;
+        
+        /**
+         * Услуга включена
+         */
+        'check'?: boolean;
+        }>;
         }>;
       })
     );
@@ -22682,15 +22694,15 @@ export class RequestService extends BaseService {
 'kinds': Array<string>;
 
 /**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
  * Список услуг по видам транспорта
  */
 'charges': {
 };
-
-/**
- * Описание груза из запроса
- */
-'description'?: string;
 
 /**
  * Комментарий к запросу
@@ -22703,6 +22715,11 @@ export class RequestService extends BaseService {
 'arrival_address'?: string;
 
 /**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
  * Город отправления для доставки
  */
 'departure_city': {
@@ -22713,6 +22730,11 @@ export class RequestService extends BaseService {
  */
 'departure_point'?: {
 };
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
 
 /**
  * Город назначения для доставки
@@ -22737,29 +22759,25 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * ID города отправления для доставки
- */
-'departure_city_id': number;
-
-/**
- * ID пункта отправления для доставки
- */
-'departure_point_id'?: number;
-
-/**
- * ID города назначения для доставки
- */
-'arrival_city_id'?: number;
-
-/**
- * ID пункта назначения для доставки
- */
-'arrival_point_id'?: number;
-
-/**
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 }> {
     return this.requestRateTransporterParam$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -22770,15 +22788,15 @@ export class RequestService extends BaseService {
 'kinds': Array<string>;
 
 /**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
  * Список услуг по видам транспорта
  */
 'charges': {
 };
-
-/**
- * Описание груза из запроса
- */
-'description'?: string;
 
 /**
  * Комментарий к запросу
@@ -22791,6 +22809,11 @@ export class RequestService extends BaseService {
 'arrival_address'?: string;
 
 /**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
  * Город отправления для доставки
  */
 'departure_city': {
@@ -22801,6 +22824,11 @@ export class RequestService extends BaseService {
  */
 'departure_point'?: {
 };
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
 
 /**
  * Город назначения для доставки
@@ -22825,29 +22853,25 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * ID города отправления для доставки
- */
-'departure_city_id': number;
-
-/**
- * ID пункта отправления для доставки
- */
-'departure_point_id'?: number;
-
-/**
- * ID города назначения для доставки
- */
-'arrival_city_id'?: number;
-
-/**
- * ID пункта назначения для доставки
- */
-'arrival_point_id'?: number;
-
-/**
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 }>): {
 
 /**
@@ -22856,15 +22880,15 @@ export class RequestService extends BaseService {
 'kinds': Array<string>;
 
 /**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
  * Список услуг по видам транспорта
  */
 'charges': {
 };
-
-/**
- * Описание груза из запроса
- */
-'description'?: string;
 
 /**
  * Комментарий к запросу
@@ -22877,6 +22901,11 @@ export class RequestService extends BaseService {
 'arrival_address'?: string;
 
 /**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
  * Город отправления для доставки
  */
 'departure_city': {
@@ -22887,6 +22916,11 @@ export class RequestService extends BaseService {
  */
 'departure_point'?: {
 };
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
 
 /**
  * Город назначения для доставки
@@ -22911,29 +22945,25 @@ export class RequestService extends BaseService {
 'transport_type_id': number;
 
 /**
- * ID города отправления для доставки
- */
-'departure_city_id': number;
-
-/**
- * ID пункта отправления для доставки
- */
-'departure_point_id'?: number;
-
-/**
- * ID города назначения для доставки
- */
-'arrival_city_id'?: number;
-
-/**
- * ID пункта назначения для доставки
- */
-'arrival_point_id'?: number;
-
-/**
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 } => r.body)
     );
   }
@@ -22989,6 +23019,22 @@ export class RequestService extends BaseService {
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 
 /**
  * ID Запроса
@@ -23073,6 +23119,22 @@ export class RequestService extends BaseService {
  * Услуги отмеченный для торгов
  */
 'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
 
 /**
  * ID Запроса
@@ -23189,6 +23251,107 @@ export class RequestService extends BaseService {
 };
 'en': {
 };
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterTranslateSave()` */
+  static readonly RequestRateTransporterTranslateSavePath = '/request_rate_transporter_translate_save';
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterTranslateSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+'en': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslateSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterTranslateSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave(
+    params?: {
+      body?: {
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+'en': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateTransporterTranslateSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
 } => r.body)
     );
   }

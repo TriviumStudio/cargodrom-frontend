@@ -51,7 +51,7 @@ const routes: Routes = [
     title: 'Проверка параметров торгов для доставки',
   },
   {
-    path: ':requestId/translate-transporter-rate/:rateId',
+    path: ':requestId/translate-transporter-rate',
     component: TranslateTransporterRateComponent,
     title: 'Проверка перевода ставки вывоз',
   },

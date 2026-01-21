@@ -449,7 +449,7 @@ export class ContractorEditorComponent implements OnInit {
       );
   }
   private getDirectionPoint() {
-    return this.directionService.directionPoint({transport_kind_id:1,})
+    return this.directionService.directionPoint({transport_kind_id:'1',})
       .pipe(
         tap((directionPoint) =>{
           this.directionPoint = directionPoint;

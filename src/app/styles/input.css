@@ -16,7 +16,7 @@
   min-height: fit-content;
 }
 
-.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly], .form-block input[type="text"][readonly]:not(.ng-value-container input) {
+.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly],  .form-block input[type="text"][readonly]:not(.ng-value-container input) {
   background: transparent; border: 1px dashed #C3CCD6; color: #2C3640;
 }
 .form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
@@ -164,3 +164,19 @@ app-responsibility.ng-invalid tbody{
   border: 1.5px solid red;
 }
 
+.textarea-box{
+  border: 1px solid var(--line, #E0E5EB);
+  border-radius: 6px;
+  padding: 11.5px 13px;
+
+  textarea{
+    border: none;
+    width: 100%;
+    font-family: 'regular', 'arial', 'sans-serif';
+    background: inherit;
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0; margin: 0;
+
+  }
+}

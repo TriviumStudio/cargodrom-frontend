@@ -37,10 +37,32 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   }
   //form create metods
   createFormGroup(): FormGroup {
-    return this.fb.group({
-      test: [''],
-    });
-  }
+  return this.fb.group({
+    transport_type: [''],
+    departure_city: [''],
+    departure_point: [''],
+    departure_point_address: [''],
+    arrival_city: [''],
+    arrival_point: [''],
+    arrival_address: [''],
+    cargo: this.fb.group({
+      cargo_description: [''],
+      cargo_type_name: [''],
+      cargo_condition_carriage: [''],
+      cargo_places_count: [''],
+      cargo_places_volume: [''],
+      cargo_places_weight: [''],
+      cargo_places_density: [''],
+      cargo_places_paid_weight: [''],
+      cargo_dimensions: ['']
+    }),
+    charges: this.fb.group({
+
+    }),
+    custom_services: [[]],
+    comment: ['']
+  });
+}
   //ng metods
   ngOnInit(): void {
     this.rateId = Number(this.route.snapshot.paramMap.get('rateId'));
