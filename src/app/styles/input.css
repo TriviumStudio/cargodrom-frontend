@@ -180,3 +180,7 @@ app-responsibility.ng-invalid tbody{
 
   }
 }
+
+textarea{
+  overflow: hidden;
+}

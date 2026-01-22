@@ -33,30 +33,6 @@
 }
 
 
-.form-btns{ //TODO:написал новые правила для кнопок управления формами
-  display: flex;
-  margin-top: 17px;
-  button{
-    min-width: 65px;
-    height: 55px;
-    border-radius: 6px;
-    text-transform: uppercase;
-    display: flex; flex-direction: column; justify-content: space-between;
-    font-size: 10px; line-height: 10px; text-align: left;
-    padding: 9px 8px 7px;
-  }
-  button.cancel{
-    background-color: var(--event_neutral);
-    color: var(--event_neutral_text);
-    --icon-color: var(--event_neutral_text)
-  }
-  button.save{
-    margin-left: auto;
-    margin-right: 8px;
-    background-color: var(--accent);
-    color: var(--accent_text);
-    --icon-color: var(--accent_text)
-  }
-}
+
 
 

@@ -2,3 +2,44 @@
   margin-bottom: 30px;
 
 }
+.charges{
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  padding: 11.5px;
+  background-color: var(--background);
+  input[type="text"]{
+    border: none !important;
+    height: 20px !important;
+    background-color: inherit !important;
+  }
+}
+
+.forms{
+  display: flex;
+  justify-content: center;
+
+  form{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.form-block{
+  flex:1;
+}
+
+.form-label {
+  display: flex;
+  .ii-translate{
+    margin-left: auto;
+    --icon-color: var(--accent);
+    display: flex;
+    .new-icon{margin-right: 5px;}
+
+  }
+
+}
+
+.textarea-box{
+  background-color: var(--background);
+}

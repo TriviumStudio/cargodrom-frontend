@@ -28,6 +28,8 @@
   &.import::before{--icon-bg-image: url('../../assets/pic-btn-import.svg')}
   &.export::before{--icon-bg-image: url('../../assets/pic-btn-export.svg')}
 
+  &.danger-triangle::before{--icon-bg-image: url('../../assets/pic-triangle-warning.svg')}
+
   &.transport-type1::before, &.tt1::before, &.tt.avia::before{--icon-bg-image: url('../../assets/pic-service-air.svg')}
   &.transport-type2::before, &.tt2::before, &.tt.road::before{--icon-bg-image: url('../../assets/pic-service-road.svg')}
   &.transport-type3::before, &.tt3::before, &.tt.sea::before{--icon-bg-image: url('../../assets/pic-service-sea.svg')}
@@ -36,6 +38,7 @@
   &.s10px{--icon-s:10px}
   &.s14px{--icon-s:14px}
   &.s16px{--icon-s:16px}
+  &.s18px{--icon-s:18px}
   &.s20px{--icon-s:20px}
   &.s22px{--icon-s:22px}
   /* gradient */

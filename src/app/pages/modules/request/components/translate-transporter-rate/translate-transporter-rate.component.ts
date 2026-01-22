@@ -18,9 +18,10 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   rateId: number|null=null;
   requestId!: number;
   form: FormGroup;
-  autoTranslateFilds:string[]=[];
+  autoTranslateFilds:any;
   tKinds:any[]=[];
   transportKindKey!:string;
+  activeServices:any[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -73,9 +74,9 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   private patchForms(data:any){
     this.form.patchValue(data);
 
-    const ruForm = this.form.get('en') as FormGroup;
+    const ruForm = this.form.get('ru') as FormGroup;
     const ruCharge = ruForm.get('charges') as FormGroup;
-    const enForm = this.form.get('ru') as FormGroup;
+    const enForm = this.form.get('en') as FormGroup;
     const enCharge = enForm.get('charges') as FormGroup;
 
     this.updateCharges(ruCharge, data.ru.charges);
@@ -102,6 +103,8 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
         this.patchForms(translate);
         this.tKinds=translate.param.kinds;
         this.transportKindKey=translate.param.transport_kind_key;
+        this.autoTranslateFilds=translate.auto_translate;
+        this.activeServices=translate.param.services;
       },
       error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -123,9 +126,10 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
     const chargesForm = this.form.get(`${lang}.charges`) as FormGroup;
     return Object.keys(chargesForm?.controls || {});
   }
-  test(s:string){
-
-  }
+isServiceActive(id: string | number): boolean {
+  const numId = typeof id === 'string' ? parseInt(id, 10) : id;
+  return this.activeServices.includes(numId);
+}
   // returnHeight(text:string){
   //   const lineText = (text?.match(/\n/g) || []).length;
   //   const height = lineText>1? lineText * 20 : 20
@@ -133,7 +137,9 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   // }
   //interface
   save(){
-    this.updateTraqnslate();
+    // this.updateTraqnslate();
+    console.log(this.form.value);
+
   }
   remove():void {
     // window.location.reload();
