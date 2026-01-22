@@ -2,7 +2,7 @@ button{
   border: none;
   &:disabled {
     cursor: auto;
-  } 
+  }
   &:hover:not(:disabled) {
     opacity: 0.6;
   }
@@ -18,10 +18,10 @@ button.icon {
   background-position: center;
 }
 button.icon.delete-gr{
-  background-image: url('../../assets/pic-btn-del-gray.svg');  
+  background-image: url('../../assets/pic-btn-del-gray.svg');
 }
 button.icon.delete{
-  background-image: url('../../assets/pic-btn-del.svg');  
+  background-image: url('../../assets/pic-btn-del.svg');
 }
 button.icon.edit{
   background-image: url('../../assets/pic-btn-edit.svg');
@@ -31,7 +31,7 @@ button.icon.edit{
   }
 }
 button.icon.edit-w{
-  background-image: url('../../assets/pic-btn-edit-w.svg');  
+  background-image: url('../../assets/pic-btn-edit-w.svg');
 }
 
 
@@ -95,3 +95,22 @@ button.long{
   }
 }
 
+.form-data.transport {
+  display: flex;
+  gap: 8px;
+  --tt-color:var(--background3);
+  button.transport{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: 55px;
+    height: 39px;
+    border-radius: 6px;
+    background-color: inherit;
+    &.active{
+      --tt-color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .new-icon{
+      margin: 0 auto;
+    }
+  }
+}
