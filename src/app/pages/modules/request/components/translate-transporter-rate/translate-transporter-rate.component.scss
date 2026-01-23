@@ -34,6 +34,11 @@
     margin-left: auto;
     --icon-color: var(--accent);
     display: flex;
+      white-space: nowrap;       /* Запрещаем перенос строк */
+  overflow: hidden;          /* Скрываем выходящий за границы текст */
+  text-overflow: ellipsis;
+  max-width: 70%;
+  margin-right: 3px;
     .new-icon{margin-right: 5px;}
 
   }

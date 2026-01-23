@@ -221,48 +221,17 @@
 
     <div class="form-row">
       <div class="form-block-sub-title">Требуемые услуги:</div>
+      <div class="form-label"></div>
       <div class="charges" formGroupName="charges">
       <!-- Динамические поля charges -->
-        <input readonly *ngFor="let key of getChargeKeys('ru')" type="text" [formControlName]="key">
-
-
-        <!-- <div class="char" *ngFor="let item of currentCharges" [class]="item.field_name">
-          <mat-checkbox
-            [checked]="isChargeChecked(item.id)"
-            (change)="onServiceCheckboxChange(item.id, $event.checked)"
-          >
-            {{item.title}}
-          </mat-checkbox>
-
-          <div class="form-item" *ngIf="form.value.transport_kind_key=='avia' && item.field_name=='delivery'">
-            <div class="form-label">адрес доставки груза:</div>
-            <div class="form-data textarea-box">
-              <textarea
-                [value]="arrivalAdres"
-                readonly
-                matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                >
-              </textarea>
-            </div>
-          </div>
-
-
-        </div> -->
-        <!-- <div class="custom_char" *ngFor="let item of customCharges; let i = index;">
-          <mat-checkbox
-            [checked]="item.check"
-            (change)="onCustomServiceCheckboxChange(i, $event.checked)"
-          >
-          </mat-checkbox>
-          <input type="text" placeholder="Напишите название услуги" [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}">
-          <button class="del-charge" (click)="delCustomCharge(i)">
-            <div class="new-icon cancel s14px" style="--icon-color: var(--accent);"></div>
-          </button>
-        </div> -->
-
-        <!-- <button class="add-charge" (click)="addCustomCharge()">+ Добавить другие услуги</button> -->
+        <div *ngFor="let key of getChargeKeys('ru')" style="display: flex;">
+          <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
+          <input type="text" readonly [formControlName]="key">
+        </div>
+        <div *ngFor="let key of form.value.ru.custom_services; let i = index" style="display: flex;">
+          <mat-checkbox checked disabled></mat-checkbox>
+          <input readonly [(ngModel)]="form.value.ru.custom_services[i]" [ngModelOptions]="{standalone: true}" type="text">
+        </div>
       </div>
     </div>
 
@@ -306,7 +275,7 @@
       <div class="form-item-layout">
 
         <div class="form-item">
-          <div class="form-label">type of transportation: <span class="req">•</span></div>
+          <div class="form-label">type of transportation: </div>
           <div class="form-data transport">
             <button *ngFor="let item of tKinds"
               type="button"
@@ -318,7 +287,12 @@
           </div>
         </div>
         <div class="form-item">
-          <div class="form-label">mode of transport: <span class="req">•</span></div>
+          <div class="form-label">transport:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.transport_type">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
           <div class="form-data">
             <input type='text' formControlName="transport_type">
             <!-- <ng-select formControlName="transport_type_id" class="custom" bindLabel="name" bindValue="id" [items]="currentTransports"></ng-select> -->
@@ -329,7 +303,12 @@
 
       <div class="form-item-layout">
         <div class="form-item">
-          <div class="form-label">departure city: <span class="req">•</span></div>
+          <div class="form-label">departure city:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_city">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
           <div class="form-data">
             <input type='text' formControlName="departure_city">
             <!-- <ng-select formControlName="departure_city_id" class="custom" bindLabel="name" bindValue="id" [items]="departureCitys" (change)="onCityChange('departure')">
@@ -340,7 +319,13 @@
           </div>
         </div>
         <div class="form-item">
-          <div class="form-label">location of cargo <span class="req">•</span></div>
+          <div class="form-label">location of cargo
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_point">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+
+          </div>
           <div class="form-data">
             <input type='text' formControlName="departure_point" >
             <!-- <ng-select formControlName="departure_point_id" class="custom" bindLabel="name" bindValue="id" [items]="departurePoints" (change)="onDeparturePointChange($event)"></ng-select> -->
@@ -350,7 +335,12 @@
 
       <div class="form-item-layout">
         <div class="form-item">
-          <div class="form-label">cargo pickup address:</div>
+          <div class="form-label">cargo pickup address:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_point_address">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
           <div class="form-data textarea-box">
             <textarea
               formControlName="departure_point_address"
@@ -366,14 +356,25 @@
 
       <div class="form-item-layout">
         <div class="form-item">
-          <div class="form-label">arrival city: <span class="req">•</span></div>
+          <div class="form-label">arrival city:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.arrival_city">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
           <div class="form-data">
             <input type='text' formControlName="arrival_city" >
             <!-- <ng-select formControlName="arrival_city_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalCitys" (change)="onCityChange('arrival')"></ng-select> -->
           </div>
         </div>
         <div class="form-item">
-          <div class="form-label">arrival airport: <span class="req">•</span></div>
+          <div class="form-label">
+            arrival airport:
+          <span class="ii-translate" *ngIf="autoTranslateFilds?.arrival_point">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+        </div>
           <div class="form-data">
             <input type='text' formControlName="arrival_point" >
             <!-- <ng-select formControlName="arrival_point_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalPoints" (change)="onArrivalPointChange($event)"></ng-select> -->
@@ -556,10 +557,10 @@
           <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
           <input type="text" [formControlName]="key">
         </div>
-        <div *ngFor="let key of form.value.en.custom_services; let i = index" style="display: flex;">
+        <!-- <div *ngFor="let key of form.value.en?.custom_services; let i = index" style="display: flex;">
           <mat-checkbox checked disabled></mat-checkbox>
           <input [(ngModel)]="form.value.en.custom_services[i]" [ngModelOptions]="{standalone: true}" type="text">
-        </div>
+        </div> -->
       </div>
     </div>
 

@@ -33,7 +33,7 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   ) {
     super();
     this.form = this.fb.group({
-      id: [],
+      request_id: [],
       en: this.createFormGroup(),
       ru: this.createFormGroup(),
     });
@@ -68,6 +68,7 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   ngOnInit(): void {
     // this.rateId = Number(this.route.snapshot.paramMap.get('rateId'));
     this.requestId = Number(this.route.snapshot.paramMap.get('requestId'));
+    this.form.patchValue({request_id:this.requestId})
     this.getTranslate();
   }
   //form mtds
@@ -101,17 +102,16 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
       next: (translate:any) => {
         console.log('translate',translate);
         this.patchForms(translate);
-        this.tKinds=translate.param.kinds;
-        this.transportKindKey=translate.param.transport_kind_key;
-        this.autoTranslateFilds=translate.auto_translate;
-        this.activeServices=translate.param.services;
+        this.tKinds=translate?.param?.kinds;
+        this.transportKindKey=translate?.param?.transport_kind_key;
+        this.autoTranslateFilds=translate?.auto_translate;
+        this.activeServices=translate?.param?.services;
       },
       error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
   private updateTraqnslate(){
-    const body:any={id:this.requestId, ru:this.form.value, en:this.form.value}
-    this.requestService.requestTranslateSave({body:body}).pipe().subscribe({
+    this.requestService.requestRateTransporterTranslateSave({body:this.form.value}).pipe().subscribe({
       next: () => {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
         // window.location.reload();
@@ -137,8 +137,8 @@ isServiceActive(id: string | number): boolean {
   // }
   //interface
   save(){
-    // this.updateTraqnslate();
-    console.log(this.form.value);
+    this.updateTraqnslate();
+    // console.log(this.form.value);
 
   }
   remove():void {
