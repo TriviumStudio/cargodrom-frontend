@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject} from 'rxjs';
 import { RequestService } from 'src/app/api/services';
@@ -22,6 +22,7 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
   tKinds:any[]=[];
   transportKindKey!:string;
   activeServices:any[]=[];
+  activeCustomServices:any[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +61,7 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
         cargo_dimensions: ['']
       }),
       charges: this.fb.group({}),
-      custom_services: [[]],
+      custom_services: this.fb.array([]),
       comment: ['']
     });
   }
@@ -80,10 +81,31 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
     const enForm = this.form.get('en') as FormGroup;
     const enCharge = enForm.get('charges') as FormGroup;
 
+      // Правильное заполнение custom_services через FormArray
+    if (data.en?.custom_services && Array.isArray(data.en.custom_services)) {
+      const enCustomServices = this.getCustomServices('en');
+      enCustomServices.clear(); // Очищаем существующие значения
+
+      data.en.custom_services.forEach((element: any) => {
+        // Добавляем как FormControl с значением
+        enCustomServices.push(this.fb.control(element));
+      });
+    }
+
+    if (data.ru?.custom_services && Array.isArray(data.ru.custom_services)) {
+      const ruCustomServices = this.getCustomServices('ru');
+      ruCustomServices.clear();
+
+      data.ru.custom_services.forEach((element: any) => {
+        ruCustomServices.push(this.fb.control(element));
+      });
+    }
+
+
     this.updateCharges(ruCharge, data.ru.charges);
     this.updateCharges(enCharge, data.en.charges);
 
-    console.log('form value',this.form.value);
+    console.log('form value',this.form);
   }
   private updateCharges(chargesForm:FormGroup, chargesData:any){
     if (!chargesData) return;
@@ -102,10 +124,11 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
       next: (translate:any) => {
         console.log('translate',translate);
         this.patchForms(translate);
+        this.autoTranslateFilds=translate?.auto_translate;
         this.tKinds=translate?.param?.kinds;
         this.transportKindKey=translate?.param?.transport_kind_key;
-        this.autoTranslateFilds=translate?.auto_translate;
         this.activeServices=translate?.param?.services;
+        this.activeCustomServices=translate?.param?.custom_services;
       },
       error: (err) => this.snackBar.open(`Ошибка получения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
@@ -121,15 +144,21 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+  // Геттер для удобного доступа к FormArray
+  getCustomServices(lang: 'en' | 'ru'): FormArray {
+    return this.form.get(`${lang}.custom_services`) as FormArray;
+  }
   //publick metods
   getChargeKeys(lang: 'en' | 'ru'): string[] {
     const chargesForm = this.form.get(`${lang}.charges`) as FormGroup;
     return Object.keys(chargesForm?.controls || {});
   }
-isServiceActive(id: string | number): boolean {
-  const numId = typeof id === 'string' ? parseInt(id, 10) : id;
-  return this.activeServices.includes(numId);
-}
+  isServiceActive(id: string | number): boolean {
+    const numId = typeof id === 'string' ? parseInt(id, 10) : id;
+    return Array.isArray(this.activeServices)
+      ?this.activeServices.includes(numId)
+      :false;
+  }
   // returnHeight(text:string){
   //   const lineText = (text?.match(/\n/g) || []).length;
   //   const height = lineText>1? lineText * 20 : 20
