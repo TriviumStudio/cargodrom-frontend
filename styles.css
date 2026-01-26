@@ -1495,7 +1495,7 @@ button{
   border: none;
   &:disabled {
     cursor: auto;
-  } 
+  }
   &:hover:not(:disabled) {
     opacity: 0.6;
   }
@@ -1511,10 +1511,10 @@ button.icon {
   background-position: center;
 }
 button.icon.delete-gr{
-  background-image: url('pic-btn-del-gray.svg');  
+  background-image: url('pic-btn-del-gray.svg');
 }
 button.icon.delete{
-  background-image: url('pic-btn-del.svg');  
+  background-image: url('pic-btn-del.svg');
 }
 button.icon.edit{
   background-image: url('pic-btn-edit.svg');
@@ -1524,7 +1524,7 @@ button.icon.edit{
   }
 }
 button.icon.edit-w{
-  background-image: url('pic-btn-edit-w.svg');  
+  background-image: url('pic-btn-edit-w.svg');
 }
 
 
@@ -1588,6 +1588,51 @@ button.long{
   }
 }
 
+.form-data.transport {
+  display: flex;
+  gap: 8px;
+  --tt-color:var(--background3);
+  button.transport{
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    width: 55px;
+    height: 39px;
+    border-radius: 6px;
+    background-color: inherit;
+    &.active{
+      --tt-color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+    .new-icon{
+      margin: 0 auto;
+    }
+  }
+}
+/* //TODO:написал новые правила для кнопок управления формами */
+.form-btns{
+  display: flex;
+  margin-top: 17px;
+  button{
+    min-width: 65px;
+    height: 55px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    display: flex; flex-direction: column; justify-content: space-between;
+    font-size: 10px; line-height: 10px; text-align: left;
+    padding: 9px 8px 7px;
+  }
+  button.cancel{
+    background-color: var(--event_neutral);
+    color: var(--event_neutral_text);
+    --icon-color: var(--event_neutral_text)
+  }
+  button.save{
+    margin-left: auto;
+    margin-right: 8px;
+    background-color: var(--accent);
+    color: var(--accent_text);
+    --icon-color: var(--accent_text)
+  }
+}
 
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./src/app/styles/table.css ***!
@@ -1633,7 +1678,7 @@ table.cdk-table thead{
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./src/app/styles/input.css ***!
   \******************************************************************************************************************************************************************************************************************/
-.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .filter .main input[type="text"] , input.data-piker{
+.form-block input[type="text"]:not(.ng-value-container input), input[type="number"],.form-block select, .filter .main input[type="text"] ,.form-block textarea, input.data-piker{
   font-family: 'regular', 'arial', 'sans-serif';
   background: var(--background, #F7F9FC);
   border: 1px solid var(--line, #E0E5EB );
@@ -1652,7 +1697,7 @@ table.cdk-table thead{
   min-height: fit-content;
 }
 
-.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly], .form-block textarea[readonly], .form-block input[type="text"][readonly]:not(.ng-value-container input) {
+.form-block input[type="text"][readonly],input[type="number"][readonly], .form-block select[readonly],  .form-block input[type="text"][readonly]:not(.ng-value-container input) {
   background: transparent; border: 1px dashed #C3CCD6; color: #2C3640;
 }
 .form-block input[type="text"]::placeholder,input[type="number"]::placeholder { color: #606A74; }
@@ -1800,6 +1845,26 @@ app-responsibility.ng-invalid tbody{
   border: 1.5px solid red;
 }
 
+.textarea-box{
+  border: 1px solid var(--line, #E0E5EB);
+  border-radius: 6px;
+  padding: 11.5px 13px;
+
+  textarea{
+    border: none;
+    width: 100%;
+    font-family: 'regular', 'arial', 'sans-serif';
+    background: inherit;
+    font-size: 15px;
+    line-height: 20px;
+    padding: 0; margin: 0;
+
+  }
+}
+
+textarea{
+  overflow: hidden;
+}
 
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./src/app/styles/form.css ***!
@@ -1838,6 +1903,8 @@ form.edit-form{
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./src/app/styles/icon.css ***!
   \*****************************************************************************************************************************************************************************************************************/
 .new-icon{
+  width: var(--icon-w, var(--icon-s, 100%));
+  height: var(--icon-h, var(--icon-s, 100%));
   &::before{
     width: var(--icon-w, var(--icon-s, 100%));
     height: var(--icon-h, var(--icon-s, 100%));
@@ -1864,21 +1931,27 @@ form.edit-form{
   &.add-link::before{--icon-bg-image: url('pic-btn-addLink.svg')}
   &.import::before{--icon-bg-image: url('pic-btn-import.svg')}
   &.export::before{--icon-bg-image: url('pic-btn-export.svg')}
+
+  &.danger-triangle::before{--icon-bg-image: url('pic-triangle-warning.svg')}
+
+  &.transport-type1::before, &.tt1::before, &.tt.avia::before{--icon-bg-image: url('pic-service-air.svg')}
+  &.transport-type2::before, &.tt2::before, &.tt.road::before{--icon-bg-image: url('pic-service-road.svg')}
+  &.transport-type3::before, &.tt3::before, &.tt.sea::before{--icon-bg-image: url('pic-service-sea.svg')}
+  &.transport-type4::before, &.tt4::before, &.tt.rw::before{--icon-bg-image: url('pic-service-rail.svg')}
   /* размеры (s-size, когда ширина и высота равны)*/
   &.s10px{--icon-s:10px}
-  &.s16px{--icon-s:16px}
   &.s14px{--icon-s:14px}
-  &.s10px{--icon-s:10px}
+  &.s16px{--icon-s:16px}
+  &.s18px{--icon-s:18px}
+  &.s20px{--icon-s:20px}
+  &.s22px{--icon-s:22px}
   /* gradient */
   &.gradient{
     --icon-color-gradient: linear-gradient(0deg, var(--icon-color), var(--accent));
   }
 }
 
-.transport-type1{ }
-.transport-type2{ }
-.transport-type3{ }
-.transport-type4{ }
+
 
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/@ng-select/ng-select/themes/default.theme.css ***!

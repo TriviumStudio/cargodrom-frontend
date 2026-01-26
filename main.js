@@ -1530,6 +1530,9 @@ class ContractorService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseS
         "explode": false
       });
       rb.query('bidding_request_id', params.bidding_request_id, {});
+      rb.query('tab', params.tab, {});
+      rb.query('type', params.type, {});
+      rb.query('svh_id', params.svh_id, {});
     }
     return this.http.request(rb.build({
       responseType: 'json',
@@ -3448,6 +3451,8 @@ class DirectionService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseSe
     if (params) {
       rb.query('country_id', params.country_id, {});
       rb.query('search', params.search, {});
+      rb.query('kind_key_check', params.kind_key_check, {});
+      rb.query('only_kind_key', params.only_kind_key, {});
     }
     return this.http.request(rb.build({
       responseType: 'json',
@@ -5105,6 +5110,7 @@ class RequestService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseServ
     const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectGetPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
+      rb.query('tab', params.tab, {});
     }
     return this.http.request(rb.build({
       responseType: 'json',
@@ -6345,6 +6351,166 @@ class RequestService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseServ
    */
   requestRateTransporterSave(params, context) {
     return this.requestRateTransporterSave$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
+  /** Path part for operation `requestRateTransporterParam()` */
+  static {
+    this.RequestRateTransporterParamPath = '/request_rate_transporter_param';
+  }
+  /**
+   * Параметры торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterParam$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterParamPath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Параметры торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterParam(params, context) {
+    return this.requestRateTransporterParam$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
+  /** Path part for operation `requestRateTransporterParamSave()` */
+  static {
+    this.RequestRateTransporterParamSavePath = '/request_rate_transporter_param_save';
+  }
+  /**
+   * Сохранение параметров торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterParamSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterParamSave$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterParamSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Сохранение параметров торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterParamSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterParamSave(params, context) {
+    return this.requestRateTransporterParamSave$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
+  /** Path part for operation `requestRateTransporterTranslate()` */
+  static {
+    this.RequestRateTransporterTranslatePath = '/request_rate_transporter_translate';
+  }
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterTranslate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterTranslate$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslatePath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterTranslate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterTranslate(params, context) {
+    return this.requestRateTransporterTranslate$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
+  /** Path part for operation `requestRateTransporterTranslateSave()` */
+  static {
+    this.RequestRateTransporterTranslateSavePath = '/request_rate_transporter_translate_save';
+  }
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterTranslateSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslateSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterTranslateSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave(params, context) {
+    return this.requestRateTransporterTranslateSave$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
   }
   /** Path part for operation `requestRateFinalList()` */
   static {
@@ -13697,9 +13863,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   RequestInfoBlock: () => (/* binding */ RequestInfoBlock)
 /* harmony export */ });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ 37580);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ 60316);
 
+
+function RequestInfoBlock_ng_container_6_Template(rf, ctx) {
+  if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerStart"](0);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1)(2, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "\u0414\u0430\u0442\u0430:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 1)(7, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "\u041E\u0442\u043A\u0443\u0434\u0430:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 1)(12, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, "\u041A\u0443\u0434\u0430:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 1)(17, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "\u0413\u0440\u0443\u0437:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "div", 1)(22, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](23, "INC:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 1)(27, "div", 2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](28, "\u0421\u0442\u0430\u0442\u0443\u0441:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "div", 3);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementContainerEnd"]();
+  }
+  if (rf & 2) {
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.request.time_add);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r0.request.departure_country_name, " (", ctx_r0.request.departure_city_name, ")");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r0.request.arrival_country_name, " (", ctx_r0.request.arrival_city_name, ")");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.request.cargo_text);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.request.incoterms_name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r0.request.status_crm_name);
+  }
+}
 class RequestInfoBlock {
-  constructor() {}
+  constructor() {
+    this.isExpandedRequestInfo = false;
+  }
   static {
     this.ɵfac = function RequestInfoBlock_Factory(t) {
       return new (t || RequestInfoBlock)();
@@ -13710,11 +13937,12 @@ class RequestInfoBlock {
       type: RequestInfoBlock,
       selectors: [["app-request-info-block"]],
       inputs: {
-        request: "request"
+        request: "request",
+        isExpandedRequestInfo: "isExpandedRequestInfo"
       },
-      decls: 36,
-      vars: 10,
-      consts: [[1, "request"], [1, "info-block"], [1, "title"], [1, "subtitle"]],
+      decls: 7,
+      vars: 3,
+      consts: [[1, "request"], [1, "info-block"], [1, "title"], [1, "subtitle"], [4, "ngIf"]],
       template: function RequestInfoBlock_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0)(1, "div", 1)(2, "div", 2);
@@ -13723,62 +13951,19 @@ class RequestInfoBlock {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 3);
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 1)(7, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "\u0414\u0430\u0442\u0430:");
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, RequestInfoBlock_ng_container_6_Template, 31, 8, "ng-container", 4);
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 1)(12, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](13, "\u041E\u0442\u043A\u0443\u0434\u0430:");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 1)(17, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "\u041A\u0443\u0434\u0430:");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](20);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "div", 1)(22, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](23, "\u0413\u0440\u0443\u0437:");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](25);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 1)(27, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](28, "INC:");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](31, "div", 1)(32, "div", 2);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](33, "\u0421\u0442\u0430\u0442\u0443\u0441:");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 3);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](35);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]()()();
         }
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("\u0417\u0430\u043F\u0440\u043E\u0441 \u2116", ctx.request.id, "");
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.request.customer_name);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.request.time_add);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx.request.departure_country_name, " (", ctx.request.departure_city_name, ")");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx.request.arrival_country_name, " (", ctx.request.arrival_city_name, ")");
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.request.cargo_text);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.request.incoterms_name);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.request.status_crm_name);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx.isExpandedRequestInfo);
         }
       },
+      dependencies: [_angular_common__WEBPACK_IMPORTED_MODULE_1__.NgIf],
       styles: [".request[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 24px;\n  justify-content: center;\n  height: 100%;\n}\n\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%] {\n  align-content: center;\n}\n\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] {\n  font-size: 13px;\n  font-weight: 400;\n  line-height: 13px;\n  text-align: left;\n  color: #606A74;\n  margin-bottom: 5px;\n}\n\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%]   .subtitle[_ngcontent-%COMP%] {\n  font-size: 15px;\n  font-weight: 700;\n  line-height: 15px;\n  text-align: left;\n  color: #2C3640;\n}\n\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%]:first-child {\n  border-right: 1px solid #C3CCD6;\n}\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%]:first-child   .title[_ngcontent-%COMP%] {\n  font-size: 26px;\n  font-weight: 700;\n  line-height: 26px;\n  text-align: left;\n  color: var(--header_menu, #4B66AD);\n}\n.request[_ngcontent-%COMP%]   .info-block[_ngcontent-%COMP%]:first-child   .subtitle[_ngcontent-%COMP%] {\n  font-size: 13px;\n  font-weight: 400;\n  line-height: 12px;\n  text-align: left;\n  color: #606A74;\n}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9hcHAvcGFnZXMvY29tcG9uZW50cy9yZXF1ZXN0LWluZm8tYmxvY2svcmVxdWVzdC1pbmZvLWJsb2NrLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtFQUNBLFNBQUE7RUFDQSx1QkFBQTtFQUNBLFlBQUE7QUFDRjs7QUFDQTtFQUNFLHFCQUFBO0FBRUY7O0FBQUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtFQUNBLGtCQUFBO0FBR0Y7O0FBREE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtBQUlGOztBQUZBO0VBQ0UsK0JBQUE7QUFLRjtBQUpFO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGtDQUFBO0FBTUo7QUFKRTtFQUNFLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxjQUFBO0FBTUoiLCJzb3VyY2VzQ29udGVudCI6WyIucmVxdWVzdHtcbiAgZGlzcGxheTogZmxleDtcbiAgZ2FwOiAyNHB4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuLnJlcXVlc3QgLmluZm8tYmxvY2t7XG4gIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5yZXF1ZXN0IC5pbmZvLWJsb2NrIC50aXRsZXtcbiAgZm9udC1zaXplOiAxM3B4O1xuICBmb250LXdlaWdodDogNDAwO1xuICBsaW5lLWhlaWdodDogMTNweDtcbiAgdGV4dC1hbGlnbjogbGVmdDtcbiAgY29sb3I6ICM2MDZBNzQ7XG4gIG1hcmdpbi1ib3R0b206IDVweDtcbn1cbi5yZXF1ZXN0IC5pbmZvLWJsb2NrIC5zdWJ0aXRsZXtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBmb250LXdlaWdodDogNzAwO1xuICBsaW5lLWhlaWdodDogMTVweDtcbiAgdGV4dC1hbGlnbjogbGVmdDtcbiAgY29sb3I6ICMyQzM2NDA7XG59XG4ucmVxdWVzdCAuaW5mby1ibG9jazpmaXJzdC1jaGlsZHtcbiAgYm9yZGVyLXJpZ2h0OiAxcHggc29saWQgI0MzQ0NENjtcbiAgLnRpdGxle1xuICAgIGZvbnQtc2l6ZTogMjZweDtcbiAgICBmb250LXdlaWdodDogNzAwO1xuICAgIGxpbmUtaGVpZ2h0OiAyNnB4O1xuICAgIHRleHQtYWxpZ246IGxlZnQ7XG4gICAgY29sb3I6IHZhcigtLWhlYWRlcl9tZW51LCAjNEI2NkFEKTtcbiAgfVxuICAuc3VidGl0bGV7XG4gICAgZm9udC1zaXplOiAxM3B4O1xuICAgIGZvbnQtd2VpZ2h0OiA0MDA7XG4gICAgbGluZS1oZWlnaHQ6IDEycHg7XG4gICAgdGV4dC1hbGlnbjogbGVmdDtcbiAgICBjb2xvcjogIzYwNkE3NDtcbiAgfVxufVxuXG4iXSwic291cmNlUm9vdCI6IiJ9 */"]
     });
   }

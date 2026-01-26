@@ -630,7 +630,8 @@ class ContractorComponent extends src_app_shared_classes__WEBPACK_IMPORTED_MODUL
   //методы для торгов
   requestContractorSelectGet(id) {
     return this.requestService.requestContractorSelectGet({
-      id: id
+      id: id,
+      tab: ''
     });
   }
   requestContractorSelectUpdate(body) {

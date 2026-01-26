@@ -1348,7 +1348,7 @@ class ContractorEditorComponent {
   }
   getDirectionPoint() {
     return this.directionService.directionPoint({
-      transport_kind_id: 1
+      transport_kind_id: '1'
     }).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_16__.tap)(directionPoint => {
       this.directionPoint = directionPoint;
       this.filteredDirectionPoint = directionPoint;

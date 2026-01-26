@@ -458,7 +458,7 @@ const routes = [{
     loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_classes_index_ts"), __webpack_require__.e("common"), __webpack_require__.e("src_app_pages_modules_customer_customer_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./modules/customer/customer.module */ 20562)).then(m => m.CustomerModule)
   }, {
     path: 'request',
-    loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_classes_index_ts"), __webpack_require__.e("default-src_app_pages_components_contractor_contractor_component_ts-src_app_pages_services_ci-9bc48a"), __webpack_require__.e("src_app_pages_modules_request_request_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./modules/request/request.module */ 6308)).then(m => m.RequestModule)
+    loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_classes_index_ts"), __webpack_require__.e("default-src_app_pages_components_contractor_contractor_component_ts-src_app_pages_services_ci-9bc48a"), __webpack_require__.e("common"), __webpack_require__.e("src_app_pages_modules_request_request_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./modules/request/request.module */ 6308)).then(m => m.RequestModule)
   }, {
     path: 'contractor',
     loadChildren: () => Promise.all(/*! import() */[__webpack_require__.e("default-src_app_shared_classes_index_ts"), __webpack_require__.e("default-src_app_pages_components_contractor_contractor_component_ts-src_app_pages_services_ci-9bc48a"), __webpack_require__.e("common"), __webpack_require__.e("src_app_pages_modules_contractor_contractor_module_ts")]).then(__webpack_require__.bind(__webpack_require__, /*! ./modules/contractor/contractor.module */ 30236)).then(m => m.ContractorModule)
@@ -484,7 +484,7 @@ const routes = [{
   path: 'rate',
   redirectTo: 'request-rates/5191ebbc0ba015a608f285b78b524449'
 }, {
-  path: 'rate_request:uid',
+  path: 'rate_request/:uid',
   redirectTo: 'request-rates/:uid'
 }, {
   path: '**',
