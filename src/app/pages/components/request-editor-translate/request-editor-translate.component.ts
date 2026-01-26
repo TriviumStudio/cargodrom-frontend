@@ -130,16 +130,16 @@ export class RequestEditorTranslateComponent implements OnInit, OnDestroy {
   send(){
     // this.router.navigate(['pages/request/bidding', this.requestId, { state: { translate: 'true' } }]);
     // this.router.navigate(['/pages/request/bidding', this.requestId], { queryParams: { translate: true } });
-    this.router.navigate(['/request/bidding', this.requestId]);
+    this.router.navigate(['/request/custom/bidding', this.requestId]);
   }
   remove():void {
     // window.location.reload();
     this.navigationHistoryService.back(`/request/details/final/${this.requestId}`)
   }
 
-  returnHeight(text:string){
-    const lineText = (text?.match(/\n/g) || []).length;
-    const height = lineText>1? lineText * 20 : 20
-    return height+'px';
-  }
+  // returnHeight(text:string){
+  //   const lineText = (text?.match(/\n/g) || []).length;
+  //   const height = lineText>1? lineText * 20 : 20
+  //   return height+'px';
+  // }
 }

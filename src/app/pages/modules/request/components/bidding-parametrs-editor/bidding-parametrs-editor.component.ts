@@ -32,6 +32,7 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
   citys:any[]=[]; arrivalCitys: any[]=[]; departureCitys: any[]=[];
   arrivalPoints:any[]=[]; departurePoints:any[]=[];
   departureAdres:string=''; arrivalAdres:string='';
+  needTranslate:boolean=false;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,6 +93,7 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
         this.departureCountryId=transporterParam.departure_country_id;
         this.arrivalCountryId=transporterParam.arrival_country_id;
         this.arrivalAdres=transporterParam?.arrival_address;
+        this.needTranslate=transporterParam.need_translate;
         this.getCitys();
         this.getDirectionPoint('departure');
         this.getDirectionPoint('arrival');
@@ -106,7 +108,11 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
         // window.location.reload();
         // this.send();
-        this.router.navigate(['/request/bidding', this.requestId]);
+        if(this.needTranslate){
+          this.router.navigate(['/request', this.requestId, 'translate-transporter-rate']);
+        } else {
+          this.router.navigate(['/request/bidding/delivery', this.requestId]);
+        }
       },
       error: (err) => this.snackBar.open(`Ошибка изменения параметров доставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

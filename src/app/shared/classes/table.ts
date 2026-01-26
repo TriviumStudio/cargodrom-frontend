@@ -54,6 +54,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   contractorsSelectedForRequest:any=[];
 
 
+  tableType!: 'custom' | 'delivery';
 
   requestId:number=0;
 
@@ -109,6 +110,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[0] === 'bidding';
     this.isRateDetailsMode = segments[0] === 'details';
+    const type = this.route.snapshot.paramMap.get('type');
+    console.log('type',type, this.route.snapshot.paramMap);
+
+    if(this.isBiddingMode){
+      if (type === 'custom' || type === 'delivery') {
+        this.tableType = type;
+      }
+    }
     if(this.isRateDetailsMode || this.isBiddingMode){
       if(this.isRateDetailsMode) this.detailsMethod=segments[1];
       this.requestId = Number(this.route.snapshot.paramMap.get('id'));//TODO:предлать все на paramMap.get в похожих случаях
@@ -169,7 +178,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     if (this.isRateDetailsMode) {
       params = { ...params, request_id: this.requestId, method: this.detailsMethod };
     } else if (this.isBiddingMode) {
-      params = { ...params, bidding_request_id: this.requestId };
+      params = { ...params, bidding_request_id: this.requestId, tab: this.tableType };
     } else {
       params = { ...params, sort: JSON.stringify(sortCol)};
     }
@@ -413,14 +422,14 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
     return NEVER;
   }
 
-  protected requestContractorSelectGet(id:number): Observable<any> {
+  protected requestContractorSelectGet(id:number,tab:string): Observable<any> {
     return NEVER;
   }
 
-  protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}): Observable<any> {
+  protected requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean, tab:string}): Observable<any> {
     return NEVER;
   }
-  protected requestSaveBidding(body: {id: number, confirm:boolean}): Observable<any> {
+  protected requestSaveBidding(body: {id: number, confirm:boolean, tab:string}): Observable<any> {
     return NEVER;
   }
 
@@ -550,7 +559,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   getContractorsSelectRequest(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.requestContractorSelectGet(id).subscribe({
+    this.requestContractorSelectGet(id, this.tableType).subscribe({
       next: (contractors) => {
         if(contractors){
           this.quantityContractors=contractors.length;
@@ -574,7 +583,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   updateContractorSelectRequest(contractorId: number,{ checked }: MatCheckboxChange){
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     const check= checked? true:false;
-    this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: check}).subscribe({
+    this.requestContractorSelectUpdate({id:requestId, contractor_id:[contractorId], checked: check, tab: this.tableType}).subscribe({
       next: (e) => {
         this.getContractorsSelectRequest();
       },
@@ -585,7 +594,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   updateAllContractorSelectRequest({ checked }: MatCheckboxChange){
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     const check= checked? true:false;
-    this.requestContractorSelectUpdate({id:requestId, contractor_id: this.arrRowsId, checked: check}).subscribe({
+    this.requestContractorSelectUpdate({id:requestId, contractor_id: this.arrRowsId, checked: check, tab: this.tableType}).subscribe({
       next: (e) => {
         if(!check){
           this.contractorsSelectedForRequest=[];
@@ -598,7 +607,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   saveTrueContractorSelectRequest(){
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
-    this.requestSaveBidding({id:requestId, confirm: true})
+    this.requestSaveBidding({id:requestId, confirm: true, tab: this.tableType})
       .pipe(
         tap((res)=>{}),
         takeUntil(this.destroy$))
@@ -615,7 +624,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
 
   saveContractorSelectRequest() {
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
-    this.requestSaveBidding({id:requestId,confirm: false})
+    this.requestSaveBidding({id:requestId,confirm: false, tab: this.tableType})
       .pipe(
         tap(()=>{}),
         takeUntil(this.destroy$))

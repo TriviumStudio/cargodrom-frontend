@@ -103,14 +103,9 @@ const routes: Routes = [
     title: 'Детализация запроса',
   },
   {
-    path: 'bidding/customs/:id',
+    path: 'bidding/:type/:id',
     component: ContractorComponent,
     title: 'Торги запроса (до границы)',
-  },
-    {
-    path: 'bidding/delivery/:id',
-    component: ContractorComponent,
-    title: 'Торги запроса (доставка)',
   },
   //TODO:подумать вот над такой реализацией
   // {

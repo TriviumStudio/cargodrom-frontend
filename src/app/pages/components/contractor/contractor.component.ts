@@ -25,6 +25,8 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
 
   trackById = (_index: number, contractor: Contractor) => contractor.id!;
 
+
+
   constructor(
     private contractorService: ContractorService,
     private requestService: RequestService,
@@ -47,15 +49,18 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
 
   override ngOnInit() {
+
+
     super.ngOnInit();
     this.resizeMetod='contractor_list';
+
   }
 
   //методы для таблицы
 
   load<Contractor>(params: LoadParams<Contractor, ContractorFilter>): Observable<{ total: number; items: Contractor[]; full_total:number }> {
     this.params=params;
-    console.log(123);
+
 
     // return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
     // return this.importMetods.test(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
@@ -84,16 +89,16 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
     return this.contractorService.contractorImportTemplate(this.filter as any) as Observable<{data: string; name: string}>;
   }
   //методы для торгов
-  protected override requestContractorSelectGet(id:number): Observable<any> {
-    return this.requestService.requestContractorSelectGet({id:id,tab:''});
+  protected override requestContractorSelectGet(id:number,tab:string): Observable<any> {
+    return this.requestService.requestContractorSelectGet({id:id,tab:tab});
   }
-  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean,tab:'custom'}) {
+  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean,tab:"delivery" | "custom"}) {
     return this.requestService.requestContractorSelectUpdate({body});
   }
   protected override requestInfo(id: number) {
     return this.requestService.requestInfo({id:id});
   }
-  protected override requestSaveBidding(body:{id:number,confirm: boolean}){
+  protected override requestSaveBidding(body:{id:number,confirm: boolean,tab:"delivery" | "custom"}){
     return this.requestService.requestSaveBidding({body})
   }
 
