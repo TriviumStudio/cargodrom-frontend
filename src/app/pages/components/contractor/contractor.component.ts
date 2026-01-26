@@ -85,9 +85,9 @@ export class ContractorComponent extends Table<Contractor, 'trade_rating', Contr
   }
   //методы для торгов
   protected override requestContractorSelectGet(id:number): Observable<any> {
-    return this.requestService.requestContractorSelectGet({id:id});
+    return this.requestService.requestContractorSelectGet({id:id,tab:''});
   }
-  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean}) {
+  protected override requestContractorSelectUpdate(body: {id: number; contractor_id: number[],checked:boolean,tab:'custom'}) {
     return this.requestService.requestContractorSelectUpdate({body});
   }
   protected override requestInfo(id: number) {

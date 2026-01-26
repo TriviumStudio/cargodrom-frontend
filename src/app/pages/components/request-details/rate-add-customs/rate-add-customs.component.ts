@@ -157,7 +157,9 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     //   console.log('this edit mode', this.rate);
     //   this.rateForm.patchValue(this.rate);
     // }
-    this.rateForm.patchValue({request_id: this.requestId});
+    this.rateForm.patchValue({
+      request_id: this.requestId,
+    });
 
     // this.rateForm.controls['route_name'].valueChanges
     //   .pipe(
@@ -213,11 +215,14 @@ export class RateAddCustoms implements OnInit, OnDestroy {
     this.calckRateCost();
   }
   calckRateCost(){
-    let cost:number=0;
-    this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost + v.cost
-    });
-    this.rateForm.patchValue({ total_cost:cost });
+    if(this.rateForm.value.rate_type=='detail'){
+      let cost:number=0;
+      this.rateForm.value.values.forEach((v:any)=>{
+        if(v.select)cost=cost + v.cost
+      });
+      this.rateForm.patchValue({ total_cost:cost });
+    }
+
   }
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});
@@ -375,7 +380,7 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           this.snackBar.open(!this.rate?'Ставка успешно создана':'Ставка успешно изменена', undefined, this.snackBarWithShortDuration);
         },
         error: (err) => {
-          this.snackBar.open(!this.rate?'Ошибка создания ставки:':'Ошибка изменения ставки:' + err.error.error_message, undefined, this.snackBarWithShortDuration);
+          this.snackBar.open( err.error.error_message + ': ' + err.error.error_message_description, undefined, this.snackBarWithLongDuration);
         }
       });
   }
@@ -409,6 +414,10 @@ export class RateAddCustoms implements OnInit, OnDestroy {
           if(this.rate){
             console.log('this edit mode', this.rate);
             this.rateForm.patchValue(this.rate);
+            this.rateForm.patchValue({
+              carrier_name: this.rate.carrier.iata,
+              carrier_desc: this.rate.carrier.name,
+            });
 
           }
         },

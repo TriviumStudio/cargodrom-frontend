@@ -87,22 +87,7 @@ textarea::-webkit-scrollbar {
   height: 0px;
 }
 
-.textarea-box{
-  border: 1px solid var(--line, #E0E5EB);
-  border-radius: 6px;
-  padding: 11.5px 13px;
 
-  textarea{
-    border: none;
-    width: 100%;
-    font-family: 'regular', 'arial', 'sans-serif';
-    background: inherit;
-    font-size: 15px;
-    line-height: 20px;
-    padding: 0; margin: 0;
-
-  }
-}
 
 form{
   display: flex;

@@ -139,7 +139,7 @@ export class RequestComponent extends Table<Request, 'id', RequestFilter> {
   //   return obj !== undefined ? obj : null; // Проверка на undefined
   // }
 
-  navigateOnDetails(requestId:any, tab:string){
+  navigateOnDetails(requestId:any, tab?:string){
     console.log(tab);
     if(tab){
       let link;

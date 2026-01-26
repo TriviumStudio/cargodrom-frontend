@@ -8213,6 +8213,11 @@ export class RequestService extends BaseService {
      * ID запроса
      */
       id: number;
+
+    /**
+     * Раздел (custom|delivery)
+     */
+      tab: string;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -8230,6 +8235,7 @@ export class RequestService extends BaseService {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestContractorSelectGetPath, 'get');
     if (params) {
       rb.query('id', params.id, {});
+      rb.query('tab', params.tab, {});
     }
 
     return this.http.request(
@@ -8270,6 +8276,11 @@ export class RequestService extends BaseService {
      * ID запроса
      */
       id: number;
+
+    /**
+     * Раздел (custom|delivery)
+     */
+      tab: string;
     },
     context?: HttpContext
   ): Observable<{
@@ -8334,6 +8345,11 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
+ * Раздел (custom|delivery)
+ */
+'tab': 'custom' | 'delivery';
+
+/**
  * ID Контрагента
  */
 'contractor_id'?: Array<number>;
@@ -8391,6 +8407,11 @@ export class RequestService extends BaseService {
  * ID запроса
  */
 'id': number;
+
+/**
+ * Раздел (custom|delivery)
+ */
+'tab': 'custom' | 'delivery';
 
 /**
  * ID Контрагента
@@ -8451,6 +8472,11 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
+ * Раздел (custom|delivery)
+ */
+'tab'?: 'custom' | 'delivery';
+
+/**
  * Подтверждение (игнорировать ошибки)
  */
 'confirm'?: boolean;
@@ -8503,6 +8529,11 @@ export class RequestService extends BaseService {
  * ID запроса
  */
 'id': number;
+
+/**
+ * Раздел (custom|delivery)
+ */
+'tab'?: 'custom' | 'delivery';
 
 /**
  * Подтверждение (игнорировать ошибки)
@@ -16041,6 +16072,11 @@ export class RequestService extends BaseService {
 'transit_time_text': string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -16063,7 +16099,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -16462,6 +16498,11 @@ export class RequestService extends BaseService {
         'transit_time_text': string;
         
         /**
+         * Расчет ставки
+         */
+        'rate_calc'?: 'manual' | 'api';
+        
+        /**
          * Тип ставки
          */
         'rate_type': 'detail' | 'single';
@@ -16484,7 +16525,7 @@ export class RequestService extends BaseService {
         /**
          * Валюта (ID берем из запроса - system_currency)
          */
-        'currency'?: number;
+        'currency': number;
         
         /**
          * Включение прибыли (Profit is included)
@@ -16924,6 +16965,11 @@ export class RequestService extends BaseService {
 'transit_time_text': string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -16946,7 +16992,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -17332,6 +17378,11 @@ export class RequestService extends BaseService {
 'transit_time_text': string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -17354,7 +17405,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -17738,6 +17789,11 @@ export class RequestService extends BaseService {
 'transit_time_text': string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -17760,7 +17816,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -17962,6 +18018,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -17974,7 +18035,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -18158,6 +18219,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Расчет ставки
+ */
+'rate_calc'?: 'manual' | 'api';
+
+/**
  * Тип ставки
  */
 'rate_type': 'detail' | 'single';
@@ -18170,7 +18236,7 @@ export class RequestService extends BaseService {
 /**
  * Валюта (ID берем из запроса - system_currency)
  */
-'currency'?: number;
+'currency': number;
 
 /**
  * Включение прибыли (Profit is included)
@@ -18369,6 +18435,12 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type'?: {
+};
 };
 
 /**
@@ -18513,6 +18585,11 @@ export class RequestService extends BaseService {
  */
 'name': string;
 };
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
 
 /**
  * Значения ставок
@@ -18702,6 +18779,12 @@ export class RequestService extends BaseService {
          * Оплачиваемый вес, кг
          */
         'cargo_places_paid_weight'?: number;
+        
+        /**
+         * Тип груза
+         */
+        'cargo_type'?: {
+        };
         };
         
         /**
@@ -18846,6 +18929,11 @@ export class RequestService extends BaseService {
          */
         'name': string;
         };
+        
+        /**
+         * Тип ставки
+         */
+        'rate_type': 'detail' | 'single';
         
         /**
          * Значения ставок
@@ -19076,6 +19164,12 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type'?: {
+};
 };
 
 /**
@@ -19220,6 +19314,11 @@ export class RequestService extends BaseService {
  */
 'name': string;
 };
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
 
 /**
  * Значения ставок
@@ -19396,6 +19495,12 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type'?: {
+};
 };
 
 /**
@@ -19540,6 +19645,11 @@ export class RequestService extends BaseService {
  */
 'name': string;
 };
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
 
 /**
  * Значения ставок
@@ -19714,6 +19824,12 @@ export class RequestService extends BaseService {
  * Оплачиваемый вес, кг
  */
 'cargo_places_paid_weight'?: number;
+
+/**
+ * Тип груза
+ */
+'cargo_type'?: {
+};
 };
 
 /**
@@ -19858,6 +19974,11 @@ export class RequestService extends BaseService {
  */
 'name': string;
 };
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
 
 /**
  * Значения ставок
@@ -20023,6 +20144,11 @@ export class RequestService extends BaseService {
 'point_action_id': number;
 
 /**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Значения ставок
  */
 'values': Array<{
@@ -20062,6 +20188,11 @@ export class RequestService extends BaseService {
  */
 'select'?: boolean;
 }>;
+
+/**
+ * Сумма
+ */
+'total_cost'?: number;
 
 /**
  * Валюта (ID берем из запроса - system_currency)
@@ -20153,6 +20284,11 @@ export class RequestService extends BaseService {
 'point_action_id': number;
 
 /**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
  * Значения ставок
  */
 'values': Array<{
@@ -20192,6 +20328,11 @@ export class RequestService extends BaseService {
  */
 'select'?: boolean;
 }>;
+
+/**
+ * Сумма
+ */
+'total_cost'?: number;
 
 /**
  * Валюта (ID берем из запроса - system_currency)
@@ -20495,6 +20636,11 @@ export class RequestService extends BaseService {
  * Комментарий
  */
 'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
 
 /**
  * Доставки
@@ -20838,6 +20984,11 @@ export class RequestService extends BaseService {
          * Комментарий
          */
         'comment'?: string;
+        
+        /**
+         * Расчет ставки
+         */
+        'rate_calc': 'manual' | 'api';
         
         /**
          * Доставки
@@ -21224,6 +21375,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
  * Доставки
  */
 'values': Array<{
@@ -21554,6 +21710,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
  * Доставки
  */
 'values': Array<{
@@ -21882,6 +22043,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
  * Доставки
  */
 'values': Array<{
@@ -22058,6 +22224,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
  * Доставки
  */
 'values': Array<{
@@ -22188,6 +22359,11 @@ export class RequestService extends BaseService {
 'comment'?: string;
 
 /**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
  * Доставки
  */
 'values': Array<{
@@ -22253,6 +22429,917 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestRateTransporterSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterParam()` */
+  static readonly RequestRateTransporterParamPath = '/request_rate_transporter_param';
+
+  /**
+   * Параметры торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterParam()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterParam$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Виды транспорта
+ */
+'kinds': Array<string>;
+
+/**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
+ * Список услуг по видам транспорта
+ */
+'charges': {
+};
+
+/**
+ * Комментарий к запросу
+ */
+'comment'?: string;
+
+/**
+ * Адрес доставки из запроса
+ */
+'arrival_address'?: string;
+
+/**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
+ * Город отправления для доставки
+ */
+'departure_city': {
+};
+
+/**
+ * Пункт отправления для доставки
+ */
+'departure_point'?: {
+};
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
+
+/**
+ * Город назначения для доставки
+ */
+'arrival_city'?: {
+};
+
+/**
+ * Пункт назначения для доставки
+ */
+'arrival_point'?: {
+};
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterParamPath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Виды транспорта
+         */
+        'kinds': Array<string>;
+        
+        /**
+         * Типы транспорта
+         */
+        'types': Array<string>;
+        
+        /**
+         * Список услуг по видам транспорта
+         */
+        'charges': {
+        };
+        
+        /**
+         * Комментарий к запросу
+         */
+        'comment'?: string;
+        
+        /**
+         * Адрес доставки из запроса
+         */
+        'arrival_address'?: string;
+        
+        /**
+         * Страна отправления для доставки
+         */
+        'departure_country_id': number;
+        
+        /**
+         * Город отправления для доставки
+         */
+        'departure_city': {
+        };
+        
+        /**
+         * Пункт отправления для доставки
+         */
+        'departure_point'?: {
+        };
+        
+        /**
+         * Страна назначения для доставки
+         */
+        'arrival_country_id': number;
+        
+        /**
+         * Город назначения для доставки
+         */
+        'arrival_city'?: {
+        };
+        
+        /**
+         * Пункт назначения для доставки
+         */
+        'arrival_point'?: {
+        };
+        
+        /**
+         * ID вида транспорта
+         */
+        'transport_kind_key': string;
+        
+        /**
+         * ID тип транспорта
+         */
+        'transport_type_id': number;
+        
+        /**
+         * Услуги отмеченный для торгов
+         */
+        'services'?: Array<number>;
+        
+        /**
+         * Дополнительные услуги
+         */
+        'custom_services'?: Array<{
+        
+        /**
+         * Наименование услуги
+         */
+        'name': string;
+        
+        /**
+         * Услуга включена
+         */
+        'check'?: boolean;
+        }>;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Параметры торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterParam$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterParam(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Виды транспорта
+ */
+'kinds': Array<string>;
+
+/**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
+ * Список услуг по видам транспорта
+ */
+'charges': {
+};
+
+/**
+ * Комментарий к запросу
+ */
+'comment'?: string;
+
+/**
+ * Адрес доставки из запроса
+ */
+'arrival_address'?: string;
+
+/**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
+ * Город отправления для доставки
+ */
+'departure_city': {
+};
+
+/**
+ * Пункт отправления для доставки
+ */
+'departure_point'?: {
+};
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
+
+/**
+ * Город назначения для доставки
+ */
+'arrival_city'?: {
+};
+
+/**
+ * Пункт назначения для доставки
+ */
+'arrival_point'?: {
+};
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+}> {
+    return this.requestRateTransporterParam$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Виды транспорта
+ */
+'kinds': Array<string>;
+
+/**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
+ * Список услуг по видам транспорта
+ */
+'charges': {
+};
+
+/**
+ * Комментарий к запросу
+ */
+'comment'?: string;
+
+/**
+ * Адрес доставки из запроса
+ */
+'arrival_address'?: string;
+
+/**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
+ * Город отправления для доставки
+ */
+'departure_city': {
+};
+
+/**
+ * Пункт отправления для доставки
+ */
+'departure_point'?: {
+};
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
+
+/**
+ * Город назначения для доставки
+ */
+'arrival_city'?: {
+};
+
+/**
+ * Пункт назначения для доставки
+ */
+'arrival_point'?: {
+};
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+}>): {
+
+/**
+ * Виды транспорта
+ */
+'kinds': Array<string>;
+
+/**
+ * Типы транспорта
+ */
+'types': Array<string>;
+
+/**
+ * Список услуг по видам транспорта
+ */
+'charges': {
+};
+
+/**
+ * Комментарий к запросу
+ */
+'comment'?: string;
+
+/**
+ * Адрес доставки из запроса
+ */
+'arrival_address'?: string;
+
+/**
+ * Страна отправления для доставки
+ */
+'departure_country_id': number;
+
+/**
+ * Город отправления для доставки
+ */
+'departure_city': {
+};
+
+/**
+ * Пункт отправления для доставки
+ */
+'departure_point'?: {
+};
+
+/**
+ * Страна назначения для доставки
+ */
+'arrival_country_id': number;
+
+/**
+ * Город назначения для доставки
+ */
+'arrival_city'?: {
+};
+
+/**
+ * Пункт назначения для доставки
+ */
+'arrival_point'?: {
+};
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterParamSave()` */
+  static readonly RequestRateTransporterParamSavePath = '/request_rate_transporter_param_save';
+
+  /**
+   * Сохранение параметров торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterParamSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterParamSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * ID города отправления для доставки
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления для доставки
+ */
+'departure_point_id'?: number;
+
+/**
+ * ID города назначения для доставки
+ */
+'arrival_city_id'?: number;
+
+/**
+ * ID пункта назначения для доставки
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterParamSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Сохранение параметров торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterParamSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterParamSave(
+    params?: {
+      body?: {
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * ID тип транспорта
+ */
+'transport_type_id': number;
+
+/**
+ * ID города отправления для доставки
+ */
+'departure_city_id': number;
+
+/**
+ * ID пункта отправления для доставки
+ */
+'departure_point_id'?: number;
+
+/**
+ * ID города назначения для доставки
+ */
+'arrival_city_id'?: number;
+
+/**
+ * ID пункта назначения для доставки
+ */
+'arrival_point_id'?: number;
+
+/**
+ * Услуги отмеченный для торгов
+ */
+'services'?: Array<number>;
+
+/**
+ * Дополнительные услуги
+ */
+'custom_services'?: Array<{
+
+/**
+ * Наименование услуги
+ */
+'name': string;
+
+/**
+ * Услуга включена
+ */
+'check'?: boolean;
+}>;
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateTransporterParamSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterTranslate()` */
+  static readonly RequestRateTransporterTranslatePath = '/request_rate_transporter_translate';
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterTranslate()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterTranslate$Response(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+'ru': {
+};
+'en': {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslatePath, 'get');
+    if (params) {
+      rb.query('request_id', params.request_id, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'ru': {
+        };
+        'en': {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterTranslate$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterTranslate(
+    params: {
+
+    /**
+     * ID Запроса
+     */
+      request_id: number;
+    },
+    context?: HttpContext
+  ): Observable<{
+'ru': {
+};
+'en': {
+};
+}> {
+    return this.requestRateTransporterTranslate$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+'ru': {
+};
+'en': {
+};
+}>): {
+'ru': {
+};
+'en': {
+};
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterTranslateSave()` */
+  static readonly RequestRateTransporterTranslateSavePath = '/request_rate_transporter_translate_save';
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterTranslateSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+'en': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslateSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Переводы торгов для доставки.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterTranslateSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterTranslateSave(
+    params?: {
+      body?: {
+
+/**
+ * ID Запроса
+ */
+'request_id': number;
+'en': {
+};
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateTransporterTranslateSave$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**

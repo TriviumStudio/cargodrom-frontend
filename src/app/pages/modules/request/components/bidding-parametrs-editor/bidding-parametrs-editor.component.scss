@@ -1,0 +1,38 @@
+.form-row .form-block-sub-title{
+  margin-bottom: 30px;
+
+}
+.charges{
+  display: flex; flex-direction: column; gap: 25px;
+  .custom_char, .char{
+    display: flex; align-items: baseline; gap: 5px; position: relative;
+    button.del-charge{
+      position: absolute;
+      background-color: inherit;
+      right: 13px; top: 13px;
+      padding: 0; margin: 0;
+
+    }
+  }
+  .char.delivery{
+    flex-direction: column; align-items: normal;
+    .form-item{
+      max-width: 100%;
+      margin-left: 25px;
+      margin-top: 15px;
+    }
+  }
+  button.add-charge {
+    background-color: var(--accent);
+    border-radius: 6px;
+    color: var(--accent_text);
+    height: 40px; width: fit-content;
+    padding: 0 25px;
+
+  }
+}
+
+
+
+
+

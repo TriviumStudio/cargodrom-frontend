@@ -603,6 +603,16 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
       search?: string;
+
+    /**
+     * Проверка наличия аэропорта, порта станции по виду доставки
+     */
+      kind_key_check?: string;
+
+    /**
+     * Фильтр по виду доставки
+     */
+      only_kind_key?: boolean;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<Array<{
@@ -628,6 +638,11 @@ export class DirectionService extends BaseService {
 'country_name'?: string;
 
 /**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -641,6 +656,8 @@ export class DirectionService extends BaseService {
     if (params) {
       rb.query('country_id', params.country_id, {});
       rb.query('search', params.search, {});
+      rb.query('kind_key_check', params.kind_key_check, {});
+      rb.query('only_kind_key', params.only_kind_key, {});
     }
 
     return this.http.request(
@@ -669,6 +686,11 @@ export class DirectionService extends BaseService {
          * Наименование страны
          */
         'country_name'?: string;
+        
+        /**
+         * Есть транспортный пункт (аэропорт, порт, станция)
+         */
+        'has_point'?: boolean;
         
         /**
          * Время создания
@@ -706,6 +728,16 @@ export class DirectionService extends BaseService {
      * Поисковая строка
      */
       search?: string;
+
+    /**
+     * Проверка наличия аэропорта, порта станции по виду доставки
+     */
+      kind_key_check?: string;
+
+    /**
+     * Фильтр по виду доставки
+     */
+      only_kind_key?: boolean;
     },
     context?: HttpContext
   ): Observable<Array<{
@@ -729,6 +761,11 @@ export class DirectionService extends BaseService {
  * Наименование страны
  */
 'country_name'?: string;
+
+/**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
 
 /**
  * Время создания
@@ -764,6 +801,11 @@ export class DirectionService extends BaseService {
 'country_name'?: string;
 
 /**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -793,6 +835,11 @@ export class DirectionService extends BaseService {
  * Наименование страны
  */
 'country_name'?: string;
+
+/**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
 
 /**
  * Время создания
@@ -852,6 +899,11 @@ export class DirectionService extends BaseService {
 'country_name'?: string;
 
 /**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -892,6 +944,11 @@ export class DirectionService extends BaseService {
          * Наименование страны
          */
         'country_name'?: string;
+        
+        /**
+         * Есть транспортный пункт (аэропорт, порт, станция)
+         */
+        'has_point'?: boolean;
         
         /**
          * Время создания
@@ -949,6 +1006,11 @@ export class DirectionService extends BaseService {
 'country_name'?: string;
 
 /**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -982,6 +1044,11 @@ export class DirectionService extends BaseService {
 'country_name'?: string;
 
 /**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -1011,6 +1078,11 @@ export class DirectionService extends BaseService {
  * Наименование страны
  */
 'country_name'?: string;
+
+/**
+ * Есть транспортный пункт (аэропорт, порт, станция)
+ */
+'has_point'?: boolean;
 
 /**
  * Время создания
@@ -1054,7 +1126,7 @@ export class DirectionService extends BaseService {
     /**
      * ID способа доставки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id: number;
+      transport_kind_id: (string | number);
 
     /**
      * Поисковая строка
@@ -1088,6 +1160,11 @@ export class DirectionService extends BaseService {
  * ID типа точки
  */
 'type_id'?: number;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
 
 /**
  * Время создания
@@ -1140,6 +1217,11 @@ export class DirectionService extends BaseService {
         'type_id'?: number;
         
         /**
+         * Адрес СВХ
+         */
+        'svh_address'?: string;
+        
+        /**
          * Время создания
          */
         'time_add'?: string;
@@ -1179,7 +1261,7 @@ export class DirectionService extends BaseService {
     /**
      * ID способа доставки (ID берем из запроса - transport_kind)
      */
-      transport_kind_id: number;
+      transport_kind_id: (string | number);
 
     /**
      * Поисковая строка
@@ -1213,6 +1295,11 @@ export class DirectionService extends BaseService {
  * ID типа точки
  */
 'type_id'?: number;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
 
 /**
  * Время создания
@@ -1253,6 +1340,11 @@ export class DirectionService extends BaseService {
 'type_id'?: number;
 
 /**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
+
+/**
  * Время создания
  */
 'time_add'?: string;
@@ -1287,6 +1379,11 @@ export class DirectionService extends BaseService {
  * ID типа точки
  */
 'type_id'?: number;
+
+/**
+ * Адрес СВХ
+ */
+'svh_address'?: string;
 
 /**
  * Время создания

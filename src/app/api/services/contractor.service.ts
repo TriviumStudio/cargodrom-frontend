@@ -73,6 +73,21 @@ export class ContractorService extends BaseService {
      * ID запроса торгов
      */
       bidding_request_id?: number;
+
+    /**
+     * Раздел (custom|delivery)
+     */
+      tab?: string;
+
+    /**
+     * Тип контрагента (custom|svh|delivery|other)
+     */
+      type?: string;
+
+    /**
+     * ID аэропорта
+     */
+      svh_id?: number;
     },
     context?: HttpContext
   ): Observable<StrictHttpResponse<{
@@ -156,6 +171,16 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика
@@ -472,6 +497,9 @@ export class ContractorService extends BaseService {
       rb.query('filter', params.filter, {});
       rb.query('sort', params.sort, {"style":"form","explode":false});
       rb.query('bidding_request_id', params.bidding_request_id, {});
+      rb.query('tab', params.tab, {});
+      rb.query('type', params.type, {});
+      rb.query('svh_id', params.svh_id, {});
     }
 
     return this.http.request(
@@ -560,6 +588,16 @@ export class ContractorService extends BaseService {
          * Агент транспортной компании (ID берем из запроса - transport_carrier)
          */
         'carrier_id'?: Array<string>;
+        
+        /**
+         * Код СВХ
+         */
+        'svh_name'?: string;
+        
+        /**
+         * Код СВХ
+         */
+        'svh_id'?: number;
         
         /**
          * Вид подрядчика
@@ -922,6 +960,21 @@ export class ContractorService extends BaseService {
      * ID запроса торгов
      */
       bidding_request_id?: number;
+
+    /**
+     * Раздел (custom|delivery)
+     */
+      tab?: string;
+
+    /**
+     * Тип контрагента (custom|svh|delivery|other)
+     */
+      type?: string;
+
+    /**
+     * ID аэропорта
+     */
+      svh_id?: number;
     },
     context?: HttpContext
   ): Observable<{
@@ -1005,6 +1058,16 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика
@@ -1398,6 +1461,16 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -1785,6 +1858,16 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика
@@ -3149,6 +3232,16 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -3536,6 +3629,16 @@ export class ContractorService extends BaseService {
          * Агент транспортной компании (ID берем из запроса - transport_carrier)
          */
         'carrier_id'?: Array<string>;
+        
+        /**
+         * Код СВХ
+         */
+        'svh_name'?: string;
+        
+        /**
+         * Код СВХ
+         */
+        'svh_id'?: number;
         
         /**
          * Вид подрядчика
@@ -3940,6 +4043,16 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -4320,6 +4433,16 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика
  */
 'type_name'?: string;
@@ -4696,6 +4819,16 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_name'?: string;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика
@@ -5224,6 +5357,11 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id': number;
@@ -5448,6 +5586,11 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)
@@ -5685,6 +5828,11 @@ export class ContractorService extends BaseService {
 'carrier_id'?: Array<string>;
 
 /**
+ * Код СВХ
+ */
+'svh_id'?: number;
+
+/**
  * Вид подрядчика (ID берем из запроса - contractor_type)
  */
 'type_id'?: number;
@@ -5909,6 +6057,11 @@ export class ContractorService extends BaseService {
  * Агент транспортной компании (ID берем из запроса - transport_carrier)
  */
 'carrier_id'?: Array<string>;
+
+/**
+ * Код СВХ
+ */
+'svh_id'?: number;
 
 /**
  * Вид подрядчика (ID берем из запроса - contractor_type)

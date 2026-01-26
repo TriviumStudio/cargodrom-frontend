@@ -1,0 +1,171 @@
+<form class="edit-form" style="width: 600px;" [formGroup]="form">
+  <div class="form-block-title">Форма запроса ставки</div>
+  <div class="form-block">
+    <div class="form-row">
+      <div class="form-block-sub-title">Направление:</div>
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">вид перевозки: <span class="req">•</span></div>
+          <div class="form-data transport">
+            <button *ngFor="let item of transportationTypes"
+              type="button"onTransportKindChange
+              (click)="onTransportKindChange(item.key)"
+              class="transport"
+              [class]="item.key==form.value.transport_kind_key?'active':''"
+            >
+              <div class="new-icon tt s22px" [class]="item.key" style="--icon-color: var(--tt-color);"></div>
+            </button>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">вид транспорта: <span class="req">•</span></div>
+          <div class="form-data">
+            <ng-select formControlName="transport_type_id" class="custom" bindLabel="name" bindValue="id" [items]="currentTransports"></ng-select>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">город отправления: <span class="req">•</span></div>
+          <div class="form-data">
+            <ng-select formControlName="departure_city_id" class="custom" bindLabel="name" bindValue="id" [items]="departureCitys" (change)="onCityChange('departure')">
+              <ng-option *ngFor="let item of departureCitys" [value]="item.id" [disabled]="item.has_point">
+                {{ item.name }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">нахождение груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <ng-select formControlName="departure_point_id" class="custom" bindLabel="name" bindValue="id" [items]="departurePoints" (change)="onDeparturePointChange($event)"></ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">адрес забора груза:</div>
+          <div class="form-data">
+            <textarea
+              [value]="departureAdres"
+              readonly
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">город прибытия: <span class="req">•</span></div>
+          <div class="form-data">
+            <ng-select formControlName="arrival_city_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalCitys" (change)="onCityChange('arrival')"></ng-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">аэропорт прибытия: <span class="req">•</span></div>
+          <div class="form-data">
+            <ng-select formControlName="arrival_point_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalPoints" (change)="onArrivalPointChange($event)"></ng-select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout" *ngIf="form.value.transport_kind_key!='avia'">
+        <div class="form-item">
+          <div class="form-label">адрес доставки груза:</div>
+          <div class="form-data textarea-box">
+            <textarea
+              [value]="arrivalAdres"
+              readonly
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-row">
+      <div class="form-block-sub-title">Требуемые услуги:</div>
+      <div class="charges">
+        <div class="char" *ngFor="let item of currentCharges" [class]="item.field_name">
+          <mat-checkbox
+            [checked]="isChargeChecked(item.id)"
+            (change)="onServiceCheckboxChange(item.id, $event.checked)"
+          >
+            {{item.title}}
+          </mat-checkbox>
+
+          <div class="form-item" *ngIf="form.value.transport_kind_key=='avia' && item.field_name=='delivery'">
+            <div class="form-label">адрес доставки груза:</div>
+            <div class="form-data textarea-box">
+              <textarea
+                [value]="arrivalAdres"
+                readonly
+                matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                >
+              </textarea>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="custom_char" *ngFor="let item of customCharges; let i = index;">
+          <mat-checkbox
+            [checked]="item.check"
+            (change)="onCustomServiceCheckboxChange(i, $event.checked)"
+          >
+          </mat-checkbox>
+          <input type="text" placeholder="Напишите название услуги" [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}">
+          <button class="del-charge" (click)="delCustomCharge(i)">
+            <div class="new-icon cancel s14px" style="--icon-color: var(--accent);"></div>
+          </button>
+        </div>
+
+        <button class="add-charge" (click)="addCustomCharge()">+ Добавить другие услуги</button>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-item">
+        <div class="form-label">примечание:</div>
+        <div class="form-data textarea-box">
+          <textarea style="display: inline-table;"
+            formControlName="comment"
+            readonly
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+          >
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-btns">
+    <button class="save" (click)="save()">
+      <div class="new-icon save s20px"></div>
+      Сохранить
+    </button>
+    <button class="cancel" (click)="remove()">
+      <div class="new-icon cancel s16px"></div>
+      Отмена
+    </button>
+  </div>
+
+
+</form>

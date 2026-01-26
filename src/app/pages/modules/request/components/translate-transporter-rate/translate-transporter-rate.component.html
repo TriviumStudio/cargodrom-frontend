@@ -1,0 +1,603 @@
+<div class="forms">
+
+
+<form class="edit-form" style="width: 600px;" [formGroup]="form">
+  <div class="form-block-title">Проверьте перевод на английский</div>
+  <div class="form-block" formGroupName="ru" style="background-color: inherit;">
+    <div class="form-row">
+      <div class="form-block-sub-title">Направление:</div>
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">вид перевозки: <span class="req">•</span></div>
+          <div class="form-data transport">
+            <button *ngFor="let item of tKinds"
+              type="button"
+              class="transport"
+              [class]="item.key==transportKindKey?'active':''"
+            >
+              <div class="new-icon tt s22px" [class]="item.key" style="--icon-color: var(--tt-color);"></div>
+            </button>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">вид транспорта: <span class="req">•</span></div>
+          <div class="form-data">
+            <input type='text' formControlName="transport_type" readonly>
+            <!-- <ng-select formControlName="transport_type_id" class="custom" bindLabel="name" bindValue="id" [items]="currentTransports"></ng-select> -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">город отправления: <span class="req">•</span></div>
+          <div class="form-data">
+            <input type='text' formControlName="departure_city" readonly>
+            <!-- <ng-select formControlName="departure_city_id" class="custom" bindLabel="name" bindValue="id" [items]="departureCitys" (change)="onCityChange('departure')">
+              <ng-option *ngFor="let item of departureCitys" [value]="item.id" [disabled]="item.has_point">
+                {{ item.name }}
+              </ng-option>
+            </ng-select> -->
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">нахождение груза: <span class="req">•</span></div>
+          <div class="form-data">
+            <input type='text' formControlName="departure_point" readonly>
+            <!-- <ng-select formControlName="departure_point_id" class="custom" bindLabel="name" bindValue="id" [items]="departurePoints" (change)="onDeparturePointChange($event)"></ng-select> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">адрес забора груза:</div>
+          <div class="form-data textarea-box" >
+            <textarea
+              formControlName="departure_point_address"
+              readonly
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">город прибытия: <span class="req">•</span></div>
+          <div class="form-data">
+            <input type='text' formControlName="arrival_city" readonly>
+            <!-- <ng-select formControlName="arrival_city_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalCitys" (change)="onCityChange('arrival')"></ng-select> -->
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">аэропорт прибытия: <span class="req">•</span></div>
+          <div class="form-data">
+            <input type='text' formControlName="arrival_point" readonly>
+            <!-- <ng-select formControlName="arrival_point_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalPoints" (change)="onArrivalPointChange($event)"></ng-select> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">адрес доставки груза:</div>
+          <div class="form-data textarea-box">
+            <textarea
+              formControlName="arrival_address"
+              readonly
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row" formGroupName="cargo">
+      <div class="form-block-title">Описание груза</div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Товар: </div>
+          <div class="form-data">
+            <input formControlName="cargo_description"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Тип груза: </div>
+          <div class="form-data">
+            <input formControlName="cargo_type_name"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Условия перевозки: </div>
+          <div class="form-data textarea-box">
+            <!-- <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+              type="text"
+              readonly
+            ></textarea> -->
+            <textarea
+              readonly
+              matInput
+              formControlName="cargo_condition_carriage"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Кол-во: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_count"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Объем м3: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_volume"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Вес, кг: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_weight"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Плотность: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_density"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item" style="min-width: 130px;">
+          <div class="form-label">Оплачиваемый вес, кг: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_paid_weight"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Габариты: </div>
+          <div class="form-data textarea-box">
+            <!-- <textarea formControlName="cargo_dimensions" [style.height]="returnHeight(requestFormTranslateRu.value?.cargo_dimensions)" readonly></textarea> -->
+            <textarea
+              matInput
+              formControlName="cargo_dimensions"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              readonly
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-block-sub-title">Требуемые услуги:</div>
+      <div class="form-label"></div>
+      <div class="charges" >
+      <!-- Динамические поля charges -->
+        <div *ngFor="let key of getChargeKeys('ru')" style="display: flex;" formGroupName="charges">
+          <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
+          <input type="text" readonly [formControlName]="key">
+        </div>
+        <div *ngFor="let control of getCustomServices('ru').controls; let i = index"; style="display: flex;"  formArrayName="custom_services">
+          <mat-checkbox [checked]="activeCustomServices[i].check" disabled></mat-checkbox>
+          <input [formControlName]="i"  type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-item">
+        <div class="form-label">примечание:</div>
+        <div class="form-data textarea-box">
+          <textarea style="display: inline-table;"
+            formControlName="comment"
+            readonly
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+          >
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-btns" style="opacity: 0;">
+    <button class="save">
+      <div class="new-icon save s20px"></div>
+      Сохранить
+    </button>
+    <button class="cancel">
+      <div class="new-icon cancel s16px"></div>
+      Отмена
+    </button>
+  </div>
+
+
+</form>
+
+<form class="edit-form" style="width: 600px;" [formGroup]="form">
+  <div class="form-block-title" style="opacity: 0;"> 1111</div>
+  <div class="form-block" formGroupName="en" >
+    <div class="form-row">
+      <div class="form-block-sub-title">Direction:</div>
+      <div class="form-item-layout">
+
+        <div class="form-item">
+          <div class="form-label">type of transportation: </div>
+          <div class="form-data transport">
+            <button *ngFor="let item of tKinds"
+              type="button"
+              class="transport"
+              [class]="item.key==transportKindKey?'active':''"
+            >
+              <div class="new-icon tt s22px" [class]="item.key" style="--icon-color: var(--tt-color);"></div>
+            </button>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">transport:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.transport_type">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data">
+            <input type='text' formControlName="transport_type">
+            <!-- <ng-select formControlName="transport_type_id" class="custom" bindLabel="name" bindValue="id" [items]="currentTransports"></ng-select> -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">departure city:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_city">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data">
+            <input type='text' formControlName="departure_city">
+            <!-- <ng-select formControlName="departure_city_id" class="custom" bindLabel="name" bindValue="id" [items]="departureCitys" (change)="onCityChange('departure')">
+              <ng-option *ngFor="let item of departureCitys" [value]="item.id" [disabled]="item.has_point">
+                {{ item.name }}
+              </ng-option>
+            </ng-select> -->
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">location of cargo
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_point">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+
+          </div>
+          <div class="form-data">
+            <input type='text' formControlName="departure_point" >
+            <!-- <ng-select formControlName="departure_point_id" class="custom" bindLabel="name" bindValue="id" [items]="departurePoints" (change)="onDeparturePointChange($event)"></ng-select> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">cargo pickup address:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.departure_point_address">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data textarea-box">
+            <textarea
+              formControlName="departure_point_address"
+
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">arrival city:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.arrival_city">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data">
+            <input type='text' formControlName="arrival_city" >
+            <!-- <ng-select formControlName="arrival_city_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalCitys" (change)="onCityChange('arrival')"></ng-select> -->
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-label">
+            arrival airport:
+          <span class="ii-translate" *ngIf="autoTranslateFilds?.arrival_point">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+        </div>
+          <div class="form-data">
+            <input type='text' formControlName="arrival_point" >
+            <!-- <ng-select formControlName="arrival_point_id" class="custom" bindLabel="name" bindValue="id" [items]="arrivalPoints" (change)="onArrivalPointChange($event)"></ng-select> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">delivery address:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.arrival_address">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data textarea-box">
+            <textarea
+              formControlName="arrival_address"
+
+              matInput
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-row" formGroupName="cargo">
+      <div class="form-block-title">Description of cargo</div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Product:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.cargo_description">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data">
+            <input formControlName="cargo_description"
+              type="text"
+
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Cargo type:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.cargo_type_name">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data">
+            <input formControlName="cargo_type_name"
+              type="text"
+
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Conditions of transportation:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.cargo_condition_carriage">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data textarea-box">
+            <!-- <textarea style="resize: none;" formControlName="cargo_condition_carriage"
+              type="text"
+              readonly
+            ></textarea> -->
+
+            <textarea
+
+              matInput
+              formControlName="cargo_condition_carriage"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">Qty: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_count"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Volume m3: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_volume"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Weight, kg: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_weight"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-label">Density: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_density"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+        <div class="form-item" style="min-width: 130px;">
+          <div class="form-label">Payable weight, kg: </div>
+          <div class="form-data">
+            <input formControlName="cargo_places_paid_weight"
+              type="number"
+              readonly
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-item-layout">
+        <div class="form-item">
+          <div class="form-label">
+            Dimensions:
+            <span class="ii-translate" *ngIf="autoTranslateFilds?.cargo_dimensions">
+            <div class="new-icon danger-triangle s10px"></div>
+              машинный перевод, обратите внимание
+            </span>
+          </div>
+          <div class="form-data textarea-box">
+            <!-- <textarea formControlName="cargo_dimensions" [style.height]="returnHeight(requestFormTranslateRu.value?.cargo_dimensions)" readonly></textarea> -->
+            <textarea
+              matInput
+              formControlName="cargo_dimensions"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              >
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-block-sub-title">Required services:</div>
+      <div class="form-label">
+        <span class="ii-translate" *ngIf="autoTranslateFilds?.charges || autoTranslateFilds?.custom_services">
+            <div class="new-icon danger-triangle s10px"></div>
+            машинный перевод, обратите внимание
+          </span>
+      </div>
+      <div class="charges">
+      <!-- Динамические поля charges -->
+        <div *ngFor="let key of getChargeKeys('en')" style="display: flex;"  formGroupName="charges">
+          <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
+          <input type="text" [formControlName]="key">
+        </div>
+        <div *ngFor="let control of getCustomServices('en').controls; let i = index"; style="display: flex;"  formArrayName="custom_services">
+          <mat-checkbox [checked]="activeCustomServices[i].check" disabled></mat-checkbox>
+          <input [formControlName]="i"  type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-item">
+        <div class="form-label">
+          comment:
+          <span class="ii-translate" *ngIf="autoTranslateFilds?.comment">
+            <div class="new-icon danger-triangle s10px"></div>
+            машинный перевод, обратите внимание
+          </span>
+        </div>
+        <div class="form-data textarea-box">
+          <textarea style="display: inline-table;"
+            formControlName="comment"
+            matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+          >
+          </textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-btns">
+    <button class="save" (click)="save()">
+      <div class="new-icon save s20px"></div>
+      Сохранить
+    </button>
+    <button class="cancel" (click)="remove()">
+      <div class="new-icon cancel s16px"></div>
+      Отмена
+    </button>
+  </div>
+
+
+</form>
+</div>
