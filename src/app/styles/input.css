@@ -180,6 +180,9 @@ app-responsibility.ng-invalid tbody{
 
   }
 }
+div.textarea-box:has(textarea[readonly]) {
+  border: 1px dashed var(--line, #E0E5EB);
+}
 
 textarea{
   overflow: hidden;

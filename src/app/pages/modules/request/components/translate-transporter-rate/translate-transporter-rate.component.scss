@@ -2,11 +2,14 @@
   margin-bottom: 30px;
 
 }
-.charges{
+div.charges{
+  display: flex;
+  flex-direction: column;
   border-radius: 6px;
   border: 1px solid var(--line);
   padding: 11.5px;
   background-color: var(--background);
+  gap: 25px;
   input[type="text"]{
     border: none !important;
     height: 20px !important;
@@ -39,7 +42,7 @@
   white-space: nowrap;       /* Запрещаем перенос строк */
   overflow: hidden;          /* Скрываем выходящий за границы текст */
   text-overflow: ellipsis;
-  max-width: 60% ;
+  max-width: 50% ;
 
   min-width: 0;
 

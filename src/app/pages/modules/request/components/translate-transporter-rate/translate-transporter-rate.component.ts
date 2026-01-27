@@ -11,7 +11,7 @@ import { BaseComponent } from 'src/app/shared/classes/base-component';
   selector: 'editor-translate-transporter-rate',
   templateUrl: './translate-transporter-rate.component.html',
   styleUrls: ['./translate-transporter-rate.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
 })
 
 export class TranslateTransporterRateComponent extends BaseComponent implements OnInit {

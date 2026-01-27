@@ -644,10 +644,10 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
             .subscribe(res => {
               if(res){
                 this.saveTrueContractorSelectRequest();
-              } else {
-                this.router.navigate([], {
-                  queryParams: {},
-                });
+              // } else {
+              //   this.router.navigate([], {
+              //     queryParams: {},
+              //   });
               }
             })
         }

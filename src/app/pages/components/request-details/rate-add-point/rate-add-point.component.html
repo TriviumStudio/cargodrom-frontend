@@ -30,14 +30,14 @@
       </div>
 
       <div class="form-item-layout">
-        <div class="form-item">
+        <div class="form-item" *ngIf="request.cargo_type_text">
           <div class="form-label">Тип груза:</div>
           <div class="form-data">
             <!-- TODO: надо брать из запроса а не из рейта  -->
             <input type="text" [value]="request?.cargo_type_text" readonly>
           </div>
         </div>
-        <div class="form-item">
+        <div class="form-item i4">
           <div class="form-label">Вес, кг:</div>
           <div class="form-data">
             <input type="text" [value]="request?.cargo_places_weight"  readonly>
@@ -55,6 +55,7 @@
             <input type="text" [value]="request?.cargo_places_count"  readonly>
           </div>
         </div>
+        <div class="form-item" *ngIf="!request.cargo_type_text"></div>
       </div>
     </div>
 
@@ -119,7 +120,7 @@
 
 
 
-    <div class="charges-block">
+    <div class="charges-block form-row">
 
       <div class="charge_on" *ngIf="selectedCharges.length>0">
         В ставку включено
