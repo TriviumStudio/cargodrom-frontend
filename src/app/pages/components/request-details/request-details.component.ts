@@ -380,7 +380,7 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
       transporter: { ref: this.rateTransporterDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
       customs:     { ref: this.rateСustomsDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
-      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
+      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '2000px', minWidth: '1200px' } },
       other:       { ref: this.rateOtherDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
     };
     // const editor = rateEditors[this.detailsMethod];

@@ -50,15 +50,17 @@ export class RateAddPoint implements OnInit, OnDestroy {
   ) {
     this.rateForm = this.fb.group({
       id:[,[]],
-      cost:[,[]],
+      total_cost:[,[]],
       request_id: [,[]],
       contractor_id: [,[]],
       // contractor_name:['',[]],
       point_id: [,[]],
       point_action_id: [,[]],
       comment: [,[]],
-      currency: [0,[]],
+      currency: [,[]],
       values: fb.array([], []),
+      rate_type: ["detail"],
+      rate_type_calck: ["manually"],
     });
   }
 
@@ -121,19 +123,20 @@ export class RateAddPoint implements OnInit, OnDestroy {
   }
 
   // Charges
-  get charges() {
-    return <FormArray>this.rateForm.get('values');
-  }
+
   calckChargeCost(control:any){
     control.patchValue({cost: control.value.price * control.value.value});
     this.calckRateCost();
   }
   calckRateCost(){
-    let cost:number=0;
-    this.rateForm.value.values.forEach((v:any)=>{
-      if(v.select)cost=cost + v.cost
-    });
-    this.rateForm.patchValue({ cost:cost });
+    if(this.rateForm.value.rate_type=='detail'){
+      let cost:number=0;
+      this.rateForm.value.values.forEach((v:any)=>{
+        if(v.select)cost=cost + v.cost
+      });
+      this.rateForm.patchValue({ total_cost:cost });
+      console.log(this.rateForm.value);
+    }
   }
   calckCommentChargePrice(control:any){
     control.patchValue({price: control.value.cost/1});
@@ -253,7 +256,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
               price: [,[]],
               select: [i.checked,[]],
               // select:[i.checked,{disabled: i.checked},[]],
-              value: [i.unit==='kg'?Math.ceil(this.weight!):1,[]],
+              value: [i.unit==='kg'?Math.round(this.weight!):1,[]],
             }));
             this.rateForm.markAsTouched();
           });
@@ -285,9 +288,40 @@ export class RateAddPoint implements OnInit, OnDestroy {
       }
     });
   }
-
+  //geters
   get requestChar(){
     const i = this.currencyList.find((r:any) => r.id === this.rateForm.value.currency);
     return i?.char?i.char:'?';
+  }
+  get charges() {
+    return <FormArray>this.rateForm.get('values');
+  }
+  get unselectedCharges() { // Возвращает только те элементы, у которых select === false
+    return this.charges.controls.filter(control => !control.get('select')?.value);
+  }
+  get selectedCharges() { // Возвращает только те элементы, у которых select === true
+    return this.charges.controls.filter(control => control.get('select')?.value === true);
+  }
+  //seters
+
+  //options const
+  rateTypeOptions = [
+    { value: 'detail', label: 'С детализацией стоимости затрат' },
+    { value: 'nodetail', label: 'Одной суммой' }
+  ];
+  rateTypeCalckOptions = [
+    { value: 'manually', label: 'Вручную' },
+    { value: 'external', label: 'Внешний источник (сайт подрядчика)' }
+  ];
+  //
+  onRateTypeChange(){
+    this.charges.controls.forEach((e:any)=>{
+      e.controls['comment'].reset();
+      e.controls['cost'].reset();
+      e.controls['fix'].reset();
+      e.controls['min'].reset();
+      e.controls['price'].reset();
+    })
+    this.rateForm.controls['total_cost'].reset();
   }
 }

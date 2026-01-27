@@ -58,6 +58,26 @@
       </div>
     </div>
 
+    <div class="form-row radios">
+      <div class="form-item-layout" style="gap: 24px;">
+        <div>Расчет ставки:</div>
+        <label class="radio" *ngFor="let option of rateTypeOptions">
+          <input type="radio" [value]="option.value" formControlName="rate_type" (change)="onRateTypeChange()">
+          <i></i>
+          <span>{{ option.label }}</span>
+        </label>
+      </div>
+      <div class="form-item-layout" style="gap: 24px;">
+        <div>Вид ставки:</div>
+        <label class="radio" *ngFor="let option of rateTypeCalckOptions">
+          <input type="radio" [value]="option.value" formControlName="rate_type_calck" (change)="onRateTypeChange()">
+          <i></i>
+          <span>{{ option.label }}</span>
+        </label>
+      </div>
+    </div>
+
+
 
         <!-- <div class="form-item">
           <div class="form-label">Оплачиваемый вес:</div>
@@ -99,9 +119,9 @@
 
 
 
-    <div class="charges-block" style="display: flex;">
+    <div class="charges-block">
 
-      <div class="charge_on">
+      <div class="charge_on" *ngIf="selectedCharges.length>0">
         В ставку включено
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
@@ -116,25 +136,28 @@
                   <i></i>
                   {{chargeModel.title}}
                 </label>
-                <span class="unit l" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >{{requestChar}}/{{chargeModel.unit}}
-                </span>
-                <div class="cross" *ngIf="!chargeModel.field_comment"></div>
-                <span class="unit m" *ngIf="!chargeModel.field_comment">
-                  <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
-                </span>
-                <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
-                <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
-                <span class="unit s">
-                  <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">{{requestChar}}
-                </span>
+                <ng-container *ngIf="rateForm.value.rate_type=='detail'">
+                  <span class="unit l" *ngIf="!chargeModel.field_comment">
+                    <input type="number" formControlName="price" (ngModelChange)="calckChargeCost(chargeValue)" >{{requestChar}}/{{chargeModel.unit}}
+                  </span>
+                  <div class="cross" *ngIf="!chargeModel.field_comment"></div>
+                  <span class="unit m" *ngIf="!chargeModel.field_comment">
+                    <input type="number" formControlName="value" (ngModelChange)="calckChargeCost(chargeValue)" [readonly]="chargeModel.unit==='kg'">{{chargeModel.unit}}
+                  </span>
+                  <div class="equal" *ngIf="!chargeModel.field_comment">═</div>
+                  <span class="comment" *ngIf="chargeModel.field_comment"><input type="text" formControlName="comment"></span>
+                  <span class="unit s">
+                    <input type="number" formControlName="cost" [readonly]="!chargeModel.field_comment" (ngModelChange)="chargeModel.field_comment?calckCommentChargePrice(chargeValue):calckRateCost()">{{requestChar}}
+                  </span>
+                </ng-container>
+
               </ng-template>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="charge_off">
+      <div class="charge_off" *ngIf="unselectedCharges.length>0">
         Не включено
         <div formArrayName="values" *ngFor="let chargeValue of charges.controls; let i = index;" class="w100">
           <div [formGroupName]="i" [ngSwitch]="chargeValue.value.field" class="w100">
@@ -170,7 +193,7 @@
       <div class="form-item" style="margin-bottom: 20px; width: 100px;">
         <div class="form-label">Сумма {{requestChar!='?'?', '+requestChar:''}}:</div>
         <div class="form-data">
-          <input type="number" formControlName="cost" readonly>
+          <input type="number" formControlName="total_cost" [readonly]="rateForm.value.rate_type=='detail'">
         </div>
       </div>
 

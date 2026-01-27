@@ -1,22 +1,21 @@
 
 .charges-block{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   min-height: 300px;
   border-top: 1px solid #E0E5EB;
-  border-bottom: 1px solid #E0E5EB;
   padding: 40px 0;
   .charge_on{
-    width: 70%;
-    margin-right: 40px;
-    padding-right: 40px;
-    border-right: 1px dashed #E0E5EB;
+    // width: 70%;
+    // margin-right: 40px;
+    // padding-right: 40px;
     label{
-      width: 250px;
+      width: 50%;
     }
   }
   .charge_off{
-    width: 30%;
+    // width: 30%;
   }
 
 }
@@ -30,16 +29,16 @@
   margin-top: 20px;
   align-items: baseline;
   .unit.l{
-    min-width: 135px;
+    min-width: 165px;
   }
   .unit.m{
-    min-width: 120px;
+    min-width: 165px;
   }
   .unit.s{
-    min-width: 90px;
+    min-width: 165px;
   }
   .unit input{
-    width: 75px;
+    width: 95px;
     margin-right: 5px;
     padding-left: 6px;
     padding-right: 6px;
@@ -105,3 +104,18 @@ input::-webkit-inner-spin-button {
 }
 
 
+.form-block .form-row {
+  padding: 40px 0;
+  margin: 0;
+}
+.form-block .form-row:first-child {
+  padding-top: 0;
+}
+.form-row.radios .form-item-layout{
+  div {
+    width: 150px;
+  }
+  label {
+    width: 320px;
+  }
+}
