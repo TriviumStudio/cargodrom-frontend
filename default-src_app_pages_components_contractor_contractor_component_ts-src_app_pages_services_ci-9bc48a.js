@@ -594,7 +594,6 @@ class ContractorComponent extends src_app_shared_classes__WEBPACK_IMPORTED_MODUL
   //методы для таблицы
   load(params) {
     this.params = params;
-    console.log(123);
     // return this.contractorService.contractorList(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
     // return this.importMetods.test(params as any) as unknown as Observable<{ total: number; items: Contractor[]; }>;
     return this.contractorService.contractorList(params);
@@ -628,10 +627,10 @@ class ContractorComponent extends src_app_shared_classes__WEBPACK_IMPORTED_MODUL
     return this.contractorService.contractorImportTemplate(this.filter);
   }
   //методы для торгов
-  requestContractorSelectGet(id) {
+  requestContractorSelectGet(id, tab) {
     return this.requestService.requestContractorSelectGet({
       id: id,
-      tab: ''
+      tab: tab
     });
   }
   requestContractorSelectUpdate(body) {

@@ -110,6 +110,13 @@ class Table {
     const segments = this.route.snapshot.url.map(s => s.path);
     this.isBiddingMode = segments[0] === 'bidding';
     this.isRateDetailsMode = segments[0] === 'details';
+    const type = this.route.snapshot.paramMap.get('type');
+    console.log('type', type, this.route.snapshot.paramMap);
+    if (this.isBiddingMode) {
+      if (type === 'custom' || type === 'delivery') {
+        this.tableType = type;
+      }
+    }
     if (this.isRateDetailsMode || this.isBiddingMode) {
       if (this.isRateDetailsMode) this.detailsMethod = segments[1];
       this.requestId = Number(this.route.snapshot.paramMap.get('id')); //TODO:предлать все на paramMap.get в похожих случаях
@@ -175,7 +182,8 @@ class Table {
     } else if (this.isBiddingMode) {
       params = {
         ...params,
-        bidding_request_id: this.requestId
+        bidding_request_id: this.requestId,
+        tab: this.tableType
       };
     } else {
       params = {
@@ -425,7 +433,7 @@ class Table {
   importTemplate() {
     return rxjs__WEBPACK_IMPORTED_MODULE_9__.NEVER;
   }
-  requestContractorSelectGet(id) {
+  requestContractorSelectGet(id, tab) {
     return rxjs__WEBPACK_IMPORTED_MODULE_9__.NEVER;
   }
   requestContractorSelectUpdate(body) {
@@ -581,7 +589,7 @@ class Table {
   }
   getContractorsSelectRequest() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.requestContractorSelectGet(id).subscribe({
+    this.requestContractorSelectGet(id, this.tableType).subscribe({
       next: contractors => {
         if (contractors) {
           this.quantityContractors = contractors.length;
@@ -609,7 +617,8 @@ class Table {
     this.requestContractorSelectUpdate({
       id: requestId,
       contractor_id: [contractorId],
-      checked: check
+      checked: check,
+      tab: this.tableType
     }).subscribe({
       next: e => {
         this.getContractorsSelectRequest();
@@ -625,7 +634,8 @@ class Table {
     this.requestContractorSelectUpdate({
       id: requestId,
       contractor_id: this.arrRowsId,
-      checked: check
+      checked: check,
+      tab: this.tableType
     }).subscribe({
       next: e => {
         if (!check) {
@@ -640,7 +650,8 @@ class Table {
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestSaveBidding({
       id: requestId,
-      confirm: true
+      confirm: true,
+      tab: this.tableType
     }).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_6__.tap)(res => {}), (0,rxjs__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this.destroy$)).subscribe({
       next: answer => {
         this.snackBar.open(`Торги для выбранных подрядчиков успешно начаты `, undefined, this.snackBarWithLongDuration);
@@ -654,7 +665,8 @@ class Table {
     const requestId = Number(this.route.snapshot.paramMap.get('id'));
     this.requestSaveBidding({
       id: requestId,
-      confirm: false
+      confirm: false,
+      tab: this.tableType
     }).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_6__.tap)(() => {}), (0,rxjs__WEBPACK_IMPORTED_MODULE_7__.takeUntil)(this.destroy$)).subscribe({
       next: answer => {
         // if(answer.need_translate){
