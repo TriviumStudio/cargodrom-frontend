@@ -686,15 +686,16 @@ class Table {
         }).afterClosed().subscribe(res => {
           if (res) {
             this.saveTrueContractorSelectRequest();
-          } else {
-            this.router.navigate([], {
-              queryParams: {}
-            });
+            // } else {
+            //   this.router.navigate([], {
+            //     queryParams: {},
+            //   });
           }
         });
       }
     });
   }
+
   isCheck(id) {
     return this.contractorsSelectedForRequest.includes(id);
   }
