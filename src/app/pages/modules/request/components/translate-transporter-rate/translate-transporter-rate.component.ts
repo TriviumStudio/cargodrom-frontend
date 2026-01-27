@@ -139,7 +139,9 @@ export class TranslateTransporterRateComponent extends BaseComponent implements 
         this.snackBar.open(`Перевод изменен`, undefined, this.snackBarWithShortDuration);
         // window.location.reload();
         // this.send();
-        this.router.navigate(['/request/bidding', this.requestId]);
+
+        this.router.navigate(['/request/bidding/delivery', this.requestId]);
+
       },
       error: (err) => this.snackBar.open(`Ошибка изменения перевода запроса: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });

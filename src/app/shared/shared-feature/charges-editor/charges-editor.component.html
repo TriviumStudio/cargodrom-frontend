@@ -1,0 +1,112 @@
+<div class="charges-editor">
+  <!-- Выбранные услуги -->
+  <div class="selected-charges">
+    <h3>Включено в ставку</h3>
+    <div class="charges-grid">
+      <div class="grid-header">
+        <div class="header-item">Услуга</div>
+        <div class="header-item">Цена за ед.</div>
+        <div class="header-item">×</div>
+        <div class="header-item">Количество</div>
+        <div class="header-item">=</div>
+        <div class="header-item">Стоимость</div>
+        <div class="header-item">Комментарий</div>
+      </div>
+
+      <div class="grid-body">
+        <ng-container *ngFor="let charge of selectedCharges; let i = index">
+          <div class="charge-row" [formGroup]="charge">
+            <div class="grid-item">
+              <label class="checkbox-label">
+                <input
+                  type="checkbox"
+                  formControlName="select"
+                  (change)="onCheckboxChange(charge)"
+                >
+                <span>{{ getChargeSchema(i)?.title || 'Услуга' }}</span>
+              </label>
+            </div>
+
+            <div class="grid-item" *ngIf="!getChargeSchema(i)?.field_comment">
+              <input
+                type="number"
+                formControlName="price"
+                (change)="onPriceChange(charge, getChargeSchema(i)!)"
+                step="0.01"
+                min="0"
+              >
+              <span class="currency-unit">{{ currencySymbol }}/{{ getChargeSchema(i)?.unit }}</span>
+            </div>
+
+            <div class="grid-item operator">×</div>
+
+            <div class="grid-item" *ngIf="!getChargeSchema(i)?.field_comment">
+              <input
+                type="number"
+                formControlName="value"
+                (change)="onValueChange(charge, getChargeSchema(i)!)"
+                step="0.01"
+                min="0"
+                [readonly]="isFieldReadOnly('value') || getChargeSchema(i)?.unit === 'kg'"
+              >
+              <span class="value-unit">{{ getChargeSchema(i)?.unit }}</span>
+            </div>
+
+            <div class="grid-item operator" *ngIf="!getChargeSchema(i)?.field_comment">=</div>
+
+            <div class="grid-item">
+              <input
+                type="number"
+                formControlName="cost"
+                (change)="onCostChange(charge, getChargeSchema(i)!)"
+                step="0.01"
+                min="0"
+                [readonly]="!getChargeSchema(i)?.field_comment"
+              >
+              <span class="currency-unit">{{ currencySymbol }}</span>
+            </div>
+
+            <div class="grid-item" *ngIf="getChargeSchema(i)?.field_comment">
+              <input
+                type="text"
+                formControlName="comment"
+                placeholder="Комментарий"
+              >
+            </div>
+
+            <!-- Индикаторы минимальной и фиксированной стоимости -->
+            <div class="charge-info" *ngIf="getChargeSchema(i)">
+              <span *ngIf="getChargeSchema(i)?.min" class="min-cost">
+                Мин: {{ getChargeSchema(i)?.min }}{{ currencySymbol }}
+              </span>
+              <span *ngIf="getChargeSchema(i)?.fix" class="fix-cost">
+                + Фикс: {{ getChargeSchema(i)?.fix }}{{ currencySymbol }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- Не выбранные услуги -->
+  <div class="unselected-charges">
+    <h3>Не включено</h3>
+    <div class="unselected-list">
+      <ng-container *ngFor="let charge of unselectedCharges; let i = index">
+        <div class="unselected-item" [formGroup]="charge">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              formControlName="select"
+              (change)="onCheckboxChange(charge)"
+            >
+            <span>{{ getChargeSchema(i)?.title || 'Услуга' }}</span>
+          </label>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- TODO: charges едитор буду доделывать одновременно с формой рейта доставки(вывоз) и потом применю к другим формам рейтов  -->

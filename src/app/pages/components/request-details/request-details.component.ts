@@ -367,15 +367,20 @@ export class RequestDetails extends Table<any, 'trade_rating', ContractorFilter>
     this.router.navigate(['request'])
   }
   navToBidTable(){
-    // this.router.navigate(['pages/request/bidding', this.requestId])
-    this.router.navigate(['/request/edit/translate', this.requestId]); //TODO: две разные ссылки на разные формы для кастом и деливери
+    if(this.detailsMethod=='transporter') {
+      this.router.navigate(['/request', this.requestId, 'bidding-parametrs', 'edit']);
+    } else if (this.detailsMethod=='customs') {
+      this.router.navigate(['/request/edit/translate', this.requestId]);
+    } else {
+      this.snackBar.open(`Торги не доступны: `, undefined, this.snackBarWithShortDuration);
+    }
   }
   // OPEN EDITOR popap
   openRateEditor(mode:string, data?: any) {
     const rateEditors: { [key: string]: { ref: any; config?: any } } = {
       transporter: { ref: this.rateTransporterDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
       customs:     { ref: this.rateСustomsDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
-      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
+      point:       { ref: this.ratePointDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '2000px', minWidth: '1200px' } },
       other:       { ref: this.rateOtherDialogRef, config: { height: 'fit-content', maxHeight:'95vh', maxWidth: '95vw' } },
     };
     // const editor = rateEditors[this.detailsMethod];

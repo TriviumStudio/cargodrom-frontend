@@ -10,12 +10,14 @@ import { RouterModule } from '@angular/router';
 import { FileListComponent } from '../pages/components/file-list/file-list.component';
 import { RequestInfoBlock } from '../pages/components/request-info-block/request-info-block.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChargesEditorComponent } from './shared-feature/charges-editor/charges-editor.component';
 
 @NgModule({
   declarations: [
     TableSubheaderFileComponent,
     FileListComponent,
     RequestInfoBlock,
+    ChargesEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     TableSubheaderFileComponent,
     FileListComponent,
     RequestInfoBlock,
+
+    ChargesEditorComponent,
   ]
 })
 export class SharedModule { }
