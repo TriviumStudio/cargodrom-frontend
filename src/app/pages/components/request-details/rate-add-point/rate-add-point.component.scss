@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 300px;
+  // min-height: 300px;
   border-top: 1px solid #E0E5EB;
   padding: 40px 0;
   .charge_on{
@@ -16,6 +16,11 @@
   }
   .charge_off{
     // width: 30%;
+
+  }
+  .charge_on + .charge_off {
+    margin-top: 40px;
+
   }
 
 }
@@ -24,6 +29,7 @@
   width: 100%;
 }
 .charge{
+  height: 40px;
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -107,6 +113,7 @@ input::-webkit-inner-spin-button {
 .form-block .form-row {
   padding: 40px 0;
   margin: 0;
+  &:last-child{padding-bottom: 0;}
 }
 .form-block .form-row:first-child {
   padding-top: 0;

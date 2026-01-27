@@ -94,7 +94,8 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
         this.arrivalCountryId=transporterParam.arrival_country_id;
         this.arrivalAdres=transporterParam?.arrival_address;
         this.needTranslate=transporterParam.need_translate;
-        this.getCitys();
+        this.getDepartureCitys();
+        this.getArrivalCitys();
         this.getDirectionPoint('departure');
         this.getDirectionPoint('arrival');
       },
@@ -117,25 +118,60 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
       error: (err) => this.snackBar.open(`Ошибка изменения параметров доставки: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
-  private getCitys() {
-    this.directionService.directionCity({kind_key_check:this.form.value.transport_kind_key})
+  private getDepartureCitys(){
+    this.directionService.directionCity({kind_key_check: 'avia', country_id: this.departureCountryId})
     .pipe(
       tap((citys) =>{
-        if(this.form.value.transport_kind_key=='avia'){
-          this.citys = citys.map(city => ({ ...city, disabled: city.has_point?false:true}));
+        this.departureCitys = citys.map(city => ({ ...city, disabled: city.has_point?false:true}));
+      }),
+      takeUntil(this.destroy$)
+    )
+    .subscribe({
+      next: () => {
+        // this.filteredCitys();
+      },
+      error: (err) => this.snackBar.open(`Ошибка получения списка городов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+    });
+  }
+  private getArrivalCitys(){
+    const params = { kind_key_check: this.form.value.transport_kind_key, country_id: this.arrivalCountryId }
+    this.directionService.directionCity( params )
+    .pipe(
+      tap((citys) =>{
+        if(this.form.value.transport_kind_key!='road'){
+          this.arrivalCitys = citys.map(city => ({ ...city, disabled: city.has_point?false:true}));
         } else {
-          this.citys = citys;
+          this.arrivalCitys = citys;
         }
       }),
       takeUntil(this.destroy$)
     )
     .subscribe({
       next: () => {
-        this.filteredCitys();
+        // this.filteredCitys();
       },
       error: (err) => this.snackBar.open(`Ошибка получения списка городов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
     });
   }
+  // private getCitys() {//todo: айр всегда откуда
+  //   this.directionService.directionCity({kind_key_check:this.form.value.transport_kind_key})
+  //   .pipe(
+  //     tap((citys) =>{
+  //       if(this.form.value.transport_kind_key=='avia'){
+  //         this.citys = citys.map(city => ({ ...city, disabled: city.has_point?false:true}));
+  //       } else {
+  //         this.citys = citys;
+  //       }
+  //     }),
+  //     takeUntil(this.destroy$)
+  //   )
+  //   .subscribe({
+  //     next: () => {
+  //       this.filteredCitys();
+  //     },
+  //     error: (err) => this.snackBar.open(`Ошибка получения списка городов: ` + err.error.error_message, undefined, this.snackBarWithShortDuration)
+  //   });
+  // }
   private getDirectionPoint(type:'arrival'|'departure') {
     const params = type=='arrival'
       ? {city_id: this.form.value?.arrival_city_id, transport_kind_id: this.form.value.transport_kind_key, country_id: this.arrivalCountryId}
@@ -171,10 +207,10 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
     return this.transportTypes[key as keyof Charges] || [];
   }
   //updates
-  filteredCitys(){
-    this.arrivalCitys=this.citys.filter(item => item.country_id == this.arrivalCountryId);
-    this.departureCitys=this.citys.filter(item => item.country_id == this.departureCountryId);
-  }
+  // filteredCitys(){
+  //   this.arrivalCitys=this.citys.filter(item => item.country_id == this.arrivalCountryId);
+  //   this.departureCitys=this.citys.filter(item => item.country_id == this.departureCountryId);
+  // }
   updateDepartureAdres(point?:any){
     if(point) {
       this.departureAdres=point.svh_address
@@ -206,12 +242,13 @@ export class BiddingParametrsEditor extends BaseComponent implements OnInit {
     this.form.get('transport_type_id')?.reset();
     this.form.get('services')?.reset([]);
 
-    this.form.get('departure_city_id')?.reset([]);
-    this.form.get('departure_point_id')?.reset([]);
+    // this.form.get('departure_city_id')?.reset([]);
+    // this.form.get('departure_point_id')?.reset([]);
     this.form.get('arrival_city_id')?.reset([]);
     this.form.get('arrival_point_id')?.reset([]);
     this.form.get('arrival_address')?.reset([]);
-    this.getCitys();
+    // this.getCitys();
+    this.getArrivalCitys();
   }
   onCityChange(type:'arrival'|'departure'){
     this.getDirectionPoint(type);
