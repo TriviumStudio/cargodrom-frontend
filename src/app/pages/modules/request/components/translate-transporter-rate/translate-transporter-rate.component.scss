@@ -2,11 +2,14 @@
   margin-bottom: 30px;
 
 }
-.charges{
+div.charges{
+  display: flex;
+  flex-direction: column;
   border-radius: 6px;
   border: 1px solid var(--line);
   padding: 11.5px;
   background-color: var(--background);
+  gap: 25px;
   input[type="text"]{
     border: none !important;
     height: 20px !important;

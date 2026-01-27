@@ -18,7 +18,7 @@ interface Charges {
   selector: 'editor-bidding-parametrs',
   templateUrl: './bidding-parametrs-editor.component.html',
   styleUrls: ['./bidding-parametrs-editor.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None, //TODO:разобраться
 })
 export class BiddingParametrsEditor extends BaseComponent implements OnInit {
   requestId: number|null=null;

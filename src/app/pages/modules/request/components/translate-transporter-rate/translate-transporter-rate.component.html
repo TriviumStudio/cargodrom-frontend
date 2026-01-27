@@ -228,7 +228,7 @@
           <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
           <input type="text" readonly [formControlName]="key">
         </div>
-        <div *ngFor="let control of getCustomServices('ru').controls; let i = index"; style="display: flex;"  formArrayName="custom_services">
+        <div *ngFor="let control of getCustomServices('ru')?.controls; let i = index" style="display: flex;"  formArrayName="custom_services">
           <mat-checkbox [checked]="activeCustomServices[i].check" disabled></mat-checkbox>
           <input [formControlName]="i"  type="text">
         </div>
@@ -557,7 +557,7 @@
           <mat-checkbox  [checked]="isServiceActive(key)" disabled></mat-checkbox>
           <input type="text" [formControlName]="key">
         </div>
-        <div *ngFor="let control of getCustomServices('en').controls; let i = index"; style="display: flex;"  formArrayName="custom_services">
+        <div *ngFor="let control of getCustomServices('en')?.controls; let i = index" style="display: flex;"  formArrayName="custom_services">
           <mat-checkbox [checked]="activeCustomServices[i].check" disabled></mat-checkbox>
           <input [formControlName]="i"  type="text">
         </div>
