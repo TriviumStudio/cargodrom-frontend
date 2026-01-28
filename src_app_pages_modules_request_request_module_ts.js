@@ -3003,7 +3003,7 @@ class RateAddCustoms {
       },
       decls: 106,
       vars: 23,
-      consts: [[1, "edit-form", 3, "formGroup"], [1, "form-block"], [1, "form-row"], [1, "form-item-layout", 2, "gap", "24px"], ["class", "radio", 4, "ngFor", "ngForOf"], [1, "form-item-layout"], [1, "form-item", "i10"], [1, "form-label"], [1, "form-data"], ["type", "text", "readonly", "", 3, "value"], [1, "form-item"], ["type", "text", "formControlName", "carrier_desc", 3, "readonly", "value"], [1, "form-item", 2, "width", "150px"], ["type", "text", "formControlName", "carrier_name", 2, "text-transform", "uppercase", 3, "matAutocomplete"], ["autoActiveFirstOption", ""], ["carrier_name", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "text", "formControlName", "contractor_name", 3, "matAutocomplete"], ["contractor", "matAutocomplete"], [3, "value", "onSelectionChange", 4, "ngFor", "ngForOf"], ["type", "text", "formControlName", "route_name", 2, "text-transform", "uppercase", 3, "matAutocomplete"], ["route", "matAutocomplete"], [1, "form-item", "w240px"], [1, "calendar", 3, "matMenuTriggerFor"], [1, "calendar-value"], [1, "calendar-icon"], ["menu", "matMenu"], [3, "click"], [3, "dateClass", "selectedChange"], ["calendar", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["formGroupName", "transit_time"], [1, "form-item", "w110px"], ["type", "number", "formControlName", "from"], ["type", "number", "formControlName", "to"], ["appearance", "outline", 1, "ui-select"], ["formControlName", "currency"], [1, "charges-block", 2, "display", "flex"], [1, "charge_on"], ["formArrayName", "values", "class", "w100", 4, "ngFor", "ngForOf"], [1, "charge_off"], [1, "total"], ["class", "total-detail", 4, "ngIf"], ["class", "total-nodetail", 4, "ngIf"], ["type", "checkbox", "formControlName", "profit_include"], [1, "charges-title"], ["type", "text", "formControlName", "comment"], [2, "display", "flex", "justify-content", "end", "gap", "10px"], [1, "btn-close-dialog", 3, "click"], [1, "icon-btn-close-dialog"], ["type", "submit", 1, "btn-save-rates", 3, "click"], [1, "icon-btn-save-rates"], ["type", "submit", 2, "display", "none"], ["formItemSelector", ""], [1, "radio"], ["type", "radio", "formControlName", "rate_type", 3, "value", "change"], [3, "value"], [3, "value", "onSelectionChange"], ["formArrayName", "values", 1, "w100"], [1, "w100", 3, "formGroupName", "ngSwitch"], ["class", "charge w100", 4, "ngIf"], [1, "charge", "w100"], [4, "ngFor", "ngForOf"], [3, "ngSwitchCase"], [4, "ngIf"], ["class", "testclass", "type", "checkbox", "disabled", "", 3, "checked", 4, "ngIf"], ["class", "testclass", "type", "checkbox", "formControlName", "select", 3, "change", 4, "ngIf"], [3, "ngStyle"], [1, "unit"], ["type", "number", "formControlName", "min", 3, "readonly", "ngModelChange"], ["class", "unit l", 4, "ngIf"], ["class", "cross", 4, "ngIf"], ["class", "unit m", 4, "ngIf"], ["class", "equal", 4, "ngIf"], ["class", "comment", 4, "ngIf"], [1, "unit", "s"], ["type", "number", "formControlName", "cost", 3, "readonly", "ngModelChange"], ["type", "checkbox", "disabled", "", 1, "testclass", 3, "checked"], ["type", "checkbox", "formControlName", "select", 1, "testclass", 3, "change"], [1, "unit", "l"], ["type", "number", "formControlName", "price", 3, "ngModelChange"], [1, "cross"], [1, "unit", "m"], ["type", "number", "formControlName", "value", 3, "readonly", "ngModelChange"], [1, "equal"], [1, "comment"], [2, "height", "37px", "align-content", "center"], [2, "height", "37px", "align-items", "center", "display", "flex"], ["type", "checkbox", "formControlName", "select", 3, "change"], [1, "total-detail"], [1, ""], [1, "color-red"], [1, "total-nodetail"], ["type", "number", "formControlName", "total_cost", 1, "total-cost"], [1, "form-item", 3, "formGroup"], [3, "formControlName", "multiple"]],
+      consts: [[1, "edit-form", 3, "formGroup"], [1, "form-block"], [1, "form-row"], [1, "form-item-layout", 2, "gap", "24px"], ["class", "radio", 4, "ngFor", "ngForOf"], [1, "form-item-layout"], [1, "form-item", "i10"], [1, "form-label"], [1, "form-data"], ["type", "text", "readonly", "", 3, "value"], [1, "form-item"], ["type", "text", "formControlName", "carrier_desc", 3, "readonly", "value"], [1, "form-item", 2, "width", "150px"], ["type", "text", "formControlName", "carrier_name", 2, "text-transform", "uppercase", 3, "matAutocomplete"], ["autoActiveFirstOption", ""], ["carrier_name", "matAutocomplete"], [3, "value", 4, "ngFor", "ngForOf"], ["type", "text", "formControlName", "contractor_name", 3, "matAutocomplete"], ["contractor", "matAutocomplete"], [3, "value", "onSelectionChange", 4, "ngFor", "ngForOf"], ["type", "text", "formControlName", "route_name", 2, "text-transform", "uppercase", 3, "matAutocomplete"], ["route", "matAutocomplete"], [1, "form-item", "w240px"], [1, "calendar", 3, "matMenuTriggerFor"], [1, "calendar-value"], [1, "calendar-icon"], ["menu", "matMenu"], [3, "click"], [3, "dateClass", "selectedChange"], ["calendar", ""], [4, "ngTemplateOutlet", "ngTemplateOutletContext"], ["formGroupName", "transit_time"], [1, "form-item", "w110px"], ["type", "number", "formControlName", "from"], ["type", "number", "formControlName", "to"], ["appearance", "outline", 1, "ui-select"], ["formControlName", "currency"], [1, "charges-block", 2, "display", "flex"], [1, "charge_on"], ["formArrayName", "values", "class", "w100", 4, "ngFor", "ngForOf"], [1, "charge_off"], [1, "total"], ["class", "total-detail", 4, "ngIf"], ["class", "total-nodetail", 4, "ngIf"], ["type", "checkbox", "formControlName", "profit_include"], [1, "charges-title"], ["type", "text", "formControlName", "comment"], [2, "display", "flex", "justify-content", "end", "gap", "10px"], [1, "btn-close-dialog", 3, "click"], [1, "icon-btn-close-dialog"], ["type", "submit", 1, "btn-save-rates", 3, "click"], [1, "icon-btn-save-rates"], ["type", "submit", 2, "display", "none"], ["formItemSelector", ""], [1, "radio"], ["type", "radio", "formControlName", "rate_type", 3, "value", "change"], [3, "value"], [3, "value", "onSelectionChange"], ["formArrayName", "values", 1, "w100"], [1, "w100", 3, "formGroupName", "ngSwitch"], ["class", "charge w100", 4, "ngIf"], [1, "charge", "w100"], [4, "ngFor", "ngForOf"], [3, "ngSwitchCase"], [4, "ngIf"], ["class", "testclass", "type", "checkbox", "disabled", "", 3, "checked", 4, "ngIf"], ["class", "testclass", "type", "checkbox", "formControlName", "select", 3, "change", 4, "ngIf"], [3, "ngStyle"], [1, "unit"], ["type", "number", "formControlName", "min", 3, "readonly", "ngModelChange"], ["class", "unit l", 4, "ngIf"], ["class", "cross", 4, "ngIf"], ["class", "unit m", 4, "ngIf"], ["class", "equal", 4, "ngIf"], ["class", "comment", 4, "ngIf"], [1, "unit", "s"], ["type", "number", "formControlName", "cost", 3, "readonly", "ngModelChange"], ["type", "checkbox", "disabled", "", 1, "testclass", 3, "checked"], ["type", "checkbox", "formControlName", "select", 1, "testclass", 3, "change"], [1, "unit", "l"], ["type", "number", "formControlName", "price", 3, "ngModelChange"], [1, "cross"], [1, "unit", "m"], ["type", "number", "formControlName", "value", 3, "readonly", "ngModelChange"], [1, "equal"], [1, "comment"], [2, "height", "37px", "align-content", "center"], [2, "height", "37px", "align-items", "center", "display", "flex"], ["type", "checkbox", "formControlName", "select", 3, "change"], [1, "total-detail"], [1, ""], [1, "color-red"], [1, "total-nodetail"], ["type", "number", "formControlName", "total_cost", 1, "total-cost", 2, "min-width", "110px"], [1, "form-item", 3, "formGroup"], [3, "formControlName", "multiple"]],
       template: function RateAddCustoms_Template(rf, ctx) {
         if (rf & 1) {
           const _r85 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
@@ -4404,7 +4404,9 @@ class RateAddPoint {
     this.calckRateCost();
   }
   getContractor() {
-    this.contractorService.contractorList().pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_4__.tap)(contractor => {
+    this.contractorService.contractorList({
+      type: 'svh'
+    }).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_4__.tap)(contractor => {
       console.log(contractor);
       if (!contractor) {
         throw {
@@ -8458,7 +8460,7 @@ class RequestDetails extends src_app_shared_classes__WEBPACK_IMPORTED_MODULE_0__
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵlistener"]("click", function RequestDetails_Template_button_click_6_listener() {
             return ctx.onDetailsRequestBtnClick();
           });
-          _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵtext"](7, "\u0414\u0435\u0442\u0430\u043B\u0438123");
+          _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵtext"](7, "\u0414\u0435\u0442\u0430\u043B\u0438");
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵelementEnd"]();
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵelementStart"](8, "button", 7);
           _angular_core__WEBPACK_IMPORTED_MODULE_13__["ɵɵlistener"]("click", function RequestDetails_Template_button_click_8_listener() {
@@ -10441,7 +10443,7 @@ class RequestEditorComponent {
         this.filteredCargoType = this.cargoTypes.filter(item => {
           return item.name && item.name.toLowerCase().includes(value.toLowerCase());
         });
-        if (this.filteredCargoType.length == 1) {
+        if (this.filteredCargoType?.length == 1) {
           if (this.filteredCargoType[0].name?.toLowerCase() === value.toLowerCase()) {
             this.requestForm.patchValue({
               cargo_type_id: this.filteredCargoType[0].id
@@ -11884,7 +11886,7 @@ class RequestEditorComponent {
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](2);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("ngForOf", ctx.filteredCargoType);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](1);
-          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("ngIf", ctx.filteredCargoType.length == 0);
+          _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("ngIf", (ctx.filteredCargoType == null ? null : ctx.filteredCargoType.length) == 0);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](1);
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵproperty"]("ngIf", ctx.requestForm.controls["cargo_type_id"].hasError("required"));
           _angular_core__WEBPACK_IMPORTED_MODULE_11__["ɵɵadvance"](1);
@@ -12902,7 +12904,7 @@ function BiddingParametrsEditor_div_63_div_3_Template(rf, ctx) {
   if (rf & 2) {
     const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("value", ctx_r18.arrivalAdres);
+    _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵɵproperty"]("value", ctx_r18.arrivalAdres ? ctx_r18.arrivalAdres : "");
   }
 }
 function BiddingParametrsEditor_div_63_Template(rf, ctx) {

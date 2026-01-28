@@ -88,6 +88,7 @@ class Table {
     this.currentQuantityContractors = 0;
     this.currentRequest = {};
     this.contractorsSelectedForRequest = [];
+    this.tableType = 'custom';
     this.requestId = 0;
     this.columnsData = [];
     this.isRowsLoad = false;

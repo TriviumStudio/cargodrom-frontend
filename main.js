@@ -6352,6 +6352,86 @@ class RequestService extends _base_service__WEBPACK_IMPORTED_MODULE_0__.BaseServ
   requestRateTransporterSave(params, context) {
     return this.requestRateTransporterSave$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
   }
+  /** Path part for operation `requestRateTransporterExternal()` */
+  static {
+    this.RequestRateTransporterExternalPath = '/request_rate_transporter_external';
+  }
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterExternal()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterExternal$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterExternalPath, 'get');
+    if (params) {
+      rb.query('uid', params.uid, {});
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterExternal$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterExternal(params, context) {
+    return this.requestRateTransporterExternal$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
+  /** Path part for operation `requestRateTransporterExternalSave()` */
+  static {
+    this.RequestRateTransporterExternalSavePath = '/request_rate_transporter_external_save';
+  }
+  /**
+   * Ставка запроса Вывоз по UID.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterExternalSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterExternalSave$Response(params, context) {
+    const rb = new _request_builder__WEBPACK_IMPORTED_MODULE_1__.RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterExternalSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context
+    })).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_3__.filter)(r => r instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpResponse), (0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => {
+      return r;
+    }));
+  }
+  /**
+   * Ставка запроса Вывоз по UID.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterExternalSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterExternalSave(params, context) {
+    return this.requestRateTransporterExternalSave$Response(params, context).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(r => r.body));
+  }
   /** Path part for operation `requestRateTransporterParam()` */
   static {
     this.RequestRateTransporterParamPath = '/request_rate_transporter_param';
