@@ -31,7 +31,7 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
   onTouched = () => { };
   private _destroy$ = new Subject();
 
-  country?: Country;
+  allCountry: Country[]=[];
   filteredCountries: Country[] = [];
   // kinds = transportSubKindTable;
   kinds:any
@@ -49,6 +49,12 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
 
   ngOnInit(): void {
     this.getTransportSubKind()
+    this.allCountry=[...this.countries,{id:0,name:'Любая'}];
+    this.directions.forEach((dir:any)=>{
+      if(!dir.direction_arrival){ dir.direction_arrival=0 }
+      if(!dir.direction_departure){ dir.direction_departure=0 }
+
+    })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -93,8 +99,8 @@ export class ResponsibilityComponent implements ControlValueAccessor, OnInit {
 
   addDirection(){
     this.directions.push({
-      direction_departure: undefined,
-      direction_arrival: undefined,
+      direction_departure: 0,
+      direction_arrival: 0,
       direction_items:[]
     });
 

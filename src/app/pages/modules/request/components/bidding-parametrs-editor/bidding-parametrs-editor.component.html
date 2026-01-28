@@ -112,7 +112,7 @@
             <div class="form-label">адрес доставки груза:</div>
             <div class="form-data textarea-box">
               <textarea
-                [value]="arrivalAdres"
+                [value]="arrivalAdres?arrivalAdres:''"
                 readonly
                 matInput
                 cdkTextareaAutosize

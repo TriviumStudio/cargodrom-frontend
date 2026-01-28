@@ -54,7 +54,7 @@ export abstract class Table<T extends { id: number }, A = never, F = never> impl
   contractorsSelectedForRequest:any=[];
 
 
-  tableType!: 'custom' | 'delivery';
+  tableType: 'custom' | 'delivery'= 'custom';
 
   requestId:number=0;
 

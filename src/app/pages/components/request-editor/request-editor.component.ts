@@ -315,7 +315,7 @@ export class RequestEditorComponent implements OnInit, OnDestroy {
         this.filteredCargoType = this.cargoTypes.filter((item: any) => {
           return item.name && item.name.toLowerCase().includes(value.toLowerCase());
         });
-        if(this.filteredCargoType.length==1){
+        if(this.filteredCargoType?.length==1){
           if(this.filteredCargoType[0].name?.toLowerCase()===value.toLowerCase()){
             this.requestForm.patchValue({
               cargo_type_id: this.filteredCargoType[0].id,
