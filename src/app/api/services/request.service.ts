@@ -20452,14 +20452,128 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата создания
- */
-'time_add': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
+
+/**
+ * ID контрагента (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Запрос
@@ -20491,11 +20605,6 @@ export class RequestService extends BaseService {
  */
 'cargo_places_paid_weight'?: number;
 };
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
 
 /**
  * Подрядчик
@@ -20569,12 +20678,34 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID аэропорта
+ * Аэропорт отправления
  */
-'point_id': number;
+'departure_point': {
 
 /**
- * Аэропорт
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
  */
 'point': {
 
@@ -20586,7 +20717,7 @@ export class RequestService extends BaseService {
 /**
  * Адрес
  */
-'address'?: string;
+'svh_address'?: string;
 };
 
 /**
@@ -20600,116 +20731,6 @@ export class RequestService extends BaseService {
  */
 'arrival_city': {
 };
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Расчет ставки
- */
-'rate_calc': 'manual' | 'api';
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
 
 /**
  * Наименование этапов доставки
@@ -20730,11 +20751,6 @@ export class RequestService extends BaseService {
  * Валюта
  */
 'currecy_text': string;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * Сводная информация
@@ -20758,14 +20774,9 @@ export class RequestService extends BaseService {
 }>;
 
 /**
- * В итоговом
+ * Сводная информация
  */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
+'fields_translate': Array<string>;
 }>;
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterListPath, 'get');
@@ -20800,14 +20811,128 @@ export class RequestService extends BaseService {
         'id': number;
         
         /**
-         * Дата создания
-         */
-        'time_add': string;
-        
-        /**
          * ID Запроса
          */
         'request_id': number;
+        
+        /**
+         * ID контрагента (ID берем из запроса - contractor_list)
+         */
+        'contractor_id': number;
+        
+        /**
+         * Валюта (ID берем из запроса - system_currency)
+         */
+        'currency'?: number;
+        
+        /**
+         * ID вида транспорта
+         */
+        'transport_kind_key': string;
+        
+        /**
+         * Тип транспорта
+         */
+        'transport_type_id': string;
+        
+        /**
+         * ID пункта отправления
+         */
+        'departure_point_id': number;
+        
+        /**
+         * ID пункта прибытия
+         */
+        'arrival_point_id'?: number;
+        
+        /**
+         * ID города прибытия
+         */
+        'arrival_city_id'?: number;
+        
+        /**
+         * Комментарий
+         */
+        'comment'?: string;
+        
+        /**
+         * Расчет ставки
+         */
+        'rate_calc': 'manual' | 'api';
+        
+        /**
+         * Тип ставки
+         */
+        'rate_type': 'detail' | 'single';
+        
+        /**
+         * Значения ставок
+         */
+        'values': Array<{
+        
+        /**
+         * Наименование поля
+         */
+        'field': string;
+        
+        /**
+         * Цена за единицу
+         */
+        'price': number;
+        
+        /**
+         * Количество
+         */
+        'value': number;
+        
+        /**
+         * Признак выбора
+         */
+        'select'?: boolean;
+        
+        /**
+         * Тип транспорта
+         */
+        'kind': {
+        };
+        
+        /**
+         * Город убытия
+         */
+        'departure_city': {
+        };
+        
+        /**
+         * Город прибытия
+         */
+        'arrival_city': {
+        };
+        
+        /**
+         * Стоимость
+         */
+        'cost': string;
+        
+        /**
+         * Стоимость
+         */
+        'cost_text': string;
+        }>;
+        
+        /**
+         * В итоговом
+         */
+        'selected'?: boolean;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer'?: boolean;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
         
         /**
          * Запрос
@@ -20839,11 +20964,6 @@ export class RequestService extends BaseService {
          */
         'cargo_places_paid_weight'?: number;
         };
-        
-        /**
-         * ID контрагента (ID берем из запроса - contractor_list)
-         */
-        'contractor_id': number;
         
         /**
          * Подрядчик
@@ -20917,12 +21037,34 @@ export class RequestService extends BaseService {
         };
         
         /**
-         * ID аэропорта
+         * Аэропорт отправления
          */
-        'point_id': number;
+        'departure_point': {
         
         /**
-         * Аэропорт
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Адрес
+         */
+        'svh_address'?: string;
+        };
+        
+        /**
+         * Тип транспорта
+         */
+        'departure_point_action': {
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        };
+        
+        /**
+         * Аэропорт прибытия
          */
         'point': {
         
@@ -20934,7 +21076,7 @@ export class RequestService extends BaseService {
         /**
          * Адрес
          */
-        'address'?: string;
+        'svh_address'?: string;
         };
         
         /**
@@ -20948,116 +21090,6 @@ export class RequestService extends BaseService {
          */
         'arrival_city': {
         };
-        
-        /**
-         * Вид рейса
-         */
-        'point_action_id': number;
-        
-        /**
-         * Вид рейса
-         */
-        'point_action': {
-        
-        /**
-         * Наименование
-         */
-        'name': string;
-        };
-        
-        /**
-         * Срок (дней), от
-         */
-        'days_min'?: string;
-        
-        /**
-         * Срок (дней), до
-         */
-        'days_max'?: string;
-        
-        /**
-         * Срок, дн.
-         */
-        'period'?: string;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Расчет ставки
-         */
-        'rate_calc': 'manual' | 'api';
-        
-        /**
-         * Доставки
-         */
-        'values': Array<{
-        
-        /**
-         * Тип транспорта
-         */
-        'kind_id': number;
-        
-        /**
-         * Город убытия
-         */
-        'departure_city_id': number;
-        
-        /**
-         * Город прибытия
-         */
-        'arrival_city_id': number;
-        
-        /**
-         * Время транзита мин., дней
-         */
-        'days_min': number;
-        
-        /**
-         * Время транзита макс., дней
-         */
-        'days_max': number;
-        
-        /**
-         * Сумма за перевозку
-         */
-        'amount': number;
-        
-        /**
-         * Комментарий
-         */
-        'comment'?: string;
-        
-        /**
-         * Тип транспорта
-         */
-        'kind': {
-        };
-        
-        /**
-         * Город убытия
-         */
-        'departure_city': {
-        };
-        
-        /**
-         * Город прибытия
-         */
-        'arrival_city': {
-        };
-        
-        /**
-         * Стоимость
-         */
-        'cost': string;
-        
-        /**
-         * Стоимость
-         */
-        'cost_text': string;
-        }>;
         
         /**
          * Наименование этапов доставки
@@ -21078,11 +21110,6 @@ export class RequestService extends BaseService {
          * Валюта
          */
         'currecy_text': string;
-        
-        /**
-         * Валюта (ID берем из запроса - system_currency)
-         */
-        'currency'?: number;
         
         /**
          * Сводная информация
@@ -21106,14 +21133,9 @@ export class RequestService extends BaseService {
         }>;
         
         /**
-         * В итоговом
+         * Сводная информация
          */
-        'selected'?: boolean;
-        
-        /**
-         * В коммерческом предложении
-         */
-        'offer'?: boolean;
+        'fields_translate': Array<string>;
         }>;
         }>;
       })
@@ -21189,14 +21211,128 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата создания
- */
-'time_add': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
+
+/**
+ * ID контрагента (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Запрос
@@ -21228,11 +21364,6 @@ export class RequestService extends BaseService {
  */
 'cargo_places_paid_weight'?: number;
 };
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
 
 /**
  * Подрядчик
@@ -21306,12 +21437,34 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID аэропорта
+ * Аэропорт отправления
  */
-'point_id': number;
+'departure_point': {
 
 /**
- * Аэропорт
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
  */
 'point': {
 
@@ -21323,7 +21476,7 @@ export class RequestService extends BaseService {
 /**
  * Адрес
  */
-'address'?: string;
+'svh_address'?: string;
 };
 
 /**
@@ -21337,116 +21490,6 @@ export class RequestService extends BaseService {
  */
 'arrival_city': {
 };
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Расчет ставки
- */
-'rate_calc': 'manual' | 'api';
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
 
 /**
  * Наименование этапов доставки
@@ -21467,11 +21510,6 @@ export class RequestService extends BaseService {
  * Валюта
  */
 'currecy_text': string;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * Сводная информация
@@ -21495,14 +21533,9 @@ export class RequestService extends BaseService {
 }>;
 
 /**
- * В итоговом
+ * Сводная информация
  */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
+'fields_translate': Array<string>;
 }>;
 }> {
     return this.requestRateTransporterList$Response(params, context).pipe(
@@ -21524,14 +21557,128 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата создания
- */
-'time_add': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
+
+/**
+ * ID контрагента (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Запрос
@@ -21563,11 +21710,6 @@ export class RequestService extends BaseService {
  */
 'cargo_places_paid_weight'?: number;
 };
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
 
 /**
  * Подрядчик
@@ -21641,12 +21783,34 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID аэропорта
+ * Аэропорт отправления
  */
-'point_id': number;
+'departure_point': {
 
 /**
- * Аэропорт
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
  */
 'point': {
 
@@ -21658,7 +21822,7 @@ export class RequestService extends BaseService {
 /**
  * Адрес
  */
-'address'?: string;
+'svh_address'?: string;
 };
 
 /**
@@ -21672,116 +21836,6 @@ export class RequestService extends BaseService {
  */
 'arrival_city': {
 };
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Расчет ставки
- */
-'rate_calc': 'manual' | 'api';
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
 
 /**
  * Наименование этапов доставки
@@ -21802,11 +21856,6 @@ export class RequestService extends BaseService {
  * Валюта
  */
 'currecy_text': string;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * Сводная информация
@@ -21830,14 +21879,9 @@ export class RequestService extends BaseService {
 }>;
 
 /**
- * В итоговом
+ * Сводная информация
  */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
+'fields_translate': Array<string>;
 }>;
 }>): {
 
@@ -21857,14 +21901,128 @@ export class RequestService extends BaseService {
 'id': number;
 
 /**
- * Дата создания
- */
-'time_add': string;
-
-/**
  * ID Запроса
  */
 'request_id': number;
+
+/**
+ * ID контрагента (ID берем из запроса - contractor_list)
+ */
+'contractor_id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
 
 /**
  * Запрос
@@ -21896,11 +22054,6 @@ export class RequestService extends BaseService {
  */
 'cargo_places_paid_weight'?: number;
 };
-
-/**
- * ID контрагента (ID берем из запроса - contractor_list)
- */
-'contractor_id': number;
 
 /**
  * Подрядчик
@@ -21974,12 +22127,34 @@ export class RequestService extends BaseService {
 };
 
 /**
- * ID аэропорта
+ * Аэропорт отправления
  */
-'point_id': number;
+'departure_point': {
 
 /**
- * Аэропорт
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
  */
 'point': {
 
@@ -21991,7 +22166,7 @@ export class RequestService extends BaseService {
 /**
  * Адрес
  */
-'address'?: string;
+'svh_address'?: string;
 };
 
 /**
@@ -22005,116 +22180,6 @@ export class RequestService extends BaseService {
  */
 'arrival_city': {
 };
-
-/**
- * Вид рейса
- */
-'point_action_id': number;
-
-/**
- * Вид рейса
- */
-'point_action': {
-
-/**
- * Наименование
- */
-'name': string;
-};
-
-/**
- * Срок (дней), от
- */
-'days_min'?: string;
-
-/**
- * Срок (дней), до
- */
-'days_max'?: string;
-
-/**
- * Срок, дн.
- */
-'period'?: string;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Расчет ставки
- */
-'rate_calc': 'manual' | 'api';
-
-/**
- * Доставки
- */
-'values': Array<{
-
-/**
- * Тип транспорта
- */
-'kind_id': number;
-
-/**
- * Город убытия
- */
-'departure_city_id': number;
-
-/**
- * Город прибытия
- */
-'arrival_city_id': number;
-
-/**
- * Время транзита мин., дней
- */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
-
-/**
- * Тип транспорта
- */
-'kind': {
-};
-
-/**
- * Город убытия
- */
-'departure_city': {
-};
-
-/**
- * Город прибытия
- */
-'arrival_city': {
-};
-
-/**
- * Стоимость
- */
-'cost': string;
-
-/**
- * Стоимость
- */
-'cost_text': string;
-}>;
 
 /**
  * Наименование этапов доставки
@@ -22135,11 +22200,6 @@ export class RequestService extends BaseService {
  * Валюта
  */
 'currecy_text': string;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * Сводная информация
@@ -22163,14 +22223,9 @@ export class RequestService extends BaseService {
 }>;
 
 /**
- * В итоговом
+ * Сводная информация
  */
-'selected'?: boolean;
-
-/**
- * В коммерческом предложении
- */
-'offer'?: boolean;
+'fields_translate': Array<string>;
 }>;
 } => r.body)
     );
@@ -22209,14 +22264,34 @@ export class RequestService extends BaseService {
 'contractor_id': number;
 
 /**
- * ID аэропорта
+ * Валюта (ID берем из запроса - system_currency)
  */
-'point_id': number;
+'currency'?: number;
 
 /**
- * Вид рейса
+ * ID вида транспорта
  */
-'point_action_id': number;
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
 
 /**
  * Комментарий
@@ -22229,50 +22304,35 @@ export class RequestService extends BaseService {
 'rate_calc': 'manual' | 'api';
 
 /**
- * Доставки
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
  */
 'values': Array<{
 
 /**
- * Тип транспорта
+ * Наименование поля
  */
-'kind_id': number;
+'field': string;
 
 /**
- * Город убытия
+ * Цена за единицу
  */
-'departure_city_id': number;
+'price': number;
 
 /**
- * Город прибытия
+ * Количество
  */
-'arrival_city_id': number;
+'value': number;
 
 /**
- * Время транзита мин., дней
+ * Признак выбора
  */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
+'select'?: boolean;
 }>;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * В итоговом
@@ -22344,14 +22404,34 @@ export class RequestService extends BaseService {
 'contractor_id': number;
 
 /**
- * ID аэропорта
+ * Валюта (ID берем из запроса - system_currency)
  */
-'point_id': number;
+'currency'?: number;
 
 /**
- * Вид рейса
+ * ID вида транспорта
  */
-'point_action_id': number;
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
 
 /**
  * Комментарий
@@ -22364,50 +22444,35 @@ export class RequestService extends BaseService {
 'rate_calc': 'manual' | 'api';
 
 /**
- * Доставки
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
  */
 'values': Array<{
 
 /**
- * Тип транспорта
+ * Наименование поля
  */
-'kind_id': number;
+'field': string;
 
 /**
- * Город убытия
+ * Цена за единицу
  */
-'departure_city_id': number;
+'price': number;
 
 /**
- * Город прибытия
+ * Количество
  */
-'arrival_city_id': number;
+'value': number;
 
 /**
- * Время транзита мин., дней
+ * Признак выбора
  */
-'days_min': number;
-
-/**
- * Время транзита макс., дней
- */
-'days_max': number;
-
-/**
- * Сумма за перевозку
- */
-'amount': number;
-
-/**
- * Комментарий
- */
-'comment'?: string;
+'select'?: boolean;
 }>;
-
-/**
- * Валюта (ID берем из запроса - system_currency)
- */
-'currency'?: number;
 
 /**
  * В итоговом
@@ -22429,6 +22494,2050 @@ export class RequestService extends BaseService {
 'result': 'OK';
 }> {
     return this.requestRateTransporterSave$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>): {
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterExternal()` */
+  static readonly RequestRateTransporterExternalPath = '/request_rate_transporter_external';
+
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterExternal()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterExternal$Response(
+    params: {
+
+    /**
+     * UID Запроса ставки
+     */
+      uid: string;
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Аэропорт отправления
+ */
+'departure_point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
+ */
+'point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Наименование этапов доставки
+ */
+'service_items': string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
+ * Сводная информация
+ */
+'fields_translate': Array<string>;
+}>;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+
+/**
+ * Данные формы
+ */
+'form_data'?: {
+};
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterExternalPath, 'get');
+    if (params) {
+      rb.query('uid', params.uid, {});
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * UID запроса на ставку
+         */
+        'uid': string;
+        
+        /**
+         * Массив ставок
+         */
+        'rates'?: Array<{
+        
+        /**
+         * ID
+         */
+        'id': number;
+        
+        /**
+         * Валюта (ID берем из запроса - system_currency)
+         */
+        'currency'?: number;
+        
+        /**
+         * ID вида транспорта
+         */
+        'transport_kind_key': string;
+        
+        /**
+         * Тип транспорта
+         */
+        'transport_type_id': string;
+        
+        /**
+         * ID пункта отправления
+         */
+        'departure_point_id': number;
+        
+        /**
+         * ID пункта прибытия
+         */
+        'arrival_point_id'?: number;
+        
+        /**
+         * ID города прибытия
+         */
+        'arrival_city_id'?: number;
+        
+        /**
+         * Комментарий
+         */
+        'comment'?: string;
+        
+        /**
+         * Расчет ставки
+         */
+        'rate_calc': 'manual' | 'api';
+        
+        /**
+         * Тип ставки
+         */
+        'rate_type': 'detail' | 'single';
+        
+        /**
+         * Значения ставок
+         */
+        'values': Array<{
+        
+        /**
+         * Наименование поля
+         */
+        'field': string;
+        
+        /**
+         * Цена за единицу
+         */
+        'price': number;
+        
+        /**
+         * Количество
+         */
+        'value': number;
+        
+        /**
+         * Признак выбора
+         */
+        'select'?: boolean;
+        
+        /**
+         * Тип транспорта
+         */
+        'kind': {
+        };
+        
+        /**
+         * Город убытия
+         */
+        'departure_city': {
+        };
+        
+        /**
+         * Город прибытия
+         */
+        'arrival_city': {
+        };
+        
+        /**
+         * Стоимость
+         */
+        'cost': string;
+        
+        /**
+         * Стоимость
+         */
+        'cost_text': string;
+        }>;
+        
+        /**
+         * В итоговом
+         */
+        'selected'?: boolean;
+        
+        /**
+         * В коммерческом предложении
+         */
+        'offer'?: boolean;
+        
+        /**
+         * Дата создания
+         */
+        'time_add': string;
+        
+        /**
+         * Аэропорт отправления
+         */
+        'departure_point': {
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Адрес
+         */
+        'svh_address'?: string;
+        };
+        
+        /**
+         * Тип транспорта
+         */
+        'departure_point_action': {
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        };
+        
+        /**
+         * Аэропорт прибытия
+         */
+        'point': {
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Адрес
+         */
+        'svh_address'?: string;
+        };
+        
+        /**
+         * Город отправки
+         */
+        'departure_city': {
+        };
+        
+        /**
+         * Город прибытия
+         */
+        'arrival_city': {
+        };
+        
+        /**
+         * Наименование этапов доставки
+         */
+        'service_items': string;
+        
+        /**
+         * Сумма
+         */
+        'total_cost': number;
+        
+        /**
+         * Сумма
+         */
+        'total_cost_text': string;
+        
+        /**
+         * Валюта
+         */
+        'currecy_text': string;
+        
+        /**
+         * Сводная информация
+         */
+        'summary_data': Array<{
+        
+        /**
+         * Наименование
+         */
+        'name': string;
+        
+        /**
+         * Значение
+         */
+        'value': string;
+        
+        /**
+         * Широкая колонка
+         */
+        'wide_row'?: boolean;
+        }>;
+        
+        /**
+         * Сводная информация
+         */
+        'fields_translate': Array<string>;
+        }>;
+        
+        /**
+         * Запрос
+         */
+        'request': {
+        
+        /**
+         * Кол-во мест
+         */
+        'cargo_places_count'?: number;
+        
+        /**
+         * Вес, кг
+         */
+        'cargo_places_weight'?: number;
+        
+        /**
+         * Плотность, кг/м3
+         */
+        'cargo_places_density'?: number;
+        
+        /**
+         * Объем, м3
+         */
+        'cargo_places_volume'?: number;
+        
+        /**
+         * Оплачиваемый вес, кг
+         */
+        'cargo_places_paid_weight'?: number;
+        };
+        
+        /**
+         * Подрядчик
+         */
+        'contractor': {
+        
+        /**
+         * Подрядчик
+         */
+        'name': string;
+        
+        /**
+         * Агент транспортной компании
+         */
+        'carrier_name'?: string;
+        
+        /**
+         * Агент транспортной компании (ID берем из запроса - transport_carrier)
+         */
+        'carrier_id'?: number;
+        
+        /**
+         * Рейтинг в системе (NPS)
+         */
+        'rating_nps_text'?: string;
+        
+        /**
+         * Рейтинг в системе (NPS)
+         */
+        'rating_nps'?: number;
+        
+        /**
+         * Участие в торгах (общее количество)
+         */
+        'trade_count'?: number;
+        
+        /**
+         * Количество выигранных торгов
+         */
+        'trade_success_count'?: number;
+        
+        /**
+         * % выигранных торгов
+         */
+        'trade_success_percent'?: number;
+        
+        /**
+         * Количество проигранных торгов
+         */
+        'trade_fail_count'?: number;
+        
+        /**
+         * % проигранных торгов
+         */
+        'trade_fail_percent'?: number;
+        
+        /**
+         * Участие в торгах (результаты)
+         */
+        'trade_count_text'?: number;
+        
+        /**
+         * Email
+         */
+        'email'?: string;
+        
+        /**
+         * Телефон
+         */
+        'phone'?: string;
+        };
+        
+        /**
+         * Данные формы
+         */
+        'form_data'?: {
+        };
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставки запроса Вывоз.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterExternal$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  requestRateTransporterExternal(
+    params: {
+
+    /**
+     * UID Запроса ставки
+     */
+      uid: string;
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Аэропорт отправления
+ */
+'departure_point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
+ */
+'point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Наименование этапов доставки
+ */
+'service_items': string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
+ * Сводная информация
+ */
+'fields_translate': Array<string>;
+}>;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+
+/**
+ * Данные формы
+ */
+'form_data'?: {
+};
+}> {
+    return this.requestRateTransporterExternal$Response(params, context).pipe(
+      map((r: StrictHttpResponse<{
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Аэропорт отправления
+ */
+'departure_point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
+ */
+'point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Наименование этапов доставки
+ */
+'service_items': string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
+ * Сводная информация
+ */
+'fields_translate': Array<string>;
+}>;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+
+/**
+ * Данные формы
+ */
+'form_data'?: {
+};
+}>): {
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id': number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+
+/**
+ * Тип транспорта
+ */
+'kind': {
+};
+
+/**
+ * Город убытия
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Стоимость
+ */
+'cost': string;
+
+/**
+ * Стоимость
+ */
+'cost_text': string;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+
+/**
+ * Дата создания
+ */
+'time_add': string;
+
+/**
+ * Аэропорт отправления
+ */
+'departure_point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Тип транспорта
+ */
+'departure_point_action': {
+
+/**
+ * Наименование
+ */
+'name': string;
+};
+
+/**
+ * Аэропорт прибытия
+ */
+'point': {
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Адрес
+ */
+'svh_address'?: string;
+};
+
+/**
+ * Город отправки
+ */
+'departure_city': {
+};
+
+/**
+ * Город прибытия
+ */
+'arrival_city': {
+};
+
+/**
+ * Наименование этапов доставки
+ */
+'service_items': string;
+
+/**
+ * Сумма
+ */
+'total_cost': number;
+
+/**
+ * Сумма
+ */
+'total_cost_text': string;
+
+/**
+ * Валюта
+ */
+'currecy_text': string;
+
+/**
+ * Сводная информация
+ */
+'summary_data': Array<{
+
+/**
+ * Наименование
+ */
+'name': string;
+
+/**
+ * Значение
+ */
+'value': string;
+
+/**
+ * Широкая колонка
+ */
+'wide_row'?: boolean;
+}>;
+
+/**
+ * Сводная информация
+ */
+'fields_translate': Array<string>;
+}>;
+
+/**
+ * Запрос
+ */
+'request': {
+
+/**
+ * Кол-во мест
+ */
+'cargo_places_count'?: number;
+
+/**
+ * Вес, кг
+ */
+'cargo_places_weight'?: number;
+
+/**
+ * Плотность, кг/м3
+ */
+'cargo_places_density'?: number;
+
+/**
+ * Объем, м3
+ */
+'cargo_places_volume'?: number;
+
+/**
+ * Оплачиваемый вес, кг
+ */
+'cargo_places_paid_weight'?: number;
+};
+
+/**
+ * Подрядчик
+ */
+'contractor': {
+
+/**
+ * Подрядчик
+ */
+'name': string;
+
+/**
+ * Агент транспортной компании
+ */
+'carrier_name'?: string;
+
+/**
+ * Агент транспортной компании (ID берем из запроса - transport_carrier)
+ */
+'carrier_id'?: number;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps_text'?: string;
+
+/**
+ * Рейтинг в системе (NPS)
+ */
+'rating_nps'?: number;
+
+/**
+ * Участие в торгах (общее количество)
+ */
+'trade_count'?: number;
+
+/**
+ * Количество выигранных торгов
+ */
+'trade_success_count'?: number;
+
+/**
+ * % выигранных торгов
+ */
+'trade_success_percent'?: number;
+
+/**
+ * Количество проигранных торгов
+ */
+'trade_fail_count'?: number;
+
+/**
+ * % проигранных торгов
+ */
+'trade_fail_percent'?: number;
+
+/**
+ * Участие в торгах (результаты)
+ */
+'trade_count_text'?: number;
+
+/**
+ * Email
+ */
+'email'?: string;
+
+/**
+ * Телефон
+ */
+'phone'?: string;
+};
+
+/**
+ * Данные формы
+ */
+'form_data'?: {
+};
+} => r.body)
+    );
+  }
+
+  /** Path part for operation `requestRateTransporterExternalSave()` */
+  static readonly RequestRateTransporterExternalSavePath = '/request_rate_transporter_external_save';
+
+  /**
+   * Ставка запроса Вывоз по UID.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `requestRateTransporterExternalSave()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterExternalSave$Response(
+    params?: {
+      body?: {
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}>> {
+    const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterExternalSavePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    ).pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        
+        /**
+         * Статус выполнения
+         */
+        'result': 'OK';
+        }>;
+      })
+    );
+  }
+
+  /**
+   * Ставка запроса Вывоз по UID.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `requestRateTransporterExternalSave$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  requestRateTransporterExternalSave(
+    params?: {
+      body?: {
+
+/**
+ * UID запроса на ставку
+ */
+'uid': string;
+
+/**
+ * Массив ставок
+ */
+'rates'?: Array<{
+
+/**
+ * ID
+ */
+'id'?: number;
+
+/**
+ * Валюта (ID берем из запроса - system_currency)
+ */
+'currency'?: number;
+
+/**
+ * ID вида транспорта
+ */
+'transport_kind_key': string;
+
+/**
+ * Тип транспорта
+ */
+'transport_type_id': string;
+
+/**
+ * ID пункта отправления
+ */
+'departure_point_id': number;
+
+/**
+ * ID пункта прибытия
+ */
+'arrival_point_id'?: number;
+
+/**
+ * ID города прибытия
+ */
+'arrival_city_id'?: number;
+
+/**
+ * Комментарий
+ */
+'comment'?: string;
+
+/**
+ * Расчет ставки
+ */
+'rate_calc': 'manual' | 'api';
+
+/**
+ * Тип ставки
+ */
+'rate_type': 'detail' | 'single';
+
+/**
+ * Значения ставок
+ */
+'values': Array<{
+
+/**
+ * Наименование поля
+ */
+'field': string;
+
+/**
+ * Цена за единицу
+ */
+'price': number;
+
+/**
+ * Количество
+ */
+'value': number;
+
+/**
+ * Признак выбора
+ */
+'select'?: boolean;
+}>;
+
+/**
+ * В итоговом
+ */
+'selected'?: boolean;
+
+/**
+ * В коммерческом предложении
+ */
+'offer'?: boolean;
+}>;
+}
+    },
+    context?: HttpContext
+  ): Observable<{
+
+/**
+ * Статус выполнения
+ */
+'result': 'OK';
+}> {
+    return this.requestRateTransporterExternalSave$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
 
 /**
@@ -22528,6 +24637,11 @@ export class RequestService extends BaseService {
  */
 'arrival_point'?: {
 };
+
+/**
+ * Нужен перевод
+ */
+'need_translate'?: boolean;
 
 /**
  * ID вида транспорта
@@ -22631,6 +24745,11 @@ export class RequestService extends BaseService {
          */
         'arrival_point'?: {
         };
+        
+        /**
+         * Нужен перевод
+         */
+        'need_translate'?: boolean;
         
         /**
          * ID вида транспорта
@@ -22749,6 +24868,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Нужен перевод
+ */
+'need_translate'?: boolean;
+
+/**
  * ID вида транспорта
  */
 'transport_kind_key': string;
@@ -22843,6 +24967,11 @@ export class RequestService extends BaseService {
 };
 
 /**
+ * Нужен перевод
+ */
+'need_translate'?: boolean;
+
+/**
  * ID вида транспорта
  */
 'transport_kind_key': string;
@@ -22933,6 +25062,11 @@ export class RequestService extends BaseService {
  */
 'arrival_point'?: {
 };
+
+/**
+ * Нужен перевод
+ */
+'need_translate'?: boolean;
 
 /**
  * ID вида транспорта
@@ -23194,6 +25328,9 @@ export class RequestService extends BaseService {
 };
 'en': {
 };
+'auto_translate'?: Array<string>;
+'param'?: {
+};
 }>> {
     const rb = new RequestBuilder(this.rootUrl, RequestService.RequestRateTransporterTranslatePath, 'get');
     if (params) {
@@ -23209,6 +25346,9 @@ export class RequestService extends BaseService {
         'ru': {
         };
         'en': {
+        };
+        'auto_translate'?: Array<string>;
+        'param'?: {
         };
         }>;
       })
@@ -23239,6 +25379,9 @@ export class RequestService extends BaseService {
 };
 'en': {
 };
+'auto_translate'?: Array<string>;
+'param'?: {
+};
 }> {
     return this.requestRateTransporterTranslate$Response(params, context).pipe(
       map((r: StrictHttpResponse<{
@@ -23246,10 +25389,16 @@ export class RequestService extends BaseService {
 };
 'en': {
 };
+'auto_translate'?: Array<string>;
+'param'?: {
+};
 }>): {
 'ru': {
 };
 'en': {
+};
+'auto_translate'?: Array<string>;
+'param'?: {
 };
 } => r.body)
     );

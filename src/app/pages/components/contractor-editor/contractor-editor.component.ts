@@ -226,10 +226,12 @@ export class ContractorEditorComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.contractorForm.value);
+    console.log(this.contractorForm);
 
     if (!this.contractorForm.valid) {
       this.snackBar.open('Не все поля заполнены корректно', undefined, this.snackBarWithLongDuration);
+
+
       return;
     }
     const body = this.contractorForm.value;
@@ -449,7 +451,7 @@ export class ContractorEditorComponent implements OnInit {
       );
   }
   private getDirectionPoint() {
-    return this.directionService.directionPoint({transport_kind_id:'1',})
+    return this.directionService.directionPoint({transport_kind_id:1,})
       .pipe(
         tap((directionPoint) =>{
           this.directionPoint = directionPoint;

@@ -144,7 +144,7 @@ export class RateAddPoint implements OnInit, OnDestroy {
   }
 
   private getContractor():void{
-    this.contractorService.contractorList()
+    this.contractorService.contractorList({type:'svh'})
       .pipe(
         tap(contractor => {
           console.log(contractor);

@@ -148,13 +148,13 @@ export class ContactEditorComponent implements OnInit, OnDestroy, OnChanges, Con
         console.warn(`Поле ${fieldName} не найдено в форме`);
       }
     });
-    const directionControl = this.contactForm.get('direction');
-    if(directionControl && this.requiredDirection){
-      directionControl.setValidators([responsibilityValidator()]);
-      directionControl.updateValueAndValidity();
-      console.log(this.contactForm.get('direction'));
+    // const directionControl = this.contactForm.get('direction');
+    // if(directionControl && this.requiredDirection){
+    //   directionControl.setValidators([responsibilityValidator()]);
+    //   directionControl.updateValueAndValidity();
+    //   console.log(this.contactForm.get('direction'));
 
-    }
+    // }
   }
 
   isRequiredField(field: string): boolean {

@@ -246,7 +246,7 @@
               <mat-option *ngFor="let option of filteredCargoType" [value]="option.id">
                 {{option.name}}
               </mat-option>
-              <mat-option *ngIf="filteredCargoType.length==0" disabled >Типа груза нет </mat-option>
+              <mat-option *ngIf="filteredCargoType?.length==0" disabled >Типа груза нет </mat-option>
             </mat-autocomplete>
             <mat-error *ngIf="requestForm.controls['cargo_type_id'].hasError('required')">
               Это поле обязательно
